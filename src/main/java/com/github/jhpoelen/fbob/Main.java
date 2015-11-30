@@ -15,21 +15,15 @@ public class Main {
 
     public static String getBaseURI() {
         String port = System.getenv("PORT");
-        return (port == null ? "http://localhost:8080" : ("http://0.0.0.0:" + port)) + "/myapp/";
+        return (port == null ? "http://localhost:8080" : ("http://0.0.0.0:" + port)) + "/";
     }
 
     public static void main(String[] args) throws IOException {
-        System.out.println(String.format("%s starting...", getBaseURI()));
         final HttpServer server = startServer();
-        System.out.println(String.format("%s started.", getBaseURI()));
-
-        // register shutdown hook
         Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
             @Override
             public void run() {
-                System.out.println(String.format("%s stopping...", getBaseURI()));
                 server.shutdownNow();
-                System.out.println(String.format("%s stopped.", getBaseURI()));
             }
         }, "shutdownHook"));
 
