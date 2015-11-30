@@ -7,7 +7,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.InputStream;
 
-@Path("config.zip")
+@Path("osmose_config.zip")
 public class Config {
 
     @GET
