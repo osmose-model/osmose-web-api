@@ -15,7 +15,7 @@ public class Main {
 
     public static String getBaseURI() {
         String port = System.getenv("PORT");
-         return "http://localhost:" + (port == null ? 8080 : port) + "/myapp/";
+         return (port == null ? "http://localhost:8080" : "http://0.0.0.0/" + port) + "/myapp/";
     }
 
     public static void main(String[] args) throws IOException {
