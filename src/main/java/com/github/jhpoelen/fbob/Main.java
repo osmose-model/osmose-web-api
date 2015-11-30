@@ -19,22 +19,22 @@ public class Main {
     }
 
     public static void main(String[] args) throws IOException {
+        System.out.println(String.format("%s starting...", getBaseURI()));
         final HttpServer server = startServer();
-        System.out.println(String.format("Jersey app started with WADL available at "
-                + "%sapplication.wadl\nHit CTRL^C to stop it...", getBaseURI()));
+        System.out.println(String.format("%s started.", getBaseURI()));
 
         // register shutdown hook
         Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
             @Override
             public void run() {
-                System.out.println("Stopping server..");
+                System.out.println(String.format("%s stopping...", getBaseURI()));
                 server.shutdownNow();
+                System.out.println(String.format("%s stopped.", getBaseURI()));
             }
         }, "shutdownHook"));
 
         try {
             server.start();
-            Thread.currentThread().join();
         } catch (Exception e) {
             System.err.println("There was an error while starting Grizzly HTTP server.");
         }
