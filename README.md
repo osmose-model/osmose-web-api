@@ -12,10 +12,12 @@ generates Osmose configuration files from data sources like Fishbase and SeaLife
 
 output should look something like:
 
-```osmose[info] - *********************************
+```
+osmose[info] - *********************************
 osmose[info] - Osmose model - Copyright 2013 IRD
 osmose[info] - *********************************
 osmose[info] - Osmose version Osmose 3 Update 2 (2015/03/01)
 osmose[info] - Running configuration /Volumes/Data/Users/unencrypted/jorrit/Downloads/osmose_config/osm_all-parameters.csv
 osmose[info] - Loading parameters from file /Volumes/Data/Users/unencrypted/jorrit/Downloads/osmose_config/osm_all-parameters.csv
-osmose[info] -   Loading parameters from file /Volumes/Data/Users/unencrypted/jorrit/Downloads/osmose_config/osm_param-output.csv```
+osmose[info] -   Loading parameters from file /Volumes/Data/Users/unencrypted/jorrit/Downloads/osmose_config/osm_param-output.csv
+```
