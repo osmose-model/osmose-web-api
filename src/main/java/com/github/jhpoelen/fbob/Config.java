@@ -40,6 +40,7 @@ public class Config {
             zos.closeEntry();
         }
         zos.flush();
+        zos.close();
     }
 
     @GET
