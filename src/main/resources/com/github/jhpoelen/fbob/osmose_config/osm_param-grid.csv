@@ -1,0 +1,8 @@
+grid.java.classname;fr.ird.osmose.grid.OriginalGrid
+grid.lowright.lat;25.24
+grid.lowright.lon;-80.16
+grid.mask.file;grid-mask.csv
+grid.ncolumn;39
+grid.nline;33
+grid.upleft.lat;31.00
+grid.upleft.lon;-87.00

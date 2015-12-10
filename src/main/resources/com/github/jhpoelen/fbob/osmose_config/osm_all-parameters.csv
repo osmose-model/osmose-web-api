@@ -1,0 +1,40 @@
+# OSM main configuration file;
+# Osmose 3 update 1;
+;
+# Time;
+simulation.time.ndtPerYear;12
+simulation.time.nyear;134
+;
+# Restart (provide the restart file);
+simulation.restart.file;null
+# Osmose 3 Update 1 (2014/06/01) Renamed parameter simulation.restart.recordfrequency.ndt into output.restart.recordfrequency.ndt;
+output.restart.recordfrequency.ndt;60
+# Osmose 3 Update 1 (2014/06/01) Renamed parameter simulation.restart.spinup into output.restart.spinup;
+output.restart.spinup;114
+;
+# Advanced parameters;
+simulation.nschool;20
+simulation.ncpu;8
+simulation.nplankton;9
+simulation.nsimulation;10
+simulation.nspecies;12
+;
+# Mortality algorithm;
+mortality.algorithm;stochastic
+mortality.subdt;10
+;
+# Configuration files;
+osmose.configuration.output;osm_param-output.csv
+osmose.configuration.movement;osm_param-movement.csv
+osmose.configuration.mpa;osm_param-mpa.csv
+osmose.configuration.mortality.fishing;osm_param-fishing.csv
+osmose.configuration.mortality.natural;osm_param-natural-mortality.csv
+osmose.configuration.mortality.predation;osm_param-predation.csv
+osmose.configuration.mortality.starvation;osm_param-starvation.csv
+osmose.configuration.reproduction;osm_param-reproduction.csv
+osmose.configuration.species;osm_param-species.csv
+osmose.configuration.plankton;osm_param-ltl.csv
+osmose.configuration.grid;osm_param-grid.csv
+osmose.configuration.initialization;osm_param-init-pop.csv
+;
+osmose.version;Osmose 3 Update 2 (2015/03/01)

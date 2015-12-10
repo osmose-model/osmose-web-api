@@ -1,19 +1,61 @@
 package com.github.jhpoelen.fbob;
 
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.reflections.Reflections;
+import org.reflections.scanners.ResourcesScanner;
+import org.reflections.util.ClasspathHelper;
+import org.reflections.util.ConfigurationBuilder;
+
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.StreamingOutput;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.Set;
+import java.util.regex.Pattern;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 @Path("osmose_config.zip")
 public class Config {
 
+    static public Set<String> getResources() {
+        Reflections reflections = new Reflections(new ConfigurationBuilder()
+                .setUrls(ClasspathHelper.forPackage("com.github.jhpoelen.fbob.osmose_config"))
+                .setScanners(new ResourcesScanner()));
+        return reflections.getResources(Pattern.compile(".*\\.csv"));
+    }
+
+    public static void toZipOutputStream(Set<String> resources, OutputStream out) throws IOException {
+        ZipOutputStream zos = new ZipOutputStream(out);
+        for (String resource : resources) {
+            String resourceName = StringUtils.substringAfter(resource, "osmose_config/");
+            ZipEntry e = new ZipEntry(resourceName);
+            zos.putNextEntry(e);
+            IOUtils.write(IOUtils.toByteArray(Config.class.getResourceAsStream("/" + resource)), zos);
+            zos.closeEntry();
+        }
+        zos.flush();
+    }
+
     @GET
     @Produces("application/zip")
     public Response configArchive() {
+        StreamingOutput stream = new StreamingOutput() {
+            @Override
+            public void write(OutputStream os) throws IOException, WebApplicationException {
+                toZipOutputStream(getResources(), os);
+            }
+        };
+
         return Response
-                .ok(getClass().getResourceAsStream("osmose_config.zip"))
+                .ok(stream)
                 .header("Content-Disposition", "attachment; filename=osmose_config.zip")
                 .build();
     }
+
 }

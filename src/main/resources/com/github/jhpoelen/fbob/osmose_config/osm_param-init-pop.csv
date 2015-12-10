@@ -1,0 +1,37 @@
+# Type of initialization: biomass | spectrum;
+# Osmose 3 Update 2 (2015/03/01) Deprecated parameter population.initialization.method
+# population.initialization.method;biomass
+;
+# Init by target biomass (tons);
+# Osmose 3 Update 2 (2015/03/01) Renamed parameter population.initialization.biomass.sp0 into population.seeding.biomass.sp0
+population.seeding.biomass.sp0;9703
+# Osmose 3 Update 2 (2015/03/01) Renamed parameter population.initialization.biomass.sp1 into population.seeding.biomass.sp1
+population.seeding.biomass.sp1;1328
+# Osmose 3 Update 2 (2015/03/01) Renamed parameter population.initialization.biomass.sp2 into population.seeding.biomass.sp2
+population.seeding.biomass.sp2;19759
+# Osmose 3 Update 2 (2015/03/01) Renamed parameter population.initialization.biomass.sp3 into population.seeding.biomass.sp3
+population.seeding.biomass.sp3;9189
+# Osmose 3 Update 2 (2015/03/01) Renamed parameter population.initialization.biomass.sp4 into population.seeding.biomass.sp4
+population.seeding.biomass.sp4;8786
+# Osmose 3 Update 2 (2015/03/01) Renamed parameter population.initialization.biomass.sp5 into population.seeding.biomass.sp5
+population.seeding.biomass.sp5;289000
+# Osmose 3 Update 2 (2015/03/01) Renamed parameter population.initialization.biomass.sp6 into population.seeding.biomass.sp6
+population.seeding.biomass.sp6;162120
+# Osmose 3 Update 2 (2015/03/01) Renamed parameter population.initialization.biomass.sp7 into population.seeding.biomass.sp7
+population.seeding.biomass.sp7;303450
+# Osmose 3 Update 2 (2015/03/01) Renamed parameter population.initialization.biomass.sp8 into population.seeding.biomass.sp8
+population.seeding.biomass.sp8;276980
+# Osmose 3 Update 2 (2015/03/01) Renamed parameter population.initialization.biomass.sp9 into population.seeding.biomass.sp9
+population.seeding.biomass.sp9;78862
+# Osmose 3 Update 2 (2015/03/01) Renamed parameter population.initialization.biomass.sp10 into population.seeding.biomass.sp10
+population.seeding.biomass.sp10;154710
+# Osmose 3 Update 2 (2015/03/01) Renamed parameter population.initialization.biomass.sp11 into population.seeding.biomass.sp11
+population.seeding.biomass.sp11;109640
+;
+# Init by spectrum (not used here);
+# Osmose 3 Update 2 (2015/03/01) Deprecated parameter population.initialization.spectrum.intercept
+# population.initialization.spectrum.intercept;null
+# Osmose 3 Update 2 (2015/03/01) Deprecated parameter population.initialization.spectrum.range
+# population.initialization.spectrum.range;null
+# Osmose 3 Update 2 (2015/03/01) Deprecated parameter population.initialization.spectrum.slope
+# population.initialization.spectrum.slope;null

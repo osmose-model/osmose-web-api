@@ -1,0 +1,56 @@
+# Annual F;
+mortality.fishing.rate.sp0;0.16
+mortality.fishing.rate.sp1;0.61
+mortality.fishing.rate.sp2;0.22
+#mortality.fishing.rate.byYear.file.sp2;#fishing_RedGrouper.csv
+mortality.fishing.rate.sp3;0.53
+mortality.fishing.rate.sp4;0.55
+mortality.fishing.rate.sp5;0.2
+mortality.fishing.rate.sp6;0.17
+mortality.fishing.rate.sp7;0.12
+mortality.fishing.rate.sp8;0.28
+mortality.fishing.rate.sp9;0
+mortality.fishing.rate.sp10;0.36
+mortality.fishing.rate.sp11;0.57
+;
+# Recruitment age (year);
+mortality.fishing.recruitment.age.sp0;0.08
+mortality.fishing.recruitment.age.sp1;1
+mortality.fishing.recruitment.age.sp2;2
+mortality.fishing.recruitment.age.sp3;2
+mortality.fishing.recruitment.age.sp4;1
+mortality.fishing.recruitment.age.sp5;0.25
+mortality.fishing.recruitment.age.sp6;0.5
+mortality.fishing.recruitment.age.sp7;0.5
+mortality.fishing.recruitment.age.sp8;0.3688
+mortality.fishing.recruitment.age.sp9;0.5
+mortality.fishing.recruitment.age.sp10;0.1720
+mortality.fishing.recruitment.age.sp11;0.5
+;
+# Recruitment size (cm);
+mortality.fishing.recruitment.size.sp0;null
+mortality.fishing.recruitment.size.sp1;null
+mortality.fishing.recruitment.size.sp2;null
+mortality.fishing.recruitment.size.sp3;null
+mortality.fishing.recruitment.size.sp4;null
+mortality.fishing.recruitment.size.sp5;null
+mortality.fishing.recruitment.size.sp6;null
+mortality.fishing.recruitment.size.sp7;null
+mortality.fishing.recruitment.size.sp8;null
+mortality.fishing.recruitment.size.sp9;null
+mortality.fishing.recruitment.size.sp10;null
+mortality.fishing.recruitment.size.sp11;null
+;
+# Seasonality;
+mortality.fishing.season.distrib.file.sp0;fishing/fishing-seasonality-King_mackerel.csv
+mortality.fishing.season.distrib.file.sp1;fishing/fishing-seasonality-Amberjacks.csv
+mortality.fishing.season.distrib.file.sp2;fishing/fishing-seasonality-Red_grouper.csv
+mortality.fishing.season.distrib.file.sp3;fishing/fishing-seasonality-Gag_grouper.csv
+mortality.fishing.season.distrib.file.sp4;fishing/fishing-seasonality-Red_snapper.csv
+mortality.fishing.season.distrib.file.sp5;fishing/fishing-seasonality-Sardine_herring_scad_complex.csv
+mortality.fishing.season.distrib.file.sp6;fishing/fishing-seasonality-Anchovies_and_silversides.csv
+mortality.fishing.season.distrib.file.sp7;fishing/fishing-seasonality-Coastal_omnivores.csv
+mortality.fishing.season.distrib.file.sp8;fishing/fishing-seasonality-Reef_carnivores.csv
+mortality.fishing.season.distrib.file.sp9;fishing/fishing-seasonality-Reef_omnivores.csv
+mortality.fishing.season.distrib.file.sp10;fishing/fishing-seasonality-Shrimps.csv
+mortality.fishing.season.distrib.file.sp11;fishing/fishing-seasonality-Large_crabs.csv
