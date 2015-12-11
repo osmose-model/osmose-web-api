@@ -1,0 +1,310 @@
+package com.github.jhpoelen.fbob;
+
+import org.apache.commons.lang3.StringEscapeUtils;
+import org.junit.Before;
+import org.junit.Test;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
+import java.util.stream.Collectors;
+
+import static junit.framework.Assert.assertEquals;
+import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsNull.notNullValue;
+import static org.junit.Assert.assertThat;
+import static org.junit.internal.matchers.StringContains.containsString;
+
+public class ConfigUtilTest {
+    private StreamFactory factory;
+
+    @Before
+    public void init() {
+        factory = new StreamFactoryMemory();
+    }
+
+    @Test
+    public void functionalParams() {
+        new TreeMap<String, String>() {{
+            put("mortality.starvation.rate.max.sp", "osm_param-starvation.csv");
+            put("species.name.sp", "osm_param-species.csv");
+            put("species.egg.size.sp", "osm_param-species.csv");
+            put("species.egg.weight.sp", "osm_param-species.csv");
+            put("species.K.sp", "osm_param-species.csv");
+            put("species.length2weight.allometric.power.sp", "osm_param-species.csv");
+            put("species.length2weight.condition.factor.sp", "osm_param-species.csv");
+            put("species.lifespan.sp", "osm_param-species.csv");
+            put("species.lInf.sp", "osm_param-species.csv");
+            put("species.maturity.size.sp", "osm_param-species.csv");
+            put("species.relativefecundity.sp", "osm_param-species.csv");
+            put("species.sexratio.sp", "osm_param-species.csv");
+            put("species.t0.sp", "osm_param-species.csv");
+            put("species.vonbertalanffy.threshold.age.sp", "osm_param-species.csv");
+            put("species.length2weight.fl.sp", "osm_param-species.csv");
+
+            put("predation.accessibility.stage.threshold.sp", "osm_param-predation.csv");
+            put("predation.efficiency.critical.sp", "osm_param-predation.csv");
+            put("predation.ingestion.rate.max.sp", "osm_param-predation.csv");
+            put("predation.predPrey.sizeRatio.max.sp", "osm_param-predation.csv");
+            put("predation.predPrey.sizeRatio.min.sp", "osm_param-predation.csv");
+            put("predation.predPrey.stage.threshold.sp", "osm_param-predation.csv");
+
+            put("output.cutoff.age.sp", "osm_param-output.csv");
+            put("output.diet.stage.threshold.sp", "osm_param-output.csv");
+
+            put("mortality.natural.larva.rate.sp", "osm_param-natural-mortality");
+            put("mortality.natural.rate.sp", "osm_param-natural-mortality");
+
+            put("movement.distribution.method.sp", "osm_param-movement.csv");
+
+            put("population.seeding.biomass.sp", "osm_param-init-pop.csv");
+
+            put("mortality.fishing.rate.sp", "osm_param-fishing.csv");
+            put("mortality.fishing.recruitment.age.sp", "osm_param-fishing.csv");
+            put("mortality.fishing.recruitment.size.sp", "osm_param-fishing.csv");
+            put("mortality.fishing.season.distrib.file.", "osm_param-fishing.csv");
+
+            put("simulation.nspecies", "osm_all-parameters.csv");
+
+        }};
+    }
+
+
+    @Test
+    public void species() throws IOException {
+        List<String> groupNames = Arrays.asList("groupOne", "groupTwo");
+        StreamFactoryMemory factory = getTestFactory();
+
+        ConfigUtil.generateSpecies(groupNames, factory);
+
+        String asExpected = "species.name.sp0;groupOne\nspecies.name.sp1;groupTwo\nspecies.egg.size.sp0;0.1\nspecies.egg.size.sp1;0.1\nspecies.egg.weight.sp0;0.0005386\nspecies.egg.weight.sp1;0.0005386\nspecies.K.sp0;0.0\nspecies.K.sp1;0.0\nspecies.length2weight.allometric.power.sp0;0.0\nspecies.length2weight.allometric.power.sp1;0.0\nspecies.length2weight.condition.factor.sp0;0.0\nspecies.length2weight.condition.factor.sp1;0.0\nspecies.lifespan.sp0;0\nspecies.lifespan.sp1;0\nspecies.lInf.sp0;0.0\nspecies.lInf.sp1;0.0\nspecies.maturity.size.sp0;0.0\nspecies.maturity.size.sp1;0.0\nspecies.relativefecundity.sp0;0\nspecies.relativefecundity.sp1;0\nspecies.sexratio.sp0;0.0\nspecies.sexratio.sp1;0.0\nspecies.t0.sp0;0.0\nspecies.t0.sp1;0.0\nspecies.vonbertalanffy.threshold.age.sp0;0.0\nspecies.vonbertalanffy.threshold.age.sp1;0.0\nspecies.length2weight.fl.sp0;false\nspecies.length2weight.fl.sp1;false";
+        assertThat(getTestFactory().stringOutputFor("osm_param-species.csv"), is(asExpected));
+    }
+
+    @Test
+    public void movementMapAgeRanges() throws IOException {
+        ConfigUtil.generateMaps(Arrays.asList("speciesOne", "speciesTwo"), getTestFactory());
+
+        assertThat(getTestFactory().stringOutputFor("grid-mask.csv"), is(notNullValue()));
+        assertThat(getTestFactory().stringOutputFor("osm_param-movement.csv"), is(notNullValue()));
+        assertThat(getTestFactory().stringOutputFor("maps/speciesOne0.csv"), is(notNullValue()));
+        assertThat(getTestFactory().stringOutputFor("maps/speciesTwo1.csv"), is(notNullValue()));
+    }
+
+    @Test
+    public void fishingSeasonality() throws IOException {
+        List<String> groupNames = new ArrayList<String>();
+        groupNames.add("groupOne");
+        groupNames.add("groupTwo");
+
+        ConfigUtil.generateFishingParametersFor(groupNames, factory);
+
+        String expectedFishingParams = "\nmortality.fishing.rate.sp0;0.0\n" +
+                "mortality.fishing.rate.sp1;0.0\n" +
+                "mortality.fishing.recruitment.age.sp0;0.0\n" +
+                "mortality.fishing.recruitment.age.sp1;0.0\n" +
+                "mortality.fishing.recruitment.size.sp0;0.0\n" +
+                "mortality.fishing.recruitment.size.sp1;0.0\n" +
+                "mortality.fishing.season.distrib.file.sp0;fishing/fishing-seasonality-groupOne.csv\n" +
+                "mortality.fishing.season.distrib.file.sp1;fishing/fishing-seasonality-groupTwo.csv";
+
+        String actual = (getTestFactory()).stringOutputFor("osm_param-fishing.csv");
+        assertEquals(expectedFishingParams, actual);
+        assertThat(actual, containsString("fishing/fishing-seasonality-groupOne.csv"));
+        String expectedFishingSeasonality = "Time;Season\n" +
+                "0.0;0.0\n" +
+                "0.083333336;0.0\n" +
+                "0.16666667;0.0\n" +
+                "0.25;0.0\n" +
+                "0.33333334;0.0\n" +
+                "0.41666666;0.0\n" +
+                "0.5;0.0\n" +
+                "0.5833333;0.0\n" +
+                "0.6666667;0.0\n" +
+                "0.75;0.0\n" +
+                "0.8333333;0.0\n" +
+                "0.9166667;0.0";
+        assertEquals(expectedFishingSeasonality, (getTestFactory()).stringOutputFor("fishing/fishing-seasonality-groupOne.csv"));
+        assertEquals(expectedFishingSeasonality, (getTestFactory()).stringOutputFor("fishing/fishing-seasonality-groupTwo.csv"));
+    }
+
+
+    @Test
+    public void output() throws IOException {
+        List<String> groupNames = Arrays.asList("groupNameOne", "groupNameTwo");
+
+        OutputStream os = factory.outputStreamFor("osm_param-output.csv");
+        ConfigUtil.generateOutputParamsFor(groupNames, os);
+
+        assertThat(getTestFactory().stringOutputFor("osm_param-output.csv"), containsString("output.diet.stage.threshold.sp1"));
+        assertThat(getTestFactory().stringOutputFor("osm_param-output.csv"), not(containsString("output.diet.stage.threshold.sp2")));
+        assertThat(getTestFactory().stringOutputFor("osm_param-output.csv"), containsString("output.cutoff.age.sp1"));
+        assertThat(getTestFactory().stringOutputFor("osm_param-output.csv"), not(containsString("output.cutoff.age.sp2")));
+    }
+
+    @Test
+    public void naturalMortality() throws IOException {
+        List<String> groupNames = Arrays.asList("groupName1", "groupName2");
+
+        ConfigUtil.generateNaturalMortalityFor(groupNames, factory);
+
+        String expected = "mortality.natural.larva.rate.file;null" +
+                "\nmortality.natural.larva.rate.sp0;0.0" +
+                "\nmortality.natural.larva.rate.sp1;0.0" +
+                "\nmortality.natural.rate.file;null" +
+                "\nmortality.natural.rate.sp0;0.0" +
+                "\nmortality.natural.rate.sp1;0.0";
+        assertThat(getTestFactory().stringOutputFor("osm_param-natural-mortality.csv"), is(expected));
+    }
+
+    @Test
+    public void predation() throws IOException {
+        List<String> groupNames = Arrays.asList("groupNameOne", "groupNameTwo");
+        StreamFactoryMemory factory = getTestFactory();
+
+        ConfigUtil.generatePredationFor(groupNames, factory);
+        String expectedPredationParams = "predation.accessibility.file;predation-accessibility.csv" +
+                "\npredation.accessibility.stage.structure;age" +
+                "\npredation.accessibility.stage.threshold.sp0;0.0" +
+                "\npredation.accessibility.stage.threshold.sp1;0.0" +
+                "\npredation.efficiency.critical.sp0;0.57" +
+                "\npredation.efficiency.critical.sp1;0.57" +
+                "\npredation.ingestion.rate.max.sp0;3.5" +
+                "\npredation.ingestion.rate.max.sp1;3.5" +
+                "\npredation.predPrey.sizeRatio.max.sp0;0.0;0.0" +
+                "\npredation.predPrey.sizeRatio.max.sp1;0.0;0.0" +
+                "\npredation.predPrey.sizeRatio.min.sp0;0.0;0.0" +
+                "\npredation.predPrey.sizeRatio.min.sp1;0.0;0.0" +
+                "\npredation.predPrey.stage.structure;size" +
+                "\npredation.predPrey.stage.threshold.sp0;0.0" +
+                "\npredation.predPrey.stage.threshold.sp1;0.0";
+        assertThat(getTestFactory().stringOutputFor("osm_param-predation.csv"), is(expectedPredationParams));
+    }
+
+    @Test
+    public void predationAccessibility() throws IOException {
+        List<String> groupNames = new ArrayList<String>() {{
+            add("groupNameOne");
+            add("groupNameTwo");
+        }};
+
+        List<String> implicitGroupNames = new ArrayList<String>() {
+            {
+                add("Small_phytoplankton");
+                add("Diatoms");
+                add("Microzooplankton");
+                add("Mesozooplankton");
+                add("Meiofauna");
+                add("Small_infauna");
+                add("Small_mobile_epifauna");
+                add("Bivalves");
+                add("Echinoderms_and_large_gastropods");
+            }
+        };
+
+        generatePredationAccessibilityFor(groupNames, implicitGroupNames, factory);
+        // including the "implicit" functional groups
+        String expectedPredationAccessibility = "v Prey / Predator >;groupNameOne < 0.0 year;groupNameOne > 0.0 year;groupNameTwo < 0.0 year;groupNameTwo > 0.0 year;Small_phytoplankton;Diatoms;Microzooplankton;Mesozooplankton;Meiofauna;Small_infauna;Small_mobile_epifauna;Bivalves;Echinoderms_and_large_gastropods\n" +
+                "groupNameOne < 0.0 year;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0\n" +
+                "groupNameOne > 0.0 year;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0\n" +
+                "groupNameTwo < 0.0 year;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0\n" +
+                "groupNameTwo > 0.0 year;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0\n" +
+                "Small_phytoplankton;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0\n" +
+                "Diatoms;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0\n" +
+                "Microzooplankton;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0\n" +
+                "Mesozooplankton;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0\n" +
+                "Meiofauna;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0\n" +
+                "Small_infauna;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0\n" +
+                "Small_mobile_epifauna;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0\n" +
+                "Bivalves;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0\n" +
+                "Echinoderms_and_large_gastropods;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0";
+
+
+        assertEquals(expectedPredationAccessibility, (getTestFactory()).stringOutputFor("predation-accessibility.csv"));
+    }
+
+    private void generatePredationAccessibilityFor(List<String> groupNames, List<String> implicitGroupNames, StreamFactory factory) throws IOException {
+        List<String> columnHeaders = new ArrayList<String>();
+        for (String groupName : groupNames) {
+            columnHeaders.add(groupName + " < 0.0 year");
+            columnHeaders.add(groupName + " > 0.0 year");
+        }
+        columnHeaders.addAll(implicitGroupNames.stream().collect(Collectors.toList()));
+
+        OutputStream outputStream = factory.outputStreamFor("predation-accessibility.csv");
+        ConfigUtil.writeLine(outputStream, new ArrayList() {{
+            add("v Prey / Predator >");
+            addAll(columnHeaders);
+        }}, false);
+
+        for (String header : columnHeaders) {
+            List<String> row = new ArrayList<String>();
+            row.add(header);
+            for (int i = 0; i < columnHeaders.size(); i++) {
+                row.add("0.0");
+            }
+            ConfigUtil.writeLine(outputStream, row);
+        }
+    }
+
+    @Test
+    public void csvEscape() {
+        assertThat(StringEscapeUtils.escapeCsv("123.2"), is("123.2"));
+        assertThat(StringEscapeUtils.escapeCsv("\"hello\" she said"), is("\"\"\"hello\"\" she said\""));
+    }
+
+    @Test
+    public void starvation() throws IOException {
+        List<String> groupNames = Arrays.asList("gOne", "gTwo");
+        ConfigUtil.generateStarvationFor(groupNames, factory);
+
+        String expectedStarvation = "mortality.starvation.rate.max.sp0;0.3\n" +
+                "mortality.starvation.rate.max.sp1;0.3";
+        assertThat(getTestFactory().stringOutputFor("osm_param-starvation.csv"), is(expectedStarvation));
+    }
+
+    private StreamFactoryMemory getTestFactory() {
+        return (StreamFactoryMemory) factory;
+    }
+
+
+    @Test
+    public void reproductionSeasonTemplates() throws IOException {
+        List<String> groupNames = new ArrayList<String>() {{
+            add("groupNameOne");
+            add("groupNameTwo");
+        }};
+
+
+        ConfigUtil.generateSeasonalReproductionFor(groupNames, factory);
+
+        assertThat((getTestFactory()).stringOutputFor("osm_param-reproduction.csv"), is("reproduction.season.file.sp0;reproduction-seasonality-sp0.csv\nreproduction.season.file.sp1;reproduction-seasonality-sp1.csv"));
+        String prefix = "Time (year);";
+        String suffix = "\n0.0;0.0\n0.083333336;0.0\n0.16666667;0.0\n0.25;0.0\n0.33333334;0.0\n0.41666666;0.0\n0.5;0.0\n0.5833333;0.0\n0.6666667;0.0\n0.75;0.0\n0.8333333;0.0\n0.9166667;0.0";
+        assertEquals((getTestFactory()).stringOutputFor("reproduction-seasonality-sp0.csv"), (prefix + "groupNameOne" + suffix));
+        assertEquals((getTestFactory()).stringOutputFor("reproduction-seasonality-sp1.csv"), (prefix + "groupNameTwo" + suffix));
+    }
+
+    ;
+
+    private class StreamFactoryMemory implements StreamFactory {
+        private final Map<String, ByteArrayOutputStream> streamMap = new TreeMap<String, ByteArrayOutputStream>();
+
+        @Override
+        public OutputStream outputStreamFor(String name) throws IOException {
+            streamMap.put(name, new ByteArrayOutputStream());
+            return streamMap.get(name);
+        }
+
+        public String stringOutputFor(String name) throws UnsupportedEncodingException {
+            return streamMap.containsKey(name) ? streamMap.get(name).toString("UTF-8") : null;
+        }
+    }
+}

@@ -23,9 +23,11 @@ import java.util.zip.ZipOutputStream;
 @Path("osmose_config.zip")
 public class Config {
 
+    public static final String OSMOSE_CONFIG = "osmose_config";
+
     static public Set<String> getResources() {
         Reflections reflections = new Reflections(new ConfigurationBuilder()
-                .setUrls(ClasspathHelper.forPackage("com.github.jhpoelen.fbob.osmose_config"))
+                .setUrls(ClasspathHelper.forPackage("com.github.jhpoelen.fbob." + OSMOSE_CONFIG))
                 .setScanners(new ResourcesScanner()));
         return reflections.getResources(Pattern.compile(".*\\.csv"));
     }
@@ -33,7 +35,7 @@ public class Config {
     public static void toZipOutputStream(Set<String> resources, OutputStream out) throws IOException {
         ZipOutputStream zos = new ZipOutputStream(out);
         for (String resource : resources) {
-            String resourceName = StringUtils.substringAfter(resource, "osmose_config/");
+            String resourceName = StringUtils.substringAfter(resource, OSMOSE_CONFIG + "/");
             ZipEntry e = new ZipEntry(resourceName);
             zos.putNextEntry(e);
             IOUtils.write(IOUtils.toByteArray(Config.class.getResourceAsStream("/" + resource)), zos);
