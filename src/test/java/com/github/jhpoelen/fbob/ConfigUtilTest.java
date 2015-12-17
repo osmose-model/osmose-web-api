@@ -293,19 +293,10 @@ public class ConfigUtilTest {
     }
 
     @Test
-    public void generateAll() throws IOException {
+    public void generateConfigFor() throws IOException {
         List<String> groupNames = Arrays.asList("speciesA", "speciesB", "speciesC");
 
-        ConfigUtil.generateFishingParametersFor(groupNames, factory);
-        ConfigUtil.generateInitBiomassFor(groupNames, factory);
-        ConfigUtil.generateMaps(groupNames, factory);
-        ConfigUtil.generateNaturalMortalityFor(groupNames, factory);
-        ConfigUtil.generateOutputParamsFor(groupNames, factory);
-        ConfigUtil.generatePredationFor(groupNames, factory);
-        ConfigUtil.generateSeasonalReproductionFor(groupNames, factory);
-        ConfigUtil.generateSpecies(groupNames, factory);
-        ConfigUtil.generateStarvationFor(groupNames, factory);
-        ConfigUtil.generateStatic(factory);
+        ConfigUtil.generateConfigFor(groupNames, getTestFactory());
 
         assertThat(getTestFactory().streamMap.keySet(), hasItems("osm_param-species.csv", "osm_param-starvation.csv"));
     }

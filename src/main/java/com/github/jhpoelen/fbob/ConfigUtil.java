@@ -275,4 +275,17 @@ public class ConfigUtil {
         writeLine(os, Arrays.asList(prefix + ".species", groupName));
         return mapName;
     }
+
+    public static void generateConfigFor(List<String> groupNames, StreamFactory factory) throws IOException {
+        generateFishingParametersFor(groupNames, factory);
+        generateInitBiomassFor(groupNames, factory);
+        generateMaps(groupNames, factory);
+        generateNaturalMortalityFor(groupNames, factory);
+        generateOutputParamsFor(groupNames, factory);
+        generatePredationFor(groupNames, factory);
+        generateSeasonalReproductionFor(groupNames, factory);
+        generateSpecies(groupNames, factory);
+        generateStarvationFor(groupNames, factory);
+        generateStatic(factory);
+    }
 }
