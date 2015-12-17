@@ -20,6 +20,7 @@ import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNull.notNullValue;
 import static org.junit.Assert.assertThat;
+import static org.junit.internal.matchers.IsCollectionContaining.hasItems;
 import static org.junit.internal.matchers.StringContains.containsString;
 
 public class ConfigUtilTest {
@@ -140,8 +141,7 @@ public class ConfigUtilTest {
     public void output() throws IOException {
         List<String> groupNames = Arrays.asList("groupNameOne", "groupNameTwo");
 
-        OutputStream os = factory.outputStreamFor("osm_param-output.csv");
-        ConfigUtil.generateOutputParamsFor(groupNames, os);
+        ConfigUtil.generateOutputParamsFor(groupNames, factory);
 
         assertThat(getTestFactory().stringOutputFor("osm_param-output.csv"), containsString("output.diet.stage.threshold.sp1"));
         assertThat(getTestFactory().stringOutputFor("osm_param-output.csv"), not(containsString("output.diet.stage.threshold.sp2")));
@@ -292,7 +292,24 @@ public class ConfigUtilTest {
         assertEquals((getTestFactory()).stringOutputFor("reproduction-seasonality-sp1.csv"), (prefix + "groupNameTwo" + suffix));
     }
 
-    ;
+    @Test
+    public void generateAll() throws IOException {
+        List<String> groupNames = Arrays.asList("speciesA", "speciesB", "speciesC");
+
+        ConfigUtil.generateFishingParametersFor(groupNames, factory);
+        ConfigUtil.generateInitBiomassFor(groupNames, factory);
+        ConfigUtil.generateMaps(groupNames, factory);
+        ConfigUtil.generateNaturalMortalityFor(groupNames, factory);
+        ConfigUtil.generateOutputParamsFor(groupNames, factory);
+        ConfigUtil.generatePredationFor(groupNames, factory);
+        ConfigUtil.generateSeasonalReproductionFor(groupNames, factory);
+        ConfigUtil.generateSpecies(groupNames, factory);
+        ConfigUtil.generateStarvationFor(groupNames, factory);
+        ConfigUtil.generateStatic(factory);
+
+        assertThat(getTestFactory().streamMap.keySet(), hasItems("osm_param-species.csv", "osm_param-starvation.csv"));
+    }
+
 
     private class StreamFactoryMemory implements StreamFactory {
         private final Map<String, ByteArrayOutputStream> streamMap = new TreeMap<String, ByteArrayOutputStream>();

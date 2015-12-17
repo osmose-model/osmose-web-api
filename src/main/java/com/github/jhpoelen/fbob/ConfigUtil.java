@@ -5,6 +5,7 @@ import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -178,7 +179,6 @@ public class ConfigUtil {
         for (String groupName : groupNames) {
             writeLine(os, Arrays.asList(paramPrefix + groupNames.indexOf(groupName), paramValue));
         }
-
     }
 
     public static void writeParamLines(List<String> groupNames, String paramPrefix, List<String> paramValues, OutputStream os) throws IOException {
@@ -189,7 +189,6 @@ public class ConfigUtil {
             }};
             writeLine(os, values);
         }
-
     }
 
     public static void generatePredationFor(List<String> groupNames, StreamFactory factory) throws IOException {
@@ -206,7 +205,8 @@ public class ConfigUtil {
         IOUtils.closeQuietly(os);
     }
 
-    public static void generateOutputParamsFor(List<String> groupNames, OutputStream os) throws IOException {
+    public static void generateOutputParamsFor(List<String> groupNames, StreamFactory factory) throws IOException {
+        OutputStream os = factory.outputStreamFor("osm_param-output.csv");
         IOUtils.copy(IOUtils.toInputStream(OUTPUT_DEFAULTS, "UTF-8"), os);
 
         writeLine(os, Arrays.asList("output.cutoff.enabled", "true"));
@@ -226,14 +226,31 @@ public class ConfigUtil {
         IOUtils.closeQuietly(os);
     }
 
-    public static void generateMPA(StreamFactory factory) throws IOException {
-        OutputStream os = factory.outputStreamFor("osm_param-mpa.csv");
-        IOUtils.copy(IOUtils.toInputStream("mpa.file.mpa0;null\n" +
-                "mpa.end.year.mpa0;0\n" +
-                "mpa.start.year.mpa0;0\n", "UTF-8"), os);
+    public static void generateInitBiomassFor(List<String> groupNames, StreamFactory factory) throws IOException {
+        OutputStream os = factory.outputStreamFor("osm_param-init-pop.csv");
+        writeParamLines(groupNames, "population.seeding.biomass.sp", "0.0", os);
+        IOUtils.closeQuietly(os);
+    }
+
+
+    public static void generateStatic(StreamFactory factory) throws IOException {
+        generateFromTemplate(factory, "osm_param-mpa.csv");
+        generateFromTemplate(factory, "osm_param-ltl.csv");
+        generateFromTemplate(factory, "grid-mask.csv");
+        generateFromTemplate(factory, "osm_param-grid.csv");
+        generateFromTemplate(factory, "osm_ltlbiomass.nc");
+    }
+
+    public static void generateFromTemplate(StreamFactory factory, String staticTemplate) throws IOException {
+        OutputStream os = factory.outputStreamFor(staticTemplate);
+        IOUtils.copy(ConfigUtil.class.getResourceAsStream("osmose_config/" + staticTemplate), os);
     }
 
     public static void generateMaps(List<String> groupNames, StreamFactory factory) throws IOException {
+        OutputStream maskOs = factory.outputStreamFor("grid-mask.csv");
+        IOUtils.copy(ConfigUtil.class.getResourceAsStream("osmose_config/grid-mask.csv"), maskOs);
+        IOUtils.closeQuietly(maskOs);
+
         OutputStream os = factory.outputStreamFor("osm_param-movement.csv");
         writeParamLines(groupNames, "movement.distribution.method.sp", "maps", os);
         writeParamLines(groupNames, "movement.randomwalk.range.sp", "1", os);
@@ -245,8 +262,7 @@ public class ConfigUtil {
             IOUtils.closeQuietly(mapOutputStream);
             nMaps++;
         }
-
-        IOUtils.copy(ConfigUtil.class.getResourceAsStream("osmose_config/grid-mask.csv"), factory.outputStreamFor("grid-mask.csv"));
+        IOUtils.closeQuietly(os);
     }
 
     public static String addMapForGroup(OutputStream os, int nMaps, String groupName) throws IOException {
