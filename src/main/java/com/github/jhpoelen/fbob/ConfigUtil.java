@@ -5,7 +5,6 @@ import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,80 +14,80 @@ public class ConfigUtil {
     public static final List<String> YEAR_PARTS = Arrays.asList("0.0", "0.083333336", "0.16666667", "0.25", "0.33333334", "0.41666666", "0.5", "0.5833333", "0.6666667", "0.75", "0.8333333", "0.9166667");
 
     public static final String OUTPUT_DEFAULTS = "output.start.year;0;;\n" +
-                    "output.file.prefix;osm;;\n" +
-                    "output.dir.path;output;;\n" +
-                    "output.recordfrequency.ndt;12;;\n" +
-                    ";;;\n" +
-                    "# CSV separator (COMA, SEMICOLON, EQUALS, COLON, TAB);;;\n" +
-                    "output.csv.separator;COMA;;\n" +
-                    ";;;\n" +
-                    "# Save restart file;;;\n" +
-                    "output.restart.enabled;false;;\n" +
-                    "output.restart.recordfrequency.ndt;60;;\n" +
-                    "output.restart.spinup;114;;\n" +
-                    ";;;\n" +
-                    "# Biomass;;;\n" +
-                    "output.biomass.enabled;true;;\n" +
-                    "output.exploitable.biomass.enabled;true;;\n" +
-                    "output.biomass.bysize.enabled;false;;\n" +
-                    "output.biomass.byage.enabled;false;;\n" +
-                    "output.ssb.enabled;true;;\n" +
-                    "output.ssb.byage.enabled;true;;\n" +
-                    "# Abundance;;;\n" +
-                    "output.abundance.enabled;false;;\n" +
-                    "output.abundance.bysize.enabled;false;;\n" +
-                    "output.abundance.byage.enabled;true;;\n" +
-                    "output.recruitment.enabled;false;;\n" +
-                    "output.recruits.enabled;false;;\n" +
-                    "output.recruits.month.enabled;false;;\n" +
-                    "output.eggproduction.enabled;false;;\n" +
-                    "output.spawners.abundance.byage.enabled;true;;\n" +
-                    "# Mortality;;;\n" +
-                    "output.distrib.byAge.max;10;;\n" +
-                    "output.mortality.enabled;true;;\n" +
-                    "output.mortality.redgrouper.enabled;true;;\n" +
-                    "output.mortality.gaggrouper.enabled;true;;\n" +
-                    "output.mortality.redsnapper.enabled;true;;\n" +
-                    "output.mortality.perSpecies.byAge.enabled;true;;\n" +
-                    "output.mortality.perSpecies.bySize.enabled;false;;\n" +
-                    "# Yield;;;\n" +
-                    "output.yield.biomass.enabled;true;;\n" +
-                    "output.yield.abundance.enabled;false;;\n" +
-                    "output.yieldN.bySize.enabled;false;;\n" +
-                    "output.yield.bySize.enabled;false;;\n" +
-                    "output.yieldN.byAge.enabled;false;;\n" +
-                    "output.yield.byAge.enabled;false;;\n" +
-                    "# Size;;;\n" +
-                    "output.size.enabled;true ;;\n" +
-                    "output.size.catch.enabled;true ;;\n" +
-                    "output.meanSize.byAge.enabled;false;;\n" +
-                    "# Weight;;;\n" +
-                    "output.meanWeight.byAge.enabled;false;;\n" +
-                    "# TL;;;\n" +
-                    "output.TL.enabled;true;;\n" +
-                    "output.TL.catch.enabled;true;;\n" +
-                    "output.biomass.byTL.enabled;true;;\n" +
-                    "output.meanTL.bySize.enabled;false;;\n" +
-                    "output.meanTL.byAge.enabled;false;;\n" +
-                    "# Predation;;;\n" +
-                    "output.diet.composition.enabled;true;;\n" +
-                    "output.diet.composition.byAge.enabled;false;;\n" +
-                    "output.diet.composition.bySize.enabled;false;;\n" +
-                    "output.diet.pressure.enabled;true;;\n" +
-                    "output.diet.pressure.byAge.enabled;false;;\n" +
-                    "output.diet.pressure.bySize.enabled;false;;\n" +
-                    "# Spatial;;;\n" +
-                    "output.spatial.enabled;false;;\n" +
-                    "output.spatial.ltl.enabled;false;;\n" +
-                    ";;;\n" +
-                    "# Advanced parameters;;;\n" +
-                    "# Whether to include step 0 of the simulation in the outputs;;;\n" +
-                    "output.step0.include;false;;\n" +
-                    "# Cutoff for biomass, abundance, mean size and mean trophic level outputs;;;\n" +
-                    "# Size distribution (centimetre) ;;;\n" +
-                    "output.distrib.bySize.min;0;;\n" +
-                    "output.distrib.bySize.max;205;;\n" +
-                    "output.distrib.bySize.incr;10;;";
+            "output.file.prefix;osm;;\n" +
+            "output.dir.path;output;;\n" +
+            "output.recordfrequency.ndt;12;;\n" +
+            ";;;\n" +
+            "# CSV separator (COMA, SEMICOLON, EQUALS, COLON, TAB);;;\n" +
+            "output.csv.separator;COMA;;\n" +
+            ";;;\n" +
+            "# Save restart file;;;\n" +
+            "output.restart.enabled;false;;\n" +
+            "output.restart.recordfrequency.ndt;60;;\n" +
+            "output.restart.spinup;114;;\n" +
+            ";;;\n" +
+            "# Biomass;;;\n" +
+            "output.biomass.enabled;true;;\n" +
+            "output.exploitable.biomass.enabled;true;;\n" +
+            "output.biomass.bysize.enabled;false;;\n" +
+            "output.biomass.byage.enabled;false;;\n" +
+            "output.ssb.enabled;true;;\n" +
+            "output.ssb.byage.enabled;true;;\n" +
+            "# Abundance;;;\n" +
+            "output.abundance.enabled;false;;\n" +
+            "output.abundance.bysize.enabled;false;;\n" +
+            "output.abundance.byage.enabled;true;;\n" +
+            "output.recruitment.enabled;false;;\n" +
+            "output.recruits.enabled;false;;\n" +
+            "output.recruits.month.enabled;false;;\n" +
+            "output.eggproduction.enabled;false;;\n" +
+            "output.spawners.abundance.byage.enabled;true;;\n" +
+            "# Mortality;;;\n" +
+            "output.distrib.byAge.max;10;;\n" +
+            "output.mortality.enabled;true;;\n" +
+            "output.mortality.redgrouper.enabled;true;;\n" +
+            "output.mortality.gaggrouper.enabled;true;;\n" +
+            "output.mortality.redsnapper.enabled;true;;\n" +
+            "output.mortality.perSpecies.byAge.enabled;true;;\n" +
+            "output.mortality.perSpecies.bySize.enabled;false;;\n" +
+            "# Yield;;;\n" +
+            "output.yield.biomass.enabled;true;;\n" +
+            "output.yield.abundance.enabled;false;;\n" +
+            "output.yieldN.bySize.enabled;false;;\n" +
+            "output.yield.bySize.enabled;false;;\n" +
+            "output.yieldN.byAge.enabled;false;;\n" +
+            "output.yield.byAge.enabled;false;;\n" +
+            "# Size;;;\n" +
+            "output.size.enabled;true ;;\n" +
+            "output.size.catch.enabled;true ;;\n" +
+            "output.meanSize.byAge.enabled;false;;\n" +
+            "# Weight;;;\n" +
+            "output.meanWeight.byAge.enabled;false;;\n" +
+            "# TL;;;\n" +
+            "output.TL.enabled;true;;\n" +
+            "output.TL.catch.enabled;true;;\n" +
+            "output.biomass.byTL.enabled;true;;\n" +
+            "output.meanTL.bySize.enabled;false;;\n" +
+            "output.meanTL.byAge.enabled;false;;\n" +
+            "# Predation;;;\n" +
+            "output.diet.composition.enabled;true;;\n" +
+            "output.diet.composition.byAge.enabled;false;;\n" +
+            "output.diet.composition.bySize.enabled;false;;\n" +
+            "output.diet.pressure.enabled;true;;\n" +
+            "output.diet.pressure.byAge.enabled;false;;\n" +
+            "output.diet.pressure.bySize.enabled;false;;\n" +
+            "# Spatial;;;\n" +
+            "output.spatial.enabled;false;;\n" +
+            "output.spatial.ltl.enabled;false;;\n" +
+            ";;;\n" +
+            "# Advanced parameters;;;\n" +
+            "# Whether to include step 0 of the simulation in the outputs;;;\n" +
+            "output.step0.include;false;;\n" +
+            "# Cutoff for biomass, abundance, mean size and mean trophic level outputs;;;\n" +
+            "# Size distribution (centimetre) ;;;\n" +
+            "output.distrib.bySize.min;0;;\n" +
+            "output.distrib.bySize.max;205;;\n" +
+            "output.distrib.bySize.incr;10;;";
 
     public static void writeLine(OutputStream os, List<String> values, boolean leadingNewline) throws IOException {
         List<String> escapedValues = new ArrayList<String>();
@@ -107,36 +106,53 @@ public class ConfigUtil {
     public static void generateSeasonalReproductionFor(List<String> groupNames, StreamFactory factory) throws IOException {
         OutputStream os = factory.outputStreamFor("osm_param-reproduction.csv");
         for (int i = 0; i < groupNames.size(); i++) {
-            String reproductionFilename = "reproduction-seasonality-sp" + i + ".csv";
+            String reproductionFilename = reproductionFilename(i);
             String paramName = "reproduction.season.file.sp" + i;
             writeLine(os, Arrays.asList(paramName, reproductionFilename), i > 0);
-            OutputStream reprodOs = factory.outputStreamFor(reproductionFilename);
+        }
+
+        for (int i = 0; i < groupNames.size(); i++) {
+            OutputStream reprodOs = factory.outputStreamFor(reproductionFilename(i));
             writeLine(reprodOs, Arrays.asList("Time (year)", groupNames.get(i)), false);
             for (String yearPart : YEAR_PARTS) {
                 writeLine(reprodOs, Arrays.asList(yearPart, "0.0"));
             }
-            IOUtils.closeQuietly(reprodOs);
         }
-        IOUtils.closeQuietly(os);
+    }
+
+    public static String reproductionFilename(int i) {
+        return "reproduction-seasonality-sp" + i + ".csv";
     }
 
     public static void generateFishingParametersFor(List<String> groupNames, StreamFactory factory) throws IOException {
+        generateFishingSeasonalityConfig(groupNames, factory);
+        generateFishingSeasonalityTables(groupNames, factory);
+    }
+
+    public static void generateFishingSeasonalityTables(List<String> groupNames, StreamFactory factory) throws IOException {
+        for (String groupName : groupNames) {
+            OutputStream seasonalityOs = factory.outputStreamFor(finishingSeasonalityFilename(groupName));
+            writeLine(seasonalityOs, Arrays.asList("Time", "Season"), false);
+            for (String yearPart : YEAR_PARTS) {
+                writeLine(seasonalityOs, Arrays.asList(yearPart, "0.0"));
+            }
+        }
+    }
+
+    public static void generateFishingSeasonalityConfig(List<String> groupNames, StreamFactory factory) throws IOException {
         OutputStream os = factory.outputStreamFor("osm_param-fishing.csv");
         writeZerosFor(groupNames, "mortality.fishing.rate.sp", os);
         writeZerosFor(groupNames, "mortality.fishing.recruitment.age.sp", os);
         writeZerosFor(groupNames, "mortality.fishing.recruitment.size.sp", os);
         for (String groupName : groupNames) {
             String paramName = "mortality.fishing.season.distrib.file.sp" + groupNames.indexOf(groupName);
-            String fishingSeasonality = "fishing/fishing-seasonality-" + groupName + ".csv";
+            String fishingSeasonality = finishingSeasonalityFilename(groupName);
             writeLine(os, Arrays.asList(paramName, fishingSeasonality));
-            OutputStream seasonalityOs = factory.outputStreamFor(fishingSeasonality);
-            writeLine(seasonalityOs, Arrays.asList("Time", "Season"), false);
-            for (String yearPart : YEAR_PARTS) {
-                writeLine(seasonalityOs, Arrays.asList(yearPart, "0.0"));
-            }
-            IOUtils.closeQuietly(seasonalityOs);
         }
-        IOUtils.closeQuietly(os);
+    }
+
+    public static String finishingSeasonalityFilename(String groupName) {
+        return "fishing/fishing-seasonality-" + groupName + ".csv";
     }
 
     public static void writeZerosFor(List<String> groupNames, String paramName, OutputStream os) throws IOException {
@@ -151,7 +167,6 @@ public class ConfigUtil {
             String paramName = "mortality.starvation.rate.max.sp" + i;
             writeLine(os, Arrays.asList(paramName, "0.3"), i > 0);
         }
-        IOUtils.closeQuietly(os);
     }
 
     public static void generateSpecies(List<String> groupNames, StreamFactory factory) throws IOException {
@@ -202,7 +217,6 @@ public class ConfigUtil {
         writeParamLines(groupNames, "predation.predPrey.sizeRatio.min.sp", Arrays.asList("0.0", "0.0"), os);
         writeLine(os, Arrays.asList("predation.predPrey.stage.structure", "size"));
         writeParamLines(groupNames, "predation.predPrey.stage.threshold.sp", "0.0", os);
-        IOUtils.closeQuietly(os);
     }
 
     public static void generateOutputParamsFor(List<String> groupNames, StreamFactory factory) throws IOException {
@@ -211,9 +225,8 @@ public class ConfigUtil {
 
         writeLine(os, Arrays.asList("output.cutoff.enabled", "true"));
         writeParamLines(groupNames, "output.cutoff.age.sp", "0.0", os);
-        writeLine(os, Arrays.asList("output.diet.stage.structure","agesize"));
+        writeLine(os, Arrays.asList("output.diet.stage.structure", "agesize"));
         writeParamLines(groupNames, "output.diet.stage.threshold.sp", Arrays.asList("0.0", "0.0", "0.0"), os);
-        IOUtils.closeQuietly(os);
     }
 
     public static void generateNaturalMortalityFor(List<String> groupNames, StreamFactory factory) throws IOException {
@@ -223,20 +236,17 @@ public class ConfigUtil {
         writeParamLines(groupNames, "mortality.natural.larva.rate.sp", "0.0", os);
         writeLine(os, Arrays.asList("mortality.natural.rate.file", "null"));
         writeParamLines(groupNames, "mortality.natural.rate.sp", "0.0", os);
-        IOUtils.closeQuietly(os);
     }
 
     public static void generateInitBiomassFor(List<String> groupNames, StreamFactory factory) throws IOException {
         OutputStream os = factory.outputStreamFor("osm_param-init-pop.csv");
         writeParamLines(groupNames, "population.seeding.biomass.sp", "0.0", os);
-        IOUtils.closeQuietly(os);
     }
 
 
     public static void generateStatic(StreamFactory factory) throws IOException {
         generateFromTemplate(factory, "osm_param-mpa.csv");
         generateFromTemplate(factory, "osm_param-ltl.csv");
-        generateFromTemplate(factory, "grid-mask.csv");
         generateFromTemplate(factory, "osm_param-grid.csv");
         generateFromTemplate(factory, "osm_ltlbiomass.nc");
     }
@@ -249,31 +259,41 @@ public class ConfigUtil {
     public static void generateMaps(List<String> groupNames, StreamFactory factory) throws IOException {
         OutputStream maskOs = factory.outputStreamFor("grid-mask.csv");
         IOUtils.copy(ConfigUtil.class.getResourceAsStream("osmose_config/grid-mask.csv"), maskOs);
-        IOUtils.closeQuietly(maskOs);
+        generateMovementConfig(groupNames, factory);
+        generateMovementMapTemplates(groupNames, factory);
+    }
 
+    public static void generateMovementMapTemplates(List<String> groupNames, StreamFactory factory) throws IOException {
+        int nMaps = 0;
+        for (String groupName : groupNames) {
+            OutputStream mapOutputStream = factory.outputStreamFor(getMapName(nMaps, groupName));
+            IOUtils.copy(ConfigUtil.class.getResourceAsStream("osmose_config/maps/Amberjacks_1.csv"), mapOutputStream);
+            nMaps++;
+        }
+    }
+
+    public static void generateMovementConfig(List<String> groupNames, StreamFactory factory) throws IOException {
         OutputStream os = factory.outputStreamFor("osm_param-movement.csv");
         writeParamLines(groupNames, "movement.distribution.method.sp", "maps", os);
         writeParamLines(groupNames, "movement.randomwalk.range.sp", "1", os);
         int nMaps = 0;
         for (String groupName : groupNames) {
-            String mapName = addMapForGroup(os, nMaps, groupName);
-            OutputStream mapOutputStream = factory.outputStreamFor(mapName);
-            IOUtils.copy(ConfigUtil.class.getResourceAsStream("osmose_config/maps/Amberjacks_1.csv"), mapOutputStream);
-            IOUtils.closeQuietly(mapOutputStream);
+            addMapForGroup(os, nMaps, groupName, getMapName(nMaps, groupName));
             nMaps++;
         }
-        IOUtils.closeQuietly(os);
     }
 
-    public static String addMapForGroup(OutputStream os, int nMaps, String groupName) throws IOException {
+    public static String getMapName(int nMaps, String groupName) {
+        return "maps/" + groupName + nMaps + ".csv";
+    }
+
+    public static void addMapForGroup(OutputStream os, int nMaps, String groupName, String mapName) throws IOException {
         String prefix = "movement.map" + nMaps;
-        String mapName = "maps/" + groupName + nMaps + ".csv";
         writeLine(os, Arrays.asList(prefix + ".age.max", "2"));
         writeLine(os, Arrays.asList(prefix + ".age.min", "0"));
         writeLine(os, Arrays.asList(prefix + ".file", mapName));
-        writeLine(os, Arrays.asList(prefix + ".season", "0", "1", "2", "3", "4", "5", "6", "7","8", "9", "10", "11"));
+        writeLine(os, Arrays.asList(prefix + ".season", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"));
         writeLine(os, Arrays.asList(prefix + ".species", groupName));
-        return mapName;
     }
 
     public static void generateConfigFor(List<String> groupNames, StreamFactory factory) throws IOException {

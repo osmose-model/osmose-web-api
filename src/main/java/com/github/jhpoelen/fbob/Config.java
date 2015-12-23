@@ -10,11 +10,13 @@ import org.reflections.util.ConfigurationBuilder;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.StreamingOutput;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.List;
 import java.util.Set;
 import java.util.regex.Pattern;
 import java.util.zip.ZipEntry;
@@ -39,14 +41,10 @@ public class Config {
             ZipEntry e = new ZipEntry(resourceName);
             zos.putNextEntry(e);
             IOUtils.write(IOUtils.toByteArray(Config.class.getResourceAsStream("/" + resource)), zos);
-            zos.closeEntry();
         }
-        zos.flush();
-        zos.close();
+        close(zos);
     }
 
-    @GET
-    @Produces("application/zip")
     public Response configArchive() {
         StreamingOutput stream = new StreamingOutput() {
             @Override
@@ -59,6 +57,45 @@ public class Config {
                 .ok(stream)
                 .header("Content-Disposition", "attachment; filename=osmose_config.zip")
                 .build();
+    }
+
+    @GET
+    @Produces("application/zip")
+    public Response configTemplate(@QueryParam("groupName") final List<String> groupNames) throws IOException {
+        Response response;
+        if (groupNames == null || groupNames.size() == 0) {
+            response = configArchive();
+        } else {
+            response = Response
+                    .ok(asStream(groupNames))
+                    .header("Content-Disposition", "attachment; filename=osmose_config.zip")
+                    .build();
+        }
+        return response;
+    }
+
+    public static StreamingOutput asStream(final List<String> groupNames) {
+        return new StreamingOutput() {
+            @Override
+            public void write(OutputStream os) throws IOException, WebApplicationException {
+                ZipOutputStream zos = new ZipOutputStream(os);
+                ConfigUtil.generateConfigFor(groupNames, new StreamFactory() {
+                    @Override
+                    public OutputStream outputStreamFor(String name) throws IOException {
+                        ZipEntry e = new ZipEntry(name);
+                        zos.putNextEntry(e);
+                        return zos;
+                    }
+                });
+                close(zos);
+            }
+        };
+    }
+
+    private static void close(ZipOutputStream zos) throws IOException {
+        zos.closeEntry();
+        zos.flush();
+        zos.close();
     }
 
 }
