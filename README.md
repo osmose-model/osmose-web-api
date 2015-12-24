@@ -5,7 +5,7 @@ generates Osmose configuration files from data sources like Fishbase and SeaLife
 
 1. download osmose 3 update 2 from http://www.osmose-model.org/downloads
 1. expand to ```[OSMOSE_INSTALL_DIR]```
-1. download osmose configuration at https://fbob.herokuapp.com/osmose_config.zip
+1. download osmose configuration at https://fbob.herokuapp.com/osmose_config.zip (static configuration) or https://fbob.herokuapp.com/osmose_config.zip?groupName=Scomberomorus_cavalla&groupName=Lutjanus_campechanus&groupName=Epinephelus_morio (dynamic configuration with three named groups)
 1. expand config.zip to ```[SOME_DIR]```
 1. open a terminal and go to directory ```[OSMOSE_INSTALL_DIR]/dist```
 1. run osmose simulation using ```java -jar osmose_stable_3.jar [SOME_DIR]/osm_all-parameters.csv .``` in the osmose install directory
