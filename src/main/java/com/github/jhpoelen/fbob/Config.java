@@ -17,6 +17,7 @@ import javax.ws.rs.core.StreamingOutput;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.regex.Pattern;
@@ -62,18 +63,24 @@ public class Config {
 
     @GET
     @Produces("application/zip")
-    public Response configTemplate(@QueryParam("groupName") final List<String> groupNames,
-                                   @QueryParam("implicitGroupName") final List<String> implicitGroupNames) throws IOException {
+    public Response configTemplate(@QueryParam("htlGroupName") final List<String> groupNames) throws IOException {
         Response response;
         if (groupNames == null || groupNames.size() == 0) {
             response = configArchive();
         } else {
+            List<String> ltlGroupNames = Arrays.asList(
+                    "SmallPhytoplankton",
+                    "Diatoms",
+                    "Microzooplankton",
+                    "Mesozooplankton",
+                    "Meiofauna",
+                    "SmallInfauna",
+                    "SmallMobileEpifauna",
+                    "Bivalves",
+                    "EchinodermsAndLargeGastropods"
+            );
             response = Response
-                    .ok(asStream(groupNames, implicitGroupNames == null ? new ArrayList<String>() {
-                        {
-                            add("Diatoms");
-                        }
-                    } : implicitGroupNames))
+                    .ok(asStream(groupNames, ltlGroupNames))
                     .header("Content-Disposition", "attachment; filename=osmose_config.zip")
                     .build();
         }
