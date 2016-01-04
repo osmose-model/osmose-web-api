@@ -78,7 +78,8 @@ public class ConfigTest {
         while ((entry = zip.getNextEntry()) != null) {
             names.add(entry.getName());
         }
-        assertThat(names, hasItems("osm_param-fishing.csv",
+        assertThat(names, hasItems(
+                "osm_param-fishing.csv",
                 "fishing/fishing-seasonality-one.csv",
                 "fishing/fishing-seasonality-two.csv",
                 "osm_param-init-pop.csv",
@@ -97,7 +98,8 @@ public class ConfigTest {
                 "osm_param-mpa.csv",
                 "osm_param-ltl.csv",
                 "osm_param-grid.csv",
-                "osm_ltlbiomass.nc"));
+                "osm_ltlbiomass.nc",
+                "osm_all-parameters.csv"));
     }
 
 

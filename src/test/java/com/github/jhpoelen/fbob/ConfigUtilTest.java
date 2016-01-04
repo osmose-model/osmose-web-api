@@ -301,6 +301,39 @@ public class ConfigUtilTest {
         assertThat(getTestFactory().streamMap.keySet(), hasItems("osm_param-species.csv", "osm_param-starvation.csv"));
     }
 
+    @Test
+    public void generateAllParametersFor() throws IOException {
+        List<String> groupNames = Arrays.asList("speciesA", "speciesB", "speciesC");
+
+        ConfigUtil.generateAllParametersFor(groupNames, getTestFactory());
+
+        assertThat(getTestFactory().stringOutputFor("osm_all-parameters.csv"), is(
+                "\nsimulation.time.ndtPerYear;12\n" +
+                "simulation.time.nyear;134\n" +
+                "simulation.restart.file;null\n" +
+                "output.restart.recordfrequency.ndt;60\n" +
+                "output.restart.spinup;114\n" +
+                "simulation.nschool;20\n" +
+                "simulation.ncpu;8\n" +
+                "simulation.nplankton;9\n" +
+                "simulation.nsimulation;10\n" +
+                "simulation.nspecies;3\n" +
+                "mortality.algorithm;stochastic\n" +
+                "mortality.subdt;10\n" +
+                "osmose.configuration.output;osm_param-output.csv\n" +
+                "osmose.configuration.movement;osm_param-movement.csv\n" +
+                "osmose.configuration.mpa;osm_param-mpa.csv\n" +
+                "osmose.configuration.mortality.fishing;osm_param-fishing.csv\n" +
+                "osmose.configuration.mortality.natural;osm_param-natural-mortality.csv\n" +
+                "osmose.configuration.mortality.predation;osm_param-predation.csv\n" +
+                "osmose.configuration.mortality.starvation;osm_param-starvation.csv\n" +
+                "osmose.configuration.reproduction;osm_param-reproduction.csv\n" +
+                "osmose.configuration.species;osm_param-species.csv\n" +
+                "osmose.configuration.plankton;osm_param-ltl.csv\n" +
+                "osmose.configuration.grid;osm_param-grid.csv\n" +
+                "osmose.configuration.initialization;osm_param-init-pop.csv"));
+    }
+
 
     private class StreamFactoryMemory implements StreamFactory {
         private final Map<String, ByteArrayOutputStream> streamMap = new TreeMap<String, ByteArrayOutputStream>();

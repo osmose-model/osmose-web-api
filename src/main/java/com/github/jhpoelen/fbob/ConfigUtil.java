@@ -219,6 +219,35 @@ public class ConfigUtil {
         writeParamLines(groupNames, "predation.predPrey.stage.threshold.sp", "0.0", os);
     }
 
+    public static void generateAllParametersFor(List<String> groupNames, StreamFactory factory) throws IOException {
+        OutputStream os = factory.outputStreamFor("osm_all-parameters.csv");
+        writeLine(os, Arrays.asList("simulation.time.ndtPerYear", "12"));
+        writeLine(os, Arrays.asList("simulation.time.nyear", "134"));
+        writeLine(os, Arrays.asList("simulation.restart.file", "null"));
+        writeLine(os, Arrays.asList("output.restart.recordfrequency.ndt", "60"));
+        writeLine(os, Arrays.asList("output.restart.spinup", "114"));
+        writeLine(os, Arrays.asList("simulation.nschool", "20"));
+        writeLine(os, Arrays.asList("simulation.ncpu", "8"));
+        writeLine(os, Arrays.asList("simulation.nplankton","9"));
+        writeLine(os, Arrays.asList("simulation.nsimulation","10"));
+        writeLine(os, Arrays.asList("simulation.nspecies",Integer.toString(groupNames.size())));
+        writeLine(os, Arrays.asList("mortality.algorithm", "stochastic"));
+        writeLine(os, Arrays.asList("mortality.subdt", "10"));
+        writeLine(os, Arrays.asList("osmose.configuration.output", "osm_param-output.csv"));
+        writeLine(os, Arrays.asList("osmose.configuration.movement", "osm_param-movement.csv"));
+        writeLine(os, Arrays.asList("osmose.configuration.mpa", "osm_param-mpa.csv"));
+        writeLine(os, Arrays.asList("osmose.configuration.mortality.fishing", "osm_param-fishing.csv"));
+        writeLine(os, Arrays.asList("osmose.configuration.mortality.natural", "osm_param-natural-mortality.csv"));
+        writeLine(os, Arrays.asList("osmose.configuration.mortality.predation", "osm_param-predation.csv"));
+        writeLine(os, Arrays.asList("osmose.configuration.mortality.starvation", "osm_param-starvation.csv"));
+        writeLine(os, Arrays.asList("osmose.configuration.reproduction", "osm_param-reproduction.csv"));
+        writeLine(os, Arrays.asList("osmose.configuration.species", "osm_param-species.csv"));
+        writeLine(os, Arrays.asList("osmose.configuration.plankton", "osm_param-ltl.csv"));
+        writeLine(os, Arrays.asList("osmose.configuration.grid", "osm_param-grid.csv"));
+        writeLine(os, Arrays.asList("osmose.configuration.initialization", "osm_param-init-pop.csv"));
+
+    }
+
     public static void generateOutputParamsFor(List<String> groupNames, StreamFactory factory) throws IOException {
         OutputStream os = factory.outputStreamFor("osm_param-output.csv");
         IOUtils.copy(IOUtils.toInputStream(OUTPUT_DEFAULTS, "UTF-8"), os);
@@ -297,6 +326,7 @@ public class ConfigUtil {
     }
 
     public static void generateConfigFor(List<String> groupNames, StreamFactory factory) throws IOException {
+        generateAllParametersFor(groupNames, factory);
         generateFishingParametersFor(groupNames, factory);
         generateInitBiomassFor(groupNames, factory);
         generateMaps(groupNames, factory);
