@@ -15,11 +15,8 @@ import java.util.Set;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-import static junit.framework.Assert.assertTrue;
-import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNull.notNullValue;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.matchers.JUnitMatchers.hasItem;
 import static org.junit.matchers.JUnitMatchers.hasItems;
@@ -69,7 +66,7 @@ public class ConfigTest {
 
     @Test
     public void configForGroupNames() throws IOException {
-        final StreamingOutput streamingOutput = Config.asStream(Arrays.asList("one", "two"));
+        final StreamingOutput streamingOutput = Config.asStream(Arrays.asList("one", "two"), Arrays.asList("implicitOne", "implicitTwo"));
         ByteArrayOutputStream os = new ByteArrayOutputStream();
         streamingOutput.write(os);
         ZipInputStream zip = new ZipInputStream(new ByteArrayInputStream(os.toByteArray()));

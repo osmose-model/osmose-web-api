@@ -16,6 +16,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.StreamingOutput;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.regex.Pattern;
@@ -61,25 +62,30 @@ public class Config {
 
     @GET
     @Produces("application/zip")
-    public Response configTemplate(@QueryParam("groupName") final List<String> groupNames) throws IOException {
+    public Response configTemplate(@QueryParam("groupName") final List<String> groupNames,
+                                   @QueryParam("implicitGroupName") final List<String> implicitGroupNames) throws IOException {
         Response response;
         if (groupNames == null || groupNames.size() == 0) {
             response = configArchive();
         } else {
             response = Response
-                    .ok(asStream(groupNames))
+                    .ok(asStream(groupNames, implicitGroupNames == null ? new ArrayList<String>() {
+                        {
+                            add("Diatoms");
+                        }
+                    } : implicitGroupNames))
                     .header("Content-Disposition", "attachment; filename=osmose_config.zip")
                     .build();
         }
         return response;
     }
 
-    public static StreamingOutput asStream(final List<String> groupNames) {
+    public static StreamingOutput asStream(final List<String> groupNames, final List<String> implicitGroupNames) {
         return new StreamingOutput() {
             @Override
             public void write(OutputStream os) throws IOException, WebApplicationException {
                 ZipOutputStream zos = new ZipOutputStream(os);
-                ConfigUtil.generateConfigFor(groupNames, new StreamFactory() {
+                ConfigUtil.generateConfigFor(groupNames, implicitGroupNames, new StreamFactory() {
                     @Override
                     public OutputStream outputStreamFor(String name) throws IOException {
                         ZipEntry e = new ZipEntry(name);

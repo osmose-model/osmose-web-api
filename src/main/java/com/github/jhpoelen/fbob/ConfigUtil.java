@@ -326,21 +326,7 @@ public class ConfigUtil {
         writeLine(os, Arrays.asList(prefix + ".species", groupName));
     }
 
-    public static void generateConfigFor(List<String> groupNames, StreamFactory factory) throws IOException {
-        final ArrayList<String> implicitGroupNames = new ArrayList<String>() {
-            {
-                add("Small_phytoplankton");
-                add("Diatoms");
-                add("Microzooplankton");
-                add("Mesozooplankton");
-                add("Meiofauna");
-                add("Small_infauna");
-                add("Small_mobile_epifauna");
-                add("Bivalves");
-                add("Echinoderms_and_large_gastropods");
-            }
-        };
-
+    public static void generateConfigFor(List<String> groupNames, List<String> implicitGroupNames, StreamFactory factory) throws IOException {
         generateAllParametersFor(groupNames, implicitGroupNames, factory);
         generateFishingParametersFor(groupNames, factory);
         generateInitBiomassFor(groupNames, factory);
