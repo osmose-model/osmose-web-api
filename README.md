@@ -1,6 +1,8 @@
 # fb-osmose-bridge
 generates Osmose configuration files from data sources like Fishbase and SeaLifeBase
 
+[![Build Status](https://travis-ci.org/jhpoelen/fb-osmose-bridge.png)](https://travis-ci.org/jhpoelen/fb-osmose-bridge)
+
 # usage
 
 1. download osmose 3 update 2 from http://www.osmose-model.org/downloads
