@@ -9,6 +9,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ConfigUtil {
     public static final List<String> YEAR_PARTS = Arrays.asList("0.0", "0.083333336", "0.16666667", "0.25", "0.33333334", "0.41666666", "0.5", "0.5833333", "0.6666667", "0.75", "0.8333333", "0.9166667");
@@ -219,7 +220,7 @@ public class ConfigUtil {
         writeParamLines(groupNames, "predation.predPrey.stage.threshold.sp", "0.0", os);
     }
 
-    public static void generateAllParametersFor(List<String> groupNames, StreamFactory factory) throws IOException {
+    public static void generateAllParametersFor(List<String> groupNames, List<String> implicitGroupNames, StreamFactory factory) throws IOException {
         OutputStream os = factory.outputStreamFor("osm_all-parameters.csv");
         writeLine(os, Arrays.asList("simulation.time.ndtPerYear", "12"));
         writeLine(os, Arrays.asList("simulation.time.nyear", "134"));
@@ -228,9 +229,9 @@ public class ConfigUtil {
         writeLine(os, Arrays.asList("output.restart.spinup", "114"));
         writeLine(os, Arrays.asList("simulation.nschool", "20"));
         writeLine(os, Arrays.asList("simulation.ncpu", "8"));
-        writeLine(os, Arrays.asList("simulation.nplankton","9"));
-        writeLine(os, Arrays.asList("simulation.nsimulation","10"));
-        writeLine(os, Arrays.asList("simulation.nspecies",Integer.toString(groupNames.size())));
+        writeLine(os, Arrays.asList("simulation.nplankton", Integer.toString(implicitGroupNames.size())));
+        writeLine(os, Arrays.asList("simulation.nsimulation", "10"));
+        writeLine(os, Arrays.asList("simulation.nspecies", Integer.toString(groupNames.size())));
         writeLine(os, Arrays.asList("mortality.algorithm", "stochastic"));
         writeLine(os, Arrays.asList("mortality.subdt", "10"));
         writeLine(os, Arrays.asList("osmose.configuration.output", "osm_param-output.csv"));
@@ -326,16 +327,55 @@ public class ConfigUtil {
     }
 
     public static void generateConfigFor(List<String> groupNames, StreamFactory factory) throws IOException {
-        generateAllParametersFor(groupNames, factory);
+        final ArrayList<String> implicitGroupNames = new ArrayList<String>() {
+            {
+                add("Small_phytoplankton");
+                add("Diatoms");
+                add("Microzooplankton");
+                add("Mesozooplankton");
+                add("Meiofauna");
+                add("Small_infauna");
+                add("Small_mobile_epifauna");
+                add("Bivalves");
+                add("Echinoderms_and_large_gastropods");
+            }
+        };
+
+        generateAllParametersFor(groupNames, implicitGroupNames, factory);
         generateFishingParametersFor(groupNames, factory);
         generateInitBiomassFor(groupNames, factory);
         generateMaps(groupNames, factory);
         generateNaturalMortalityFor(groupNames, factory);
         generateOutputParamsFor(groupNames, factory);
         generatePredationFor(groupNames, factory);
+        generatePredationAccessibilityFor(groupNames, implicitGroupNames, factory);
         generateSeasonalReproductionFor(groupNames, factory);
         generateSpecies(groupNames, factory);
         generateStarvationFor(groupNames, factory);
         generateStatic(factory);
+    }
+
+    public static void generatePredationAccessibilityFor(List<String> groupNames, List<String> implicitGroupNames, StreamFactory factory) throws IOException {
+        List<String> columnHeaders = new ArrayList<String>();
+        for (String groupName : groupNames) {
+            columnHeaders.add(groupName + " < 0.0 year");
+            columnHeaders.add(groupName + " > 0.0 year");
+        }
+        columnHeaders.addAll(implicitGroupNames.stream().collect(Collectors.toList()));
+
+        OutputStream outputStream = factory.outputStreamFor("predation-accessibility.csv");
+        writeLine(outputStream, new ArrayList<String>() {{
+            add("v Prey / Predator >");
+            addAll(columnHeaders);
+        }}, false);
+
+        for (String header : columnHeaders) {
+            List<String> row = new ArrayList<String>();
+            row.add(header);
+            for (int i = 0; i < columnHeaders.size(); i++) {
+                row.add("0.0");
+            }
+            writeLine(outputStream, row);
+        }
     }
 }

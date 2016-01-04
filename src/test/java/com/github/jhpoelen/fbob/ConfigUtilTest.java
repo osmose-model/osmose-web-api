@@ -13,7 +13,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-import java.util.stream.Collectors;
 
 import static junit.framework.Assert.assertEquals;
 import static org.hamcrest.CoreMatchers.not;
@@ -209,7 +208,7 @@ public class ConfigUtilTest {
             }
         };
 
-        generatePredationAccessibilityFor(groupNames, implicitGroupNames, factory);
+        ConfigUtil.generatePredationAccessibilityFor(groupNames, implicitGroupNames, factory);
         // including the "implicit" functional groups
         String expectedPredationAccessibility = "v Prey / Predator >;groupNameOne < 0.0 year;groupNameOne > 0.0 year;groupNameTwo < 0.0 year;groupNameTwo > 0.0 year;Small_phytoplankton;Diatoms;Microzooplankton;Mesozooplankton;Meiofauna;Small_infauna;Small_mobile_epifauna;Bivalves;Echinoderms_and_large_gastropods\n" +
                 "groupNameOne < 0.0 year;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0\n" +
@@ -228,30 +227,6 @@ public class ConfigUtilTest {
 
 
         assertEquals(expectedPredationAccessibility, (getTestFactory()).stringOutputFor("predation-accessibility.csv"));
-    }
-
-    private void generatePredationAccessibilityFor(List<String> groupNames, List<String> implicitGroupNames, StreamFactory factory) throws IOException {
-        List<String> columnHeaders = new ArrayList<String>();
-        for (String groupName : groupNames) {
-            columnHeaders.add(groupName + " < 0.0 year");
-            columnHeaders.add(groupName + " > 0.0 year");
-        }
-        columnHeaders.addAll(implicitGroupNames.stream().collect(Collectors.toList()));
-
-        OutputStream outputStream = factory.outputStreamFor("predation-accessibility.csv");
-        ConfigUtil.writeLine(outputStream, new ArrayList() {{
-            add("v Prey / Predator >");
-            addAll(columnHeaders);
-        }}, false);
-
-        for (String header : columnHeaders) {
-            List<String> row = new ArrayList<String>();
-            row.add(header);
-            for (int i = 0; i < columnHeaders.size(); i++) {
-                row.add("0.0");
-            }
-            ConfigUtil.writeLine(outputStream, row);
-        }
     }
 
     @Test
@@ -304,8 +279,9 @@ public class ConfigUtilTest {
     @Test
     public void generateAllParametersFor() throws IOException {
         List<String> groupNames = Arrays.asList("speciesA", "speciesB", "speciesC");
+        List<String> implicitGroupNames = Arrays.asList("planktonA", "planktopB", "planktonC");
 
-        ConfigUtil.generateAllParametersFor(groupNames, getTestFactory());
+        ConfigUtil.generateAllParametersFor(groupNames, implicitGroupNames, getTestFactory());
 
         assertThat(getTestFactory().stringOutputFor("osm_all-parameters.csv"), is(
                 "\nsimulation.time.ndtPerYear;12\n" +
@@ -315,7 +291,7 @@ public class ConfigUtilTest {
                 "output.restart.spinup;114\n" +
                 "simulation.nschool;20\n" +
                 "simulation.ncpu;8\n" +
-                "simulation.nplankton;9\n" +
+                "simulation.nplankton;3\n" +
                 "simulation.nsimulation;10\n" +
                 "simulation.nspecies;3\n" +
                 "mortality.algorithm;stochastic\n" +

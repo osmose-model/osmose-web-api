@@ -90,6 +90,7 @@ public class ConfigTest {
                 "osm_param-natural-mortality.csv",
                 "osm_param-output.csv",
                 "osm_param-predation.csv",
+                "predation-accessibility.csv",
                 "osm_param-reproduction.csv",
                 "reproduction-seasonality-sp0.csv",
                 "reproduction-seasonality-sp1.csv",
