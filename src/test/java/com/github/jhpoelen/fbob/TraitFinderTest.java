@@ -70,6 +70,6 @@ public class TraitFinderTest {
                 speciesProperties.put("species.lifespan", longevityWild.asText());
             }
         }
-        assertThat(speciesProperties.get("species.lifespan"), is("14"));
+        assertThat(speciesProperties.get("species.lifespan"), is("14.0"));
     }
 }
