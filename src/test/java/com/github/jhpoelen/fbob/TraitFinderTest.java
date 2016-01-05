@@ -28,7 +28,7 @@ public class TraitFinderTest {
         String expectedUrl = "Genus=Scomberomorus&Species=cavalla";
         assertThat(query, is(expectedUrl));
         URI uri = uriForFishbaseSpeciesQuery(query);
-        assertThat(uri.toString(), is("bla"));
+        assertThat(uri.toString(), is("https://fishbase.ropensci.org/species?Genus=Scomberomorus&Species=cavalla"));
     }
 
 

@@ -63,9 +63,9 @@ public class Config {
 
     @GET
     @Produces("application/zip")
-    public Response configTemplate(@QueryParam("htlGroupName") final List<String> groupNames) throws IOException {
+    public Response configTemplate(@QueryParam("htlGroupName") final List<String> htlGroupNames) throws IOException {
         Response response;
-        if (groupNames == null || groupNames.size() == 0) {
+        if (htlGroupNames == null || htlGroupNames.size() == 0) {
             response = configArchive();
         } else {
             List<String> ltlGroupNames = Arrays.asList(
@@ -80,7 +80,7 @@ public class Config {
                     "EchinodermsAndLargeGastropods"
             );
             response = Response
-                    .ok(asStream(groupNames, ltlGroupNames))
+                    .ok(asStream(htlGroupNames, ltlGroupNames))
                     .header("Content-Disposition", "attachment; filename=osmose_config.zip")
                     .build();
         }
