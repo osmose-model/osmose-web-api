@@ -8,7 +8,9 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class ConfigUtil {
@@ -170,30 +172,32 @@ public class ConfigUtil {
         }
     }
 
-    public static void generateSpecies(List<String> groupNames, StreamFactory factory) throws IOException {
+    public static void generateSpecies(List<String> groupNames, StreamFactory factory, ValueFactory valueFactory) throws IOException {
         OutputStream os = factory.outputStreamFor("osm_param-species.csv");
         for (String groupName : groupNames) {
             int i = groupNames.indexOf(groupName);
             writeLine(os, Arrays.asList("species.name.sp" + i, groupName), i > 0);
         }
-        writeParamLines(groupNames, "species.egg.size.sp", "0.1", os);
-        writeParamLines(groupNames, "species.egg.weight.sp", "0.0005386", os);
-        writeParamLines(groupNames, "species.K.sp", "0.0", os);
-        writeParamLines(groupNames, "species.length2weight.allometric.power.sp", "0.0", os);
-        writeParamLines(groupNames, "species.length2weight.condition.factor.sp", "0.0", os);
-        writeParamLines(groupNames, "species.lifespan.sp", "0", os);
-        writeParamLines(groupNames, "species.lInf.sp", "0.0", os);
-        writeParamLines(groupNames, "species.maturity.size.sp", "0.0", os);
-        writeParamLines(groupNames, "species.relativefecundity.sp", "0", os);
-        writeParamLines(groupNames, "species.sexratio.sp", "0.0", os);
-        writeParamLines(groupNames, "species.t0.sp", "0.0", os);
-        writeParamLines(groupNames, "species.vonbertalanffy.threshold.age.sp", "0.0", os);
-        writeParamLines(groupNames, "species.length2weight.fl.sp", "false", os);
+
+        writeParamLines(groupNames, "species.egg.size.sp", valueFactory, os);
+        writeParamLines(groupNames, "species.egg.weight.sp", valueFactory, os);
+        writeParamLines(groupNames, "species.K.sp", valueFactory, os);
+        writeParamLines(groupNames, "species.length2weight.allometric.power.sp", valueFactory, os);
+        writeParamLines(groupNames, "species.length2weight.condition.factor.sp", valueFactory, os);
+        writeParamLines(groupNames, "species.lifespan.sp", valueFactory, os);
+        writeParamLines(groupNames, "species.lInf.sp", valueFactory, os);
+        writeParamLines(groupNames, "species.maturity.size.sp", valueFactory, os);
+        writeParamLines(groupNames, "species.relativefecundity.sp", valueFactory, os);
+        writeParamLines(groupNames, "species.sexratio.sp", valueFactory, os);
+        writeParamLines(groupNames, "species.t0.sp", valueFactory, os);
+        writeParamLines(groupNames, "species.vonbertalanffy.threshold.age.sp", valueFactory, os);
+        writeParamLines(groupNames, "species.length2weight.fl.sp", valueFactory, os);
     }
 
-    public static void writeParamLines(List<String> groupNames, String paramPrefix, String paramValue, OutputStream os) throws IOException {
+    public static void writeParamLines(List<String> groupNames, String paramPrefix, ValueFactory valueFactory, OutputStream os) throws IOException {
         for (String groupName : groupNames) {
-            writeLine(os, Arrays.asList(paramPrefix + groupNames.indexOf(groupName), paramValue));
+            final String paramName = paramPrefix + groupNames.indexOf(groupName);
+            writeLine(os, Arrays.asList(paramName, valueFactory.valueFor(paramPrefix)));
         }
     }
 
@@ -207,17 +211,17 @@ public class ConfigUtil {
         }
     }
 
-    public static void generatePredationFor(List<String> groupNames, StreamFactory factory) throws IOException {
+    public static void generatePredationFor(List<String> groupNames, StreamFactory factory, ValueFactory valueFactory) throws IOException {
         OutputStream os = factory.outputStreamFor("osm_param-predation.csv");
         writeLine(os, Arrays.asList("predation.accessibility.file", "predation-accessibility.csv"), false);
         writeLine(os, Arrays.asList("predation.accessibility.stage.structure", "age"));
-        writeParamLines(groupNames, "predation.accessibility.stage.threshold.sp", "0.0", os);
-        writeParamLines(groupNames, "predation.efficiency.critical.sp", "0.57", os);
-        writeParamLines(groupNames, "predation.ingestion.rate.max.sp", "3.5", os);
+        writeParamLines(groupNames, "predation.accessibility.stage.threshold.sp", valueFactory, os);
+        writeParamLines(groupNames, "predation.efficiency.critical.sp", valueFactory, os);
+        writeParamLines(groupNames, "predation.ingestion.rate.max.sp", valueFactory, os);
         writeParamLines(groupNames, "predation.predPrey.sizeRatio.max.sp", Arrays.asList("0.0", "0.0"), os);
         writeParamLines(groupNames, "predation.predPrey.sizeRatio.min.sp", Arrays.asList("0.0", "0.0"), os);
         writeLine(os, Arrays.asList("predation.predPrey.stage.structure", "size"));
-        writeParamLines(groupNames, "predation.predPrey.stage.threshold.sp", "0.0", os);
+        writeParamLines(groupNames, "predation.predPrey.stage.threshold.sp", valueFactory, os);
     }
 
     public static void generateAllParametersFor(List<String> groupNames, List<String> implicitGroupNames, StreamFactory factory) throws IOException {
@@ -249,28 +253,28 @@ public class ConfigUtil {
 
     }
 
-    public static void generateOutputParamsFor(List<String> groupNames, StreamFactory factory) throws IOException {
+    public static void generateOutputParamsFor(List<String> groupNames, StreamFactory factory, ValueFactory valueFactory) throws IOException {
         OutputStream os = factory.outputStreamFor("osm_param-output.csv");
         IOUtils.copy(IOUtils.toInputStream(OUTPUT_DEFAULTS, "UTF-8"), os);
 
         writeLine(os, Arrays.asList("output.cutoff.enabled", "true"));
-        writeParamLines(groupNames, "output.cutoff.age.sp", "0.0", os);
+        writeParamLines(groupNames, "output.cutoff.age.sp", valueFactory, os);
         writeLine(os, Arrays.asList("output.diet.stage.structure", "agesize"));
         writeParamLines(groupNames, "output.diet.stage.threshold.sp", Arrays.asList("0.0", "0.0", "0.0"), os);
     }
 
-    public static void generateNaturalMortalityFor(List<String> groupNames, StreamFactory factory) throws IOException {
+    public static void generateNaturalMortalityFor(List<String> groupNames, StreamFactory factory, ValueFactory valueFactory) throws IOException {
         OutputStream os = factory.outputStreamFor("osm_param-natural-mortality.csv");
 
         writeLine(os, Arrays.asList("mortality.natural.larva.rate.file", "null"), false);
-        writeParamLines(groupNames, "mortality.natural.larva.rate.sp", "0.0", os);
+        writeParamLines(groupNames, "mortality.natural.larva.rate.sp", valueFactory, os);
         writeLine(os, Arrays.asList("mortality.natural.rate.file", "null"));
-        writeParamLines(groupNames, "mortality.natural.rate.sp", "0.0", os);
+        writeParamLines(groupNames, "mortality.natural.rate.sp", valueFactory, os);
     }
 
-    public static void generateInitBiomassFor(List<String> groupNames, StreamFactory factory) throws IOException {
+    public static void generateInitBiomassFor(List<String> groupNames, StreamFactory factory, ValueFactory valueFactory) throws IOException {
         OutputStream os = factory.outputStreamFor("osm_param-init-pop.csv");
-        writeParamLines(groupNames, "population.seeding.biomass.sp", "0.0", os);
+        writeParamLines(groupNames, "population.seeding.biomass.sp", valueFactory, os);
     }
 
 
@@ -286,10 +290,10 @@ public class ConfigUtil {
         IOUtils.copy(ConfigUtil.class.getResourceAsStream("osmose_config/" + staticTemplate), os);
     }
 
-    public static void generateMaps(List<String> groupNames, StreamFactory factory) throws IOException {
+    public static void generateMaps(List<String> groupNames, StreamFactory factory, ValueFactory valueFactory) throws IOException {
         OutputStream maskOs = factory.outputStreamFor("grid-mask.csv");
         IOUtils.copy(ConfigUtil.class.getResourceAsStream("osmose_config/grid-mask.csv"), maskOs);
-        generateMovementConfig(groupNames, factory);
+        generateMovementConfig(groupNames, factory, valueFactory);
         generateMovementMapTemplates(groupNames, factory);
     }
 
@@ -302,10 +306,10 @@ public class ConfigUtil {
         }
     }
 
-    public static void generateMovementConfig(List<String> groupNames, StreamFactory factory) throws IOException {
+    public static void generateMovementConfig(List<String> groupNames, StreamFactory factory, ValueFactory valueFactory) throws IOException {
         OutputStream os = factory.outputStreamFor("osm_param-movement.csv");
-        writeParamLines(groupNames, "movement.distribution.method.sp", "maps", os);
-        writeParamLines(groupNames, "movement.randomwalk.range.sp", "1", os);
+        writeParamLines(groupNames, "movement.distribution.method.sp", valueFactory, os);
+        writeParamLines(groupNames, "movement.randomwalk.range.sp", valueFactory, os);
         int nMaps = 0;
         for (String groupName : groupNames) {
             addMapForGroup(os, nMaps, groupName, getMapName(nMaps, groupName));
@@ -327,18 +331,66 @@ public class ConfigUtil {
     }
 
     public static void generateConfigFor(List<String> groupNames, List<String> implicitGroupNames, StreamFactory factory) throws IOException {
+        final ValueFactory valueFactory = getValueFactory();
+
         generateAllParametersFor(groupNames, implicitGroupNames, factory);
         generateFishingParametersFor(groupNames, factory);
-        generateInitBiomassFor(groupNames, factory);
-        generateMaps(groupNames, factory);
-        generateNaturalMortalityFor(groupNames, factory);
-        generateOutputParamsFor(groupNames, factory);
-        generatePredationFor(groupNames, factory);
+        generateInitBiomassFor(groupNames, factory, valueFactory);
+        generateMaps(groupNames, factory, valueFactory);
+        generateNaturalMortalityFor(groupNames, factory, valueFactory);
+        generateOutputParamsFor(groupNames, factory, valueFactory);
+        generatePredationFor(groupNames, factory, valueFactory);
         generatePredationAccessibilityFor(groupNames, implicitGroupNames, factory);
         generateSeasonalReproductionFor(groupNames, factory);
-        generateSpecies(groupNames, factory);
+
+        generateSpecies(groupNames, factory, valueFactory);
         generateStarvationFor(groupNames, factory);
         generateStatic(factory);
+    }
+
+    public static ValueFactory getValueFactory() {
+        return new ValueFactory() {
+            Map<String, String> defaults = new HashMap<String, String>() {{
+                put("species.egg.size.sp", "0.1");
+                put("species.egg.weight.sp", "0.0005386");
+                put("species.K.sp", "0.0");
+                put("species.length2weight.allometric.power.sp", "0.0");
+                put("species.length2weight.condition.factor.sp", "0.0");
+                put("species.lifespan.sp", "0");
+                put("species.lInf.sp", "0.0");
+                put("species.maturity.size.sp", "0.0");
+                put("species.relativefecundity.sp", "0");
+                put("species.sexratio.sp", "0.0");
+                put("species.t0.sp", "0.0");
+                put("species.length2weight.fl.sp", "false");
+                put("species.vonbertalanffy.threshold.age.sp", "0.0");
+
+                put("predation.accessibility.stage.threshold.sp", "0.0");
+                put("predation.efficiency.critical.sp", "0.57");
+                put("predation.ingestion.rate.max.sp", "3.5");
+                put("predation.predPrey.stage.threshold.sp", "0.0");
+
+                put("movement.distribution.method.sp", "maps");
+                put("movement.randomwalk.range.sp", "1");
+
+                put("population.seeding.biomass.sp", "0.0");
+
+                put("mortality.natural.larva.rate.sp", "0.0");
+                put("mortality.natural.rate.sp", "0.0");
+
+                put("output.cutoff.age.sp", "0.0");
+
+                put("predation.predPrey.stage.threshold.sp", "0.0");
+                put("predation.ingestion.rate.max.sp", "3.5");
+                put("predation.efficiency.critical.sp", "0.57");
+                put("predation.accessibility.stage.threshold.sp", "0.0");
+            }};
+
+            @Override
+            public String valueFor(String name) {
+                return defaults.get(name);
+            }
+        };
     }
 
     public static void generatePredationAccessibilityFor(List<String> groupNames, List<String> implicitGroupNames, StreamFactory factory) throws IOException {

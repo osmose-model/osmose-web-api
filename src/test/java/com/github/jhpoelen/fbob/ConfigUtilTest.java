@@ -10,6 +10,7 @@ import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -82,15 +83,19 @@ public class ConfigUtilTest {
         List<String> groupNames = Arrays.asList("groupOne", "groupTwo");
         StreamFactoryMemory factory = getTestFactory();
 
-        ConfigUtil.generateSpecies(groupNames, factory);
+        ConfigUtil.generateSpecies(groupNames, factory, getTestValueFactory());
 
         String asExpected = "species.name.sp0;groupOne\nspecies.name.sp1;groupTwo\nspecies.egg.size.sp0;0.1\nspecies.egg.size.sp1;0.1\nspecies.egg.weight.sp0;0.0005386\nspecies.egg.weight.sp1;0.0005386\nspecies.K.sp0;0.0\nspecies.K.sp1;0.0\nspecies.length2weight.allometric.power.sp0;0.0\nspecies.length2weight.allometric.power.sp1;0.0\nspecies.length2weight.condition.factor.sp0;0.0\nspecies.length2weight.condition.factor.sp1;0.0\nspecies.lifespan.sp0;0\nspecies.lifespan.sp1;0\nspecies.lInf.sp0;0.0\nspecies.lInf.sp1;0.0\nspecies.maturity.size.sp0;0.0\nspecies.maturity.size.sp1;0.0\nspecies.relativefecundity.sp0;0\nspecies.relativefecundity.sp1;0\nspecies.sexratio.sp0;0.0\nspecies.sexratio.sp1;0.0\nspecies.t0.sp0;0.0\nspecies.t0.sp1;0.0\nspecies.vonbertalanffy.threshold.age.sp0;0.0\nspecies.vonbertalanffy.threshold.age.sp1;0.0\nspecies.length2weight.fl.sp0;false\nspecies.length2weight.fl.sp1;false";
         assertThat(getTestFactory().stringOutputFor("osm_param-species.csv"), is(asExpected));
     }
 
+    public ValueFactory getTestValueFactory() {
+        return ConfigUtil.getValueFactory();
+    }
+
     @Test
     public void movementMapAgeRanges() throws IOException {
-        ConfigUtil.generateMaps(Arrays.asList("speciesOne", "speciesTwo"), getTestFactory());
+        ConfigUtil.generateMaps(Arrays.asList("speciesOne", "speciesTwo"), getTestFactory(), getTestValueFactory());
 
         assertThat(getTestFactory().stringOutputFor("grid-mask.csv"), is(notNullValue()));
         assertThat(getTestFactory().stringOutputFor("osm_param-movement.csv"), is(notNullValue()));
@@ -140,7 +145,7 @@ public class ConfigUtilTest {
     public void output() throws IOException {
         List<String> groupNames = Arrays.asList("groupNameOne", "groupNameTwo");
 
-        ConfigUtil.generateOutputParamsFor(groupNames, factory);
+        ConfigUtil.generateOutputParamsFor(groupNames, factory, getTestValueFactory());
 
         assertThat(getTestFactory().stringOutputFor("osm_param-output.csv"), containsString("output.diet.stage.threshold.sp1"));
         assertThat(getTestFactory().stringOutputFor("osm_param-output.csv"), not(containsString("output.diet.stage.threshold.sp2")));
@@ -152,7 +157,7 @@ public class ConfigUtilTest {
     public void naturalMortality() throws IOException {
         List<String> groupNames = Arrays.asList("groupName1", "groupName2");
 
-        ConfigUtil.generateNaturalMortalityFor(groupNames, factory);
+        ConfigUtil.generateNaturalMortalityFor(groupNames, factory, getTestValueFactory());
 
         String expected = "mortality.natural.larva.rate.file;null" +
                 "\nmortality.natural.larva.rate.sp0;0.0" +
@@ -168,7 +173,7 @@ public class ConfigUtilTest {
         List<String> groupNames = Arrays.asList("groupNameOne", "groupNameTwo");
         StreamFactoryMemory factory = getTestFactory();
 
-        ConfigUtil.generatePredationFor(groupNames, factory);
+        ConfigUtil.generatePredationFor(groupNames, factory, getTestValueFactory());
         String expectedPredationParams = "predation.accessibility.file;predation-accessibility.csv" +
                 "\npredation.accessibility.stage.structure;age" +
                 "\npredation.accessibility.stage.threshold.sp0;0.0" +
