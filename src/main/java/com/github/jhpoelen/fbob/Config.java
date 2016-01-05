@@ -16,7 +16,6 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.StreamingOutput;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
@@ -79,15 +78,20 @@ public class Config {
                     "Bivalves",
                     "EchinodermsAndLargeGastropods"
             );
+            final List<ValueFactory> valueFactories = Arrays.asList(
+                    ConfigUtil.getFishbaseValueFactory(),
+                    ConfigUtil.getValueFactory());
+            final ValueFactory valueFactory = ConfigUtil.getProxyValueFactory(valueFactories);
+
             response = Response
-                    .ok(asStream(htlGroupNames, ltlGroupNames))
+                    .ok(asStream(htlGroupNames, ltlGroupNames, valueFactory))
                     .header("Content-Disposition", "attachment; filename=osmose_config.zip")
                     .build();
         }
         return response;
     }
 
-    public static StreamingOutput asStream(final List<String> groupNames, final List<String> implicitGroupNames) {
+    public static StreamingOutput asStream(final List<String> groupNames, final List<String> implicitGroupNames, final ValueFactory valueFactory) {
         return new StreamingOutput() {
             @Override
             public void write(OutputStream os) throws IOException, WebApplicationException {
@@ -99,7 +103,7 @@ public class Config {
                         zos.putNextEntry(e);
                         return zos;
                     }
-                });
+                }, valueFactory);
                 close(zos);
             }
         };

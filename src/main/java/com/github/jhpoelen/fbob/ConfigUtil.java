@@ -6,6 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -197,7 +198,7 @@ public class ConfigUtil {
     public static void writeParamLines(List<String> groupNames, String paramPrefix, ValueFactory valueFactory, OutputStream os) throws IOException {
         for (String groupName : groupNames) {
             final String paramName = paramPrefix + groupNames.indexOf(groupName);
-            writeLine(os, Arrays.asList(paramName, valueFactory.valueFor(paramPrefix)));
+            writeLine(os, Arrays.asList(paramName, valueFactory.valueForInGroup(paramPrefix, groupName)));
         }
     }
 
@@ -330,9 +331,7 @@ public class ConfigUtil {
         writeLine(os, Arrays.asList(prefix + ".species", groupName));
     }
 
-    public static void generateConfigFor(List<String> groupNames, List<String> implicitGroupNames, StreamFactory factory) throws IOException {
-        final ValueFactory valueFactory = getValueFactory();
-
+    public static void generateConfigFor(List<String> groupNames, List<String> implicitGroupNames, StreamFactory factory, ValueFactory valueFactory) throws IOException {
         generateAllParametersFor(groupNames, implicitGroupNames, factory);
         generateFishingParametersFor(groupNames, factory);
         generateInitBiomassFor(groupNames, factory, valueFactory);
@@ -346,6 +345,22 @@ public class ConfigUtil {
         generateSpecies(groupNames, factory, valueFactory);
         generateStarvationFor(groupNames, factory);
         generateStatic(factory);
+    }
+
+    public static ValueFactory getProxyValueFactory(List<ValueFactory> valueFactories) {
+        return new ValueFactory() {
+            @Override
+            public String valueForInGroup(String name, String groupName) {
+                String value = null;
+                for (ValueFactory valueFactory : valueFactories) {
+                    value = valueFactory.valueForInGroup(name, groupName);
+                    if (StringUtils.isNotBlank(value)) {
+                        break;
+                    }
+                }
+                return value;
+            }
+        };
     }
 
     public static ValueFactory getValueFactory() {
@@ -387,8 +402,32 @@ public class ConfigUtil {
             }};
 
             @Override
-            public String valueFor(String name) {
+            public String valueForInGroup(String name, String groupName) {
                 return defaults.get(name);
+            }
+        };
+    }
+
+    public static ValueFactory getFishbaseValueFactory() {
+        return new ValueFactory() {
+            Map<String, Map<String, String>> groupDefaults = new HashMap<String, Map<String, String>>();
+
+            @Override
+            public String valueForInGroup(String name, String groupName) {
+                final Map<String, String> valuesForGroup = groupDefaults.get(groupName);
+                if (valuesForGroup == null) {
+                    try {
+                        final Map<String, String> traitsForGroup = TraitFinder.findTraitsForGroup(groupName, getClass().getResourceAsStream("fishbase-mapping.csv"));
+                        if (traitsForGroup != null) {
+                            groupDefaults.put(groupName, traitsForGroup);
+                        }
+                    } catch (URISyntaxException e) {
+                        throw new RuntimeException("failed to retrieve traits for [" + groupName + "]", e);
+                    } catch (IOException e) {
+                        throw new RuntimeException("failed to retrieve traits for [" + groupName + "]", e);
+                    }
+                }
+                return valuesForGroup == null ? null : valuesForGroup.get(name);
             }
         };
     }

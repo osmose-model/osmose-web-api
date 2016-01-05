@@ -1,3 +1,2 @@
 fishbase table,fishbase column,osmose property,default value,notes
-species,LongevityWild,species.lifespan,0,value copied as is
-
+species,LongevityWild,species.lifespan.sp,0,value copied as is

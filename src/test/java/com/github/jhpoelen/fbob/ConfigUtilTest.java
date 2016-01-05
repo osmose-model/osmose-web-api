@@ -10,7 +10,6 @@ import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -283,7 +282,7 @@ public class ConfigUtilTest {
                 add("planktonC");
                 add("planktonD");
             }
-        }, getTestFactory());
+        }, getTestFactory(), ConfigUtil.getValueFactory());
 
         assertThat(getTestFactory().streamMap.keySet(), hasItems("osm_param-species.csv", "osm_param-starvation.csv"));
     }

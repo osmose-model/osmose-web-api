@@ -1,5 +1,5 @@
 package com.github.jhpoelen.fbob;
 
 interface ValueFactory {
-    String valueFor(String name);
+    String valueForInGroup(String name, String groupName);
 }
