@@ -1,3 +1,3 @@
 fishbase table,fishbase column,osmose property,default value,notes
 species,LongevityWild,species.lifespan.sp,0,value copied as is
-,,species.K.sp,0.0,instantanious grow rate
+,,species.K.sp,0.0,instantaneous growth rate at small size
