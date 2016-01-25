@@ -3,4 +3,6 @@ species,LongevityWild,species.lifespan.sp,0,value copied as is
 ,,species.K.sp,0.0,instantaneous growth rate at small size
 ,,species.lInf.sp,0.0,maximum size
 ,,species.t0.sp,0.0,theoretical age of zero length
-,,species.vonbertalanffy.threshold.age.sp,0.0,threshold age below which a linear growth model is used to calculate mean length increase
+,,species.length2weight.condition.factor.sp,0.0,constant of proportionality of the allometric length-weight relationship
+,,species.length2weight.allometric.power.sp,0.0,exponent of the allometric length-weight relationship
+,,species.maturity.size.sp,0.0,size at sexual maturity
