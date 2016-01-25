@@ -5,4 +5,4 @@ popgrowth,Loo,species.lInf.sp,0.0,maximum size
 popgrowth,to,species.t0.sp,0.0,theoretical age of zero length
 ,,species.length2weight.condition.factor.sp,0.0,constant of proportionality of the allometric length-weight relationship
 ,,species.length2weight.allometric.power.sp,0.0,exponent of the allometric length-weight relationship
-,,species.maturity.size.sp,0.0,size at sexual maturity
+maturity,Lm,species.maturity.size.sp,0.0,size at sexual maturity
