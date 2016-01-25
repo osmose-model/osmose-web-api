@@ -1,8 +1,8 @@
 fishbase table,fishbase column,osmose property,default value,notes
 species,LongevityWild,species.lifespan.sp,0,value copied as is
-,,species.K.sp,0.0,instantaneous growth rate at small size
-,,species.lInf.sp,0.0,maximum size
-,,species.t0.sp,0.0,theoretical age of zero length
+popgrowth,,species.K.sp,0.0,instantaneous growth rate at small size
+popgrowth,,species.lInf.sp,0.0,maximum size
+popgrowth,,species.t0.sp,0.0,theoretical age of zero length
 ,,species.length2weight.condition.factor.sp,0.0,constant of proportionality of the allometric length-weight relationship
 ,,species.length2weight.allometric.power.sp,0.0,exponent of the allometric length-weight relationship
 ,,species.maturity.size.sp,0.0,size at sexual maturity
