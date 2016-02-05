@@ -12,7 +12,7 @@ generates OSMOSE configuration files from data sources like Fishbase and SeaLife
 1. open a terminal and go to directory ```[OSMOSE_INSTALL_DIR]/dist```
 1. run OSMOSE simulation using ```java -jar osmose_stable_3.jar [SOME_DIR]/osm_all-parameters.csv .``` in the OSMOSE install directory
 
-output should look something like:
+The output should look something like:
 
 ```
 osmose[info] - *********************************
