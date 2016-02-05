@@ -1,16 +1,16 @@
 # fb-osmose-bridge
-generates Osmose configuration files from data sources like Fishbase and SeaLifeBase
+generates OSMOSE configuration files from data sources like Fishbase and SeaLifeBase
 
 [![Build Status](https://travis-ci.org/jhpoelen/fb-osmose-bridge.png)](https://travis-ci.org/jhpoelen/fb-osmose-bridge)
 
 # usage
 
-1. download osmose 3 update 2 from http://www.osmose-model.org/downloads
+1. download OSMOSE 3 update 2 from http://www.osmose-model.org/downloads
 1. expand to ```[OSMOSE_INSTALL_DIR]```
-1. download osmose configuration at https://fbob.herokuapp.com/osmose_config.zip (static configuration) or https://fbob.herokuapp.com/osmose_config.zip?htlGroupName=ScomberomorusCavalla&htlGroupName=LutjanusCampechanus&htlGroupName=EpinephelusMorio (dynamic configuration with three named groups: _Scomberomorus cavalla_, _Lutjanus campechanus_ and _Epinephelus morio_.).
+1. download OSMOSE configuration at https://fbob.herokuapp.com/osmose_config.zip (static configuration) or https://fbob.herokuapp.com/osmose_config.zip?htlGroupName=ScomberomorusCavalla&htlGroupName=LutjanusCampechanus&htlGroupName=EpinephelusMorio (dynamic configuration with three named groups: _Scomberomorus cavalla_, _Lutjanus campechanus_ and _Epinephelus morio_.).
 1. expand config.zip to ```[SOME_DIR]```
 1. open a terminal and go to directory ```[OSMOSE_INSTALL_DIR]/dist```
-1. run osmose simulation using ```java -jar osmose_stable_3.jar [SOME_DIR]/osm_all-parameters.csv .``` in the osmose install directory
+1. run OSMOSE simulation using ```java -jar osmose_stable_3.jar [SOME_DIR]/osm_all-parameters.csv .``` in the OSMOSE install directory
 
 output should look something like:
 
