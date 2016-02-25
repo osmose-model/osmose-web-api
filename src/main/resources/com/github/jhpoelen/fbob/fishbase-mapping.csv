@@ -12,4 +12,4 @@ maturity,Lm,species.maturity.size.sp,0.0,Size at sexual maturity. This is a para
 ,,species.relativefecundity.sp,,Annual number of eggs per gram of mature female. This is a parameter that could easily be obtained from queries in FishBase/SeaLifeBase to my mind    
 ,,species.sexratio.sp,,Female:male sex ratio. This is a parameter that could easily be obtained from queries in FishBase/SeaLifeBase to my mind
 ,,predation.ingestion.rate.max.osmose.sp,,Maximum annual ingestion rate expressed in grams of food per gram of individual and per year. This parameter is usually set to 3.5 g of food per g of individual and per year for all focal functional groups in OSMOSE models. It is similar to Ecopath's Q/B parameter. This parameter could easily be obtained from queries in FishBase/SeaLifeBase to my mind 
-
+,,predation.efficiency.critical.sp,,Critical predation efficiency. This parameter is usually set to 0.57 for all focal functional groups in OSMOSE models. This is a parameter that could possibly be obtained from queries in FishBase/SeaLifeBase to my mind    
