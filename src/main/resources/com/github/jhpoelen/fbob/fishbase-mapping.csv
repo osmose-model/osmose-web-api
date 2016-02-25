@@ -1,5 +1,5 @@
 FishBase table,FishBase column,OSMOSE property,Default value,Notes from Arnaud
-species,LongevityWild,species.lifespan.sp,0,Longevity. <br> This is a parameter that can easily be obtained from FishBase/SeaLifeBase
+species,LongevityWild,species.lifespan.sp,0,Longevity.\ This is a parameter that can easily be obtained from FishBase/SeaLifeBase
 popgrowth,K,species.K.sp,0.0,Instantaneous growth rate at small size. This is a parameter that can easily be obtained from FishBase/SeaLifeBase
 popgrowth,Loo,species.lInf.sp,0.0,Maximum size. This is a parameter that can easily be obtained from FishBase/SeaLifeBase
 popgrowth,to,species.t0.sp,0.0,Theoretical age of zero length. This is a parameter that can easily be obtained from FishBase/SeaLifeBase
