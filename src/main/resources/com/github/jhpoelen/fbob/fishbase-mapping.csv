@@ -12,3 +12,4 @@ maturity,Lm,species.maturity.size.sp,0.0,Size at sexual maturity. This is a para
 ,,species.relativefecundity.sp,0.0,Annual number of eggs per gram of mature female. This is a parameter that could easily be obtained from queries in FishBase/SeaLifeBase to my mind    
 ,,species.sexratio.sp,0.0,Female:male sex ratio. This is a parameter that could easily be obtained from queries in FishBase/SeaLifeBase to my mind
 
+
