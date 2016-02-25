@@ -3,7 +3,7 @@ generates OSMOSE configuration files from data sources like Fishbase and SeaLife
 
 [![Build Status](https://travis-ci.org/jhpoelen/fb-osmose-bridge.png)](https://travis-ci.org/jhpoelen/fb-osmose-bridge)
 
-# usage
+# Usage
 
 1. download OSMOSE 3 update 2 from http://www.osmose-model.org/downloads
 1. expand to ```[OSMOSE_INSTALL_DIR]```
