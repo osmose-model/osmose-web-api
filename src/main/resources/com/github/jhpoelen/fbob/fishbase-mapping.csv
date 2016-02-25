@@ -11,5 +11,5 @@ maturity,Lm,species.maturity.size.sp,0.0,Size at sexual maturity. This is a para
 ,,species.length2weight.fl.sp,0.0,Length-weight relationship estimated for total lengths (TLs)?: Boolean variable. This is a parameter that I created for the OSMOSE-WFS model but which will undoubtedly be useful for other OSMOSE applications. This parameter could easily be obtained from queries in FishBase/SeaLifeBase to my mind  
 ,,species.relativefecundity.sp,0.0,Annual number of eggs per gram of mature female. This is a parameter that could easily be obtained from queries in FishBase/SeaLifeBase to my mind    
 ,,species.sexratio.sp,0.0,Female:male sex ratio. This is a parameter that could easily be obtained from queries in FishBase/SeaLifeBase to my mind
-
+,,predation.ingestion.rate.max.osmose.sp,Maximum annual ingestion rate, expressed in grams of food per gram of individual and per year. This parameter is usually set to 3.5 g of food per g of individual and per year for all focal functional groups in OSMOSE models. It is similar to Ecopath's Q/B parameter. This parameter could easily be obtained from queries in FishBase/SeaLifeBase to my mind 
 
