@@ -1,8 +1,9 @@
-fishbase table,fishbase column,osmose property,default value,notes
-species,LongevityWild,species.lifespan.sp,0,value copied as is
-popgrowth,K,species.K.sp,0.0,instantaneous growth rate at small size
+FishBase table,FishBase column,OSMOSE property,Default value,Notes from Arnaud
+species,LongevityWild,species.lifespan.sp,0,Longevity. This is a parameter that can easily be obtained from FishBase/SeaLifeBase
+popgrowth,K,species.K.sp,0.0,Instantaneous growth rate at small size. This is a parameter that can easily be obtained from FishBase/SeaLifeBase
 popgrowth,Loo,species.lInf.sp,0.0,Maximum size. This is a parameter that can easily be obtained from FishBase/SeaLifeBase
-popgrowth,to,species.t0.sp,0.0,theoretical age of zero length
-poplw,a,species.length2weight.condition.factor.sp,0.0,constant of proportionality of the allometric length-weight relationship
-poplw,b,species.length2weight.allometric.power.sp,0.0,exponent of the allometric length-weight relationship
-maturity,Lm,species.maturity.size.sp,0.0,size at sexual maturity
+popgrowth,to,species.t0.sp,0.0,Theoretical age of zero length. This is a parameter that can easily be obtained from FishBase/SeaLifeBase
+poplw,a,species.length2weight.condition.factor.sp,0.0,Constant of proportionality of the allometric length-weight relationship. This is a parameter that can easily be obtained from FishBase/SeaLifeBase
+poplw,b,species.length2weight.allometric.power.sp,0.0,Exponent of the allometric length-weight relationship. This is a parameter that can easily be obtained from FishBase/SeaLifeBase
+maturity,Lm,species.maturity.size.sp,0.0,Size at sexual maturity. This is a parameter that can easily be obtained from FishBase/SeaLifeBase
+,,species.vonbertalanffy.threshold.age.sp,0.0,Threshold age below which a linear growth model is used to calculate mean length increase. This is a parameter that could easily be obtained from FishBase/SeaLifeBase to my mind  
