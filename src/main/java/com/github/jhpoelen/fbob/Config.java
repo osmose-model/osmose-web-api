@@ -80,7 +80,7 @@ public class Config {
             );
             final List<ValueFactory> valueFactories = Arrays.asList(
                     ConfigUtil.getFishbaseValueFactory(),
-                    ConfigUtil.getValueFactory());
+                    ConfigUtil.getDefaultValueFactory());
             final ValueFactory valueFactory = ConfigUtil.getProxyValueFactory(valueFactories);
 
             response = Response

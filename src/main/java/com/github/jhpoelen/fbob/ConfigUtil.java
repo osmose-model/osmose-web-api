@@ -363,7 +363,7 @@ public class ConfigUtil {
         };
     }
 
-    public static ValueFactory getValueFactory() {
+    public static ValueFactory getDefaultValueFactory() {
         return new ValueFactory() {
             Map<String, String> defaults = new HashMap<String, String>() {{
                 put("species.egg.size.sp", "0.1");

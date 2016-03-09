@@ -68,7 +68,7 @@ public class ConfigTest {
     public void configForGroupNames() throws IOException {
         final StreamingOutput streamingOutput = Config.asStream(Arrays.asList("one", "two"),
                 Arrays.asList("implicitOne", "implicitTwo"),
-                ConfigUtil.getValueFactory());
+                ConfigUtil.getDefaultValueFactory());
 
         ByteArrayOutputStream os = new ByteArrayOutputStream();
         streamingOutput.write(os);

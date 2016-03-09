@@ -26,8 +26,9 @@ public class TraitFinder {
             final CSVReader reader = new CSVReader(new InputStreamReader(mappingInputStream), ',');
             String[] line;
             while ((line = reader.readNext()) != null) {
-                if (line.length > 3) {
-                    final JsonNode trait = firstHit.get(line[1]);
+                final String fishbaseColumnName = line[1];
+                if (line.length > 3 && StringUtils.isNotBlank(fishbaseColumnName)) {
+                    final JsonNode trait = firstHit.get(fishbaseColumnName);
                     String value = null;
                     if (trait != null) {
                         value = trait.asText();
