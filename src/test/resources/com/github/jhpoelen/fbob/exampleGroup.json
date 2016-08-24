@@ -1,0 +1,58 @@
+[
+  {
+    "name": "Amberjacks",
+    "type": "focal",
+    "taxa": [
+      {
+        "name": "Seriola dumerili",
+        "url": "http://fishbase.org/summary/1005"
+      },
+      {
+        "name": "Seriola fasciata",
+        "url": "http://fishbase.org/summary/1006"
+      }
+    ]
+  },
+  {
+    "name": "Anchovies and silversides",
+    "type": "focal",
+    "taxa": [
+      {
+        "name": "Alosa alabamae",
+        "url": "http://fishbase.org/summary/1575"
+      },
+      {
+        "name": "Anchoa mitchilli",
+        "url": "http://fishbase.org/summary/545"
+      }
+    ]
+  },
+  {
+    "name": "Echinoderms and large gastropods",
+    "type": "background",
+    "taxa": [
+      {
+        "name": "Asterias rubens",
+        "url": "http://sealifebase.org/summary/48661"
+      },
+      {
+        "name": "Echinus esculentus",
+        "url": "http://sealifebase.org/summary/49996"
+      }
+    ]
+  },
+  {
+    "name": "Small mobile epifauna",
+    "type": "background",
+    "taxa": [
+      {
+        "name": "Hargeria rapax",
+        "url": "http://sealifebase.org/summary/105580"
+      },
+      {
+        "name": "Leptognathia breviremis",
+        "url": "http://sealifebase.org/summary/21993"
+      }
+    ]
+  }
+]

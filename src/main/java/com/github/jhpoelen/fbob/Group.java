@@ -1,21 +1,26 @@
 package com.github.jhpoelen.fbob;
 
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 import java.util.List;
 
 
+
+@XmlRootElement
 public class Group {
 
     private String name;
     private List<Taxon> taxa;
     private GroupType type;
 
+    public Group() {}
+
     public Group(String name) {
         this(name, GroupType.FOCAL);
     }
 
     public Group(String name, GroupType type) {
-        this(name, type, new ArrayList<Taxon>());
+        this(name, type, new ArrayList<>());
     }
 
     public Group(String name, GroupType type, List<Taxon> taxa) {

@@ -1,9 +1,14 @@
 package com.github.jhpoelen.fbob;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class Taxon {
     private String url;
     private String name;
     private String rank;
+
+    public Taxon() {}
 
     public Taxon(String name) {
         this.name = name;

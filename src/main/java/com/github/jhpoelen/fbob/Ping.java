@@ -9,6 +9,7 @@ import javax.ws.rs.core.MediaType;
 
 @Path("ping")
 public class Ping {
+
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String ping() {

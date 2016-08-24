@@ -14,22 +14,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class PingTest {
-
-    private HttpServer server;
-    private WebTarget target;
-
-    @Before
-    public void setUp() throws Exception {
-        server = Main.startServer();
-        Client c = ClientBuilder.newClient();
-        target = c.target(Main.getBaseURI());
-    }
-
-    @After
-    public void tearDown() throws Exception {
-        server.shutdownNow();
-    }
+public class PingTest extends ServerTestBase {
 
     @Test
     public void ping() {
@@ -46,4 +31,6 @@ public class PingTest {
                 .post(Entity.entity(jsonString, MediaType.APPLICATION_JSON), String.class);
         assertEquals("{\"msg\":\"pong\",\"type\":\"response\"}", responseMsg);
     }
+
+
 }
