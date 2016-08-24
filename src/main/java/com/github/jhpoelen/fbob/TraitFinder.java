@@ -62,7 +62,7 @@ public class TraitFinder {
     }
 
     public static String urlForSpecies(String speciesName) {
-        Pattern r = Pattern.compile("(\\w+)\\s*(\\w+)");
+        Pattern r = Pattern.compile("([A-Z][a-z]+)\\s*([A-Z|\\w]+)");
         Matcher m = r.matcher(speciesName);
         StringBuilder query = new StringBuilder();
         while (m.find()) {

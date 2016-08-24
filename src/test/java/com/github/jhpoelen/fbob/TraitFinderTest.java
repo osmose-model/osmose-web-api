@@ -25,11 +25,6 @@ public class TraitFinderTest {
     }
 
     @Test
-    public void buildQuery3() throws URISyntaxException {
-        assertKingMackerel(TraitFinder.urlForSpecies("scomberomorus  cavalla"));
-    }
-
-    @Test
     public void buildQueryByUrl() throws URISyntaxException {
         final Taxon taxon = new Taxon("scomberomorus  cavalla");
         taxon.setUrl("http://fishbase.org/summary/120");
