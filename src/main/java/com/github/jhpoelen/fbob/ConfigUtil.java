@@ -107,17 +107,17 @@ public class ConfigUtil {
         writeLine(os, values, true);
     }
 
-    public static void generateSeasonalReproductionFor(List<String> groupNames, StreamFactory factory) throws IOException {
+    public static void generateSeasonalReproductionFor(List<Group> groups, StreamFactory factory) throws IOException {
         OutputStream os = factory.outputStreamFor("osm_param-reproduction.csv");
-        for (int i = 0; i < groupNames.size(); i++) {
+        for (int i = 0; i < groups.size(); i++) {
             String reproductionFilename = reproductionFilename(i);
             String paramName = "reproduction.season.file.sp" + i;
             writeLine(os, Arrays.asList(paramName, reproductionFilename), i > 0);
         }
 
-        for (int i = 0; i < groupNames.size(); i++) {
+        for (int i = 0; i < groups.size(); i++) {
             OutputStream reprodOs = factory.outputStreamFor(reproductionFilename(i));
-            writeLine(reprodOs, Arrays.asList("Time (year)", groupNames.get(i)), false);
+            writeLine(reprodOs, Arrays.asList("Time (year)", groups.get(i).getName()), false);
             for (String yearPart : YEAR_PARTS) {
                 writeLine(reprodOs, Arrays.asList(yearPart, "0.0"));
             }
@@ -128,14 +128,14 @@ public class ConfigUtil {
         return "reproduction-seasonality-sp" + i + ".csv";
     }
 
-    public static void generateFishingParametersFor(List<String> groupNames, StreamFactory factory) throws IOException {
+    public static void generateFishingParametersFor(List<Group> groupNames, StreamFactory factory) throws IOException {
         generateFishingSeasonalityConfig(groupNames, factory);
         generateFishingSeasonalityTables(groupNames, factory);
     }
 
-    public static void generateFishingSeasonalityTables(List<String> groupNames, StreamFactory factory) throws IOException {
-        for (String groupName : groupNames) {
-            OutputStream seasonalityOs = factory.outputStreamFor(finishingSeasonalityFilename(groupName));
+    public static void generateFishingSeasonalityTables(List<Group> groups, StreamFactory factory) throws IOException {
+        for (Group group : groups) {
+            OutputStream seasonalityOs = factory.outputStreamFor(finishingSeasonalityFilename(group));
             writeLine(seasonalityOs, Arrays.asList("Time", "Season"), false);
             for (String yearPart : YEAR_PARTS) {
                 writeLine(seasonalityOs, Arrays.asList(yearPart, "0.0"));
@@ -143,29 +143,29 @@ public class ConfigUtil {
         }
     }
 
-    public static void generateFishingSeasonalityConfig(List<String> groupNames, StreamFactory factory) throws IOException {
+    public static void generateFishingSeasonalityConfig(List<Group> groups, StreamFactory factory) throws IOException {
         OutputStream os = factory.outputStreamFor("osm_param-fishing.csv");
-        writeZerosFor(groupNames, "mortality.fishing.rate.sp", os);
-        writeZerosFor(groupNames, "mortality.fishing.recruitment.age.sp", os);
-        writeZerosFor(groupNames, "mortality.fishing.recruitment.size.sp", os);
-        for (String groupName : groupNames) {
-            String paramName = "mortality.fishing.season.distrib.file.sp" + groupNames.indexOf(groupName);
-            String fishingSeasonality = finishingSeasonalityFilename(groupName);
+        writeZerosFor(groups, "mortality.fishing.rate.sp", os);
+        writeZerosFor(groups, "mortality.fishing.recruitment.age.sp", os);
+        writeZerosFor(groups, "mortality.fishing.recruitment.size.sp", os);
+        for (Group group : groups) {
+            String paramName = "mortality.fishing.season.distrib.file.sp" + groups.indexOf(group);
+            String fishingSeasonality = finishingSeasonalityFilename(group);
             writeLine(os, Arrays.asList(paramName, fishingSeasonality));
         }
     }
 
-    public static String finishingSeasonalityFilename(String groupName) {
-        return "fishing/fishing-seasonality-" + groupName + ".csv";
+    public static String finishingSeasonalityFilename(Group groupName) {
+        return "fishing/fishing-seasonality-" + groupName.getName() + ".csv";
     }
 
-    public static void writeZerosFor(List<String> groupNames, String paramName, OutputStream os) throws IOException {
-        for (String groupName : groupNames) {
+    public static void writeZerosFor(List<Group> groupNames, String paramName, OutputStream os) throws IOException {
+        for (Group groupName : groupNames) {
             writeLine(os, Arrays.asList(paramName + groupNames.indexOf(groupName), "0.0"));
         }
     }
 
-    public static void generateStarvationFor(List<String> groupNames, StreamFactory factory) throws IOException {
+    public static void generateStarvationFor(List<Group> groupNames, StreamFactory factory) throws IOException {
         OutputStream os = factory.outputStreamFor("osm_param-starvation.csv");
         for (int i = 0; i < groupNames.size(); i++) {
             String paramName = "mortality.starvation.rate.max.sp" + i;
@@ -173,46 +173,46 @@ public class ConfigUtil {
         }
     }
 
-    public static void generateSpecies(List<String> groupNames, StreamFactory factory, ValueFactory valueFactory) throws IOException {
+    public static void generateSpecies(List<Group> groups, StreamFactory factory, ValueFactory valueFactory) throws IOException {
         OutputStream os = factory.outputStreamFor("osm_param-species.csv");
-        for (String groupName : groupNames) {
-            int i = groupNames.indexOf(groupName);
-            writeLine(os, Arrays.asList("species.name.sp" + i, groupName), i > 0);
+        for (Group groupName : groups) {
+            int i = groups.indexOf(groupName);
+            writeLine(os, Arrays.asList("species.name.sp" + i, groupName.getName()), i > 0);
         }
 
-        writeParamLines(groupNames, "species.egg.size.sp", valueFactory, os);
-        writeParamLines(groupNames, "species.egg.weight.sp", valueFactory, os);
-        writeParamLines(groupNames, "species.K.sp", valueFactory, os);
-        writeParamLines(groupNames, "species.length2weight.allometric.power.sp", valueFactory, os);
-        writeParamLines(groupNames, "species.length2weight.condition.factor.sp", valueFactory, os);
-        writeParamLines(groupNames, "species.lifespan.sp", valueFactory, os);
-        writeParamLines(groupNames, "species.lInf.sp", valueFactory, os);
-        writeParamLines(groupNames, "species.maturity.size.sp", valueFactory, os);
-        writeParamLines(groupNames, "species.relativefecundity.sp", valueFactory, os);
-        writeParamLines(groupNames, "species.sexratio.sp", valueFactory, os);
-        writeParamLines(groupNames, "species.t0.sp", valueFactory, os);
-        writeParamLines(groupNames, "species.vonbertalanffy.threshold.age.sp", valueFactory, os);
-        writeParamLines(groupNames, "species.length2weight.fl.sp", valueFactory, os);
+        writeParamLines(groups, "species.egg.size.sp", valueFactory, os);
+        writeParamLines(groups, "species.egg.weight.sp", valueFactory, os);
+        writeParamLines(groups, "species.K.sp", valueFactory, os);
+        writeParamLines(groups, "species.length2weight.allometric.power.sp", valueFactory, os);
+        writeParamLines(groups, "species.length2weight.condition.factor.sp", valueFactory, os);
+        writeParamLines(groups, "species.lifespan.sp", valueFactory, os);
+        writeParamLines(groups, "species.lInf.sp", valueFactory, os);
+        writeParamLines(groups, "species.maturity.size.sp", valueFactory, os);
+        writeParamLines(groups, "species.relativefecundity.sp", valueFactory, os);
+        writeParamLines(groups, "species.sexratio.sp", valueFactory, os);
+        writeParamLines(groups, "species.t0.sp", valueFactory, os);
+        writeParamLines(groups, "species.vonbertalanffy.threshold.age.sp", valueFactory, os);
+        writeParamLines(groups, "species.length2weight.fl.sp", valueFactory, os);
     }
 
-    public static void writeParamLines(List<String> groupNames, String paramPrefix, ValueFactory valueFactory, OutputStream os) throws IOException {
-        for (String groupName : groupNames) {
-            final String paramName = paramPrefix + groupNames.indexOf(groupName);
-            writeLine(os, Arrays.asList(paramName, valueFactory.valueForInGroup(paramPrefix, groupName)));
+    public static void writeParamLines(List<Group> groups, String paramPrefix, ValueFactory valueFactory, OutputStream os) throws IOException {
+        for (Group group : groups) {
+            final String paramName = paramPrefix + groups.indexOf(group);
+            writeLine(os, Arrays.asList(paramName, valueFactory.groupValueFor(paramPrefix, group)));
         }
     }
 
-    public static void writeParamLines(List<String> groupNames, String paramPrefix, List<String> paramValues, OutputStream os) throws IOException {
-        for (String groupName : groupNames) {
+    public static void writeParamLines(List<Group> groupNames, String paramPrefix, List<String> paramValues, OutputStream os) throws IOException {
+        for (Group group : groupNames) {
             List<String> values = new ArrayList<String>() {{
-                add(paramPrefix + groupNames.indexOf(groupName));
+                add(paramPrefix + groupNames.indexOf(group));
                 addAll(paramValues);
             }};
             writeLine(os, values);
         }
     }
 
-    public static void generatePredationFor(List<String> groupNames, StreamFactory factory, ValueFactory valueFactory) throws IOException {
+    public static void generatePredationFor(List<Group> groupNames, StreamFactory factory, ValueFactory valueFactory) throws IOException {
         OutputStream os = factory.outputStreamFor("osm_param-predation.csv");
         writeLine(os, Arrays.asList("predation.accessibility.file", "predation-accessibility.csv"), false);
         writeLine(os, Arrays.asList("predation.accessibility.stage.structure", "age"));
@@ -225,7 +225,7 @@ public class ConfigUtil {
         writeParamLines(groupNames, "predation.predPrey.stage.threshold.sp", valueFactory, os);
     }
 
-    public static void generateAllParametersFor(List<String> groupNames, List<String> implicitGroupNames, StreamFactory factory) throws IOException {
+    public static void generateAllParametersFor(List<Group> functionalGroupsFocal, List<Group> functionalGroupsBackground, StreamFactory factory) throws IOException {
         OutputStream os = factory.outputStreamFor("osm_all-parameters.csv");
         writeLine(os, Arrays.asList("simulation.time.ndtPerYear", "12"));
         writeLine(os, Arrays.asList("simulation.time.nyear", "134"));
@@ -234,9 +234,9 @@ public class ConfigUtil {
         writeLine(os, Arrays.asList("output.restart.spinup", "114"));
         writeLine(os, Arrays.asList("simulation.nschool", "20"));
         writeLine(os, Arrays.asList("simulation.ncpu", "8"));
-        writeLine(os, Arrays.asList("simulation.nplankton", Integer.toString(implicitGroupNames.size())));
+        writeLine(os, Arrays.asList("simulation.nplankton", Integer.toString(functionalGroupsBackground.size())));
         writeLine(os, Arrays.asList("simulation.nsimulation", "10"));
-        writeLine(os, Arrays.asList("simulation.nspecies", Integer.toString(groupNames.size())));
+        writeLine(os, Arrays.asList("simulation.nspecies", Integer.toString(functionalGroupsFocal.size())));
         writeLine(os, Arrays.asList("mortality.algorithm", "stochastic"));
         writeLine(os, Arrays.asList("mortality.subdt", "10"));
         writeLine(os, Arrays.asList("osmose.configuration.output", "osm_param-output.csv"));
@@ -254,7 +254,7 @@ public class ConfigUtil {
 
     }
 
-    public static void generateOutputParamsFor(List<String> groupNames, StreamFactory factory, ValueFactory valueFactory) throws IOException {
+    public static void generateOutputParamsFor(List<Group> groupNames, StreamFactory factory, ValueFactory valueFactory) throws IOException {
         OutputStream os = factory.outputStreamFor("osm_param-output.csv");
         IOUtils.copy(IOUtils.toInputStream(OUTPUT_DEFAULTS, "UTF-8"), os);
 
@@ -264,7 +264,7 @@ public class ConfigUtil {
         writeParamLines(groupNames, "output.diet.stage.threshold.sp", Arrays.asList("0.0", "0.0", "0.0"), os);
     }
 
-    public static void generateNaturalMortalityFor(List<String> groupNames, StreamFactory factory, ValueFactory valueFactory) throws IOException {
+    public static void generateNaturalMortalityFor(List<Group> groupNames, StreamFactory factory, ValueFactory valueFactory) throws IOException {
         OutputStream os = factory.outputStreamFor("osm_param-natural-mortality.csv");
 
         writeLine(os, Arrays.asList("mortality.natural.larva.rate.file", "null"), false);
@@ -273,7 +273,7 @@ public class ConfigUtil {
         writeParamLines(groupNames, "mortality.natural.rate.sp", valueFactory, os);
     }
 
-    public static void generateInitBiomassFor(List<String> groupNames, StreamFactory factory, ValueFactory valueFactory) throws IOException {
+    public static void generateInitBiomassFor(List<Group> groupNames, StreamFactory factory, ValueFactory valueFactory) throws IOException {
         OutputStream os = factory.outputStreamFor("osm_param-init-pop.csv");
         writeParamLines(groupNames, "population.seeding.biomass.sp", valueFactory, os);
     }
@@ -291,69 +291,69 @@ public class ConfigUtil {
         IOUtils.copy(ConfigUtil.class.getResourceAsStream("osmose_config/" + staticTemplate), os);
     }
 
-    public static void generateMaps(List<String> groupNames, StreamFactory factory, ValueFactory valueFactory) throws IOException {
+    public static void generateMaps(List<Group> groupNames, StreamFactory factory, ValueFactory valueFactory) throws IOException {
         OutputStream maskOs = factory.outputStreamFor("grid-mask.csv");
         IOUtils.copy(ConfigUtil.class.getResourceAsStream("osmose_config/grid-mask.csv"), maskOs);
         generateMovementConfig(groupNames, factory, valueFactory);
         generateMovementMapTemplates(groupNames, factory);
     }
 
-    public static void generateMovementMapTemplates(List<String> groupNames, StreamFactory factory) throws IOException {
+    public static void generateMovementMapTemplates(List<Group> groups, StreamFactory factory) throws IOException {
         int nMaps = 0;
-        for (String groupName : groupNames) {
-            OutputStream mapOutputStream = factory.outputStreamFor(getMapName(nMaps, groupName));
+        for (Group group : groups) {
+            OutputStream mapOutputStream = factory.outputStreamFor(getMapName(nMaps, group));
             IOUtils.copy(ConfigUtil.class.getResourceAsStream("osmose_config/maps/Amberjacks_1.csv"), mapOutputStream);
             nMaps++;
         }
     }
 
-    public static void generateMovementConfig(List<String> groupNames, StreamFactory factory, ValueFactory valueFactory) throws IOException {
+    public static void generateMovementConfig(List<Group> groups, StreamFactory factory, ValueFactory valueFactory) throws IOException {
         OutputStream os = factory.outputStreamFor("osm_param-movement.csv");
-        writeParamLines(groupNames, "movement.distribution.method.sp", valueFactory, os);
-        writeParamLines(groupNames, "movement.randomwalk.range.sp", valueFactory, os);
+        writeParamLines(groups, "movement.distribution.method.sp", valueFactory, os);
+        writeParamLines(groups, "movement.randomwalk.range.sp", valueFactory, os);
         int nMaps = 0;
-        for (String groupName : groupNames) {
-            addMapForGroup(os, nMaps, groupName, getMapName(nMaps, groupName));
+        for (Group group : groups) {
+            addMapForGroup(os, nMaps, group, getMapName(nMaps, group));
             nMaps++;
         }
     }
 
-    public static String getMapName(int nMaps, String groupName) {
-        return "maps/" + groupName + nMaps + ".csv";
+    public static String getMapName(int nMaps, Group group) {
+        return "maps/" + group.getName() + nMaps + ".csv";
     }
 
-    public static void addMapForGroup(OutputStream os, int nMaps, String groupName, String mapName) throws IOException {
+    public static void addMapForGroup(OutputStream os, int nMaps, Group group, String mapName) throws IOException {
         String prefix = "movement.map" + nMaps;
         writeLine(os, Arrays.asList(prefix + ".age.max", "2"));
         writeLine(os, Arrays.asList(prefix + ".age.min", "0"));
         writeLine(os, Arrays.asList(prefix + ".file", mapName));
         writeLine(os, Arrays.asList(prefix + ".season", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"));
-        writeLine(os, Arrays.asList(prefix + ".species", groupName));
+        writeLine(os, Arrays.asList(prefix + ".species", group.getName()));
     }
 
-    public static void generateConfigFor(List<String> groupNames, List<String> implicitGroupNames, StreamFactory factory, ValueFactory valueFactory) throws IOException {
-        generateAllParametersFor(groupNames, implicitGroupNames, factory);
-        generateFishingParametersFor(groupNames, factory);
-        generateInitBiomassFor(groupNames, factory, valueFactory);
-        generateMaps(groupNames, factory, valueFactory);
-        generateNaturalMortalityFor(groupNames, factory, valueFactory);
-        generateOutputParamsFor(groupNames, factory, valueFactory);
-        generatePredationFor(groupNames, factory, valueFactory);
-        generatePredationAccessibilityFor(groupNames, implicitGroupNames, factory);
-        generateSeasonalReproductionFor(groupNames, factory);
+    public static void generateConfigFor(List<Group> focalGroups, List<Group> backgroundGroups, StreamFactory factory, ValueFactory valueFactory) throws IOException {
+        generateAllParametersFor(focalGroups, backgroundGroups, factory);
+        generateFishingParametersFor(focalGroups, factory);
+        generateInitBiomassFor(focalGroups, factory, valueFactory);
+        generateMaps(focalGroups, factory, valueFactory);
+        generateNaturalMortalityFor(focalGroups, factory, valueFactory);
+        generateOutputParamsFor(focalGroups, factory, valueFactory);
+        generatePredationFor(focalGroups, factory, valueFactory);
+        generatePredationAccessibilityFor(focalGroups, backgroundGroups, factory);
+        generateSeasonalReproductionFor(focalGroups, factory);
 
-        generateSpecies(groupNames, factory, valueFactory);
-        generateStarvationFor(groupNames, factory);
+        generateSpecies(focalGroups, factory, valueFactory);
+        generateStarvationFor(focalGroups, factory);
         generateStatic(factory);
     }
 
     public static ValueFactory getProxyValueFactory(List<ValueFactory> valueFactories) {
         return new ValueFactory() {
             @Override
-            public String valueForInGroup(String name, String groupName) {
+            public String groupValueFor(String name, Group group) {
                 String value = null;
                 for (ValueFactory valueFactory : valueFactories) {
-                    value = valueFactory.valueForInGroup(name, groupName);
+                    value = valueFactory.groupValueFor(name, group);
                     if (StringUtils.isNotBlank(value)) {
                         break;
                     }
@@ -402,7 +402,7 @@ public class ConfigUtil {
             }};
 
             @Override
-            public String valueForInGroup(String name, String groupName) {
+            public String groupValueFor(String name, Group group) {
                 return defaults.get(name);
             }
         };
@@ -413,18 +413,16 @@ public class ConfigUtil {
             Map<String, Map<String, String>> groupDefaults = new HashMap<String, Map<String, String>>();
 
             @Override
-            public String valueForInGroup(String name, String groupName) {
-                final Map<String, String> valuesForGroup = groupDefaults.get(groupName);
+            public String groupValueFor(String name, Group group) {
+                final Map<String, String> valuesForGroup = groupDefaults.get(group.getName());
                 if (valuesForGroup == null) {
                     try {
-                        final Map<String, String> traitsForGroup = TraitFinder.findTraitsForGroup(groupName, getClass().getResourceAsStream("fishbase-mapping.csv"));
+                        final Map<String, String> traitsForGroup = TraitFinder.findTraitsForGroup(group.getName(), getClass().getResourceAsStream("fishbase-mapping.csv"));
                         if (traitsForGroup != null) {
-                            groupDefaults.put(groupName, traitsForGroup);
+                            groupDefaults.put(group.getName(), traitsForGroup);
                         }
-                    } catch (URISyntaxException e) {
-                        throw new RuntimeException("failed to retrieve traits for [" + groupName + "]", e);
-                    } catch (IOException e) {
-                        throw new RuntimeException("failed to retrieve traits for [" + groupName + "]", e);
+                    } catch (URISyntaxException | IOException e) {
+                        throw new RuntimeException("failed to retrieve traits for [" + group.getName() + "]", e);
                     }
                 }
                 return valuesForGroup == null ? null : valuesForGroup.get(name);
@@ -432,13 +430,13 @@ public class ConfigUtil {
         };
     }
 
-    public static void generatePredationAccessibilityFor(List<String> groupNames, List<String> implicitGroupNames, StreamFactory factory) throws IOException {
+    public static void generatePredationAccessibilityFor(List<Group> focalGroups, List<Group> backgroundGroups, StreamFactory factory) throws IOException {
         List<String> columnHeaders = new ArrayList<String>();
-        for (String groupName : groupNames) {
-            columnHeaders.add(groupName + " < 0.0 year");
-            columnHeaders.add(groupName + " > 0.0 year");
+        for (Group group : focalGroups) {
+            columnHeaders.add(group.getName() + " < 0.0 year");
+            columnHeaders.add(group.getName() + " > 0.0 year");
         }
-        columnHeaders.addAll(implicitGroupNames.stream().collect(Collectors.toList()));
+        columnHeaders.addAll(backgroundGroups.stream().map(Group::getName).collect(Collectors.toList()));
 
         OutputStream outputStream = factory.outputStreamFor("predation-accessibility.csv");
         writeLine(outputStream, new ArrayList<String>() {{

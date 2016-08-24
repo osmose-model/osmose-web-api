@@ -17,9 +17,12 @@ import javax.ws.rs.core.StreamingOutput;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -91,12 +94,16 @@ public class Config {
         return response;
     }
 
-    public static StreamingOutput asStream(final List<String> groupNames, final List<String> implicitGroupNames, final ValueFactory valueFactory) {
+    public static StreamingOutput asStream(final List<String> focalGroupNames, final List<String> backgroundGroup, final ValueFactory valueFactory) {
+
+        final Stream<Group> focalGroups = focalGroupNames.stream().map(groupName -> new Group(groupName, FunctionalGroupType.FOCAL, Collections.singletonList(new Species(groupName))));
+        final Stream<Group> backgroundGroups = focalGroupNames.stream().map(groupName -> new Group(groupName, FunctionalGroupType.BACKGROUND, Collections.singletonList(new Species(groupName))));
+
         return new StreamingOutput() {
             @Override
             public void write(OutputStream os) throws IOException, WebApplicationException {
                 ZipOutputStream zos = new ZipOutputStream(os);
-                ConfigUtil.generateConfigFor(groupNames, implicitGroupNames, new StreamFactory() {
+                ConfigUtil.generateConfigFor(focalGroups.collect(Collectors.toList()), backgroundGroups.collect(Collectors.toList()), new StreamFactory() {
                     @Override
                     public OutputStream outputStreamFor(String name) throws IOException {
                         ZipEntry e = new ZipEntry(name);

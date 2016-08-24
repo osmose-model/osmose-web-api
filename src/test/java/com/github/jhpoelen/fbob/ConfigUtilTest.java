@@ -13,6 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.stream.Collectors;
 
 import static junit.framework.Assert.assertEquals;
 import static org.hamcrest.CoreMatchers.not;
@@ -79,10 +80,10 @@ public class ConfigUtilTest {
 
     @Test
     public void species() throws IOException {
-        List<String> groupNames = Arrays.asList("groupOne", "groupTwo");
+        List<Group> groups = Arrays.asList(new Group("groupOne"), new Group("groupTwo"));
         StreamFactoryMemory factory = getTestFactory();
 
-        ConfigUtil.generateSpecies(groupNames, factory, getTestValueFactory());
+        ConfigUtil.generateSpecies(groups, factory, getTestValueFactory());
 
         String asExpected = "species.name.sp0;groupOne\nspecies.name.sp1;groupTwo\nspecies.egg.size.sp0;0.1\nspecies.egg.size.sp1;0.1\nspecies.egg.weight.sp0;0.0005386\nspecies.egg.weight.sp1;0.0005386\nspecies.K.sp0;0.0\nspecies.K.sp1;0.0\nspecies.length2weight.allometric.power.sp0;0.0\nspecies.length2weight.allometric.power.sp1;0.0\nspecies.length2weight.condition.factor.sp0;0.0\nspecies.length2weight.condition.factor.sp1;0.0\nspecies.lifespan.sp0;0\nspecies.lifespan.sp1;0\nspecies.lInf.sp0;0.0\nspecies.lInf.sp1;0.0\nspecies.maturity.size.sp0;0.0\nspecies.maturity.size.sp1;0.0\nspecies.relativefecundity.sp0;0\nspecies.relativefecundity.sp1;0\nspecies.sexratio.sp0;0.0\nspecies.sexratio.sp1;0.0\nspecies.t0.sp0;0.0\nspecies.t0.sp1;0.0\nspecies.vonbertalanffy.threshold.age.sp0;0.0\nspecies.vonbertalanffy.threshold.age.sp1;0.0\nspecies.length2weight.fl.sp0;false\nspecies.length2weight.fl.sp1;false";
         assertThat(getTestFactory().stringOutputFor("osm_param-species.csv"), is(asExpected));
@@ -94,7 +95,8 @@ public class ConfigUtilTest {
 
     @Test
     public void movementMapAgeRanges() throws IOException {
-        ConfigUtil.generateMaps(Arrays.asList("speciesOne", "speciesTwo"), getTestFactory(), getTestValueFactory());
+        final List<Group> species = Arrays.asList(new Group("speciesOne"), new Group("speciesTwo"));
+        ConfigUtil.generateMaps(species, getTestFactory(), getTestValueFactory());
 
         assertThat(getTestFactory().stringOutputFor("grid-mask.csv"), is(notNullValue()));
         assertThat(getTestFactory().stringOutputFor("osm_param-movement.csv"), is(notNullValue()));
@@ -104,9 +106,9 @@ public class ConfigUtilTest {
 
     @Test
     public void fishingSeasonality() throws IOException {
-        List<String> groupNames = new ArrayList<String>();
-        groupNames.add("groupOne");
-        groupNames.add("groupTwo");
+        List<Group> groupNames = new ArrayList<>();
+        groupNames.add(new Group("groupOne"));
+        groupNames.add(new Group("groupTwo"));
 
         ConfigUtil.generateFishingParametersFor(groupNames, factory);
 
@@ -142,7 +144,7 @@ public class ConfigUtilTest {
 
     @Test
     public void output() throws IOException {
-        List<String> groupNames = Arrays.asList("groupNameOne", "groupNameTwo");
+        List<Group> groupNames = Arrays.asList(new Group("groupNameOne"), new Group("groupNameTwo"));
 
         ConfigUtil.generateOutputParamsFor(groupNames, factory, getTestValueFactory());
 
@@ -154,7 +156,7 @@ public class ConfigUtilTest {
 
     @Test
     public void naturalMortality() throws IOException {
-        List<String> groupNames = Arrays.asList("groupName1", "groupName2");
+        List<Group> groupNames = Arrays.asList(new Group("groupName1"), new Group("groupName2"));
 
         ConfigUtil.generateNaturalMortalityFor(groupNames, factory, getTestValueFactory());
 
@@ -167,9 +169,13 @@ public class ConfigUtilTest {
         assertThat(getTestFactory().stringOutputFor("osm_param-natural-mortality.csv"), is(expected));
     }
 
+    private List<Group> toGroups(List<String> groupNames) {
+        return groupNames.stream().map(Group::new).collect(Collectors.toList());
+    }
+
     @Test
     public void predation() throws IOException {
-        List<String> groupNames = Arrays.asList("groupNameOne", "groupNameTwo");
+        List<Group> groupNames = toGroups(Arrays.asList("groupNameOne", "groupNameTwo"));
         StreamFactoryMemory factory = getTestFactory();
 
         ConfigUtil.generatePredationFor(groupNames, factory, getTestValueFactory());
@@ -212,7 +218,7 @@ public class ConfigUtilTest {
             }
         };
 
-        ConfigUtil.generatePredationAccessibilityFor(groupNames, implicitGroupNames, factory);
+        ConfigUtil.generatePredationAccessibilityFor(toGroups(groupNames), toGroups(implicitGroupNames), factory);
         // including the "implicit" functional groups
         String expectedPredationAccessibility = "v Prey / Predator >;groupNameOne < 0.0 year;groupNameOne > 0.0 year;groupNameTwo < 0.0 year;groupNameTwo > 0.0 year;Small_phytoplankton;Diatoms;Microzooplankton;Mesozooplankton;Meiofauna;Small_infauna;Small_mobile_epifauna;Bivalves;Echinoderms_and_large_gastropods\n" +
                 "groupNameOne < 0.0 year;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0\n" +
@@ -242,7 +248,7 @@ public class ConfigUtilTest {
     @Test
     public void starvation() throws IOException {
         List<String> groupNames = Arrays.asList("gOne", "gTwo");
-        ConfigUtil.generateStarvationFor(groupNames, factory);
+        ConfigUtil.generateStarvationFor(toGroups(groupNames), factory);
 
         String expectedStarvation = "mortality.starvation.rate.max.sp0;0.3\n" +
                 "mortality.starvation.rate.max.sp1;0.3";
@@ -262,7 +268,7 @@ public class ConfigUtilTest {
         }};
 
 
-        ConfigUtil.generateSeasonalReproductionFor(groupNames, factory);
+        ConfigUtil.generateSeasonalReproductionFor(toGroups(groupNames), factory);
 
         assertThat((getTestFactory()).stringOutputFor("osm_param-reproduction.csv"), is("reproduction.season.file.sp0;reproduction-seasonality-sp0.csv\nreproduction.season.file.sp1;reproduction-seasonality-sp1.csv"));
         String prefix = "Time (year);";
@@ -275,14 +281,14 @@ public class ConfigUtilTest {
     public void generateConfigFor() throws IOException {
         List<String> groupNames = Arrays.asList("speciesA", "speciesB", "speciesC");
 
-        ConfigUtil.generateConfigFor(groupNames, new ArrayList<String>() {
+        ConfigUtil.generateConfigFor(toGroups(groupNames), toGroups(new ArrayList<String>() {
             {
                 add("planktonA");
                 add("planktonB");
                 add("planktonC");
                 add("planktonD");
             }
-        }, getTestFactory(), ConfigUtil.getDefaultValueFactory());
+        }), getTestFactory(), ConfigUtil.getDefaultValueFactory());
 
         assertThat(getTestFactory().streamMap.keySet(), hasItems("osm_param-species.csv", "osm_param-starvation.csv"));
     }
@@ -292,7 +298,7 @@ public class ConfigUtilTest {
         List<String> groupNames = Arrays.asList("speciesA", "speciesB", "speciesC");
         List<String> implicitGroupNames = Arrays.asList("planktonA", "planktopB", "planktonC");
 
-        ConfigUtil.generateAllParametersFor(groupNames, implicitGroupNames, getTestFactory());
+        ConfigUtil.generateAllParametersFor(toGroups(groupNames), toGroups(implicitGroupNames), getTestFactory());
 
         assertThat(getTestFactory().stringOutputFor("osm_all-parameters.csv"), is(
                 "\nsimulation.time.ndtPerYear;12\n" +

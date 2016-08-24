@@ -65,11 +65,15 @@ public class ConfigTest {
     }
 
     @Test
-    public void configForGroupNames() throws IOException {
-        final StreamingOutput streamingOutput = Config.asStream(Arrays.asList("one", "two"),
-                Arrays.asList("implicitOne", "implicitTwo"),
+    public void configForSimpleGroups() throws IOException {
+        final StreamingOutput streamingOutput = Config.asStream(Arrays.asList("focalOne", "focalTwo"),
+                Arrays.asList("backgroundOne", "backgroundTwo"),
                 ConfigUtil.getDefaultValueFactory());
 
+        configFileShouldBeGenerated(streamingOutput);
+    }
+
+    public void configFileShouldBeGenerated(StreamingOutput streamingOutput) throws IOException {
         ByteArrayOutputStream os = new ByteArrayOutputStream();
         streamingOutput.write(os);
         ZipInputStream zip = new ZipInputStream(new ByteArrayInputStream(os.toByteArray()));
@@ -80,13 +84,13 @@ public class ConfigTest {
         }
         assertThat(names, hasItems(
                 "osm_param-fishing.csv",
-                "fishing/fishing-seasonality-one.csv",
-                "fishing/fishing-seasonality-two.csv",
+                "fishing/fishing-seasonality-focalOne.csv",
+                "fishing/fishing-seasonality-focalTwo.csv",
                 "osm_param-init-pop.csv",
                 "grid-mask.csv",
                 "osm_param-movement.csv",
-                "maps/one0.csv",
-                "maps/two1.csv",
+                "maps/focalOne0.csv",
+                "maps/focalTwo1.csv",
                 "osm_param-natural-mortality.csv",
                 "osm_param-output.csv",
                 "osm_param-predation.csv",
