@@ -12,10 +12,10 @@ Service that generates OSMOSE configuration files from data sources like Fishbas
 # usage
 
 ## generate configuration
-1. (alt 1, static, for machines) download OSMOSE configuration at https://fbob.herokuapp.com/osmose_config.zip (static configuration) or https://fbob.herokuapp.com/osmose_config.zip?focalGroupName=ScomberomorusCavalla&focalGroupName=LutjanusCampechanus&focalGroupName=EpinephelusMorio (dynamic configuration with three named groups: _Scomberomorus cavalla_, _Lutjanus campechanus_ and _Epinephelus morio_.).
-1. (alt 1, single species focal groups, for machines) https://fbob.herokuapp.com/osmose_config.zip?focalGroupName=ScomberomorusCavalla&focalGroupName=LutjanusCampechanus&focalGroupName=EpinephelusMorio (dynamic configuration with three named groups: _Scomberomorus cavalla_, _Lutjanus campechanus_ and _Epinephelus morio_.).
-1. (alt 1, defined focal and background groups, for machines) by sending http post request. For example ```curl -X POST --data @request.json --header "Content-Type:application/json;charset=UTF-8" https://fbob.herokuapp.com/osmose_config.zip``` where request.json is something like [this](https://github.com/jhpoelen/fb-osmose-bridge/blob/master/src/test/resources/com/github/jhpoelen/fbob/exampleGroup.json)
-1. (alt 2, for humans) use wizard at http://fin-casey.github.io and download generated configuration archive.
+1. (alt 1, static, for machines) download OSMOSE configuration at https://fbob.herokuapp.com/osmose_config.zip
+1. (alt 2, single species focal groups, for machines) https://fbob.herokuapp.com/osmose_config.zip?focalGroupName=ScomberomorusCavalla&focalGroupName=LutjanusCampechanus&focalGroupName=EpinephelusMorio (dynamic configuration with three named groups: _Scomberomorus cavalla_, _Lutjanus campechanus_ and _Epinephelus morio_.).
+1. (alt 3, defined focal and background groups, for machines) by sending http post request. For example ```curl -X POST --data @request.json --header "Content-Type:application/json;charset=UTF-8" https://fbob.herokuapp.com/osmose_config.zip``` where request.json is something like [this](https://github.com/jhpoelen/fb-osmose-bridge/blob/master/src/test/resources/com/github/jhpoelen/fbob/exampleGroup.json)
+1. (alt 4, for humans) use wizard at http://fin-casey.github.io and download generated configuration archive.
 1. expand config.zip to ```[SOME_DIR]```
 
 ## run simulation
