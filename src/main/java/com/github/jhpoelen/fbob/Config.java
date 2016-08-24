@@ -96,8 +96,8 @@ public class Config {
 
     public static StreamingOutput asStream(final List<String> focalGroupNames, final List<String> backgroundGroup, final ValueFactory valueFactory) {
 
-        final Stream<Group> focalGroups = focalGroupNames.stream().map(groupName -> new Group(groupName, FunctionalGroupType.FOCAL, Collections.singletonList(new Species(groupName))));
-        final Stream<Group> backgroundGroups = backgroundGroup.stream().map(groupName -> new Group(groupName, FunctionalGroupType.BACKGROUND, Collections.singletonList(new Species(groupName))));
+        final Stream<Group> focalGroups = focalGroupNames.stream().map(groupName -> new Group(groupName, GroupType.FOCAL, Collections.singletonList(new Species(groupName))));
+        final Stream<Group> backgroundGroups = backgroundGroup.stream().map(groupName -> new Group(groupName, GroupType.BACKGROUND, Collections.singletonList(new Species(groupName))));
 
         return new StreamingOutput() {
             @Override

@@ -6,19 +6,19 @@ import java.util.List;
 public class Group {
 
     private String name;
-    private List<Species> speciesList;
-    private FunctionalGroupType type;
+    private List<Species> species;
+    private GroupType type;
 
     public Group(String name) {
-        this(name, FunctionalGroupType.FOCAL);
+        this(name, GroupType.FOCAL);
     }
 
-    public Group(String name, FunctionalGroupType type) {
+    public Group(String name, GroupType type) {
         this(name, type, new ArrayList<Species>());
     }
 
-    public Group(String name, FunctionalGroupType type, List<Species> speciesList) {
-        this.speciesList = speciesList;
+    public Group(String name, GroupType type, List<Species> species) {
+        this.species = species;
         this.name = name;
         this.type = type;
     }
@@ -31,19 +31,19 @@ public class Group {
         this.name = name;
     }
 
-    public List<Species> getSpeciesList() {
-        return speciesList;
+    public List<Species> getSpecies() {
+        return species;
     }
 
-    public void setSpeciesList(List<Species> speciesList) {
-        this.speciesList = speciesList;
+    public void setSpecies(List<Species> species) {
+        this.species = species;
     }
 
-    public FunctionalGroupType getType() {
+    public GroupType getType() {
         return type;
     }
 
-    public void setType(FunctionalGroupType type) {
+    public void setType(GroupType type) {
         this.type = type;
     }
 
