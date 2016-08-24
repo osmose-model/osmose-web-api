@@ -7,11 +7,14 @@ import org.reflections.scanners.ResourcesScanner;
 import org.reflections.util.ClasspathHelper;
 import org.reflections.util.ConfigurationBuilder;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.StreamingOutput;
 import java.io.IOException;
@@ -25,6 +28,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
+
+import static java.util.stream.Stream.*;
 
 @Path("osmose_config.zip")
 public class Config {
@@ -63,6 +68,16 @@ public class Config {
                 .build();
     }
 
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces("application/zip")
+    public Response configTemplateFromGroups(List<Group> groups) throws IOException {
+        if (groups.size() == 0) {
+            throw new IOException("expect at least [1] group, but got [" + groups.size() + "]");
+        }
+        return responseFor(asStream(groups, getValueFactory()));
+    }
+
     @GET
     @Produces("application/zip")
     public Response configTemplate(@QueryParam("focalGroupNames") final List<String> focalGroupNames) throws IOException {
@@ -81,29 +96,42 @@ public class Config {
                     "Bivalves",
                     "EchinodermsAndLargeGastropods"
             );
-            final List<ValueFactory> valueFactories = Arrays.asList(
-                    ConfigUtil.getFishbaseValueFactory(),
-                    ConfigUtil.getDefaultValueFactory());
-            final ValueFactory valueFactory = ConfigUtil.getProxyValueFactory(valueFactories);
 
-            response = Response
-                    .ok(asStream(focalGroupNames, ltlGroupNames, valueFactory))
-                    .header("Content-Disposition", "attachment; filename=osmose_config.zip")
-                    .build();
+            response = responseFor(asStream(focalGroupNames, ltlGroupNames, getValueFactory()));
         }
         return response;
     }
 
-    public static StreamingOutput asStream(final List<String> focalGroupNames, final List<String> backgroundGroup, final ValueFactory valueFactory) {
+    public Response responseFor(StreamingOutput os) {
+        Response response;
+        response = Response
+                .ok(os)
+                .header("Content-Disposition", "attachment; filename=osmose_config.zip")
+                .build();
+        return response;
+    }
 
-        final Stream<Group> focalGroups = focalGroupNames.stream().map(groupName -> new Group(groupName, GroupType.FOCAL, Collections.singletonList(new Species(groupName))));
-        final Stream<Group> backgroundGroups = backgroundGroup.stream().map(groupName -> new Group(groupName, GroupType.BACKGROUND, Collections.singletonList(new Species(groupName))));
+    public ValueFactory getValueFactory() {
+        final List<ValueFactory> valueFactories = Arrays.asList(
+                ConfigUtil.getFishbaseValueFactory(),
+                ConfigUtil.getDefaultValueFactory());
+        return ConfigUtil.getProxyValueFactory(valueFactories);
+    }
+
+    public static StreamingOutput asStream(final List<String> focalGroupNames, final List<String> backgroundGroupNames, final ValueFactory valueFactory) {
+        final Stream<Group> groups = concat(asGroups(focalGroupNames, GroupType.FOCAL), asGroups(backgroundGroupNames, GroupType.BACKGROUND));
+        return asStream(groups.collect(Collectors.toList()), valueFactory);
+    }
+
+    public static StreamingOutput asStream(List<Group> groups, final ValueFactory valueFactory) {
+        final List<Group> focalGroups = groups.stream().filter(g -> GroupType.FOCAL == g.getType()).collect(Collectors.toList());
+        final List<Group> backgroundGroups = groups.stream().filter(g -> GroupType.BACKGROUND == g.getType()).collect(Collectors.toList());
 
         return new StreamingOutput() {
             @Override
             public void write(OutputStream os) throws IOException, WebApplicationException {
                 ZipOutputStream zos = new ZipOutputStream(os);
-                ConfigUtil.generateConfigFor(focalGroups.collect(Collectors.toList()), backgroundGroups.collect(Collectors.toList()), new StreamFactory() {
+                ConfigUtil.generateConfigFor(focalGroups, backgroundGroups, new StreamFactory() {
                     @Override
                     public OutputStream outputStreamFor(String name) throws IOException {
                         ZipEntry e = new ZipEntry(name);
@@ -114,6 +142,12 @@ public class Config {
                 close(zos);
             }
         };
+    }
+
+    public static Stream<Group> asGroups(List<String> groupNames, GroupType type) {
+        return groupNames
+                .stream()
+                .map(groupName -> new Group(groupName, type, Collections.singletonList(new Taxon(groupName))));
     }
 
     private static void close(ZipOutputStream zos) throws IOException {

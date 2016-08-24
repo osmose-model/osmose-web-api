@@ -16,10 +16,37 @@ public class TraitFinderTest {
 
     @Test
     public void buildQuery() throws URISyntaxException {
-        String query = TraitFinder.queryForSpecies("ScomberomorusCavalla");
+        assertKingMackerel(TraitFinder.urlForSpecies("ScomberomorusCavalla"));
+    }
+
+    @Test
+    public void buildQuery2() throws URISyntaxException {
+        assertKingMackerel(TraitFinder.urlForSpecies("Scomberomorus cavalla"));
+    }
+
+    @Test
+    public void buildQuery3() throws URISyntaxException {
+        assertKingMackerel(TraitFinder.urlForSpecies("scomberomorus  cavalla"));
+    }
+
+    @Test
+    public void buildQueryByUrl() throws URISyntaxException {
+        final Taxon taxon = new Taxon("scomberomorus  cavalla");
+        taxon.setUrl("http://fishbase.org/summary/120");
+        assertThat(TraitFinder.urlForSpecies(taxon), is(new URI("https://fishbase.ropensci.org/species?SpecCode=120")));
+    }
+
+    @Test
+    public void buildQueryByUrl2() throws URISyntaxException {
+        final Taxon taxon = new Taxon("donald duck");
+        taxon.setUrl("http://sealifebase.org/summary/120");
+        assertThat(TraitFinder.urlForSpecies(taxon), is(new URI("https://fishbase.ropensci.org/sealifebase/species?SpecCode=120")));
+    }
+
+    public void assertKingMackerel(String query) throws URISyntaxException {
         String expectedUrl = "Genus=Scomberomorus&Species=cavalla";
         assertThat(query, is(expectedUrl));
-        URI uri = TraitFinder.uriForFishbaseSpeciesQuery(query);
+        URI uri = TraitFinder.uriForFishbaseSpeciesQuery("/species", query);
         assertThat(uri.toString(), is("https://fishbase.ropensci.org/species?Genus=Scomberomorus&Species=cavalla"));
     }
 

@@ -3,10 +3,11 @@ package com.github.jhpoelen.fbob;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class Group {
 
     private String name;
-    private List<Species> species;
+    private List<Taxon> taxa;
     private GroupType type;
 
     public Group(String name) {
@@ -14,11 +15,11 @@ public class Group {
     }
 
     public Group(String name, GroupType type) {
-        this(name, type, new ArrayList<Species>());
+        this(name, type, new ArrayList<Taxon>());
     }
 
-    public Group(String name, GroupType type, List<Species> species) {
-        this.species = species;
+    public Group(String name, GroupType type, List<Taxon> taxa) {
+        this.taxa = taxa;
         this.name = name;
         this.type = type;
     }
@@ -31,12 +32,12 @@ public class Group {
         this.name = name;
     }
 
-    public List<Species> getSpecies() {
-        return species;
+    public List<Taxon> getTaxa() {
+        return taxa;
     }
 
-    public void setSpecies(List<Species> species) {
-        this.species = species;
+    public void setTaxa(List<Taxon> taxa) {
+        this.taxa = taxa;
     }
 
     public GroupType getType() {

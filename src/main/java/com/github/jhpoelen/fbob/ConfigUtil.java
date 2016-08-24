@@ -9,6 +9,7 @@ import java.io.OutputStream;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -417,10 +418,16 @@ public class ConfigUtil {
                 final Map<String, String> valuesForGroup = groupDefaults.get(group.getName());
                 if (valuesForGroup == null) {
                     try {
-                        final Map<String, String> traitsForGroup = TraitFinder.findTraitsForGroup(group.getName(), getClass().getResourceAsStream("fishbase-mapping.csv"));
-                        if (traitsForGroup != null) {
-                            groupDefaults.put(group.getName(), traitsForGroup);
+                        List<Taxon> taxa = group.getTaxa().size() == 0 ? Collections.singletonList(new Taxon(group.getName())) : group.getTaxa();
+                        Map<String, String> combinedTraitsForGroup = new HashMap<String, String>();
+                        for (Taxon taxon : taxa) {
+                            final Map<String, String> traitsForGroup = TraitFinder.findTraits(taxon, getClass().getResourceAsStream("fishbase-mapping.csv"));
+                            for (Map.Entry<String, String> trait : traitsForGroup.entrySet()) {
+                                combinedTraitsForGroup.putIfAbsent(trait.getKey(), trait.getValue());
+                            }
+
                         }
+                        groupDefaults.put(group.getName(), combinedTraitsForGroup);
                     } catch (URISyntaxException | IOException e) {
                         throw new RuntimeException("failed to retrieve traits for [" + group.getName() + "]", e);
                     }

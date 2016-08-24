@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Stream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -68,6 +69,18 @@ public class ConfigTest {
     public void configForSimpleGroups() throws IOException {
         final StreamingOutput streamingOutput = Config.asStream(Arrays.asList("focalOne", "focalTwo"),
                 Arrays.asList("backgroundOne", "backgroundTwo"),
+                ConfigUtil.getDefaultValueFactory());
+
+        configFileShouldBeGenerated(streamingOutput);
+    }
+
+    @Test
+    public void configForGroups() throws IOException {
+        Group focalOne = new Group("focalOne", GroupType.FOCAL);
+        Group focalTwo = new Group("focalTwo", GroupType.FOCAL);
+        Group backgroundOne = new Group("backgroundOne", GroupType.BACKGROUND);
+        Group backgroundTwo = new Group("backgroundTwo", GroupType.BACKGROUND);
+        final StreamingOutput streamingOutput = Config.asStream(Arrays.asList(focalOne,focalTwo, backgroundOne, backgroundTwo),
                 ConfigUtil.getDefaultValueFactory());
 
         configFileShouldBeGenerated(streamingOutput);

@@ -1,6 +1,7 @@
 package com.github.jhpoelen.fbob;
 
 
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlEnumValue;
 import javax.xml.bind.annotation.XmlRootElement;

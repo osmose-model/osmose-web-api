@@ -42,18 +42,33 @@ public class TraitFinder {
         return speciesProperties;
     }
 
-    public static URI uriForFishbaseSpeciesQuery(String query) throws URISyntaxException {
-        return new URI("https", "fishbase.ropensci.org", "/species", query, null);
+    public static URI uriForFishbaseSpeciesQuery(String path, String query) throws URISyntaxException {
+        return new URI("https", "fishbase.ropensci.org", path, query, null);
     }
 
-    public static String queryForSpecies(String htlGroupName) {
-        Pattern r = Pattern.compile("([A-Z][a-z]+)([A-Z][a-z]+)");
-        Matcher m = r.matcher(htlGroupName);
+    public static URI urlForSpecies(Taxon taxon) throws URISyntaxException {
+        URI queryURI;
+        if (StringUtils.startsWith(taxon.getUrl(), "http://fishbase.org/summary/")) {
+            String queryString = StringUtils.replace(taxon.getUrl(), "http://fishbase.org/summary/", "SpecCode=");
+            queryURI = uriForFishbaseSpeciesQuery("/species", queryString);
+        } else if (StringUtils.startsWith(taxon.getUrl(), "http://sealifebase.org/summary/")) {
+            String queryString = StringUtils.replace(taxon.getUrl(), "http://sealifebase.org/summary/", "SpecCode=");
+            queryURI = uriForFishbaseSpeciesQuery("/sealifebase/species", queryString);
+        } else {
+            String queryString = urlForSpecies(taxon.getName());
+            queryURI = uriForFishbaseSpeciesQuery("/species", queryString);
+        }
+        return queryURI;
+    }
+
+    public static String urlForSpecies(String speciesName) {
+        Pattern r = Pattern.compile("(\\w+)\\s*(\\w+)");
+        Matcher m = r.matcher(speciesName);
         StringBuilder query = new StringBuilder();
         while (m.find()) {
             if (m.groupCount() > 0) {
                 query.append("Genus=");
-                query.append(m.group(1));
+                query.append(StringUtils.capitalize(m.group(1)));
             }
             if (m.groupCount() > 1) {
                 query.append("&Species=");
@@ -63,14 +78,15 @@ public class TraitFinder {
         return query.toString();
     }
 
-    public static Map<String, String> findTraitsForGroup(String groupName, InputStream fishbaseMapping) throws URISyntaxException, IOException {
+    public static Map<String, String> findTraits(Taxon taxon, InputStream fishbaseMapping) throws URISyntaxException, IOException {
         Map<String, String> speciesProperties = new HashMap<String, String>();
-        final String query = queryForSpecies(groupName);
+        final String query = urlForSpecies(taxon.getName());
         if (StringUtils.isNotBlank(query)) {
-            final URI uri = uriForFishbaseSpeciesQuery(query);
-            final String jsonString = IOUtils.toString(uri, "UTF-8");
+            final String jsonString = IOUtils.toString(urlForSpecies(taxon), "UTF-8");
             speciesProperties.putAll(mapProperties(jsonString, fishbaseMapping));
         }
         return speciesProperties;
     }
+
+
 }

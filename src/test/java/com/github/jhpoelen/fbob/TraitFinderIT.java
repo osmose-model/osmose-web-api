@@ -13,7 +13,7 @@ public class TraitFinderIT {
 
     @Test
     public void findLifeSpanDynamic() throws IOException, URISyntaxException {
-        final Map<String, String> speciesProperties = TraitFinder.findTraitsForGroup("ScomberomorusCavalla", getClass().getResourceAsStream("fishbase-mapping.csv"));
+        final Map<String, String> speciesProperties = TraitFinder.findTraits(new Taxon("ScomberomorusCavalla"), getClass().getResourceAsStream("fishbase-mapping.csv"));
         assertThat(speciesProperties.get("species.lifespan.sp"), is("14.0"));
     }
 
