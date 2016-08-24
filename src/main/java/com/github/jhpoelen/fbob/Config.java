@@ -65,9 +65,9 @@ public class Config {
 
     @GET
     @Produces("application/zip")
-    public Response configTemplate(@QueryParam("htlGroupName") final List<String> htlGroupNames) throws IOException {
+    public Response configTemplate(@QueryParam("focalGroupNames") final List<String> focalGroupNames) throws IOException {
         Response response;
-        if (htlGroupNames == null || htlGroupNames.size() == 0) {
+        if (focalGroupNames == null || focalGroupNames.size() == 0) {
             response = configArchive();
         } else {
             List<String> ltlGroupNames = Arrays.asList(
@@ -87,7 +87,7 @@ public class Config {
             final ValueFactory valueFactory = ConfigUtil.getProxyValueFactory(valueFactories);
 
             response = Response
-                    .ok(asStream(htlGroupNames, ltlGroupNames, valueFactory))
+                    .ok(asStream(focalGroupNames, ltlGroupNames, valueFactory))
                     .header("Content-Disposition", "attachment; filename=osmose_config.zip")
                     .build();
         }
@@ -97,7 +97,7 @@ public class Config {
     public static StreamingOutput asStream(final List<String> focalGroupNames, final List<String> backgroundGroup, final ValueFactory valueFactory) {
 
         final Stream<Group> focalGroups = focalGroupNames.stream().map(groupName -> new Group(groupName, FunctionalGroupType.FOCAL, Collections.singletonList(new Species(groupName))));
-        final Stream<Group> backgroundGroups = focalGroupNames.stream().map(groupName -> new Group(groupName, FunctionalGroupType.BACKGROUND, Collections.singletonList(new Species(groupName))));
+        final Stream<Group> backgroundGroups = backgroundGroup.stream().map(groupName -> new Group(groupName, FunctionalGroupType.BACKGROUND, Collections.singletonList(new Species(groupName))));
 
         return new StreamingOutput() {
             @Override

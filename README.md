@@ -12,7 +12,7 @@ Service that generates OSMOSE configuration files from data sources like Fishbas
 # usage
 
 ## generate configuration
-1. (alt 1, for machines) download OSMOSE configuration at https://fbob.herokuapp.com/osmose_config.zip (static configuration) or https://fbob.herokuapp.com/osmose_config.zip?htlGroupName=ScomberomorusCavalla&htlGroupName=LutjanusCampechanus&htlGroupName=EpinephelusMorio (dynamic configuration with three named groups: _Scomberomorus cavalla_, _Lutjanus campechanus_ and _Epinephelus morio_.).
+1. (alt 1, for machines) download OSMOSE configuration at https://fbob.herokuapp.com/osmose_config.zip (static configuration) or https://fbob.herokuapp.com/osmose_config.zip?focalGroupName=ScomberomorusCavalla&focalGroupName=LutjanusCampechanus&focalGroupName=EpinephelusMorio (dynamic configuration with three named groups: _Scomberomorus cavalla_, _Lutjanus campechanus_ and _Epinephelus morio_.).
 1. (alt 2, for humans) use wizard at http://fin-casey.github.io and download generated configuration archive.
 1. expand config.zip to ```[SOME_DIR]```
 
