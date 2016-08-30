@@ -2,6 +2,7 @@ package com.github.jhpoelen.fbob;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.glassfish.grizzly.Grizzly;
 import org.reflections.Reflections;
 import org.reflections.scanners.ResourcesScanner;
 import org.reflections.util.ClasspathHelper;
@@ -23,6 +24,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -35,9 +37,7 @@ import static java.util.stream.Stream.*;
 @Path("osmose_config.zip")
 public class Config {
 
-    private static final Logger LOG =
-            Logger.getLogger(Config.class.getName());
-
+    private static final Logger LOG = Logger.getLogger(Config.class.getName());
 
     public static final String OSMOSE_CONFIG = "osmose_config";
 
@@ -52,11 +52,15 @@ public class Config {
         ZipOutputStream zos = new ZipOutputStream(out);
         for (String resource : resources) {
             String resourceName = StringUtils.substringAfter(resource, OSMOSE_CONFIG + "/");
-            ZipEntry e = new ZipEntry(resourceName);
-            zos.putNextEntry(e);
-            IOUtils.write(IOUtils.toByteArray(Config.class.getResourceAsStream("/" + resource)), zos);
+            if (StringUtils.isNotBlank(resourceName)) {
+                LOG.info("adding [" + resourceName + "]");
+                ZipEntry e = new ZipEntry(resourceName);
+                zos.putNextEntry(e);
+                IOUtils.write(IOUtils.toByteArray(Config.class.getResourceAsStream("/" + resource)), zos);
+            }
         }
         close(zos);
+        LOG.info("zipstream closed.");
     }
 
     public Response configArchive() {
@@ -85,7 +89,7 @@ public class Config {
 
     @GET
     @Produces("application/zip")
-    public Response configTemplate(@QueryParam("focalGroupNames") final List<String> focalGroupNames) throws IOException {
+    public Response configTemplate(@QueryParam("focalGroupName") final List<String> focalGroupNames) throws IOException {
         Response response;
         if (focalGroupNames == null || focalGroupNames.size() == 0) {
             response = configArchive();
@@ -108,12 +112,10 @@ public class Config {
     }
 
     public Response responseFor(StreamingOutput os) {
-        Response response;
-        response = Response
+        return Response
                 .ok(os)
                 .header("Content-Disposition", "attachment; filename=osmose_config.zip")
                 .build();
-        return response;
     }
 
     public ValueFactory getValueFactory() {
@@ -129,7 +131,7 @@ public class Config {
     }
 
     public static StreamingOutput asStream(List<Group> groups, final ValueFactory valueFactory) {
-        LOG.severe("generating configuration...");
+        System.err.println("generating configuration...");
         final List<Group> focalGroups = groups.stream().filter(g -> GroupType.FOCAL == g.getType()).collect(Collectors.toList());
         final List<Group> backgroundGroups = groups.stream().filter(g -> GroupType.BACKGROUND == g.getType()).collect(Collectors.toList());
 

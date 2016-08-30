@@ -62,8 +62,10 @@ public class ConfigTest {
             IOUtils.copy(inputStream, new ByteArrayOutputStream());
         }
 
-
-        assertThat(entryNames.size(), is(resources.size()));
+        assertThat(entryNames, not(hasItem("fishbase-mapping.csv")));
+        assertThat(entryNames, not(hasItem("")));
+        assertThat(resources, hasItem("com/github/jhpoelen/fbob/fishbase-mapping.csv"));
+        assertThat(entryNames.size(), is(resources.size() - 1));
     }
 
     @Test
@@ -81,7 +83,7 @@ public class ConfigTest {
         Group focalTwo = new Group("focalTwo", GroupType.FOCAL);
         Group backgroundOne = new Group("backgroundOne", GroupType.BACKGROUND);
         Group backgroundTwo = new Group("backgroundTwo", GroupType.BACKGROUND);
-        final StreamingOutput streamingOutput = Config.asStream(Arrays.asList(focalOne,focalTwo, backgroundOne, backgroundTwo),
+        final StreamingOutput streamingOutput = Config.asStream(Arrays.asList(focalOne, focalTwo, backgroundOne, backgroundTwo),
                 ConfigUtil.getDefaultValueFactory());
 
         configFileShouldBeGenerated(streamingOutput);
@@ -97,7 +99,6 @@ public class ConfigTest {
             assertThat(names, not(hasItem(entry.getName())));
             names.add(entry.getName());
         }
-
 
 
         assertThat(names, hasItems(
