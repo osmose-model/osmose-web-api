@@ -135,6 +135,7 @@ public class Config {
                     @Override
                     public OutputStream outputStreamFor(String name) throws IOException {
                         ZipEntry e = new ZipEntry(name);
+                        System.out.println("adding [" + name + "]");
                         zos.putNextEntry(e);
                         return zos;
                     }

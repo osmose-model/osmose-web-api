@@ -16,6 +16,7 @@ import java.util.stream.Stream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
+import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNull.notNullValue;
 import static org.junit.Assert.assertThat;
@@ -91,10 +92,14 @@ public class ConfigTest {
         streamingOutput.write(os);
         ZipInputStream zip = new ZipInputStream(new ByteArrayInputStream(os.toByteArray()));
         ZipEntry entry;
-        List<String> names = new ArrayList<String>();
+        List<String> names = new ArrayList<>();
         while ((entry = zip.getNextEntry()) != null) {
+            assertThat(names, not(hasItem(entry.getName())));
             names.add(entry.getName());
         }
+
+
+
         assertThat(names, hasItems(
                 "osm_param-fishing.csv",
                 "fishing/fishing-seasonality-focalOne.csv",

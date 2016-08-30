@@ -333,6 +333,9 @@ public class ConfigUtilTest {
 
         @Override
         public OutputStream outputStreamFor(String name) throws IOException {
+            if (streamMap.containsKey(name)) {
+                throw new IOException("name: [" + name +"] already exists");
+            }
             streamMap.put(name, new ByteArrayOutputStream());
             return streamMap.get(name);
         }
