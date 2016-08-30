@@ -23,6 +23,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Logger;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -33,6 +34,10 @@ import static java.util.stream.Stream.*;
 
 @Path("osmose_config.zip")
 public class Config {
+
+    private static final Logger LOG =
+            Logger.getLogger(Config.class.getName());
+
 
     public static final String OSMOSE_CONFIG = "osmose_config";
 
@@ -135,7 +140,7 @@ public class Config {
                     @Override
                     public OutputStream outputStreamFor(String name) throws IOException {
                         ZipEntry e = new ZipEntry(name);
-                        System.err.println("adding [" + name + "]");
+                        LOG.info("adding [" + name + "]");
                         zos.putNextEntry(e);
                         return zos;
                     }
