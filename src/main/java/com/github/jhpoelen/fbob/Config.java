@@ -129,7 +129,7 @@ public class Config {
     }
 
     public static StreamingOutput asStream(List<Group> groups, final ValueFactory valueFactory) {
-        LOG.info("generating configuration...");
+        LOG.severe("generating configuration...");
         final List<Group> focalGroups = groups.stream().filter(g -> GroupType.FOCAL == g.getType()).collect(Collectors.toList());
         final List<Group> backgroundGroups = groups.stream().filter(g -> GroupType.BACKGROUND == g.getType()).collect(Collectors.toList());
 
