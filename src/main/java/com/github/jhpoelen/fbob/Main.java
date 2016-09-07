@@ -40,6 +40,7 @@ public class Main {
     public static ResourceConfig createApp() {
         return new ResourceConfig()
                 .packages("com.github.jhpoelen.fbob")
+                .register(CORSResponseFilter.class)
                 .register(createMoxyJsonResolver());
     }
 
