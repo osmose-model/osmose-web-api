@@ -37,7 +37,7 @@ public class ValidateConfigServiceTest extends ServerTestBase {
 
     @Test
     public void validateConfigWithTaxaV2() throws IOException {
-        String groupString = IOUtils.toString(getClass().getResourceAsStream("exampleGroupV2.json"), "UTF-8");
+        String groupString = IOUtils.toString(getClass().getResourceAsStream("exampleConfig.json"), "UTF-8");
         String responseMsg = sendRequest(groupString, "v2/validate");
         assertNotNull(responseMsg);
         assertThat(responseMsg, containsString("background"));

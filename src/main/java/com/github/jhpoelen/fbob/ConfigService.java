@@ -16,8 +16,6 @@ import java.util.logging.Logger;
 @Path("osmose_config.zip")
 public class ConfigService {
 
-    private static final Logger LOG = Logger.getLogger(ConfigService.class.getName());
-
     public static final String OSMOSE_CONFIG = "osmose_config";
 
     @POST
