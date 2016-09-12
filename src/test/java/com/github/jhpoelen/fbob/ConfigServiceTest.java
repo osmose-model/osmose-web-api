@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Stream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -23,11 +22,11 @@ import static org.junit.Assert.assertThat;
 import static org.junit.matchers.JUnitMatchers.hasItem;
 import static org.junit.matchers.JUnitMatchers.hasItems;
 
-public class ConfigTest {
+public class ConfigServiceTest {
 
     @Test
     public void archive() throws IOException {
-        Response actual = new Config().configArchive();
+        Response actual = ConfigServiceUtil.configArchive();
         assertThat(actual, is(notNullValue()));
         assertThat(actual.hasEntity(), is(true));
         StreamingOutput os = (StreamingOutput) actual.getEntity();
@@ -45,15 +44,15 @@ public class ConfigTest {
 
     @Test
     public void listFiles() {
-        Set<String> properties = Config.getResources();
+        Set<String> properties = ConfigServiceUtil.getResources();
         assertThat(properties, hasItem("com/github/jhpoelen/fbob/osmose_config/maps/Amberjacks_1.csv"));
     }
 
     @Test
     public void zipFiles() throws IOException {
-        Set<String> resources = Config.getResources();
+        Set<String> resources = ConfigServiceUtil.getResources();
         ByteArrayOutputStream out = new ByteArrayOutputStream();
-        Config.toZipOutputStream(resources, out);
+        ConfigServiceUtil.toZipOutputStream(resources, out);
         ZipInputStream inputStream = new ZipInputStream(new ByteArrayInputStream(out.toByteArray()));
         ZipEntry entry;
         List<String> entryNames = new ArrayList<>();
@@ -70,7 +69,7 @@ public class ConfigTest {
 
     @Test
     public void configForSimpleGroups() throws IOException {
-        final StreamingOutput streamingOutput = Config.asStream(Arrays.asList("focalOne", "focalTwo"),
+        final StreamingOutput streamingOutput = ConfigServiceUtil.asStream(Arrays.asList("focalOne", "focalTwo"),
                 Arrays.asList("backgroundOne", "backgroundTwo"),
                 ConfigUtil.getDefaultValueFactory());
 
@@ -83,7 +82,7 @@ public class ConfigTest {
         Group focalTwo = new Group("focalTwo", GroupType.FOCAL);
         Group backgroundOne = new Group("backgroundOne", GroupType.BACKGROUND);
         Group backgroundTwo = new Group("backgroundTwo", GroupType.BACKGROUND);
-        final StreamingOutput streamingOutput = Config.asStream(Arrays.asList(focalOne, focalTwo, backgroundOne, backgroundTwo),
+        final StreamingOutput streamingOutput = ConfigServiceUtil.asStream(Arrays.asList(focalOne, focalTwo, backgroundOne, backgroundTwo),
                 ConfigUtil.getDefaultValueFactory());
 
         configFileShouldBeGenerated(streamingOutput);

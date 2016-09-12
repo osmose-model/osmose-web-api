@@ -226,18 +226,18 @@ public class ConfigUtil {
         writeParamLines(groupNames, "predation.predPrey.stage.threshold.sp", valueFactory, os);
     }
 
-    public static void generateAllParametersFor(List<Group> functionalGroupsFocal, List<Group> functionalGroupsBackground, StreamFactory factory) throws IOException {
+    public static void generateAllParametersFor(Integer timeStepsPerYear, List<Group> groupFocal, List<Group> groupsBackground, StreamFactory factory) throws IOException {
         OutputStream os = factory.outputStreamFor("osm_all-parameters.csv");
-        writeLine(os, Arrays.asList("simulation.time.ndtPerYear", "12"));
+        writeLine(os, Arrays.asList("simulation.time.ndtPerYear", timeStepsPerYear.toString()));
         writeLine(os, Arrays.asList("simulation.time.nyear", "134"));
         writeLine(os, Arrays.asList("simulation.restart.file", "null"));
         writeLine(os, Arrays.asList("output.restart.recordfrequency.ndt", "60"));
         writeLine(os, Arrays.asList("output.restart.spinup", "114"));
         writeLine(os, Arrays.asList("simulation.nschool", "20"));
         writeLine(os, Arrays.asList("simulation.ncpu", "8"));
-        writeLine(os, Arrays.asList("simulation.nplankton", Integer.toString(functionalGroupsBackground.size())));
+        writeLine(os, Arrays.asList("simulation.nplankton", Integer.toString(groupsBackground.size())));
         writeLine(os, Arrays.asList("simulation.nsimulation", "10"));
-        writeLine(os, Arrays.asList("simulation.nspecies", Integer.toString(functionalGroupsFocal.size())));
+        writeLine(os, Arrays.asList("simulation.nspecies", Integer.toString(groupFocal.size())));
         writeLine(os, Arrays.asList("mortality.algorithm", "stochastic"));
         writeLine(os, Arrays.asList("mortality.subdt", "10"));
         writeLine(os, Arrays.asList("osmose.configuration.output", "osm_param-output.csv"));
@@ -332,19 +332,25 @@ public class ConfigUtil {
         writeLine(os, Arrays.asList(prefix + ".species", group.getName()));
     }
 
-    public static void generateConfigFor(List<Group> focalGroups, List<Group> backgroundGroups, StreamFactory factory, ValueFactory valueFactory) throws IOException {
-        generateAllParametersFor(focalGroups, backgroundGroups, factory);
-        generateFishingParametersFor(focalGroups, factory);
-        generateInitBiomassFor(focalGroups, factory, valueFactory);
-        generateMaps(focalGroups, factory, valueFactory);
-        generateNaturalMortalityFor(focalGroups, factory, valueFactory);
-        generateOutputParamsFor(focalGroups, factory, valueFactory);
-        generatePredationFor(focalGroups, factory, valueFactory);
-        generatePredationAccessibilityFor(focalGroups, backgroundGroups, factory);
-        generateSeasonalReproductionFor(focalGroups, factory);
+    public static void generateConfigFor(Config config, StreamFactory factory, ValueFactory valueFactory) throws IOException {
+        generateConfigFor(config.getTimeStepsPerYear(), config.getGroups().stream().filter(group -> group.getType() == GroupType.FOCAL).collect(Collectors.toList()),
+                config.getGroups().stream().filter(group -> group.getType() == GroupType.BACKGROUND).collect(Collectors.toList()),
+                factory, valueFactory);
+    }
 
-        generateSpecies(focalGroups, factory, valueFactory);
-        generateStarvationFor(focalGroups, factory);
+    public static void generateConfigFor(Integer timeStepsPerYear, List<Group> groupsFocal, List<Group> groupsBackground, StreamFactory factory, ValueFactory valueFactory) throws IOException {
+        generateAllParametersFor(timeStepsPerYear, groupsFocal, groupsBackground, factory);
+        generateFishingParametersFor(groupsFocal, factory);
+        generateInitBiomassFor(groupsFocal, factory, valueFactory);
+        generateMaps(groupsFocal, factory, valueFactory);
+        generateNaturalMortalityFor(groupsFocal, factory, valueFactory);
+        generateOutputParamsFor(groupsFocal, factory, valueFactory);
+        generatePredationFor(groupsFocal, factory, valueFactory);
+        generatePredationAccessibilityFor(groupsFocal, groupsBackground, factory);
+        generateSeasonalReproductionFor(groupsFocal, factory);
+
+        generateSpecies(groupsFocal, factory, valueFactory);
+        generateStarvationFor(groupsFocal, factory);
         generateStatic(factory);
     }
 

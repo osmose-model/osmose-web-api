@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static junit.framework.Assert.assertEquals;
 import static org.hamcrest.CoreMatchers.not;
@@ -23,7 +24,7 @@ import static org.junit.Assert.assertThat;
 import static org.junit.internal.matchers.IsCollectionContaining.hasItems;
 import static org.junit.internal.matchers.StringContains.containsString;
 
-public class ConfigUtilTest {
+public class ConfigServiceUtilTest {
     private StreamFactory factory;
 
     @Before
@@ -170,7 +171,11 @@ public class ConfigUtilTest {
     }
 
     private List<Group> toGroups(List<String> groupNames) {
-        return groupNames.stream().map(Group::new).collect(Collectors.toList());
+        return toGroupStream(groupNames).collect(Collectors.toList());
+    }
+
+    private Stream<Group> toGroupStream(List<String> groupNames) {
+        return groupNames.stream().map(Group::new);
     }
 
     @Test
@@ -281,7 +286,7 @@ public class ConfigUtilTest {
     public void generateConfigFor() throws IOException {
         List<String> groupNames = Arrays.asList("speciesA", "speciesB", "speciesC");
 
-        ConfigUtil.generateConfigFor(toGroups(groupNames), toGroups(new ArrayList<String>() {
+        ConfigUtil.generateConfigFor(12, toGroups(groupNames), toGroups(new ArrayList<String>() {
             {
                 add("planktonA");
                 add("planktonB");
@@ -296,12 +301,12 @@ public class ConfigUtilTest {
     @Test
     public void generateAllParametersFor() throws IOException {
         List<String> groupNames = Arrays.asList("speciesA", "speciesB", "speciesC");
-        List<String> implicitGroupNames = Arrays.asList("planktonA", "planktopB", "planktonC");
+        List<String> groupNamesBackground = Arrays.asList("planktonA", "planktopB", "planktonC");
 
-        ConfigUtil.generateAllParametersFor(toGroups(groupNames), toGroups(implicitGroupNames), getTestFactory());
+        ConfigUtil.generateAllParametersFor(11, toGroups(groupNames), toGroups(groupNamesBackground), getTestFactory());
 
         assertThat(getTestFactory().stringOutputFor("osm_all-parameters.csv"), is(
-                "\nsimulation.time.ndtPerYear;12\n" +
+                "\nsimulation.time.ndtPerYear;11\n" +
                         "simulation.time.nyear;134\n" +
                         "simulation.restart.file;null\n" +
                         "output.restart.recordfrequency.ndt;60\n" +
@@ -327,14 +332,13 @@ public class ConfigUtilTest {
                         "osmose.configuration.initialization;osm_param-init-pop.csv"));
     }
 
-
     private class StreamFactoryMemory implements StreamFactory {
         private final Map<String, ByteArrayOutputStream> streamMap = new TreeMap<String, ByteArrayOutputStream>();
 
         @Override
         public OutputStream outputStreamFor(String name) throws IOException {
             if (streamMap.containsKey(name)) {
-                throw new IOException("name: [" + name +"] already exists");
+                throw new IOException("name: [" + name + "] already exists");
             }
             streamMap.put(name, new ByteArrayOutputStream());
             return streamMap.get(name);
