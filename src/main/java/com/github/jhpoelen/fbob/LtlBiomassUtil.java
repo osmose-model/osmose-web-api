@@ -1,5 +1,6 @@
 package com.github.jhpoelen.fbob;
 
+import org.apache.commons.lang3.RandomUtils;
 import ucar.ma2.ArrayFloat;
 import ucar.ma2.DataType;
 import ucar.ma2.Index;
@@ -13,9 +14,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Random;
 
 public class LtlBiomassUtil {
-    public static final double[] MONTHS_DEFAULT = new double[]{1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0};
+    public static final double[] DEFAULT_MONTHS = new double[]{1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0};
     public static final double[] DEFAULT_LONGITUDES = new double[]{-86.91, -86.73005, -86.5501, -86.370155, -86.19021, -86.01026, -85.830315, -85.65037, -85.47042, -85.290474, -85.11053, -84.93058, -84.75063, -84.57069, -84.39074, -84.21079, -84.030846, -83.85089, -83.670944, -83.491, -83.31105, -83.1311, -82.95116, -82.77121, -82.59126, -82.411316, -82.23137, -82.05142, -81.871475, -81.69153, -81.51158, -81.331635, -81.15169, -80.97173, -80.79179, -80.61184, -80.43189, -80.251945, -80.072};
     public static final double[] DEFAULT_LATITUDES = new double[]{25.151, 25.330969, 25.510937, 25.690907, 25.870874, 26.050844, 26.230812, 26.410782, 26.59075, 26.77072, 26.950687, 27.130657, 27.310625, 27.490593, 27.670563, 27.85053, 28.0305, 28.210468, 28.390438, 28.570406, 28.750376, 28.930344, 29.110313, 29.290281, 29.47025, 29.650219, 29.830187, 30.010157, 30.190125, 30.370094, 30.550062, 30.730032, 30.91};
 
@@ -63,7 +65,7 @@ public class LtlBiomassUtil {
             for (int ltl = 0; ltl < ltlBiomass.getShape(1); ltl++) {
                 for (int lat = 0; lat < ltlBiomass.getShape()[2]; lat++) {
                     for (int lng = 0; lng < ltlBiomass.getShape()[3]; lng++) {
-                        tonsPerCell.setFloat(index.set(month, ltl, lat, lng), 0.0f);
+                        tonsPerCell.setFloat(index.set(month, ltl, lat, lng), RandomUtils.nextFloat(0, 1));
                     }
                 }
             }
@@ -97,7 +99,7 @@ public class LtlBiomassUtil {
         final ArrayFloat months = new ArrayFloat(time.getShape());
         final Index index = months.getIndex();
         for (int month = 0; month < time.getShape(0); month++) {
-            months.setFloat(index.set(month), (float) MONTHS_DEFAULT[month]);
+            months.setFloat(index.set(month), (float) DEFAULT_MONTHS[month]);
         }
         writer.write(time, months);
     }
