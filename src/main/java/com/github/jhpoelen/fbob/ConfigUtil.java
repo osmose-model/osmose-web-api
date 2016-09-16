@@ -1,9 +1,12 @@
 package com.github.jhpoelen.fbob;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
+import ucar.ma2.InvalidRangeException;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URISyntaxException;
@@ -297,7 +300,6 @@ public class ConfigUtil {
     public static void generateStatic(StreamFactory factory) throws IOException {
         generateFromTemplate(factory, "osm_param-mpa.csv");
         generateFromTemplate(factory, "osm_param-grid.csv");
-        generateFromTemplate(factory, "osm_ltlbiomass.nc");
     }
 
     public static void generateFromTemplate(StreamFactory factory, String staticTemplate) throws IOException {
@@ -366,7 +368,23 @@ public class ConfigUtil {
         generateStarvationFor(groupsFocal, factory);
 
         generateLtlForGroups(groupsBackground, factory, valueFactory);
+        generateLtlBiomassForGroups(groupsBackground, factory, valueFactory);
         generateStatic(factory);
+    }
+
+    private static void generateLtlBiomassForGroups(List<Group> groupsBackground, StreamFactory factory, ValueFactory valueFactory) throws IOException {
+        final String resourceName = "osm_ltlbiomass.nc";
+        OutputStream os = factory.outputStreamFor(resourceName);
+        try {
+            final File ltlbiomass = File.createTempFile("ltlbiomass", ".nc");
+            ltlbiomass.deleteOnExit();
+            LtlBiomassUtil.generateLtlBiomassNC(ltlbiomass, groupsBackground.size());
+            IOUtils.copy(FileUtils.openInputStream(ltlbiomass), os);
+
+        } catch (InvalidRangeException e) {
+            throw new IOException("failed to generate [" + resourceName + "]", e);
+        }
+
     }
 
     public static ValueFactory getProxyValueFactory(List<ValueFactory> valueFactories) {
@@ -422,10 +440,10 @@ public class ConfigUtil {
                 put("predation.efficiency.critical.sp", "0.57");
                 put("predation.accessibility.stage.threshold.sp", "0.0");
 
-                put("plankton.accessibility2fish.plk","0.2237");
-                put("plankton.conversion2tons.plk","1");
-                put("plankton.size.max.plk","0.002");
-                put("plankton.size.min.plk","0.0002");
+                put("plankton.accessibility2fish.plk", "0.2237");
+                put("plankton.conversion2tons.plk", "1");
+                put("plankton.size.max.plk", "0.002");
+                put("plankton.size.min.plk", "0.0002");
                 put("plankton.TL.plk", "1");
             }};
 
