@@ -11,7 +11,6 @@ import javax.ws.rs.core.Response;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
-import java.util.logging.Logger;
 
 @Path("osmose_config.zip")
 public class ConfigService {

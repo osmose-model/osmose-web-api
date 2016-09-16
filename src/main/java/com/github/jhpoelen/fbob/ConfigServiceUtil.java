@@ -7,6 +7,7 @@ import org.reflections.scanners.ResourcesScanner;
 import org.reflections.util.ClasspathHelper;
 import org.reflections.util.ConfigurationBuilder;
 
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.StreamingOutput;
 import java.io.IOException;
@@ -72,17 +73,24 @@ public class ConfigServiceUtil {
             throw new IllegalArgumentException("expect at least [1] group, but got [" + config.getGroups().size() + "]");
         }
 
-        System.err.println("generating configuration...");
-        return os -> {
-            ZipOutputStream zos = new ZipOutputStream(os);
-            ConfigUtil.generateConfigFor(config, name -> {
-                ZipEntry e = new ZipEntry(name);
-                LOG.info("adding [" + name + "]");
-                zos.putNextEntry(e);
-                return zos;
-            }, valueFactory);
-            close(zos);
+        System.err.println("configuration generating...");
+        return new StreamingOutput() {
+            @Override
+            public void write(OutputStream os) throws IOException, WebApplicationException {
+                ZipOutputStream zos = new ZipOutputStream(os);
+                ConfigUtil.generateConfigFor(config, new StreamFactory() {
+                    @Override
+                    public OutputStream outputStreamFor(String name) throws IOException {
+                        ZipEntry e = new ZipEntry(name);
+                        LOG.info("adding [" + name + "]");
+                        zos.putNextEntry(e);
+                        return zos;
+                    }
+                }, valueFactory);
+                close(zos);
+            }
         };
+
     }
 
     public static Stream<Group> asGroups(List<String> groupNames, GroupType type) {

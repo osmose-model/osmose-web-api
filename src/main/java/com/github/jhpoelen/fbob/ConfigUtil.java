@@ -196,6 +196,20 @@ public class ConfigUtil {
         writeParamLines(groups, "species.length2weight.fl.sp", valueFactory, os);
     }
 
+    public static void generateLtlForGroups(List<Group> groupsBackground, StreamFactory factory, ValueFactory valueFactory) throws IOException {
+        OutputStream os = factory.outputStreamFor("osm_param-ltl.csv");
+        for (Group groupName : groupsBackground) {
+            int i = groupsBackground.indexOf(groupName);
+            writeLine(os, Arrays.asList("plankton.name.plk" + i, groupName.getName()), i > 0);
+        }
+
+        writeParamLines(groupsBackground, "plankton.accessibility2fish.plk", valueFactory, os);
+        writeParamLines(groupsBackground, "plankton.conversion2tons.plk", valueFactory, os);
+        writeParamLines(groupsBackground, "plankton.size.max.plk", valueFactory, os);
+        writeParamLines(groupsBackground, "plankton.size.min.plk", valueFactory, os);
+        writeParamLines(groupsBackground, "plankton.TL.plk", valueFactory, os);
+    }
+
     public static void writeParamLines(List<Group> groups, String paramPrefix, ValueFactory valueFactory, OutputStream os) throws IOException {
         for (Group group : groups) {
             final String paramName = paramPrefix + groups.indexOf(group);
@@ -282,7 +296,6 @@ public class ConfigUtil {
 
     public static void generateStatic(StreamFactory factory) throws IOException {
         generateFromTemplate(factory, "osm_param-mpa.csv");
-        generateFromTemplate(factory, "osm_param-ltl.csv");
         generateFromTemplate(factory, "osm_param-grid.csv");
         generateFromTemplate(factory, "osm_ltlbiomass.nc");
     }
@@ -351,6 +364,8 @@ public class ConfigUtil {
 
         generateSpecies(groupsFocal, factory, valueFactory);
         generateStarvationFor(groupsFocal, factory);
+
+        generateLtlForGroups(groupsBackground, factory, valueFactory);
         generateStatic(factory);
     }
 
@@ -406,6 +421,12 @@ public class ConfigUtil {
                 put("predation.ingestion.rate.max.sp", "3.5");
                 put("predation.efficiency.critical.sp", "0.57");
                 put("predation.accessibility.stage.threshold.sp", "0.0");
+
+                put("plankton.accessibility2fish.plk","0.2237");
+                put("plankton.conversion2tons.plk","1");
+                put("plankton.size.max.plk","0.002");
+                put("plankton.size.min.plk","0.0002");
+                put("plankton.TL.plk", "1");
             }};
 
             @Override
