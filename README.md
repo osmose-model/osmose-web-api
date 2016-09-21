@@ -1,6 +1,5 @@
 # fb-osmose-bridge
-Service that generates OSMOSE configuration files from data sources like Fishbase and SeaLifeBase.
-
+Service that generates OSMOSE configuration files from data sources like Fishbase and SeaLifeBase. Please see our [wiki](https://github.com/jhpoelen/fb-osmose-bridge/wiki) for more information.
 
 
 [![Build Status](https://travis-ci.org/jhpoelen/fb-osmose-bridge.png)](https://travis-ci.org/jhpoelen/fb-osmose-bridge)
