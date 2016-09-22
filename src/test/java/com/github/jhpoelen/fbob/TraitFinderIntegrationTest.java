@@ -9,7 +9,7 @@ import java.util.Map;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
-public class TraitFinderIT {
+public class TraitFinderIntegrationTest {
 
     @Test
     public void findLifeSpanDynamic() throws IOException, URISyntaxException {
