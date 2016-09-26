@@ -6,13 +6,13 @@ import org.junit.Test;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsNot.not;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
+import static org.junit.internal.matchers.IsCollectionContaining.hasItem;
 import static org.junit.internal.matchers.IsCollectionContaining.hasItems;
 
 public class TraitFinderIntegrationTest {
@@ -52,6 +52,22 @@ public class TraitFinderIntegrationTest {
         }
 
         assertThat(StringUtils.join(msgs, "\n"), msgs.size(), is(0));
+    }
+
+    @Test
+    public void tableDocs() throws URISyntaxException, IOException {
+        Set<String> tables = TraitFinder.availableTables();
+        assertThat(tables, hasItem("species"));
+        assertThat(tables, hasItem("popqb"));
+        assertThat(tables, hasItem("genera"));
+    }
+
+    @Test
+    public void tablesUsed() throws IOException, URISyntaxException {
+        List<String> tables = TraitFinder.findUsedTables();
+        assertThat(tables, hasItem("popqb"));
+        assertThat(tables, hasItem("species"));
+        assertThat(tables, not(hasItem("genera")));
     }
 
 }

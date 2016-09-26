@@ -16,22 +16,28 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class TraitFinder {
-    public static Map<String, String> mapProperties(Map<String, String> jsonStrings, InputStream mappingInputStream) throws IOException {
-        Map<String, String> speciesProperties = new HashMap<String, String>();
 
+    public static void doMapping(InputStream mappingInputStream, PropertyMapping mapper) throws IOException {
         final CSVReader reader = new CSVReader(new InputStreamReader(mappingInputStream), ',');
         String[] line;
         while ((line = reader.readNext()) != null) {
-            final String fishbaseTableName = line[0];
-            final String fishbaseColumnName = line[1];
-            if (line.length > 3 && StringUtils.isNotBlank(fishbaseColumnName)) {
+            final String tableName = line[0];
+            final String columnName = line[1];
+            if (line.length > 3 && StringUtils.isNotBlank(columnName)) {
                 final String propertyName = line[2];
                 final String defaultValue = line[3];
-                String value = valueFromTableResults(jsonStrings, fishbaseTableName, fishbaseColumnName);
-                speciesProperties.put(propertyName, StringUtils.isBlank(value) ? defaultValue : value);
+                mapper.forMapping(tableName, columnName, propertyName, defaultValue);
             }
         }
+    }
 
+    public static Map<String, String> mapProperties(Map<String, String> jsonStrings, InputStream mappingInputStream) throws IOException {
+        Map<String, String> speciesProperties = new HashMap<String, String>();
+
+        doMapping(mappingInputStream, (tableName, columnName, mappedName, defaultValue) -> {
+            String value = valueFromTableResults(jsonStrings, tableName, columnName);
+            speciesProperties.put(mappedName, StringUtils.isBlank(value) ? defaultValue : value);
+        });
 
         return speciesProperties;
     }
@@ -56,6 +62,11 @@ public class TraitFinder {
 
     public static URI uriForTableQuery(String path, String query) throws URISyntaxException {
         return new URI("https", "fishbase.ropensci.org", path, query, null);
+    }
+
+    public static List<URI> urisForTableDocs() throws URISyntaxException {
+        return Arrays.asList(new URI("https", "fishbase.ropensci.org", "/docs", null, null),
+                new URI("https", "fishbase.ropensci.org", "/sealifebase/docs", null, null));
     }
 
     public static URI queryTable(Taxon taxon, String tableName) throws URISyntaxException {
@@ -91,19 +102,52 @@ public class TraitFinder {
     }
 
     public static Map<String, String> findTraits(Taxon taxon, InputStream fishbaseMapping) throws URISyntaxException, IOException {
+        return findTraits(taxon, fishbaseMapping, findUsedTables());
+    }
+
+    protected static List<String> findUsedTables(InputStream mappingInputStream) throws IOException {
+        Set<String> tableNames = new HashSet<>();
+        doMapping(mappingInputStream, (tableName, columnName, mappedName, defaultValue) -> tableNames.add(tableName));
+        return new ArrayList<>(tableNames);
+    }
+
+    public static Map<String, String> findTraits(Taxon taxon, InputStream fishbaseMapping, List<String> tableNames) throws URISyntaxException, IOException {
+        // https://github.com/jhpoelen/fb-osmose-bridge/issues/74
+        List<String> ignoredTables = Arrays.asList("popqb");
         Map<String, String> speciesProperties = new HashMap<String, String>();
-        List<String> tableNames = Arrays.asList("species", "popgrowth", "poplw", "maturity",
-                "fecundity", "spawning", "estimate", "popll");
-        // see issue https://github.com/jhpoelen/fb-osmose-bridge/issues/74
-        //tableNames.add("popqb");
         Map<String, String> results = new TreeMap<>();
         for (String tableName : tableNames) {
-            results.put(tableName, IOUtils.toString(queryTable(taxon, "/" + tableName), "UTF-8"));
+            if (!ignoredTables.contains(tableName)) {
+                results.put(tableName, IOUtils.toString(queryTable(taxon, "/" + tableName), "UTF-8"));
+            }
         }
         speciesProperties.putAll(mapProperties(results, fishbaseMapping));
-
         return speciesProperties;
     }
 
+    static Set<String> availableTables() throws URISyntaxException, IOException {
+        List<URI> uris = urisForTableDocs();
+        Set<String> tables = new HashSet<>();
+        for (URI uri : uris) {
+            final JsonNode jsonNode = new ObjectMapper().readTree(uri.toURL());
+            JsonNode data = jsonNode.get("data");
+            if (data != null && data.isArray()) {
+                for (JsonNode table : data) {
+                    if (table.has("table")) {
+                        String tableName = table.get("table").asText();
+                        if (StringUtils.isNotBlank(tableName)) {
+                            tables.add(tableName);
+                        }
+                    }
+                }
+            }
+        }
+        return tables;
+    }
 
+    static List<String> findUsedTables() throws IOException, URISyntaxException {
+        List<String> tables = findUsedTables(TraitFinder.class.getResourceAsStream("fishbase-mapping.csv"));
+        tables.retainAll(availableTables());
+        return tables;
+    }
 }
