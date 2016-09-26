@@ -35,8 +35,7 @@ public class TraitFinderIntegrationTest {
             put("species.sexratio.sp", "0.0");
             put("predation.ingestion.rate.max.osmose.sp", "0.0");
             put("predation.predPrey.stage.threshold.sp", "0.0");
-            // see https://github.com/jhpoelen/fb-osmose-bridge/issues/75
-            put("predation.accessibility.stage.threshold.sp", "");
+            put("predation.accessibility.stage.threshold.sp", "0.0");
             put("plankton.TL.plk", "4.42");
             put("plankton.size.min.plk", "55.0");
             put("plankton.size.max.plk", "104.0");
