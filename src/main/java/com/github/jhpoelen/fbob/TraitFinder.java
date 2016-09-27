@@ -118,7 +118,11 @@ public class TraitFinder {
         Map<String, String> results = new TreeMap<>();
         for (String tableName : tableNames) {
             if (!ignoredTables.contains(tableName)) {
-                results.put(tableName, IOUtils.toString(queryTable(taxon, "/" + tableName), "UTF-8"));
+                try {
+                    results.put(tableName, IOUtils.toString(queryTable(taxon, "/" + tableName), "UTF-8"));
+                } catch (IOException ex) {
+                    System.err.println("failed to retrieve trait for [" + taxon.getName() + "]:[" + taxon.getUrl() + "] in table [" + tableName + "]");
+                }
             }
         }
         speciesProperties.putAll(mapProperties(results, fishbaseMapping));

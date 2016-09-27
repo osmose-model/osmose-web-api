@@ -8,10 +8,7 @@ import javax.ws.rs.core.StreamingOutput;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -88,7 +85,53 @@ public class ConfigServiceTest {
         configFileShouldBeGenerated(streamingOutput);
     }
 
-    public void configFileShouldBeGenerated(StreamingOutput streamingOutput) throws IOException {
+    @Test
+    public void configForConfig() throws IOException {
+        Group focalOne = new Group("focalOne", GroupType.FOCAL);
+        Taxon taxon = new Taxon("Seriola dumerili");
+        taxon.setUrl("http://fishbase.org/summary/1005");
+        focalOne.setTaxa(Collections.singletonList(taxon));
+        Group backgroundOne = new Group("backgroundOne", GroupType.BACKGROUND);
+        taxon = new Taxon("Seriola dumerili");
+        taxon.setUrl("http://fishbase.org/summary/1006");
+        backgroundOne.setTaxa(Collections.singletonList(taxon));
+        final StreamingOutput streamingOutput = ConfigServiceUtil.asStream(Arrays.asList(focalOne, backgroundOne),
+                ConfigUtil.getFishbaseValueFactory());
+
+        ByteArrayOutputStream os = new ByteArrayOutputStream();
+        streamingOutput.write(os);
+        ZipInputStream zip = new ZipInputStream(new ByteArrayInputStream(os.toByteArray()));
+        ZipEntry entry;
+        List<String> names = new ArrayList<>();
+        while ((entry = zip.getNextEntry()) != null) {
+            assertThat(names, not(hasItem(entry.getName())));
+            names.add(entry.getName());
+        }
+
+
+        assertThat(names, hasItems(
+                "osm_param-fishing.csv",
+                "fishing/fishing-seasonality-focalOne.csv",
+                "osm_param-init-pop.csv",
+                "grid-mask.csv",
+                "osm_param-movement.csv",
+                "maps/focalOne0.csv",
+                "osm_param-natural-mortality.csv",
+                "osm_param-output.csv",
+                "osm_param-predation.csv",
+                "predation-accessibility.csv",
+                "osm_param-reproduction.csv",
+                "reproduction-seasonality-sp0.csv",
+                "osm_param-species.csv",
+                "osm_param-starvation.csv",
+                "osm_param-mpa.csv",
+                "osm_param-ltl.csv",
+                "osm_param-grid.csv",
+                "osm_ltlbiomass.nc",
+                "osm_all-parameters.csv"));
+    }
+
+    private void configFileShouldBeGenerated(StreamingOutput streamingOutput) throws IOException {
         ByteArrayOutputStream os = new ByteArrayOutputStream();
         streamingOutput.write(os);
         ZipInputStream zip = new ZipInputStream(new ByteArrayInputStream(os.toByteArray()));
