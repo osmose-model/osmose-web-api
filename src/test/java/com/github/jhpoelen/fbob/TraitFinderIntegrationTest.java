@@ -36,7 +36,7 @@ public class TraitFinderIntegrationTest {
         final Map<String, String> speciesProperties = TraitFinder.findTraits(kingMackerel, mappingFile);
         ArrayList<String> msgs = new ArrayList<>();
         for (String traitName : expectedTraits.keySet()) {
-            assertNotNull("did not expect [" + traitName + "]", speciesProperties.get(traitName));
+            assertNotNull("expected [" + traitName + "], but found none", speciesProperties.get(traitName));
             if (!StringUtils.equals(speciesProperties.get(traitName), expectedTraits.get(traitName))) {
                 String msg = "found [" + traitName + "]: [" + speciesProperties.get(traitName) + "], but expected [" + expectedTraits.get(traitName) + "]";
                 msgs.add(msg);
