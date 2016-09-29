@@ -45,6 +45,7 @@ public class ConfigServiceUtilTest {
             put("species.lifespan.sp", "osm_param-species.csv");
             put("species.lInf.sp", "osm_param-species.csv");
             put("species.maturity.size.sp", "osm_param-species.csv");
+            put("species.maturity.age.sp", "osm_param-species.csv");
             put("species.relativefecundity.sp", "osm_param-species.csv");
             put("species.sexratio.sp", "osm_param-species.csv");
             put("species.t0.sp", "osm_param-species.csv");
