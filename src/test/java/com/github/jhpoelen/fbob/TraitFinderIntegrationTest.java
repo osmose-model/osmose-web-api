@@ -19,8 +19,7 @@ public class TraitFinderIntegrationTest {
 
     @Test
     public void findLifeSpanDynamic() throws IOException, URISyntaxException {
-        Taxon kingMackerel = new Taxon("ScomberomorusCavalla");
-        kingMackerel.setUrl("http://fishbase.org/summary/120");
+        Taxon kingMackerel = TestUtil.kingMackerel();
         InputStream mappingFile = getClass().getResourceAsStream("fishbase-mapping.csv");
         Map<String, String> expectedTraits = new TreeMap<String, String>() {{
             put("species.lifespan.sp", "14.0");

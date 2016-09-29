@@ -31,11 +31,11 @@ public class TraitFinder {
         }
     }
 
-    public static Map<String, String> mapProperties(Map<String, String> jsonStrings, InputStream mappingInputStream) throws IOException {
+    public static Map<String, String> mapProperties(Map<String, String> tableResultMap, InputStream mappingInputStream) throws IOException {
         Map<String, String> speciesProperties = new HashMap<String, String>();
 
         doMapping(mappingInputStream, (tableName, columnName, mappedName, defaultValue) -> {
-            String value = valueFromTableResults(jsonStrings, tableName, columnName);
+            String value = valueFromTableResults(tableResultMap, tableName, columnName);
             speciesProperties.put(mappedName, StringUtils.isBlank(value) ? defaultValue : value);
         });
 
@@ -112,17 +112,14 @@ public class TraitFinder {
     }
 
     public static Map<String, String> findTraits(Taxon taxon, InputStream fishbaseMapping, List<String> tableNames) throws URISyntaxException, IOException {
-        // https://github.com/jhpoelen/fb-osmose-bridge/issues/74
-        List<String> ignoredTables = Arrays.asList("popqb");
         Map<String, String> speciesProperties = new HashMap<String, String>();
         Map<String, String> results = new TreeMap<>();
         for (String tableName : tableNames) {
-            if (!ignoredTables.contains(tableName)) {
-                try {
-                    results.put(tableName, IOUtils.toString(queryTable(taxon, "/" + tableName), "UTF-8"));
-                } catch (IOException ex) {
-                    System.err.println("failed to retrieve trait for [" + taxon.getName() + "]:[" + taxon.getUrl() + "] in table [" + tableName + "]");
-                }
+            try {
+                results.put(tableName, IOUtils.toString(queryTable(taxon, "/" + tableName), "UTF-8"));
+            } catch (IOException ex) {
+                System.err.println("failed to retrieve trait for [" + taxon.getName() + "]:[" + taxon.getUrl() + "] in table [" + tableName + "]");
+                ex.printStackTrace(System.err);
             }
         }
         speciesProperties.putAll(mapProperties(results, fishbaseMapping));

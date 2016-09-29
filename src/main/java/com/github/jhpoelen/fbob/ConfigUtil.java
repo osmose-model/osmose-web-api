@@ -9,13 +9,9 @@ import ucar.ma2.InvalidRangeException;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 public class ConfigUtil {
@@ -388,98 +384,15 @@ public class ConfigUtil {
     }
 
     public static ValueFactory getProxyValueFactory(List<ValueFactory> valueFactories) {
-        return new ValueFactory() {
-            @Override
-            public String groupValueFor(String name, Group group) {
-                String value = null;
-                for (ValueFactory valueFactory : valueFactories) {
-                    value = valueFactory.groupValueFor(name, group);
-                    if (StringUtils.isNotBlank(value)) {
-                        break;
-                    }
-                }
-                return value;
-            }
-        };
+        return new ValueFactoryProxy(valueFactories);
     }
 
     public static ValueFactory getDefaultValueFactory() {
-        return new ValueFactory() {
-            Map<String, String> defaults = new HashMap<String, String>() {{
-                put("species.egg.size.sp", "0.1");
-                put("species.egg.weight.sp", "0.0005386");
-                put("species.K.sp", "0.0");
-                put("species.length2weight.allometric.power.sp", "0.0");
-                put("species.length2weight.condition.factor.sp", "0.0");
-                put("species.lifespan.sp", "0");
-                put("species.lInf.sp", "0.0");
-                put("species.maturity.size.sp", "0.0");
-                put("species.relativefecundity.sp", "0");
-                put("species.sexratio.sp", "0.0");
-                put("species.t0.sp", "0.0");
-                put("species.length2weight.fl.sp", "false");
-                put("species.vonbertalanffy.threshold.age.sp", "0.0");
-
-                put("predation.accessibility.stage.threshold.sp", "0.0");
-                put("predation.efficiency.critical.sp", "0.57");
-                put("predation.ingestion.rate.max.sp", "3.5");
-                put("predation.predPrey.stage.threshold.sp", "0.0");
-
-                put("movement.distribution.method.sp", "maps");
-                put("movement.randomwalk.range.sp", "1");
-
-                put("population.seeding.biomass.sp", "0.0");
-
-                put("mortality.natural.larva.rate.sp", "0.0");
-                put("mortality.natural.rate.sp", "0.0");
-
-                put("output.cutoff.age.sp", "0.0");
-
-                put("predation.predPrey.stage.threshold.sp", "0.0");
-                put("predation.ingestion.rate.max.sp", "3.5");
-                put("predation.efficiency.critical.sp", "0.57");
-                put("predation.accessibility.stage.threshold.sp", "0.0");
-
-                put("plankton.accessibility2fish.plk", "0.2237");
-                put("plankton.conversion2tons.plk", "1");
-                put("plankton.size.max.plk", "0.002");
-                put("plankton.size.min.plk", "0.0002");
-                put("plankton.TL.plk", "1");
-            }};
-
-            @Override
-            public String groupValueFor(String name, Group group) {
-                return defaults.get(name);
-            }
-        };
+        return new ValueFactoryDefault();
     }
 
     public static ValueFactory getFishbaseValueFactory() {
-        return new ValueFactory() {
-            Map<String, Map<String, String>> groupDefaults = new HashMap<String, Map<String, String>>();
-
-            @Override
-            public String groupValueFor(String name, Group group) {
-                final Map<String, String> valuesForGroup = groupDefaults.get(group.getName());
-                if (valuesForGroup == null) {
-                    try {
-                        List<Taxon> taxa = group.getTaxa().size() == 0 ? Collections.singletonList(new Taxon(group.getName())) : group.getTaxa();
-                        Map<String, String> combinedTraitsForGroup = new HashMap<String, String>();
-                        for (Taxon taxon : taxa) {
-                            final Map<String, String> traitsForGroup = TraitFinder.findTraits(taxon, getClass().getResourceAsStream("fishbase-mapping.csv"));
-                            for (Map.Entry<String, String> trait : traitsForGroup.entrySet()) {
-                                combinedTraitsForGroup.putIfAbsent(trait.getKey(), trait.getValue());
-                            }
-
-                        }
-                        groupDefaults.put(group.getName(), combinedTraitsForGroup);
-                    } catch (URISyntaxException | IOException e) {
-                        throw new RuntimeException("failed to retrieve traits for [" + group.getName() + "]", e);
-                    }
-                }
-                return valuesForGroup == null ? null : valuesForGroup.get(name);
-            }
-        };
+        return new ValueFactoryFishbase();
     }
 
     public static void generatePredationAccessibilityFor(List<Group> focalGroups, List<Group> backgroundGroups, StreamFactory factory) throws IOException {
