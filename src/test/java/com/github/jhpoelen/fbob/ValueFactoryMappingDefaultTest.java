@@ -12,12 +12,12 @@ public class ValueFactoryMappingDefaultTest {
 
     @Test
     public void knownTrait() {
-        ValueFactory valueFactory = new ValueFactoryMappingDefault();
+        ValueFactory valueFactory = new ValueFactoryMappingDefault("test-mapping.csv");
         Group group = new Group("someGroupName");
         group.setTaxa(Collections.singletonList(TestUtil.kingMackerel()));
-        assertThat(valueFactory.groupValueFor("species.lifespan.sp", group), is("0"));
-        assertThat(valueFactory.groupValueFor("species.sexratio.sp", group), is("0.0"));
-        assertThat(valueFactory.groupValueFor("nonexisting.trait.sp", group), is(nullValue()));
+        assertThat(valueFactory.groupValueFor("trait1", group), is("0"));
+        assertThat(valueFactory.groupValueFor("trait2", group), is("0.5"));
+        assertThat(valueFactory.groupValueFor("non.existence.trait1", group), is(nullValue()));
     }
 
 }
