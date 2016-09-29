@@ -68,7 +68,7 @@ public class ConfigServiceTest {
     public void configForSimpleGroups() throws IOException {
         final StreamingOutput streamingOutput = ConfigServiceUtil.asStream(Arrays.asList("focalOne", "focalTwo"),
                 Arrays.asList("backgroundOne", "backgroundTwo"),
-                ConfigUtil.getDefaultValueFactory());
+                new ValueFactoryDefault());
 
         configFileShouldBeGenerated(streamingOutput);
     }
@@ -80,7 +80,7 @@ public class ConfigServiceTest {
         Group backgroundOne = new Group("backgroundOne", GroupType.BACKGROUND);
         Group backgroundTwo = new Group("backgroundTwo", GroupType.BACKGROUND);
         final StreamingOutput streamingOutput = ConfigServiceUtil.asStream(Arrays.asList(focalOne, focalTwo, backgroundOne, backgroundTwo),
-                ConfigUtil.getDefaultValueFactory());
+                new ValueFactoryDefault());
 
         configFileShouldBeGenerated(streamingOutput);
     }
@@ -96,7 +96,7 @@ public class ConfigServiceTest {
         taxon.setUrl("http://fishbase.org/summary/1006");
         backgroundOne.setTaxa(Collections.singletonList(taxon));
         final StreamingOutput streamingOutput = ConfigServiceUtil.asStream(Arrays.asList(focalOne, backgroundOne),
-                ConfigUtil.getFishbaseValueFactory());
+                new ValueFactoryFishbase());
 
         ByteArrayOutputStream os = new ByteArrayOutputStream();
         streamingOutput.write(os);

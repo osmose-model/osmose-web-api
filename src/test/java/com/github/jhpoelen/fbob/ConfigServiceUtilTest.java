@@ -113,7 +113,7 @@ public class ConfigServiceUtilTest {
     }
 
     public ValueFactory getTestValueFactory() {
-        return ConfigUtil.getDefaultValueFactory();
+        return new ValueFactoryDefault();
     }
 
     @Test
@@ -315,7 +315,7 @@ public class ConfigServiceUtilTest {
                 add("planktonC");
                 add("planktonD");
             }
-        }), getTestFactory(), ConfigUtil.getDefaultValueFactory());
+        }), getTestFactory(), new ValueFactoryDefault());
 
         assertThat(getTestFactory().streamMap.keySet(), hasItems("osm_param-species.csv", "osm_param-starvation.csv"));
     }

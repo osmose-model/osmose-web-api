@@ -387,14 +387,6 @@ public class ConfigUtil {
         return new ValueFactoryProxy(valueFactories);
     }
 
-    public static ValueFactory getDefaultValueFactory() {
-        return new ValueFactoryDefault();
-    }
-
-    public static ValueFactory getFishbaseValueFactory() {
-        return new ValueFactoryFishbase();
-    }
-
     public static void generatePredationAccessibilityFor(List<Group> focalGroups, List<Group> backgroundGroups, StreamFactory factory) throws IOException {
         List<String> columnHeaders = new ArrayList<String>();
         for (Group group : focalGroups) {

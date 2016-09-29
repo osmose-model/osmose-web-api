@@ -116,8 +116,9 @@ public class ConfigServiceUtil {
 
     public static ValueFactory getValueFactory() {
         final List<ValueFactory> valueFactories = Arrays.asList(
-                ConfigUtil.getFishbaseValueFactory(),
-                ConfigUtil.getDefaultValueFactory());
+                new ValueFactoryFishbase(),
+                new ValueFactoryMappingDefault(),
+                new ValueFactoryDefault());
         return ConfigUtil.getProxyValueFactory(valueFactories);
     }
 }

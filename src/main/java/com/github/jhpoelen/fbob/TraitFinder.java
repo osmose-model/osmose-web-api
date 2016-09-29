@@ -36,7 +36,9 @@ public class TraitFinder {
 
         doMapping(mappingInputStream, (tableName, columnName, mappedName, defaultValue) -> {
             String value = valueFromTableResults(tableResultMap, tableName, columnName);
-            speciesProperties.put(mappedName, StringUtils.isBlank(value) ? defaultValue : value);
+            if (StringUtils.isNoneBlank(value)) {
+                speciesProperties.put(mappedName, value);
+            }
         });
 
         return speciesProperties;
