@@ -33,61 +33,39 @@ public class ConfigServiceUtilTest {
     }
 
     @Test
-    public void functionalParams() {
-        new TreeMap<String, String>() {{
-            put("mortality.starvation.rate.max.sp", "osm_param-starvation.csv");
-            put("species.name.sp", "osm_param-species.csv");
-            put("species.egg.size.sp", "osm_param-species.csv");
-            put("species.egg.weight.sp", "osm_param-species.csv");
-            put("species.K.sp", "osm_param-species.csv");
-            put("species.length2weight.allometric.power.sp", "osm_param-species.csv");
-            put("species.length2weight.condition.factor.sp", "osm_param-species.csv");
-            put("species.lifespan.sp", "osm_param-species.csv");
-            put("species.lInf.sp", "osm_param-species.csv");
-            put("species.maturity.size.sp", "osm_param-species.csv");
-            put("species.maturity.age.sp", "osm_param-species.csv");
-            put("species.relativefecundity.sp", "osm_param-species.csv");
-            put("species.sexratio.sp", "osm_param-species.csv");
-            put("species.t0.sp", "osm_param-species.csv");
-            put("species.vonbertalanffy.threshold.age.sp", "osm_param-species.csv");
-            put("species.length2weight.fl.sp", "osm_param-species.csv");
-
-            put("predation.accessibility.stage.threshold.sp", "osm_param-predation.csv");
-            put("predation.efficiency.critical.sp", "osm_param-predation.csv");
-            put("predation.ingestion.rate.max.sp", "osm_param-predation.csv");
-            put("predation.predPrey.sizeRatio.max.sp", "osm_param-predation.csv");
-            put("predation.predPrey.sizeRatio.min.sp", "osm_param-predation.csv");
-            put("predation.predPrey.stage.threshold.sp", "osm_param-predation.csv");
-
-            put("output.cutoff.age.sp", "osm_param-output.csv");
-            put("output.diet.stage.threshold.sp", "osm_param-output.csv");
-
-            put("mortality.natural.larva.rate.sp", "osm_param-natural-mortality");
-            put("mortality.natural.rate.sp", "osm_param-natural-mortality");
-
-            put("movement.distribution.method.sp", "osm_param-movement.csv");
-
-            put("population.seeding.biomass.sp", "osm_param-init-pop.csv");
-
-            put("mortality.fishing.rate.sp", "osm_param-fishing.csv");
-            put("mortality.fishing.recruitment.age.sp", "osm_param-fishing.csv");
-            put("mortality.fishing.recruitment.size.sp", "osm_param-fishing.csv");
-            put("mortality.fishing.season.distrib.file.", "osm_param-fishing.csv");
-
-            put("simulation.nspecies", "osm_all-parameters.csv");
-
-        }};
-    }
-
-
-    @Test
     public void species() throws IOException {
         List<Group> groups = Arrays.asList(new Group("groupOne"), new Group("groupTwo"));
         StreamFactoryMemory factory = getTestFactory();
 
         ConfigUtil.generateSpecies(groups, factory, getTestValueFactory());
 
-        String asExpected = "species.name.sp0;groupOne\nspecies.name.sp1;groupTwo\nspecies.egg.size.sp0;0.1\nspecies.egg.size.sp1;0.1\nspecies.egg.weight.sp0;0.0005386\nspecies.egg.weight.sp1;0.0005386\nspecies.K.sp0;0.0\nspecies.K.sp1;0.0\nspecies.length2weight.allometric.power.sp0;0.0\nspecies.length2weight.allometric.power.sp1;0.0\nspecies.length2weight.condition.factor.sp0;0.0\nspecies.length2weight.condition.factor.sp1;0.0\nspecies.lifespan.sp0;0\nspecies.lifespan.sp1;0\nspecies.lInf.sp0;0.0\nspecies.lInf.sp1;0.0\nspecies.maturity.size.sp0;0.0\nspecies.maturity.size.sp1;0.0\nspecies.relativefecundity.sp0;0\nspecies.relativefecundity.sp1;0\nspecies.sexratio.sp0;0.0\nspecies.sexratio.sp1;0.0\nspecies.t0.sp0;0.0\nspecies.t0.sp1;0.0\nspecies.vonbertalanffy.threshold.age.sp0;0.0\nspecies.vonbertalanffy.threshold.age.sp1;0.0\nspecies.length2weight.fl.sp0;false\nspecies.length2weight.fl.sp1;false";
+        String asExpected = "species.name.sp0;groupOne" +
+                "\nspecies.name.sp1;groupTwo" +
+                "\nspecies.egg.size.sp0;0.1" +
+                "\nspecies.egg.size.sp1;0.1" +
+                "\nspecies.egg.weight.sp0;0.0005386" +
+                "\nspecies.egg.weight.sp1;0.0005386" +
+                "\nspecies.K.sp0;0.0\nspecies.K.sp1;0.0" +
+                "\nspecies.length2weight.allometric.power.sp0;0.0" +
+                "\nspecies.length2weight.allometric.power.sp1;0.0" +
+                "\nspecies.length2weight.condition.factor.sp0;0.0" +
+                "\nspecies.length2weight.condition.factor.sp1;0.0" +
+                "\nspecies.lifespan.sp0;0\nspecies.lifespan.sp1;0" +
+                "\nspecies.lInf.sp0;0.0\nspecies.lInf.sp1;0.0" +
+                "\nspecies.maturity.size.sp0;0.0" +
+                "\nspecies.maturity.size.sp1;0.0" +
+                "\nspecies.maturity.age.sp0;0.0" +
+                "\nspecies.maturity.age.sp1;0.0" +
+                "\nspecies.relativefecundity.sp0;0" +
+                "\nspecies.relativefecundity.sp1;0" +
+                "\nspecies.sexratio.sp0;0.0" +
+                "\nspecies.sexratio.sp1;0.0" +
+                "\nspecies.t0.sp0;0.0" +
+                "\nspecies.t0.sp1;0.0" +
+                "\nspecies.vonbertalanffy.threshold.age.sp0;0.0" +
+                "\nspecies.vonbertalanffy.threshold.age.sp1;0.0" +
+                "\nspecies.length2weight.fl.sp0;false" +
+                "\nspecies.length2weight.fl.sp1;false";
         assertThat(getTestFactory().stringOutputFor("osm_param-species.csv"), is(asExpected));
     }
 

@@ -14,7 +14,9 @@ public class ValueFactoryDefaultTest {
     public void knownTrait() {
         ValueFactory valueFactory = new ValueFactoryDefault();
         Group group = new Group("someGroupName");
-        group.setTaxa(Collections.singletonList(TestUtil.kingMackerel()));
+        Taxon kingMackerel = new Taxon("ScomberomorusCavalla");
+        kingMackerel.setUrl("http://fishbase.org/summary/120");
+        group.setTaxa(Collections.singletonList(kingMackerel));
         assertThat(valueFactory.groupValueFor("species.lifespan.sp", group), is("0"));
         assertThat(valueFactory.groupValueFor("species.sexratio.sp", group), is("0.0"));
         assertThat(valueFactory.groupValueFor("nonexisting.trait.sp", group), is(nullValue()));

@@ -29,14 +29,14 @@ public class TraitFinderTest {
     public void buildQueryByUrl() throws URISyntaxException {
         final Taxon taxon = new Taxon("scomberomorus  cavalla");
         taxon.setUrl("http://fishbase.org/summary/120");
-        assertThat(TraitFinder.queryTable(taxon, "/species"), is(new URI("https://fishbase.ropensci.org/species?SpecCode=120")));
+        assertThat(TraitFinder.queryTable(taxon, "/species"), is(new URI("https://fishbase.ropensci.org/species?SpecCode=120&limit=5000")));
     }
 
     @Test
     public void buildQueryByUrl2() throws URISyntaxException {
         final Taxon taxon = new Taxon("donald duck");
         taxon.setUrl("http://sealifebase.org/summary/120");
-        assertThat(TraitFinder.queryTable(taxon, "/species"), is(new URI("https://fishbase.ropensci.org/sealifebase/species?SpecCode=120")));
+        assertThat(TraitFinder.queryTable(taxon, "/species"), is(new URI("https://fishbase.ropensci.org/sealifebase/species?SpecCode=120&limit=5000")));
     }
 
     public void assertKingMackerel(String query) throws URISyntaxException {

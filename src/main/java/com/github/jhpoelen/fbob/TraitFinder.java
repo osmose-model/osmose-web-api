@@ -50,12 +50,15 @@ public class TraitFinder {
         if (StringUtils.isNoneBlank(jsonString)) {
             final JsonNode jsonNode = new ObjectMapper().readTree(jsonString);
             final JsonNode data = jsonNode.get("data");
-            if (data != null && data.isArray() && data.size() > 0) {
-                final JsonNode firstHit = data.get(0);
-                final JsonNode trait = firstHit.get(columnName);
-                if (trait != null && !trait.isNull()) {
-                    value = trait.asText();
+            if (data != null && data.isArray()) {
+                for (JsonNode row : data) {
+                    final JsonNode trait = row.get(columnName);
+                    if (trait != null && !trait.isNull()) {
+                        value = trait.asText();
+                        break;
+                    }
                 }
+
             }
         }
         return value;
@@ -75,10 +78,10 @@ public class TraitFinder {
         URI queryURI;
         if (StringUtils.startsWith(taxon.getUrl(), "http://fishbase.org/summary/")) {
             String queryString = StringUtils.replace(taxon.getUrl(), "http://fishbase.org/summary/", "SpecCode=");
-            queryURI = uriForTableQuery(tableName, queryString);
+            queryURI = uriForTableQuery(tableName, queryString + "&limit=5000");
         } else if (StringUtils.startsWith(taxon.getUrl(), "http://sealifebase.org/summary/")) {
             String queryString = StringUtils.replace(taxon.getUrl(), "http://sealifebase.org/summary/", "SpecCode=");
-            queryURI = uriForTableQuery("/sealifebase" + tableName, queryString);
+            queryURI = uriForTableQuery("/sealifebase" + tableName, queryString + "&limit=5000");
         } else {
             String queryString = queryForNameOnly(taxon.getName());
             queryURI = uriForTableQuery(tableName, queryString);

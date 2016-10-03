@@ -188,6 +188,7 @@ public class ConfigUtil {
         writeParamLines(groups, "species.lifespan.sp", valueFactory, os);
         writeParamLines(groups, "species.lInf.sp", valueFactory, os);
         writeParamLines(groups, "species.maturity.size.sp", valueFactory, os);
+        writeParamLines(groups, "species.maturity.age.sp", valueFactory, os);
         writeParamLines(groups, "species.relativefecundity.sp", valueFactory, os);
         writeParamLines(groups, "species.sexratio.sp", valueFactory, os);
         writeParamLines(groups, "species.t0.sp", valueFactory, os);

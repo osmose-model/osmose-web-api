@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class ValueFactoryDefault implements ValueFactory {
 
-    Map<String, String> defaults = new HashMap<String, String>() {{
+    private final static Map<String, String> DEFAULTS = new HashMap<String, String>() {{
         put("species.egg.size.sp", "0.1");
         put("species.egg.weight.sp", "0.0005386");
         put("species.K.sp", "0.0");
@@ -14,6 +14,7 @@ public class ValueFactoryDefault implements ValueFactory {
         put("species.lifespan.sp", "0");
         put("species.lInf.sp", "0.0");
         put("species.maturity.size.sp", "0.0");
+        put("species.maturity.age.sp", "0.0");
         put("species.relativefecundity.sp", "0");
         put("species.sexratio.sp", "0.0");
         put("species.t0.sp", "0.0");
@@ -49,7 +50,7 @@ public class ValueFactoryDefault implements ValueFactory {
 
     @Override
     public String groupValueFor(String name, Group group) {
-        return defaults.get(name);
+        return DEFAULTS.get(name);
     }
 
 }
