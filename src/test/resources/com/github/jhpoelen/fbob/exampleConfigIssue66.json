@@ -1,0 +1,4663 @@
+{
+  "timeStepsPerYear": "12",
+  "groups": [
+    {
+      "name": "pelagicsm",
+      "type": "background",
+      "taxa": [
+        {
+          "name": "Anchoa cayorum",
+          "url": "http://fishbase.org/summary/1682"
+        },
+        {
+          "name": "Anchoa cubana",
+          "url": "http://fishbase.org/summary/1687"
+        },
+        {
+          "name": "Anchoa hepsetus",
+          "url": "http://fishbase.org/summary/1133"
+        },
+        {
+          "name": "Anchoa mitchilli",
+          "url": "http://fishbase.org/summary/545"
+        },
+        {
+          "name": "Anchoviella perfasciata",
+          "url": "http://fishbase.org/summary/1678"
+        },
+        {
+          "name": "Aristostomias xenostoma",
+          "url": "http://fishbase.org/summary/11810"
+        },
+        {
+          "name": "Brama caribbea",
+          "url": "http://fishbase.org/summary/3554"
+        },
+        {
+          "name": "Brama dussumieri",
+          "url": "http://fishbase.org/summary/1435"
+        },
+        {
+          "name": "Bregmaceros atlanticus",
+          "url": "http://fishbase.org/summary/3100"
+        },
+        {
+          "name": "Bregmaceros cayorum",
+          "url": "http://fishbase.org/summary/65067"
+        },
+        {
+          "name": "Bregmaceros houdei",
+          "url": "http://fishbase.org/summary/59321"
+        },
+        {
+          "name": "Bregmaceros nectabanus",
+          "url": "http://fishbase.org/summary/8422"
+        },
+        {
+          "name": "Chriodorus atherinoides",
+          "url": "http://fishbase.org/summary/3151"
+        },
+        {
+          "name": "Diaphus dumerilii",
+          "url": "http://fishbase.org/summary/6590"
+        },
+        {
+          "name": "Engraulis eurystole",
+          "url": "http://fishbase.org/summary/1662"
+        },
+        {
+          "name": "Eustomias achirus",
+          "url": "http://fishbase.org/summary/11736"
+        },
+        {
+          "name": "Eustomias acinosus",
+          "url": "http://fishbase.org/summary/60281"
+        },
+        {
+          "name": "Eustomias bigelowi",
+          "url": "http://fishbase.org/summary/11738"
+        },
+        {
+          "name": "Eustomias fissibarbis",
+          "url": "http://fishbase.org/summary/11746"
+        },
+        {
+          "name": "Eustomias macrophthalmus",
+          "url": "http://fishbase.org/summary/60287"
+        },
+        {
+          "name": "Eustomias polyaster",
+          "url": "http://fishbase.org/summary/58240"
+        },
+        {
+          "name": "Eustomias variabilis",
+          "url": "http://fishbase.org/summary/60289"
+        },
+        {
+          "name": "Exocoetus obtusirostris",
+          "url": "http://fishbase.org/summary/1031"
+        },
+        {
+          "name": "Grammatostomias circularis",
+          "url": "http://fishbase.org/summary/11766"
+        },
+        {
+          "name": "Hypoplectrus atlahua",
+          "url": "http://fishbase.org/summary/67258"
+        },
+        {
+          "name": "Hypoplectrus castroaguirrei",
+          "url": "http://fishbase.org/summary/66548"
+        },
+        {
+          "name": "Hyporhamphus meeki",
+          "url": "http://fishbase.org/summary/53540"
+        },
+        {
+          "name": "Leptostomias bilobatus",
+          "url": "http://fishbase.org/summary/16505"
+        },
+        {
+          "name": "Leptostomias leptobolus",
+          "url": "http://fishbase.org/summary/27415"
+        },
+        {
+          "name": "Liopropoma olneyi",
+          "url": "http://fishbase.org/summary/67340"
+        },
+        {
+          "name": "Lucania parva",
+          "url": "http://fishbase.org/summary/3212"
+        },
+        {
+          "name": "Melanostomias margaritifer",
+          "url": "http://fishbase.org/summary/57904"
+        },
+        {
+          "name": "Membras martinica",
+          "url": "http://fishbase.org/summary/3240"
+        },
+        {
+          "name": "Menidia beryllina",
+          "url": "http://fishbase.org/summary/3241"
+        },
+        {
+          "name": "Menidia peninsulae",
+          "url": "http://fishbase.org/summary/3244"
+        },
+        {
+          "name": "Oxyporhamphus micropterus",
+          "url": "http://fishbase.org/summary/12112"
+        },
+        {
+          "name": "Paracaristius nudarcus",
+          "url": "http://fishbase.org/summary/66296"
+        },
+        {
+          "name": "Parexocoetus brachypterus",
+          "url": "http://fishbase.org/summary/1037"
+        },
+        {
+          "name": "Photonectes phyllopogon",
+          "url": "http://fishbase.org/summary/11797"
+        },
+        {
+          "name": "Prognichthys occidentalis",
+          "url": "http://fishbase.org/summary/60691"
+        },
+        {
+          "name": "Sardinella brasiliensis",
+          "url": "http://fishbase.org/summary/1505"
+        },
+        {
+          "name": "Syngnathus pelagicus",
+          "url": "http://fishbase.org/summary/3305"
+        },
+        {
+          "name": "Synodus macrostigmus",
+          "url": "http://fishbase.org/summary/68040"
+        }
+      ]
+    },
+    {
+      "name": "pelagicmd",
+      "type": "focal",
+      "taxa": [
+        {
+          "name": "Alosa alabamae",
+          "url": "http://fishbase.org/summary/1575"
+        },
+        {
+          "name": "Alosa chrysochloris",
+          "url": "http://fishbase.org/summary/1578"
+        },
+        {
+          "name": "Auxis rochei",
+          "url": "http://fishbase.org/summary/93"
+        },
+        {
+          "name": "Auxis thazard",
+          "url": "http://fishbase.org/summary/94"
+        },
+        {
+          "name": "Brevoortia gunteri",
+          "url": "http://fishbase.org/summary/1588"
+        },
+        {
+          "name": "Brevoortia patronus",
+          "url": "http://fishbase.org/summary/1589"
+        },
+        {
+          "name": "Cheilopogon cyanopterus",
+          "url": "http://fishbase.org/summary/7695"
+        },
+        {
+          "name": "Cheilopogon exsiliens",
+          "url": "http://fishbase.org/summary/1027"
+        },
+        {
+          "name": "Cheilopogon furcatus",
+          "url": "http://fishbase.org/summary/1028"
+        },
+        {
+          "name": "Cheilopogon heterurus",
+          "url": "http://fishbase.org/summary/1029"
+        },
+        {
+          "name": "Cheilopogon melanurus",
+          "url": "http://fishbase.org/summary/1030"
+        },
+        {
+          "name": "Chloroscombrus chrysurus",
+          "url": "http://fishbase.org/summary/385"
+        },
+        {
+          "name": "Cypselurus comatus",
+          "url": "http://fishbase.org/summary/1025"
+        },
+        {
+          "name": "Decapterus macarellus",
+          "url": "http://fishbase.org/summary/993"
+        },
+        {
+          "name": "Dorosoma cepedianum",
+          "url": "http://fishbase.org/summary/1604"
+        },
+        {
+          "name": "Dorosoma petenense",
+          "url": "http://fishbase.org/summary/1606"
+        },
+        {
+          "name": "Erythrocles monodi",
+          "url": "http://fishbase.org/summary/3562"
+        },
+        {
+          "name": "Etrumeus sadina",
+          "url": "http://fishbase.org/summary/1455"
+        },
+        {
+          "name": "Eustomias arborifer",
+          "url": "http://fishbase.org/summary/11737"
+        },
+        {
+          "name": "Exocoetus volitans",
+          "url": "http://fishbase.org/summary/1032"
+        },
+        {
+          "name": "Hemicaranx amblyrhynchus",
+          "url": "http://fishbase.org/summary/997"
+        },
+        {
+          "name": "Hirundichthys affinis",
+          "url": "http://fishbase.org/summary/7457"
+        },
+        {
+          "name": "Hirundichthys rondeletii",
+          "url": "http://fishbase.org/summary/1035"
+        },
+        {
+          "name": "Hyperoglyphe bythites",
+          "url": "http://fishbase.org/summary/3920"
+        },
+        {
+          "name": "Kyphosus atlanticus",
+          "url": "http://fishbase.org/summary/67645"
+        },
+        {
+          "name": "Leptostomias bermudensis",
+          "url": "http://fishbase.org/summary/58248"
+        },
+        {
+          "name": "Leptostomias haplocaulus",
+          "url": "http://fishbase.org/summary/11770"
+        },
+        {
+          "name": "Magnisudis atlantica",
+          "url": "http://fishbase.org/summary/2727"
+        },
+        {
+          "name": "Mugil trichodon",
+          "url": "http://fishbase.org/summary/14701"
+        },
+        {
+          "name": "Photonectes dinema",
+          "url": "http://fishbase.org/summary/11788"
+        },
+        {
+          "name": "Phtheirichthys lineatus",
+          "url": "http://fishbase.org/summary/3544"
+        },
+        {
+          "name": "Pterycombus brama",
+          "url": "http://fishbase.org/summary/3558"
+        },
+        {
+          "name": "Remora albescens",
+          "url": "http://fishbase.org/summary/3548"
+        },
+        {
+          "name": "Remora brachyptera",
+          "url": "http://fishbase.org/summary/3546"
+        },
+        {
+          "name": "Remora osteochir",
+          "url": "http://fishbase.org/summary/3547"
+        },
+        {
+          "name": "Scomber colias",
+          "url": "http://fishbase.org/summary/54736"
+        },
+        {
+          "name": "Scomberesox saurus",
+          "url": "http://fishbase.org/summary/1084"
+        },
+        {
+          "name": "Strongylura notata",
+          "url": "http://sealifebase.org/summary/forsythia"
+        }
+      ]
+    },
+    {
+      "name": "pelagiclg",
+      "type": "focal",
+      "taxa": [
+        {
+          "name": "Acanthocybium solandri",
+          "url": "http://fishbase.org/summary/89"
+        },
+        {
+          "name": "Coryphaena equiselis",
+          "url": "http://fishbase.org/summary/7"
+        },
+        {
+          "name": "Coryphaena hippurus",
+          "url": "http://fishbase.org/summary/6"
+        },
+        {
+          "name": "Elops smithi",
+          "url": "http://fishbase.org/summary/65327"
+        },
+        {
+          "name": "Gempylus serpens",
+          "url": "http://fishbase.org/summary/1041"
+        },
+        {
+          "name": "Hyperoglyphe perciformis",
+          "url": "http://fishbase.org/summary/3921"
+        },
+        {
+          "name": "Istiophorus albicans",
+          "url": "http://fishbase.org/summary/78"
+        },
+        {
+          "name": "Istiophorus platypterus",
+          "url": "http://fishbase.org/summary/77"
+        },
+        {
+          "name": "Kajikia albida",
+          "url": "http://fishbase.org/summary/219"
+        },
+        {
+          "name": "Katsuwonus pelamis",
+          "url": "http://fishbase.org/summary/107"
+        },
+        {
+          "name": "Lagocephalus laevigatus",
+          "url": "http://fishbase.org/summary/1239"
+        },
+        {
+          "name": "Luvarus imperialis",
+          "url": "http://fishbase.org/summary/1725"
+        },
+        {
+          "name": "Makaira nigricans",
+          "url": "http://fishbase.org/summary/216"
+        },
+        {
+          "name": "Microphis lineatus",
+          "url": "http://fishbase.org/summary/26235"
+        },
+        {
+          "name": "Mola mola",
+          "url": "http://fishbase.org/summary/1732"
+        },
+        {
+          "name": "Pomatomus saltatrix",
+          "url": "http://fishbase.org/summary/364"
+        },
+        {
+          "name": "Regalecus glesne",
+          "url": "http://fishbase.org/summary/3267"
+        },
+        {
+          "name": "Sarda sarda",
+          "url": "http://fishbase.org/summary/115"
+        },
+        {
+          "name": "Scomberomorus maculatus",
+          "url": "http://fishbase.org/summary/126"
+        },
+        {
+          "name": "Sphyraena guachancho",
+          "url": "http://fishbase.org/summary/1236"
+        },
+        {
+          "name": "Taractichthys longipinnis",
+          "url": "http://fishbase.org/summary/3560"
+        },
+        {
+          "name": "Tetrapturus pfluegeri",
+          "url": "http://fishbase.org/summary/220"
+        },
+        {
+          "name": "Thunnus albacares",
+          "url": "http://fishbase.org/summary/143"
+        },
+        {
+          "name": "Thunnus atlanticus",
+          "url": "http://fishbase.org/summary/144"
+        },
+        {
+          "name": "Thunnus thynnus",
+          "url": "http://fishbase.org/summary/147"
+        },
+        {
+          "name": "Xiphias gladius",
+          "url": "http://fishbase.org/summary/226"
+        }
+      ]
+    },
+    {
+      "name": "demersalsm",
+      "type": "focal",
+      "taxa": [
+        {
+          "name": "Amphelikturus dendriticus",
+          "url": "http://fishbase.org/summary/3279"
+        },
+        {
+          "name": "Ariomma regulus",
+          "url": "http://fishbase.org/summary/962"
+        },
+        {
+          "name": "Bathygobius curacao",
+          "url": "http://fishbase.org/summary/3835"
+        },
+        {
+          "name": "Bathygobius mystacium",
+          "url": "http://fishbase.org/summary/3836"
+        },
+        {
+          "name": "Bathygobius soporator",
+          "url": "http://fishbase.org/summary/3837"
+        },
+        {
+          "name": "Bathysphyraenops simplex",
+          "url": "http://fishbase.org/summary/23393"
+        },
+        {
+          "name": "Bellator brachychir",
+          "url": "http://fishbase.org/summary/4012"
+        },
+        {
+          "name": "Bellator egretta",
+          "url": "http://fishbase.org/summary/4013"
+        },
+        {
+          "name": "Bellator militaris",
+          "url": "http://fishbase.org/summary/4014"
+        },
+        {
+          "name": "Bollmannia boqueronensis",
+          "url": "http://fishbase.org/summary/3838"
+        },
+        {
+          "name": "Bollmannia eigenmanni",
+          "url": "http://fishbase.org/summary/59369"
+        },
+        {
+          "name": "Bollmannia litura",
+          "url": "http://fishbase.org/summary/61019"
+        },
+        {
+          "name": "Calamus arctifrons",
+          "url": "http://fishbase.org/summary/1220"
+        },
+        {
+          "name": "Chasmodes bosquianus",
+          "url": "http://fishbase.org/summary/3754"
+        },
+        {
+          "name": "Chasmodes longimaxilla",
+          "url": "http://fishbase.org/summary/59791"
+        },
+        {
+          "name": "Chriolepis vespa",
+          "url": "http://fishbase.org/summary/57935"
+        },
+        {
+          "name": "Corvula sanctaeluciae",
+          "url": "http://fishbase.org/summary/1167"
+        },
+        {
+          "name": "Ctenogobius fasciatus",
+          "url": "http://fishbase.org/summary/15792"
+        },
+        {
+          "name": "Ctenogobius shufeldti",
+          "url": "http://fishbase.org/summary/3865"
+        },
+        {
+          "name": "Ctenogobius smaragdus",
+          "url": "http://fishbase.org/summary/3866"
+        },
+        {
+          "name": "Ctenogobius stigmaticus",
+          "url": "http://fishbase.org/summary/3868"
+        },
+        {
+          "name": "Ctenogobius stigmaturus",
+          "url": "http://fishbase.org/summary/3869"
+        },
+        {
+          "name": "Dactyloscopus moorei",
+          "url": "http://fishbase.org/summary/12440"
+        },
+        {
+          "name": "Echiodon dawsoni",
+          "url": "http://fishbase.org/summary/52423"
+        },
+        {
+          "name": "Eleotris amblyopsis",
+          "url": "http://fishbase.org/summary/28013"
+        },
+        {
+          "name": "Eleotris pisonis",
+          "url": "http://fishbase.org/summary/3829"
+        },
+        {
+          "name": "Erotelis smaragdus",
+          "url": "http://fishbase.org/summary/3830"
+        },
+        {
+          "name": "Eucinostomus harengulus",
+          "url": "http://fishbase.org/summary/55039"
+        },
+        {
+          "name": "Eucinostomus havana",
+          "url": "http://fishbase.org/summary/1051"
+        },
+        {
+          "name": "Eucinostomus jonesii",
+          "url": "http://fishbase.org/summary/3567"
+        },
+        {
+          "name": "Evermannichthys metzelaari",
+          "url": "http://fishbase.org/summary/3852"
+        },
+        {
+          "name": "Evermannichthys spongicola",
+          "url": "http://fishbase.org/summary/62534"
+        },
+        {
+          "name": "Evorthodus lyricus",
+          "url": "http://fishbase.org/summary/3853"
+        },
+        {
+          "name": "Fowlerichthys radiosus",
+          "url": "http://fishbase.org/summary/3087"
+        },
+        {
+          "name": "Gillellus healae",
+          "url": "http://fishbase.org/summary/12441"
+        },
+        {
+          "name": "Gobioclinus haitiensis",
+          "url": "http://fishbase.org/summary/3732"
+        },
+        {
+          "name": "Gobionellus oceanicus",
+          "url": "http://fishbase.org/summary/3862"
+        },
+        {
+          "name": "Gobiosoma bosc",
+          "url": "http://fishbase.org/summary/3870"
+        },
+        {
+          "name": "Gobiosoma ginsburgi",
+          "url": "http://fishbase.org/summary/3871"
+        },
+        {
+          "name": "Gobiosoma hemigymnum",
+          "url": "http://fishbase.org/summary/59380"
+        },
+        {
+          "name": "Gobiosoma longipala",
+          "url": "http://fishbase.org/summary/3874"
+        },
+        {
+          "name": "Gobiosoma robustum",
+          "url": "http://fishbase.org/summary/3877"
+        },
+        {
+          "name": "Gunterichthys longipenis",
+          "url": "http://fishbase.org/summary/3122"
+        },
+        {
+          "name": "Hippocampus zosterae",
+          "url": "http://fishbase.org/summary/3286"
+        },
+        {
+          "name": "Hypsoblennius invemar",
+          "url": "http://fishbase.org/summary/12442"
+        },
+        {
+          "name": "Hypsoblennius ionthas",
+          "url": "http://fishbase.org/summary/3764"
+        },
+        {
+          "name": "Kathetostoma albigutta",
+          "url": "http://fishbase.org/summary/3706"
+        },
+        {
+          "name": "Larimus fasciatus",
+          "url": "http://fishbase.org/summary/1182"
+        },
+        {
+          "name": "Lepophidium profundorum",
+          "url": "http://fishbase.org/summary/5420"
+        },
+        {
+          "name": "Lipogramma trilineata",
+          "url": "http://fishbase.org/summary/3356"
+        },
+        {
+          "name": "Lophogobius cyprinoides",
+          "url": "http://fishbase.org/summary/3884"
+        },
+        {
+          "name": "Macroramphosus scolopax",
+          "url": "http://fishbase.org/summary/333"
+        },
+        {
+          "name": "Microdesmus lanceolatus",
+          "url": "http://fishbase.org/summary/3903"
+        },
+        {
+          "name": "Microdesmus longipinnis",
+          "url": "http://fishbase.org/summary/3904"
+        },
+        {
+          "name": "Microgobius gulosus",
+          "url": "http://fishbase.org/summary/3891"
+        },
+        {
+          "name": "Microgobius thalassinus",
+          "url": "http://fishbase.org/summary/3893"
+        },
+        {
+          "name": "Mugil hospes",
+          "url": "http://fishbase.org/summary/1088"
+        },
+        {
+          "name": "Neomerinthe beanorum",
+          "url": "http://fishbase.org/summary/48366"
+        },
+        {
+          "name": "Nicholsina collettei",
+          "url": "http://fishbase.org/summary/22538"
+        },
+        {
+          "name": "Ogcocephalus corniger",
+          "url": "http://fishbase.org/summary/3095"
+        },
+        {
+          "name": "Ogcocephalus declivirostris",
+          "url": "http://fishbase.org/summary/12030"
+        },
+        {
+          "name": "Ophidion josephi",
+          "url": "http://fishbase.org/summary/56337"
+        },
+        {
+          "name": "Opistognathus melachasme",
+          "url": "http://fishbase.org/summary/3688"
+        },
+        {
+          "name": "Opistognathus nothus",
+          "url": "http://fishbase.org/summary/54309"
+        },
+        {
+          "name": "Opistognathus robinsi",
+          "url": "http://fishbase.org/summary/54311"
+        },
+        {
+          "name": "Opsanus dichrostomus",
+          "url": "http://fishbase.org/summary/58624"
+        },
+        {
+          "name": "Ostichthys trachypoma",
+          "url": "http://fishbase.org/summary/3252"
+        },
+        {
+          "name": "Otophidium omostigma",
+          "url": "http://fishbase.org/summary/3119"
+        },
+        {
+          "name": "Palatogobius paradoxus",
+          "url": "http://fishbase.org/summary/3895"
+        },
+        {
+          "name": "Parahollardia lineata",
+          "url": "http://fishbase.org/summary/4272"
+        },
+        {
+          "name": "Parasudis truculenta",
+          "url": "http://fishbase.org/summary/2726"
+        },
+        {
+          "name": "Pareques iwamotoi",
+          "url": "http://fishbase.org/summary/4660"
+        },
+        {
+          "name": "Peristedion greyae",
+          "url": "http://fishbase.org/summary/61103"
+        },
+        {
+          "name": "Plectranthias garrupellus",
+          "url": "http://fishbase.org/summary/3339"
+        },
+        {
+          "name": "Pontinus longispinis",
+          "url": "http://fishbase.org/summary/3931"
+        },
+        {
+          "name": "Pontinus rathbuni",
+          "url": "http://fishbase.org/summary/3933"
+        },
+        {
+          "name": "Porichthys plectrodon",
+          "url": "http://fishbase.org/summary/3072"
+        },
+        {
+          "name": "Prionotus alatus",
+          "url": "http://fishbase.org/summary/4020"
+        },
+        {
+          "name": "Prionotus martis",
+          "url": "http://fishbase.org/summary/4021"
+        },
+        {
+          "name": "Prionotus murielae",
+          "url": "http://fishbase.org/summary/59583"
+        },
+        {
+          "name": "Prionotus paralatus",
+          "url": "http://fishbase.org/summary/4023"
+        },
+        {
+          "name": "Prionotus roseus",
+          "url": "http://fishbase.org/summary/4024"
+        },
+        {
+          "name": "Prionotus scitulus",
+          "url": "http://fishbase.org/summary/4027"
+        },
+        {
+          "name": "Prionotus stearnsi",
+          "url": "http://fishbase.org/summary/4028"
+        },
+        {
+          "name": "Pronotogrammus martinicensis",
+          "url": "http://fishbase.org/summary/3328"
+        },
+        {
+          "name": "Rypticus maculatus",
+          "url": "http://fishbase.org/summary/3354"
+        },
+        {
+          "name": "Rypticus randalli",
+          "url": "http://fishbase.org/summary/55056"
+        },
+        {
+          "name": "Saurida brasiliensis",
+          "url": "http://fishbase.org/summary/2716"
+        },
+        {
+          "name": "Saurida caribbaea",
+          "url": "http://fishbase.org/summary/2717"
+        },
+        {
+          "name": "Scorpaena agassizii",
+          "url": "http://fishbase.org/summary/3934"
+        },
+        {
+          "name": "Scorpaena isthmensis",
+          "url": "http://fishbase.org/summary/3945"
+        },
+        {
+          "name": "Serranus atrobranchus",
+          "url": "http://fishbase.org/summary/3343"
+        },
+        {
+          "name": "Serranus luciopercanus",
+          "url": "http://fishbase.org/summary/57917"
+        },
+        {
+          "name": "Serranus subligarius",
+          "url": "http://fishbase.org/summary/3348"
+        },
+        {
+          "name": "Sphoeroides dorsalis",
+          "url": "http://fishbase.org/summary/4294"
+        },
+        {
+          "name": "Sphoeroides parvus",
+          "url": "http://fishbase.org/summary/4297"
+        },
+        {
+          "name": "Stellifer colonensis",
+          "url": "http://fishbase.org/summary/7332"
+        },
+        {
+          "name": "Stellifer lanceolatus",
+          "url": "http://fishbase.org/summary/1193"
+        },
+        {
+          "name": "Synchiropus goodenbeani",
+          "url": "http://fishbase.org/summary/54437"
+        },
+        {
+          "name": "Syngnathus floridae",
+          "url": "http://fishbase.org/summary/3300"
+        },
+        {
+          "name": "Syngnathus scovelli",
+          "url": "http://fishbase.org/summary/3306"
+        },
+        {
+          "name": "Tigrigobius pallens",
+          "url": "http://fishbase.org/summary/16643"
+        },
+        {
+          "name": "Zalieutes mcgintyi",
+          "url": "http://fishbase.org/summary/3097"
+        }
+      ]
+    },
+    {
+      "name": "demersalmd",
+      "type": "focal",
+      "taxa": [
+        {
+          "name": "Myxine limosa",
+          "url": "http://fishbase.org/summary/54790"
+        },
+        {
+          "name": "Albula nemoptera",
+          "url": "http://fishbase.org/summary/7334"
+        },
+        {
+          "name": "Antigonia capros",
+          "url": "http://fishbase.org/summary/3258"
+        },
+        {
+          "name": "Aplatophis chauliodus",
+          "url": "http://fishbase.org/summary/7550"
+        },
+        {
+          "name": "Apterichtus kendalli",
+          "url": "http://fishbase.org/summary/2636"
+        },
+        {
+          "name": "Ariomma bondi",
+          "url": "http://fishbase.org/summary/961"
+        },
+        {
+          "name": "Aulopus filamentosus",
+          "url": "http://fishbase.org/summary/1698"
+        },
+        {
+          "name": "Bagre marinus",
+          "url": "http://fishbase.org/summary/959"
+        },
+        {
+          "name": "Bairdiella chrysoura",
+          "url": "http://fishbase.org/summary/1165"
+        },
+        {
+          "name": "Bascanichthys bascanium",
+          "url": "http://fishbase.org/summary/2637"
+        },
+        {
+          "name": "Bembrops gobioides",
+          "url": "http://fishbase.org/summary/3697"
+        },
+        {
+          "name": "Calamus leucosteus",
+          "url": "http://fishbase.org/summary/1225"
+        },
+        {
+          "name": "Callechelys muraena",
+          "url": "http://fishbase.org/summary/2639"
+        },
+        {
+          "name": "Callechelys springeri",
+          "url": "http://fishbase.org/summary/2641"
+        },
+        {
+          "name": "Caulolatilus chrysops",
+          "url": "http://fishbase.org/summary/983"
+        },
+        {
+          "name": "Caulolatilus cyanops",
+          "url": "http://fishbase.org/summary/984"
+        },
+        {
+          "name": "Caulolatilus intermedius",
+          "url": "http://fishbase.org/summary/986"
+        },
+        {
+          "name": "Centropomus parallelus",
+          "url": "http://fishbase.org/summary/1014"
+        },
+        {
+          "name": "Centropristis ocyurus",
+          "url": "http://fishbase.org/summary/3316"
+        },
+        {
+          "name": "Chlopsis bicolor",
+          "url": "http://fishbase.org/summary/11949"
+        },
+        {
+          "name": "Conodon nobilis",
+          "url": "http://fishbase.org/summary/401"
+        },
+        {
+          "name": "Cynoscion arenarius",
+          "url": "http://fishbase.org/summary/1170"
+        },
+        {
+          "name": "Cynoscion jamaicensis",
+          "url": "http://fishbase.org/summary/1171"
+        },
+        {
+          "name": "Cynoscion nothus",
+          "url": "http://fishbase.org/summary/1175"
+        },
+        {
+          "name": "Diapterus auratus",
+          "url": "http://fishbase.org/summary/3563"
+        },
+        {
+          "name": "Diapterus rhombeus",
+          "url": "http://fishbase.org/summary/1048"
+        },
+        {
+          "name": "Diplodus holbrookii",
+          "url": "http://fishbase.org/summary/1231"
+        },
+        {
+          "name": "Dormitator maculatus",
+          "url": "http://fishbase.org/summary/3827"
+        },
+        {
+          "name": "Dysomma anguillare",
+          "url": "http://fishbase.org/summary/2659"
+        },
+        {
+          "name": "Enchelycore carychroa",
+          "url": "http://fishbase.org/summary/2610"
+        },
+        {
+          "name": "Epinephelus adscensionis",
+          "url": "http://fishbase.org/summary/14"
+        },
+        {
+          "name": "Eucinostomus melanopterus",
+          "url": "http://fishbase.org/summary/1052"
+        },
+        {
+          "name": "Eugerres brasilianus",
+          "url": "http://fishbase.org/summary/7533"
+        },
+        {
+          "name": "Eugerres plumieri",
+          "url": "http://fishbase.org/summary/1053"
+        },
+        {
+          "name": "Galeichthys feliceps",
+          "url": "http://fishbase.org/summary/288"
+        },
+        {
+          "name": "Genyatremus luteus",
+          "url": "http://fishbase.org/summary/7535"
+        },
+        {
+          "name": "Gnathophis bracheatopos",
+          "url": "http://fishbase.org/summary/2626"
+        },
+        {
+          "name": "Gobioides broussonnetii",
+          "url": "http://fishbase.org/summary/3856"
+        },
+        {
+          "name": "Gonioplectrus hispanus",
+          "url": "http://fishbase.org/summary/3323"
+        },
+        {
+          "name": "Gordiichthys ergodes",
+          "url": "http://fishbase.org/summary/53829"
+        },
+        {
+          "name": "Gordiichthys irretitus",
+          "url": "http://fishbase.org/summary/2646"
+        },
+        {
+          "name": "Gymnothorax saxicola",
+          "url": "http://fishbase.org/summary/2616"
+        },
+        {
+          "name": "Hemanthias leptus",
+          "url": "http://fishbase.org/summary/3325"
+        },
+        {
+          "name": "Hoplunnis macrura",
+          "url": "http://fishbase.org/summary/2622"
+        },
+        {
+          "name": "Lagodon rhomboides",
+          "url": "http://fishbase.org/summary/3576"
+        },
+        {
+          "name": "Larimus breviceps",
+          "url": "http://fishbase.org/summary/1180"
+        },
+        {
+          "name": "Leiostomus xanthurus",
+          "url": "http://fishbase.org/summary/429"
+        },
+        {
+          "name": "Lepophidium brevibarbe",
+          "url": "http://fishbase.org/summary/7553"
+        },
+        {
+          "name": "Lepophidium entomelan",
+          "url": "http://fishbase.org/summary/66839"
+        },
+        {
+          "name": "Lepophidium pheromystax",
+          "url": "http://fishbase.org/summary/7554"
+        },
+        {
+          "name": "Letharchus velifer",
+          "url": "http://fishbase.org/summary/2648"
+        },
+        {
+          "name": "Menticirrhus americanus",
+          "url": "http://fishbase.org/summary/409"
+        },
+        {
+          "name": "Menticirrhus littoralis",
+          "url": "http://fishbase.org/summary/411"
+        },
+        {
+          "name": "Menticirrhus saxatilis",
+          "url": "http://fishbase.org/summary/410"
+        },
+        {
+          "name": "Micropogonias furnieri",
+          "url": "http://fishbase.org/summary/7620"
+        },
+        {
+          "name": "Micropogonias undulatus",
+          "url": "http://fishbase.org/summary/408"
+        },
+        {
+          "name": "Morone mississippiensis",
+          "url": "http://fishbase.org/summary/3309"
+        },
+        {
+          "name": "Muraena retifera",
+          "url": "http://fishbase.org/summary/2618"
+        },
+        {
+          "name": "Neoconger mucronatus",
+          "url": "http://fishbase.org/summary/2604"
+        },
+        {
+          "name": "Neomerinthe hemingwayi",
+          "url": "http://fishbase.org/summary/3930"
+        },
+        {
+          "name": "Nomeus gronovii",
+          "url": "http://fishbase.org/summary/2461"
+        },
+        {
+          "name": "Ogcocephalus pantostictus",
+          "url": "http://fishbase.org/summary/12029"
+        },
+        {
+          "name": "Ogcocephalus radiatus",
+          "url": "http://fishbase.org/summary/3094"
+        },
+        {
+          "name": "Ophichthus puncticeps",
+          "url": "http://fishbase.org/summary/2656"
+        },
+        {
+          "name": "Ophidion grayi",
+          "url": "http://fishbase.org/summary/3112"
+        },
+        {
+          "name": "Opsanus beta",
+          "url": "http://fishbase.org/summary/3067"
+        },
+        {
+          "name": "Orthopristis chrysoptera",
+          "url": "http://fishbase.org/summary/5"
+        },
+        {
+          "name": "Polydactylus octonemus",
+          "url": "http://fishbase.org/summary/1110"
+        },
+        {
+          "name": "Polydactylus virginicus",
+          "url": "http://fishbase.org/summary/1112"
+        },
+        {
+          "name": "Pomadasys crocro",
+          "url": "http://fishbase.org/summary/1147"
+        },
+        {
+          "name": "Pontinus castor",
+          "url": "http://fishbase.org/summary/1200"
+        },
+        {
+          "name": "Prionotus longispinosus",
+          "url": "http://fishbase.org/summary/4026"
+        },
+        {
+          "name": "Prionotus rubio",
+          "url": "http://fishbase.org/summary/4025"
+        },
+        {
+          "name": "Prionotus tribulus",
+          "url": "http://fishbase.org/summary/4030"
+        },
+        {
+          "name": "Pristipomoides aquilonaris",
+          "url": "http://fishbase.org/summary/198"
+        },
+        {
+          "name": "Rhomboplites aurorubens",
+          "url": "http://fishbase.org/summary/213"
+        },
+        {
+          "name": "Saurenchelys cognita",
+          "url": "http://fishbase.org/summary/58722"
+        },
+        {
+          "name": "Selene vomer",
+          "url": "http://fishbase.org/summary/1004"
+        },
+        {
+          "name": "Stenotomus caprinus",
+          "url": "http://fishbase.org/summary/1234"
+        },
+        {
+          "name": "Syngnathus fuscus",
+          "url": "http://fishbase.org/summary/3301"
+        },
+        {
+          "name": "Trachyscorpia cristulata",
+          "url": "http://sealifebase.org/summary/cristulata"
+        },
+        {
+          "name": "Umbrina coroides",
+          "url": "http://fishbase.org/summary/1199"
+        },
+        {
+          "name": "Upeneus parvus",
+          "url": "http://fishbase.org/summary/1095"
+        },
+        {
+          "name": "Uroconger syringinus",
+          "url": "http://fishbase.org/summary/2632"
+        },
+        {
+          "name": "Urophycis floridana",
+          "url": "http://fishbase.org/summary/1882"
+        },
+        {
+          "name": "Urophycis regia",
+          "url": "http://fishbase.org/summary/1883"
+        },
+        {
+          "name": "Xenocephalus egregius",
+          "url": "http://fishbase.org/summary/3705"
+        }
+      ]
+    },
+    {
+      "name": "demersallg",
+      "type": "focal",
+      "taxa": [
+        {
+          "name": "Petromyzon marinus",
+          "url": "http://fishbase.org/summary/2530"
+        },
+        {
+          "name": "Pristis pectinata",
+          "url": "http://fishbase.org/summary/2057"
+        },
+        {
+          "name": "Pristis pristis",
+          "url": "http://fishbase.org/summary/8940"
+        },
+        {
+          "name": "Acipenser oxyrinchus",
+          "url": "http://fishbase.org/summary/2593"
+        },
+        {
+          "name": "Acipenser oxyrinchus",
+          "url": "http://fishbase.org/summary/2593"
+        },
+        {
+          "name": "Anguilla rostrata",
+          "url": "http://fishbase.org/summary/296"
+        },
+        {
+          "name": "Callechelys guineensis",
+          "url": "http://fishbase.org/summary/2640"
+        },
+        {
+          "name": "Caulolatilus microps",
+          "url": "http://fishbase.org/summary/987"
+        },
+        {
+          "name": "Conger oceanicus",
+          "url": "http://fishbase.org/summary/300"
+        },
+        {
+          "name": "Cynoscion nebulosus",
+          "url": "http://fishbase.org/summary/405"
+        },
+        {
+          "name": "Cynoscion regalis",
+          "url": "http://fishbase.org/summary/406"
+        },
+        {
+          "name": "Echiophis intertinctus",
+          "url": "http://fishbase.org/summary/2643"
+        },
+        {
+          "name": "Epinephelus drummondhayi",
+          "url": "http://fishbase.org/summary/1204"
+        },
+        {
+          "name": "Gymnothorax kolpos",
+          "url": "http://fishbase.org/summary/11927"
+        },
+        {
+          "name": "Hyporthodus flavolimbatus",
+          "url": "http://fishbase.org/summary/1205"
+        },
+        {
+          "name": "Hyporthodus nigritus",
+          "url": "http://fishbase.org/summary/1207"
+        },
+        {
+          "name": "Hyporthodus niveatus",
+          "url": "http://fishbase.org/summary/1208"
+        },
+        {
+          "name": "Lopholatilus chamaeleonticeps",
+          "url": "http://fishbase.org/summary/362"
+        },
+        {
+          "name": "Lutjanus purpureus",
+          "url": "http://fishbase.org/summary/171"
+        },
+        {
+          "name": "Morone saxatilis",
+          "url": "http://fishbase.org/summary/353"
+        },
+        {
+          "name": "Ophichthus gomesii",
+          "url": "http://fishbase.org/summary/1104"
+        },
+        {
+          "name": "Ophichthus rex",
+          "url": "http://fishbase.org/summary/12008"
+        },
+        {
+          "name": "Pogonias cromis",
+          "url": "http://fishbase.org/summary/425"
+        },
+        {
+          "name": "Rhynchoconger flavus",
+          "url": "http://fishbase.org/summary/2628"
+        },
+        {
+          "name": "Sciaenops ocellatus",
+          "url": "http://fishbase.org/summary/1191"
+        }
+      ]
+    },
+    {
+      "name": "bathypelagicsm",
+      "type": "focal",
+      "taxa": [
+        {
+          "name": "Anoplogaster brachycera",
+          "url": "http://fishbase.org/summary/12018"
+        },
+        {
+          "name": "Anoplogaster cornuta",
+          "url": "http://fishbase.org/summary/2308"
+        },
+        {
+          "name": "Argentina striata",
+          "url": "http://fishbase.org/summary/2701"
+        },
+        {
+          "name": "Argyropelecus aculeatus",
+          "url": "http://fishbase.org/summary/130"
+        },
+        {
+          "name": "Argyropelecus affinis",
+          "url": "http://fishbase.org/summary/40"
+        },
+        {
+          "name": "Argyropelecus gigas",
+          "url": "http://fishbase.org/summary/2082"
+        },
+        {
+          "name": "Argyropelecus hemigymnus",
+          "url": "http://fishbase.org/summary/6968"
+        },
+        {
+          "name": "Aristostomias grimaldii",
+          "url": "http://fishbase.org/summary/11803"
+        },
+        {
+          "name": "Aristostomias lunifer",
+          "url": "http://fishbase.org/summary/4814"
+        },
+        {
+          "name": "Aristostomias polydactylus",
+          "url": "http://fishbase.org/summary/11806"
+        },
+        {
+          "name": "Aristostomias tittmanni",
+          "url": "http://fishbase.org/summary/11809"
+        },
+        {
+          "name": "Astronesthes cyaneus",
+          "url": "http://fishbase.org/summary/10325"
+        },
+        {
+          "name": "Astronesthes gemmifer",
+          "url": "http://fishbase.org/summary/11696"
+        },
+        {
+          "name": "Astronesthes indicus",
+          "url": "http://fishbase.org/summary/10211"
+        },
+        {
+          "name": "Astronesthes macropogon",
+          "url": "http://fishbase.org/summary/5131"
+        },
+        {
+          "name": "Astronesthes micropogon",
+          "url": "http://fishbase.org/summary/11698"
+        },
+        {
+          "name": "Astronesthes niger",
+          "url": "http://fishbase.org/summary/5044"
+        },
+        {
+          "name": "Astronesthes richardsoni",
+          "url": "http://fishbase.org/summary/10153"
+        },
+        {
+          "name": "Astronesthes similus",
+          "url": "http://fishbase.org/summary/47625"
+        },
+        {
+          "name": "Astronesthes zharovi",
+          "url": "http://fishbase.org/summary/61152"
+        },
+        {
+          "name": "Barathronus bicolor",
+          "url": "http://fishbase.org/summary/56409"
+        },
+        {
+          "name": "Bathophilus digitatus",
+          "url": "http://fishbase.org/summary/11722"
+        },
+        {
+          "name": "Bathophilus longipinnis",
+          "url": "http://fishbase.org/summary/11724"
+        },
+        {
+          "name": "Bathophilus nigerrimus",
+          "url": "http://fishbase.org/summary/1699"
+        },
+        {
+          "name": "Bathophilus pawneei",
+          "url": "http://fishbase.org/summary/11726"
+        },
+        {
+          "name": "Bathyclupea argentea",
+          "url": "http://fishbase.org/summary/46346"
+        },
+        {
+          "name": "Benthosema suborbitale",
+          "url": "http://fishbase.org/summary/6589"
+        },
+        {
+          "name": "Bonapartia pedaliota",
+          "url": "http://fishbase.org/summary/9965"
+        },
+        {
+          "name": "Bregmaceros cantori",
+          "url": "http://fishbase.org/summary/56859"
+        },
+        {
+          "name": "Bufoceratias wedli",
+          "url": "http://fishbase.org/summary/10181"
+        },
+        {
+          "name": "Cetomimus teevani",
+          "url": "http://fishbase.org/summary/59522"
+        },
+        {
+          "name": "Chauliodus danae",
+          "url": "http://fishbase.org/summary/11712"
+        },
+        {
+          "name": "Cubiceps pauciradiatus",
+          "url": "http://fishbase.org/summary/5049"
+        },
+        {
+          "name": "Cyclothone braueri",
+          "url": "http://fishbase.org/summary/1774"
+        },
+        {
+          "name": "Cyclothone microdon",
+          "url": "http://fishbase.org/summary/1775"
+        },
+        {
+          "name": "Diaphus taaningi",
+          "url": "http://fishbase.org/summary/10175"
+        },
+        {
+          "name": "Diretmus argenteus",
+          "url": "http://fishbase.org/summary/4958"
+        },
+        {
+          "name": "Dolicholagus longirostris",
+          "url": "http://fishbase.org/summary/9168"
+        },
+        {
+          "name": "Ectreposebastes imus",
+          "url": "http://fishbase.org/summary/5101"
+        },
+        {
+          "name": "Eustomias bibulbosus",
+          "url": "http://fishbase.org/summary/59809"
+        },
+        {
+          "name": "Eustomias binghami",
+          "url": "http://fishbase.org/summary/57684"
+        },
+        {
+          "name": "Eustomias braueri",
+          "url": "http://fishbase.org/summary/11742"
+        },
+        {
+          "name": "Eustomias brevibarbatus",
+          "url": "http://fishbase.org/summary/47581"
+        },
+        {
+          "name": "Eustomias dendriticus",
+          "url": "http://fishbase.org/summary/11743"
+        },
+        {
+          "name": "Eustomias filifer",
+          "url": "http://fishbase.org/summary/11745"
+        },
+        {
+          "name": "Eustomias longibarba",
+          "url": "http://fishbase.org/summary/11750"
+        },
+        {
+          "name": "Eustomias monoclonus",
+          "url": "http://fishbase.org/summary/56549"
+        },
+        {
+          "name": "Eustomias obscurus",
+          "url": "http://fishbase.org/summary/11755"
+        },
+        {
+          "name": "Eustomias schmidti",
+          "url": "http://fishbase.org/summary/11757"
+        },
+        {
+          "name": "Gigantura chuni",
+          "url": "http://fishbase.org/summary/9183"
+        },
+        {
+          "name": "Gigantura indica",
+          "url": "http://fishbase.org/summary/7444"
+        },
+        {
+          "name": "Glossanodon pygmaeus",
+          "url": "http://fishbase.org/summary/2702"
+        },
+        {
+          "name": "Gonostoma atlanticum",
+          "url": "http://fishbase.org/summary/5052"
+        },
+        {
+          "name": "Gyrinomimus myersi",
+          "url": "http://fishbase.org/summary/59523"
+        },
+        {
+          "name": "Gyrinomimus parri",
+          "url": "http://fishbase.org/summary/64855"
+        },
+        {
+          "name": "Himantolophus melanolophus",
+          "url": "http://fishbase.org/summary/58780"
+        },
+        {
+          "name": "Hoplostethus occidentalis",
+          "url": "http://fishbase.org/summary/15670"
+        },
+        {
+          "name": "Hygophum hygomii",
+          "url": "http://fishbase.org/summary/1719"
+        },
+        {
+          "name": "Hymenocephalus billsam",
+          "url": "http://fishbase.org/summary/25297"
+        },
+        {
+          "name": "Hymenogadus gracilis",
+          "url": "http://fishbase.org/summary/16277"
+        },
+        {
+          "name": "Ichthyococcus ovatus",
+          "url": "http://fishbase.org/summary/1804"
+        },
+        {
+          "name": "Lampanyctus alatus",
+          "url": "http://fishbase.org/summary/616"
+        },
+        {
+          "name": "Lampanyctus tenuiformis",
+          "url": "http://fishbase.org/summary/7415"
+        },
+        {
+          "name": "Lestidiops affinis",
+          "url": "http://fishbase.org/summary/16551"
+        },
+        {
+          "name": "Lestidium atlanticum",
+          "url": "http://fishbase.org/summary/10170"
+        },
+        {
+          "name": "Linophryne densiramus",
+          "url": "http://fishbase.org/summary/24789"
+        },
+        {
+          "name": "Malacosteus niger",
+          "url": "http://fishbase.org/summary/10157"
+        },
+        {
+          "name": "Margrethia obtusirostra",
+          "url": "http://fishbase.org/summary/11674"
+        },
+        {
+          "name": "Maurolicus muelleri",
+          "url": "http://fishbase.org/summary/754"
+        },
+        {
+          "name": "Maurolicus weitzmani",
+          "url": "http://fishbase.org/summary/51611"
+        },
+        {
+          "name": "Melanocetus johnsonii",
+          "url": "http://fishbase.org/summary/2292"
+        },
+        {
+          "name": "Melanolagus bericoides",
+          "url": "http://fishbase.org/summary/46"
+        },
+        {
+          "name": "Melanostomias macrophotus",
+          "url": "http://fishbase.org/summary/10162"
+        },
+        {
+          "name": "Melanostomias melanopogon",
+          "url": "http://fishbase.org/summary/11776"
+        },
+        {
+          "name": "Melanostomias tentaculatus",
+          "url": "http://fishbase.org/summary/11782"
+        },
+        {
+          "name": "Melanostomias valdiviae",
+          "url": "http://fishbase.org/summary/7395"
+        },
+        {
+          "name": "Mentodus facilis",
+          "url": "http://fishbase.org/summary/16483"
+        },
+        {
+          "name": "Microstoma microstoma",
+          "url": "http://fishbase.org/summary/1731"
+        },
+        {
+          "name": "Myctophum affine",
+          "url": "http://fishbase.org/summary/7424"
+        },
+        {
+          "name": "Myctophum nitidulum",
+          "url": "http://fishbase.org/summary/4490"
+        },
+        {
+          "name": "Nannobrachium cuprarium",
+          "url": "http://fishbase.org/summary/16682"
+        },
+        {
+          "name": "Neonesthes capensis",
+          "url": "http://fishbase.org/summary/10154"
+        },
+        {
+          "name": "Notolychnus valdiviae",
+          "url": "http://fishbase.org/summary/4553"
+        },
+        {
+          "name": "Notoscopelus caudispinosus",
+          "url": "http://fishbase.org/summary/7417"
+        },
+        {
+          "name": "Oneirodes bradburyae",
+          "url": "http://fishbase.org/summary/59599"
+        },
+        {
+          "name": "Photonectes achirus",
+          "url": "http://fishbase.org/summary/58267"
+        },
+        {
+          "name": "Photonectes leucospilus",
+          "url": "http://fishbase.org/summary/11789"
+        },
+        {
+          "name": "Photonectes parvimanus",
+          "url": "http://fishbase.org/summary/11796"
+        },
+        {
+          "name": "Photostomias guernei",
+          "url": "http://fishbase.org/summary/5089"
+        },
+        {
+          "name": "Platyberyx andriashevi",
+          "url": "http://fishbase.org/summary/67443"
+        },
+        {
+          "name": "Pollichthys mauli",
+          "url": "http://fishbase.org/summary/10259"
+        },
+        {
+          "name": "Polyipnus asteroides",
+          "url": "http://fishbase.org/summary/47695"
+        },
+        {
+          "name": "Psenes cyanophrys",
+          "url": "http://fishbase.org/summary/3925"
+        },
+        {
+          "name": "Pseudoscopelus altipinnis",
+          "url": "http://fishbase.org/summary/12558"
+        },
+        {
+          "name": "Pseudoscopelus scriptus",
+          "url": "http://fishbase.org/summary/46347"
+        },
+        {
+          "name": "Rinoctes nasutus",
+          "url": "http://fishbase.org/summary/11219"
+        },
+        {
+          "name": "Scopelarchoides danae",
+          "url": "http://fishbase.org/summary/16627"
+        },
+        {
+          "name": "Sigmops elongatus",
+          "url": "http://fishbase.org/summary/7383"
+        },
+        {
+          "name": "Sphagemacrurus grenadae",
+          "url": "http://fishbase.org/summary/8545"
+        },
+        {
+          "name": "Stemonosudis bullisi",
+          "url": "http://fishbase.org/summary/58763"
+        },
+        {
+          "name": "Stemonosudis intermedia",
+          "url": "http://fishbase.org/summary/16595"
+        },
+        {
+          "name": "Sternoptyx diaphana",
+          "url": "http://fishbase.org/summary/7389"
+        },
+        {
+          "name": "Sternoptyx pseudobscura",
+          "url": "http://fishbase.org/summary/10166"
+        },
+        {
+          "name": "Stomias affinis",
+          "url": "http://fishbase.org/summary/10167"
+        },
+        {
+          "name": "Talismania antillarum",
+          "url": "http://fishbase.org/summary/11248"
+        },
+        {
+          "name": "Uncisudis advena",
+          "url": "http://fishbase.org/summary/58762"
+        },
+        {
+          "name": "Valenciennellus tripunctulatus",
+          "url": "http://fishbase.org/summary/11686"
+        },
+        {
+          "name": "Vinciguerria nimbaria",
+          "url": "http://fishbase.org/summary/7385"
+        },
+        {
+          "name": "Vinciguerria poweriae",
+          "url": "http://fishbase.org/summary/1781"
+        }
+      ]
+    },
+    {
+      "name": "bathypelagicmd",
+      "type": "focal",
+      "taxa": [
+        {
+          "name": "Aldrovandia gracilis",
+          "url": "http://fishbase.org/summary/9009"
+        },
+        {
+          "name": "Bajacalifornia megalops",
+          "url": "http://fishbase.org/summary/10003"
+        },
+        {
+          "name": "Bathygadus macrops",
+          "url": "http://fishbase.org/summary/5479"
+        },
+        {
+          "name": "Bathytroctes microlepis",
+          "url": "http://fishbase.org/summary/10764"
+        },
+        {
+          "name": "Borostomias elucens",
+          "url": "http://fishbase.org/summary/5130"
+        },
+        {
+          "name": "Borostomias mononema",
+          "url": "http://fishbase.org/summary/11705"
+        },
+        {
+          "name": "Brotulotaenia brevicauda",
+          "url": "http://fishbase.org/summary/8950"
+        },
+        {
+          "name": "Cetonurus globiceps",
+          "url": "http://fishbase.org/summary/17097"
+        },
+        {
+          "name": "Chauliodus sloani",
+          "url": "http://fishbase.org/summary/1786"
+        },
+        {
+          "name": "Conocara macropterum",
+          "url": "http://fishbase.org/summary/10789"
+        },
+        {
+          "name": "Conocara murrayi",
+          "url": "http://fishbase.org/summary/10795"
+        },
+        {
+          "name": "Cryptopsaras couesii",
+          "url": "http://fishbase.org/summary/3098"
+        },
+        {
+          "name": "Cyttopsis rosea",
+          "url": "http://fishbase.org/summary/4953"
+        },
+        {
+          "name": "Echiostoma barbatum",
+          "url": "http://fishbase.org/summary/10214"
+        },
+        {
+          "name": "Eumegistus brevorti",
+          "url": "http://fishbase.org/summary/17375"
+        },
+        {
+          "name": "Eustomias macrurus",
+          "url": "http://fishbase.org/summary/11752"
+        },
+        {
+          "name": "Flagellostomias boureei",
+          "url": "http://fishbase.org/summary/11763"
+        },
+        {
+          "name": "Gadomus arcuatus",
+          "url": "http://fishbase.org/summary/8434"
+        },
+        {
+          "name": "Gadomus longifilis",
+          "url": "http://fishbase.org/summary/16283"
+        },
+        {
+          "name": "Halosaurus guentheri",
+          "url": "http://fishbase.org/summary/9016"
+        },
+        {
+          "name": "Heterophotus ophistoma",
+          "url": "http://fishbase.org/summary/11706"
+        },
+        {
+          "name": "Idiacanthus fasciola",
+          "url": "http://fishbase.org/summary/11828"
+        },
+        {
+          "name": "Leptostomias gladiator",
+          "url": "http://fishbase.org/summary/11769"
+        },
+        {
+          "name": "Lestrolepis intermedia",
+          "url": "http://fishbase.org/summary/10169"
+        },
+        {
+          "name": "Manducus maderensis",
+          "url": "http://fishbase.org/summary/10156"
+        },
+        {
+          "name": "Melanostomias biseriatus",
+          "url": "http://fishbase.org/summary/10161"
+        },
+        {
+          "name": "Melanostomias melanops",
+          "url": "http://fishbase.org/summary/11778"
+        },
+        {
+          "name": "Narcetes stomias",
+          "url": "http://fishbase.org/summary/6963"
+        },
+        {
+          "name": "Nettastoma melanurum",
+          "url": "http://fishbase.org/summary/1739"
+        },
+        {
+          "name": "Nezumia cyrano",
+          "url": "http://fishbase.org/summary/28220"
+        },
+        {
+          "name": "Nezumia longebarbata",
+          "url": "http://fishbase.org/summary/16312"
+        },
+        {
+          "name": "Photonectes braueri",
+          "url": "http://fishbase.org/summary/10163"
+        },
+        {
+          "name": "Photonectes margarita",
+          "url": "http://fishbase.org/summary/11790"
+        },
+        {
+          "name": "Polyacanthonotus africanus",
+          "url": "http://fishbase.org/summary/9024"
+        },
+        {
+          "name": "Psenes pellucidus",
+          "url": "http://fishbase.org/summary/3927"
+        },
+        {
+          "name": "Rouleina attrita",
+          "url": "http://fishbase.org/summary/6964"
+        },
+        {
+          "name": "Serrivomer beanii",
+          "url": "http://fishbase.org/summary/7477"
+        },
+        {
+          "name": "Squalogadus modificatus",
+          "url": "http://fishbase.org/summary/17049"
+        },
+        {
+          "name": "Stomias longibarbatus",
+          "url": "http://fishbase.org/summary/11719"
+        },
+        {
+          "name": "Stylephorus chordatus",
+          "url": "http://fishbase.org/summary/3268"
+        },
+        {
+          "name": "Talismania homoptera",
+          "url": "http://fishbase.org/summary/10150"
+        },
+        {
+          "name": "Trachonurus sulcatus",
+          "url": "http://fishbase.org/summary/8562"
+        },
+        {
+          "name": "Trachonurus villosus",
+          "url": "http://fishbase.org/summary/7600"
+        },
+        {
+          "name": "Xenodermichthys copei",
+          "url": "http://fishbase.org/summary/5064"
+        },
+        {
+          "name": "Yarrella blackfordi",
+          "url": "http://fishbase.org/summary/8090"
+        }
+      ]
+    },
+    {
+      "name": "bathypelagiclg",
+      "type": "focal",
+      "taxa": [
+        {
+          "name": "Alepisaurus ferox",
+          "url": "http://fishbase.org/summary/99"
+        },
+        {
+          "name": "Coryphaenoides rudis",
+          "url": "http://fishbase.org/summary/16255"
+        },
+        {
+          "name": "Lampris guttatus",
+          "url": "http://fishbase.org/summary/1072"
+        },
+        {
+          "name": "Lophotus lacepede",
+          "url": "http://fishbase.org/summary/3261"
+        },
+        {
+          "name": "Masturus lanceolatus",
+          "url": "http://fishbase.org/summary/10207"
+        },
+        {
+          "name": "Nemichthys scolopaceus",
+          "url": "http://fishbase.org/summary/2660"
+        },
+        {
+          "name": "Zu cristatus",
+          "url": "http://fishbase.org/summary/1776"
+        }
+      ]
+    },
+    {
+      "name": "bathydemersalsm",
+      "type": "focal",
+      "taxa": [
+        {
+          "name": "Antigonia combatia",
+          "url": "http://fishbase.org/summary/3259"
+        },
+        {
+          "name": "Argentina georgei",
+          "url": "http://fishbase.org/summary/60519"
+        },
+        {
+          "name": "Bathyanthias cubensis",
+          "url": "http://fishbase.org/summary/61262"
+        },
+        {
+          "name": "Bathypterois bigelowi",
+          "url": "http://fishbase.org/summary/58765"
+        },
+        {
+          "name": "Bathypterois phenax",
+          "url": "http://fishbase.org/summary/9143"
+        },
+        {
+          "name": "Bathypterois quadrifilis",
+          "url": "http://fishbase.org/summary/9147"
+        },
+        {
+          "name": "Bathypterois viridensis",
+          "url": "http://fishbase.org/summary/9148"
+        },
+        {
+          "name": "Centrodraco acanthopoma",
+          "url": "http://fishbase.org/summary/24193"
+        },
+        {
+          "name": "Coryphaenoides alateralis",
+          "url": "http://fishbase.org/summary/58864"
+        },
+        {
+          "name": "Dibranchus tremendus",
+          "url": "http://fishbase.org/summary/58629"
+        },
+        {
+          "name": "Epigonus denticulatus",
+          "url": "http://fishbase.org/summary/2507"
+        },
+        {
+          "name": "Epigonus macrops",
+          "url": "http://fishbase.org/summary/14837"
+        },
+        {
+          "name": "Epigonus occidentalis",
+          "url": "http://fishbase.org/summary/54901"
+        },
+        {
+          "name": "Epigonus oligolepis",
+          "url": "http://fishbase.org/summary/54902"
+        },
+        {
+          "name": "Epigonus pandionis",
+          "url": "http://fishbase.org/summary/10770"
+        },
+        {
+          "name": "Epigonus pectinifer",
+          "url": "http://fishbase.org/summary/23457"
+        },
+        {
+          "name": "Foetorepus agassizii",
+          "url": "http://fishbase.org/summary/10187"
+        },
+        {
+          "name": "Hollardia hollardi",
+          "url": "http://fishbase.org/summary/12482"
+        },
+        {
+          "name": "Leptoderma macrops",
+          "url": "http://fishbase.org/summary/10895"
+        },
+        {
+          "name": "Lycenchelys bullisi",
+          "url": "http://fishbase.org/summary/48099"
+        },
+        {
+          "name": "Neobythites elongatus",
+          "url": "http://fishbase.org/summary/54478"
+        },
+        {
+          "name": "Nezumia suilla",
+          "url": "http://fishbase.org/summary/28219"
+        },
+        {
+          "name": "Paraliparis calidus",
+          "url": "http://fishbase.org/summary/54154"
+        },
+        {
+          "name": "Parasaccogaster rhamphidognatha",
+          "url": "http://fishbase.org/summary/56398"
+        },
+        {
+          "name": "Peristedion antillarum",
+          "url": "http://fishbase.org/summary/61102"
+        },
+        {
+          "name": "Peristedion ecuadorense",
+          "url": "http://fishbase.org/summary/46230"
+        },
+        {
+          "name": "Peristedion gracile",
+          "url": "http://fishbase.org/summary/4017"
+        },
+        {
+          "name": "Peristedion imberbe",
+          "url": "http://fishbase.org/summary/48374"
+        },
+        {
+          "name": "Peristedion longispatha",
+          "url": "http://fishbase.org/summary/48376"
+        },
+        {
+          "name": "Peristedion thompsoni",
+          "url": "http://fishbase.org/summary/4019"
+        },
+        {
+          "name": "Peristedion truncatum",
+          "url": "http://fishbase.org/summary/46228"
+        },
+        {
+          "name": "Peristedion unicuspis",
+          "url": "http://fishbase.org/summary/61104"
+        },
+        {
+          "name": "Phenacoscorpius nebris",
+          "url": "http://fishbase.org/summary/12454"
+        },
+        {
+          "name": "Polyipnus laternatus",
+          "url": "http://fishbase.org/summary/47592"
+        },
+        {
+          "name": "Polymetme thaeocoryla",
+          "url": "http://fishbase.org/summary/57353"
+        },
+        {
+          "name": "Polymixia lowei",
+          "url": "http://fishbase.org/summary/3245"
+        },
+        {
+          "name": "Pronotogrammus eos",
+          "url": "http://fishbase.org/summary/14296"
+        },
+        {
+          "name": "Saccogaster staigeri",
+          "url": "http://fishbase.org/summary/56399"
+        },
+        {
+          "name": "Snyderidia canina",
+          "url": "http://fishbase.org/summary/49278"
+        },
+        {
+          "name": "Stephanoberyx monae",
+          "url": "http://fishbase.org/summary/54055"
+        },
+        {
+          "name": "Symphysanodon berryi",
+          "url": "http://fishbase.org/summary/7542"
+        },
+        {
+          "name": "Synagrops bellus",
+          "url": "http://fishbase.org/summary/3311"
+        },
+        {
+          "name": "Synagrops spinosus",
+          "url": "http://fishbase.org/summary/14336"
+        },
+        {
+          "name": "Synagrops trispinosus",
+          "url": "http://fishbase.org/summary/14337"
+        }
+      ]
+    },
+    {
+      "name": "bathydemersalmd",
+      "type": "focal",
+      "taxa": [
+        {
+          "name": "Eptatretus minor",
+          "url": "http://fishbase.org/summary/54069"
+        },
+        {
+          "name": "Eptatretus springeri",
+          "url": "http://fishbase.org/summary/8715"
+        },
+        {
+          "name": "Hydrolagus mirabilis",
+          "url": "http://fishbase.org/summary/9000"
+        },
+        {
+          "name": "Alepocephalus australis",
+          "url": "http://fishbase.org/summary/9172"
+        },
+        {
+          "name": "Alepocephalus productus",
+          "url": "http://fishbase.org/summary/10000"
+        },
+        {
+          "name": "Ariomma melanum",
+          "url": "http://fishbase.org/summary/3916"
+        },
+        {
+          "name": "Bassogigas gillii",
+          "url": "http://fishbase.org/summary/22808"
+        },
+        {
+          "name": "Bathycongrus bullisi",
+          "url": "http://fishbase.org/summary/27790"
+        },
+        {
+          "name": "Bathycongrus dubius",
+          "url": "http://fishbase.org/summary/58530"
+        },
+        {
+          "name": "Bathycongrus vicinalis",
+          "url": "http://fishbase.org/summary/58546"
+        },
+        {
+          "name": "Bathygadus favosus",
+          "url": "http://fishbase.org/summary/8433"
+        },
+        {
+          "name": "Bathygadus melanobranchus",
+          "url": "http://fishbase.org/summary/5045"
+        },
+        {
+          "name": "Bathyonus pectoralis",
+          "url": "http://fishbase.org/summary/56339"
+        },
+        {
+          "name": "Bathypterois grallator",
+          "url": "http://fishbase.org/summary/9136"
+        },
+        {
+          "name": "Bathytyphlops marionae",
+          "url": "http://fishbase.org/summary/9150"
+        },
+        {
+          "name": "Bembrops anatirostris",
+          "url": "http://fishbase.org/summary/3696"
+        },
+        {
+          "name": "Cataetyx laticeps",
+          "url": "http://fishbase.org/summary/10248"
+        },
+        {
+          "name": "Chlorophthalmus agassizi",
+          "url": "http://fishbase.org/summary/1808"
+        },
+        {
+          "name": "Coelorinchus caribbaeus",
+          "url": "http://fishbase.org/summary/3102"
+        },
+        {
+          "name": "Coloconger meadi",
+          "url": "http://fishbase.org/summary/27788"
+        },
+        {
+          "name": "Coryphaenoides mexicanus",
+          "url": "http://fishbase.org/summary/8477"
+        },
+        {
+          "name": "Coryphaenoides zaniophorus",
+          "url": "http://fishbase.org/summary/8482"
+        },
+        {
+          "name": "Dibranchus atlanticus",
+          "url": "http://fishbase.org/summary/4956"
+        },
+        {
+          "name": "Dicrolene kanazawai",
+          "url": "http://fishbase.org/summary/54897"
+        },
+        {
+          "name": "Gnathophis bathytopos",
+          "url": "http://fishbase.org/summary/2625"
+        },
+        {
+          "name": "Halosaurus ovenii",
+          "url": "http://fishbase.org/summary/5051"
+        },
+        {
+          "name": "Helicolenus dactylopterus",
+          "url": "http://fishbase.org/summary/76"
+        },
+        {
+          "name": "Hoplunnis tenuis",
+          "url": "http://fishbase.org/summary/2623"
+        },
+        {
+          "name": "Lepophidium staurophor",
+          "url": "http://fishbase.org/summary/12046"
+        },
+        {
+          "name": "Lophiodes monodi",
+          "url": "http://fishbase.org/summary/56870"
+        },
+        {
+          "name": "Lophius gastrophysus",
+          "url": "http://fishbase.org/summary/1078"
+        },
+        {
+          "name": "Luciobrotula corethromycter",
+          "url": "http://fishbase.org/summary/8975"
+        },
+        {
+          "name": "Malacocephalus laevis",
+          "url": "http://fishbase.org/summary/4989"
+        },
+        {
+          "name": "Malacocephalus occidentalis",
+          "url": "http://fishbase.org/summary/4990"
+        },
+        {
+          "name": "Merluccius albidus",
+          "url": "http://fishbase.org/summary/1080"
+        },
+        {
+          "name": "Monomitopus magnus",
+          "url": "http://fishbase.org/summary/54172"
+        },
+        {
+          "name": "Nettastoma syntresis",
+          "url": "http://fishbase.org/summary/58707"
+        },
+        {
+          "name": "Nezumia atlantica",
+          "url": "http://fishbase.org/summary/8509"
+        },
+        {
+          "name": "Peristedion brevirostre",
+          "url": "http://fishbase.org/summary/4016"
+        },
+        {
+          "name": "Peristedion miniatum",
+          "url": "http://fishbase.org/summary/4018"
+        },
+        {
+          "name": "Porogadus catena",
+          "url": "http://fishbase.org/summary/54236"
+        },
+        {
+          "name": "Pseudomyrophis nimius",
+          "url": "http://fishbase.org/summary/53859"
+        },
+        {
+          "name": "Pseudophichthys splendens",
+          "url": "http://fishbase.org/summary/9065"
+        },
+        {
+          "name": "Rhynchoconger gracilior",
+          "url": "http://fishbase.org/summary/2629"
+        },
+        {
+          "name": "Steindachneria argentea",
+          "url": "http://fishbase.org/summary/1829"
+        },
+        {
+          "name": "Urophycis cirrata",
+          "url": "http://fishbase.org/summary/1884"
+        },
+        {
+          "name": "Ventrifossa macropogon",
+          "url": "http://fishbase.org/summary/8685"
+        },
+        {
+          "name": "Xenomystax congroides",
+          "url": "http://fishbase.org/summary/58529"
+        },
+        {
+          "name": "Xyelacyba myersi",
+          "url": "http://fishbase.org/summary/8994"
+        }
+      ]
+    },
+    {
+      "name": "bathydemersallg",
+      "type": "focal",
+      "taxa": [
+        {
+          "name": "Alepocephalus agassizii",
+          "url": "http://fishbase.org/summary/9171"
+        },
+        {
+          "name": "Bathysaurus mollis",
+          "url": "http://fishbase.org/summary/11843"
+        },
+        {
+          "name": "Etelis oculatus",
+          "url": "http://fishbase.org/summary/1391"
+        },
+        {
+          "name": "Gymnothorax conspersus",
+          "url": "http://fishbase.org/summary/27786"
+        },
+        {
+          "name": "Hyporthodus mystacinus",
+          "url": "http://fishbase.org/summary/1206"
+        },
+        {
+          "name": "Venefica procera",
+          "url": "http://fishbase.org/summary/58711"
+        }
+      ]
+    },
+    {
+      "name": "benthopelagicsm",
+      "type": "focal",
+      "taxa": [
+        {
+          "name": "Anthias nicholsi",
+          "url": "http://fishbase.org/summary/3313"
+        },
+        {
+          "name": "Baldwinella vivanus",
+          "url": "http://fishbase.org/summary/3327"
+        },
+        {
+          "name": "Bathyanthias mexicanus",
+          "url": "http://fishbase.org/summary/3338"
+        },
+        {
+          "name": "Bathyclupea schroederi",
+          "url": "http://fishbase.org/summary/52845"
+        },
+        {
+          "name": "Chriolepis bilix",
+          "url": "http://fishbase.org/summary/67991"
+        },
+        {
+          "name": "Cyprinodon variegatus",
+          "url": "http://fishbase.org/summary/3181"
+        },
+        {
+          "name": "Eustomias hypopsilus",
+          "url": "http://fishbase.org/summary/60280"
+        },
+        {
+          "name": "Floridichthys carpio",
+          "url": "http://fishbase.org/summary/3184"
+        },
+        {
+          "name": "Fundulus confluentus",
+          "url": "http://fishbase.org/summary/3189"
+        },
+        {
+          "name": "Fundulus grandis",
+          "url": "http://fishbase.org/summary/3191"
+        },
+        {
+          "name": "Fundulus jenkinsi",
+          "url": "http://fishbase.org/summary/3193"
+        },
+        {
+          "name": "Fundulus majalis",
+          "url": "http://fishbase.org/summary/3196"
+        },
+        {
+          "name": "Fundulus pulvereus",
+          "url": "http://fishbase.org/summary/3201"
+        },
+        {
+          "name": "Fundulus xenicus",
+          "url": "http://fishbase.org/summary/3166"
+        },
+        {
+          "name": "Gadella imberbis",
+          "url": "http://fishbase.org/summary/2010"
+        },
+        {
+          "name": "Hymenocephalus italicus",
+          "url": "http://fishbase.org/summary/1720"
+        },
+        {
+          "name": "Kryptolebias marmoratus",
+          "url": "http://fishbase.org/summary/3213"
+        },
+        {
+          "name": "Lepophidium crossotum",
+          "url": "http://fishbase.org/summary/66844"
+        },
+        {
+          "name": "Lepophidium wileyi",
+          "url": "http://fishbase.org/summary/66845"
+        },
+        {
+          "name": "Monomitopus agassizii",
+          "url": "http://fishbase.org/summary/28225"
+        },
+        {
+          "name": "Neobythites gilli",
+          "url": "http://fishbase.org/summary/47856"
+        },
+        {
+          "name": "Neobythites marginatus",
+          "url": "http://fishbase.org/summary/54476"
+        },
+        {
+          "name": "Neoepinnula americana",
+          "url": "http://fishbase.org/summary/8479"
+        },
+        {
+          "name": "Nettenchelys pygmaea",
+          "url": "http://fishbase.org/summary/58710"
+        },
+        {
+          "name": "Ophidion antipholus",
+          "url": "http://fishbase.org/summary/62523"
+        },
+        {
+          "name": "Ophidion dromio",
+          "url": "http://fishbase.org/summary/62524"
+        },
+        {
+          "name": "Peprilus burti",
+          "url": "http://fishbase.org/summary/3924"
+        },
+        {
+          "name": "Setarches guentheri",
+          "url": "http://fishbase.org/summary/5029"
+        },
+        {
+          "name": "Xenolepidichthys dalgleishi",
+          "url": "http://fishbase.org/summary/3257"
+        }
+      ]
+    },
+    {
+      "name": "benthopelagicmd",
+      "type": "focal",
+      "taxa": [
+        {
+          "name": "Aldrovandia affinis",
+          "url": "http://fishbase.org/summary/7502"
+        },
+        {
+          "name": "Centropomus pectinatus",
+          "url": "http://fishbase.org/summary/1015"
+        },
+        {
+          "name": "Diplospinus multistriatus",
+          "url": "http://fishbase.org/summary/8460"
+        },
+        {
+          "name": "Gephyroberyx darwinii",
+          "url": "http://fishbase.org/summary/4962"
+        },
+        {
+          "name": "Hoplostethus mediterraneus",
+          "url": "http://fishbase.org/summary/4964"
+        },
+        {
+          "name": "Neoepinnula orientalis",
+          "url": "http://fishbase.org/summary/3906"
+        },
+        {
+          "name": "Nezumia aequalis",
+          "url": "http://fishbase.org/summary/4997"
+        },
+        {
+          "name": "Peprilus paru",
+          "url": "http://fishbase.org/summary/28143"
+        },
+        {
+          "name": "Peprilus triacanthus",
+          "url": "http://fishbase.org/summary/492"
+        },
+        {
+          "name": "Polymetme corythaeola",
+          "url": "http://fishbase.org/summary/5057"
+        },
+        {
+          "name": "Selene setapinnis",
+          "url": "http://fishbase.org/summary/378"
+        },
+        {
+          "name": "Seriola fasciata",
+          "url": "http://fishbase.org/summary/1006"
+        },
+        {
+          "name": "Seriola zonata",
+          "url": "http://fishbase.org/summary/1008"
+        },
+        {
+          "name": "Taractes rubescens",
+          "url": "http://fishbase.org/summary/10456"
+        },
+        {
+          "name": "Trachinotus carolinus",
+          "url": "http://fishbase.org/summary/380"
+        },
+        {
+          "name": "Zenopsis conchifer",
+          "url": "http://fishbase.org/summary/336"
+        }
+      ]
+    },
+    {
+      "name": "benthopelagiclg",
+      "type": "focal",
+      "taxa": [
+        {
+          "name": "Pristis perotteti",
+          "url": "http://fishbase.org/summary/51176"
+        },
+        {
+          "name": "Aphanopus intermedius",
+          "url": "http://fishbase.org/summary/8540"
+        },
+        {
+          "name": "Benthodesmus tenuis",
+          "url": "http://fishbase.org/summary/8563"
+        },
+        {
+          "name": "Caranx lugubris",
+          "url": "http://fishbase.org/summary/1936"
+        },
+        {
+          "name": "Lepidocybium flavobrunneum",
+          "url": "http://fishbase.org/summary/1042"
+        },
+        {
+          "name": "Lobotes surinamensis",
+          "url": "http://fishbase.org/summary/1077"
+        },
+        {
+          "name": "Mugil cephalus",
+          "url": "http://fishbase.org/summary/785"
+        },
+        {
+          "name": "Nesiarchus nasutus",
+          "url": "http://fishbase.org/summary/7573"
+        },
+        {
+          "name": "Notacanthus chemnitzii",
+          "url": "http://fishbase.org/summary/2661"
+        },
+        {
+          "name": "Pagrus pagrus",
+          "url": "http://fishbase.org/summary/1756"
+        },
+        {
+          "name": "Promethichthys prometheus",
+          "url": "http://fishbase.org/summary/5008"
+        },
+        {
+          "name": "Ruvettus pretiosus",
+          "url": "http://fishbase.org/summary/1044"
+        },
+        {
+          "name": "Synaphobranchus affinis",
+          "url": "http://fishbase.org/summary/7476"
+        },
+        {
+          "name": "Synaphobranchus brevidorsalis",
+          "url": "http://fishbase.org/summary/22585"
+        },
+        {
+          "name": "Trichiurus lepturus",
+          "url": "http://fishbase.org/summary/1288"
+        }
+      ]
+    },
+    {
+      "name": "reef-associatedsm",
+      "type": "focal",
+      "taxa": [
+        {
+          "name": "Abudefduf saxatilis",
+          "url": "http://fishbase.org/summary/1119"
+        },
+        {
+          "name": "Abudefduf taurus",
+          "url": "http://fishbase.org/summary/1120"
+        },
+        {
+          "name": "Acanthemblemaria aspera",
+          "url": "http://fishbase.org/summary/3708"
+        },
+        {
+          "name": "Acanthurus randalli",
+          "url": "http://fishbase.org/summary/3905"
+        },
+        {
+          "name": "Amblycirrhitus pinos",
+          "url": "http://fishbase.org/summary/3655"
+        },
+        {
+          "name": "Anchoa lyolepis",
+          "url": "http://fishbase.org/summary/1132"
+        },
+        {
+          "name": "Antennarius multiocellatus",
+          "url": "http://fishbase.org/summary/3084"
+        },
+        {
+          "name": "Antennarius striatus",
+          "url": "http://fishbase.org/summary/5474"
+        },
+        {
+          "name": "Anthias woodsi",
+          "url": "http://fishbase.org/summary/56827"
+        },
+        {
+          "name": "Apogon aurolineatus",
+          "url": "http://fishbase.org/summary/3521"
+        },
+        {
+          "name": "Apogon binotatus",
+          "url": "http://fishbase.org/summary/3522"
+        },
+        {
+          "name": "Apogon maculatus",
+          "url": "http://fishbase.org/summary/3526"
+        },
+        {
+          "name": "Apogon planifrons",
+          "url": "http://fishbase.org/summary/3529"
+        },
+        {
+          "name": "Apogon pseudomaculatus",
+          "url": "http://fishbase.org/summary/3530"
+        },
+        {
+          "name": "Apogon quadrisquamatus",
+          "url": "http://fishbase.org/summary/3531"
+        },
+        {
+          "name": "Apogon townsendi",
+          "url": "http://fishbase.org/summary/3532"
+        },
+        {
+          "name": "Astrapogon alutus",
+          "url": "http://fishbase.org/summary/3533"
+        },
+        {
+          "name": "Astrapogon stellatus",
+          "url": "http://fishbase.org/summary/3535"
+        },
+        {
+          "name": "Atherinomorus stipes",
+          "url": "http://fishbase.org/summary/3234"
+        },
+        {
+          "name": "Barbulifer ceuthoecus",
+          "url": "http://fishbase.org/summary/3834"
+        },
+        {
+          "name": "Bodianus pulchellus",
+          "url": "http://fishbase.org/summary/1066"
+        },
+        {
+          "name": "Brockius nigricinctus",
+          "url": "http://fishbase.org/summary/3734"
+        },
+        {
+          "name": "Cantherhines pullus",
+          "url": "http://fishbase.org/summary/1082"
+        },
+        {
+          "name": "Canthigaster jamestyleri",
+          "url": "http://fishbase.org/summary/61202"
+        },
+        {
+          "name": "Canthigaster rostrata",
+          "url": "http://fishbase.org/summary/4291"
+        },
+        {
+          "name": "Carapus bermudensis",
+          "url": "http://fishbase.org/summary/3128"
+        },
+        {
+          "name": "Centropyge argi",
+          "url": "http://fishbase.org/summary/3607"
+        },
+        {
+          "name": "Chaenopsis roseola",
+          "url": "http://fishbase.org/summary/54820"
+        },
+        {
+          "name": "Chaetodon capistratus",
+          "url": "http://fishbase.org/summary/3602"
+        },
+        {
+          "name": "Chaetodon ocellatus",
+          "url": "http://fishbase.org/summary/3604"
+        },
+        {
+          "name": "Chaetodon sedentarius",
+          "url": "http://fishbase.org/summary/3605"
+        },
+        {
+          "name": "Chaetodon striatus",
+          "url": "http://fishbase.org/summary/3606"
+        },
+        {
+          "name": "Chilomycterus reticulatus",
+          "url": "http://fishbase.org/summary/10206"
+        },
+        {
+          "name": "Chilomycterus schoepfii",
+          "url": "http://fishbase.org/summary/6407"
+        },
+        {
+          "name": "Chilorhinus suensonii",
+          "url": "http://fishbase.org/summary/2605"
+        },
+        {
+          "name": "Chromis cyanea",
+          "url": "http://fishbase.org/summary/3642"
+        },
+        {
+          "name": "Chromis insolata",
+          "url": "http://fishbase.org/summary/3644"
+        },
+        {
+          "name": "Chromis multilineata",
+          "url": "http://fishbase.org/summary/1121"
+        },
+        {
+          "name": "Chromis scotti",
+          "url": "http://fishbase.org/summary/3647"
+        },
+        {
+          "name": "Corvula batabana",
+          "url": "http://fishbase.org/summary/1162"
+        },
+        {
+          "name": "Coryphopterus eidolon",
+          "url": "http://fishbase.org/summary/3843"
+        },
+        {
+          "name": "Coryphopterus glaucofraenum",
+          "url": "http://fishbase.org/summary/3844"
+        },
+        {
+          "name": "Coryphopterus hyalinus",
+          "url": "http://fishbase.org/summary/3845"
+        },
+        {
+          "name": "Coryphopterus lipernes",
+          "url": "http://fishbase.org/summary/3846"
+        },
+        {
+          "name": "Coryphopterus punctipectophorus",
+          "url": "http://fishbase.org/summary/3849"
+        },
+        {
+          "name": "Coryphopterus thrix",
+          "url": "http://fishbase.org/summary/3850"
+        },
+        {
+          "name": "Cosmocampus albirostris",
+          "url": "http://fishbase.org/summary/3280"
+        },
+        {
+          "name": "Cryptotomus roseus",
+          "url": "http://fishbase.org/summary/3674"
+        },
+        {
+          "name": "Ctenogobius boleosoma",
+          "url": "http://fishbase.org/summary/3858"
+        },
+        {
+          "name": "Ctenogobius saepepallens",
+          "url": "http://fishbase.org/summary/3864"
+        },
+        {
+          "name": "Dactyloscopus tridigitatus",
+          "url": "http://fishbase.org/summary/3699"
+        },
+        {
+          "name": "Diplectrum bivittatum",
+          "url": "http://fishbase.org/summary/3318"
+        },
+        {
+          "name": "Diplogrammus pauciradiatus",
+          "url": "http://fishbase.org/summary/3825"
+        },
+        {
+          "name": "Elacatinus horsti",
+          "url": "http://fishbase.org/summary/3873"
+        },
+        {
+          "name": "Elacatinus oceanops",
+          "url": "http://fishbase.org/summary/3876"
+        },
+        {
+          "name": "Elacatinus xanthiprora",
+          "url": "http://fishbase.org/summary/3878"
+        },
+        {
+          "name": "Emblemaria atlantica",
+          "url": "http://fishbase.org/summary/3715"
+        },
+        {
+          "name": "Emblemaria pandionis",
+          "url": "http://fishbase.org/summary/3718"
+        },
+        {
+          "name": "Emblemaria piratula",
+          "url": "http://fishbase.org/summary/3719"
+        },
+        {
+          "name": "Emblemariopsis bahamensis",
+          "url": "http://fishbase.org/summary/3716"
+        },
+        {
+          "name": "Enneanectes boehlkei",
+          "url": "http://fishbase.org/summary/3721"
+        },
+        {
+          "name": "Enneanectes pectoralis",
+          "url": "http://fishbase.org/summary/3722"
+        },
+        {
+          "name": "Entomacrodus nigricans",
+          "url": "http://fishbase.org/summary/3756"
+        },
+        {
+          "name": "Equetus lanceolatus",
+          "url": "http://fishbase.org/summary/3584"
+        },
+        {
+          "name": "Eucinostomus argenteus",
+          "url": "http://fishbase.org/summary/1049"
+        },
+        {
+          "name": "Eucinostomus gula",
+          "url": "http://fishbase.org/summary/1050"
+        },
+        {
+          "name": "Gobiesox strumosus",
+          "url": "http://fishbase.org/summary/3079"
+        },
+        {
+          "name": "Gobioclinus bucciferus",
+          "url": "http://fishbase.org/summary/3729"
+        },
+        {
+          "name": "Gobioclinus gobio",
+          "url": "http://fishbase.org/summary/3730"
+        },
+        {
+          "name": "Gobioclinus guppyi",
+          "url": "http://fishbase.org/summary/3731"
+        },
+        {
+          "name": "Gobioclinus kalisherae",
+          "url": "http://fishbase.org/summary/3733"
+        },
+        {
+          "name": "Gobiosoma grosvenori",
+          "url": "http://fishbase.org/summary/3872"
+        },
+        {
+          "name": "Gobulus myersi",
+          "url": "http://fishbase.org/summary/3879"
+        },
+        {
+          "name": "Haemulon aurolineatum",
+          "url": "http://fishbase.org/summary/1128"
+        },
+        {
+          "name": "Haemulon boschmae",
+          "url": "http://fishbase.org/summary/1130"
+        },
+        {
+          "name": "Haemulon chrysargyreum",
+          "url": "http://fishbase.org/summary/1134"
+        },
+        {
+          "name": "Haemulon striatum",
+          "url": "http://fishbase.org/summary/1143"
+        },
+        {
+          "name": "Halichoeres bathyphilus",
+          "url": "http://fishbase.org/summary/3659"
+        },
+        {
+          "name": "Halichoeres burekae",
+          "url": "http://fishbase.org/summary/63950"
+        },
+        {
+          "name": "Halichoeres caudalis",
+          "url": "http://fishbase.org/summary/3661"
+        },
+        {
+          "name": "Halichoeres garnoti",
+          "url": "http://fishbase.org/summary/3663"
+        },
+        {
+          "name": "Halichoeres maculipinna",
+          "url": "http://fishbase.org/summary/3664"
+        },
+        {
+          "name": "Halichoeres pictus",
+          "url": "http://fishbase.org/summary/3665"
+        },
+        {
+          "name": "Halichoeres poeyi",
+          "url": "http://fishbase.org/summary/3666"
+        },
+        {
+          "name": "Halieutichthys aculeatus",
+          "url": "http://fishbase.org/summary/3091"
+        },
+        {
+          "name": "Halieutichthys bispinosus",
+          "url": "http://fishbase.org/summary/65849"
+        },
+        {
+          "name": "Harengula clupeola",
+          "url": "http://fishbase.org/summary/1478"
+        },
+        {
+          "name": "Harengula humeralis",
+          "url": "http://fishbase.org/summary/1479"
+        },
+        {
+          "name": "Harengula jaguana",
+          "url": "http://fishbase.org/summary/1480"
+        },
+        {
+          "name": "Hemiemblemaria simulus",
+          "url": "http://fishbase.org/summary/3727"
+        },
+        {
+          "name": "Hippocampus erectus",
+          "url": "http://fishbase.org/summary/3283"
+        },
+        {
+          "name": "Histrio histrio",
+          "url": "http://fishbase.org/summary/3089"
+        },
+        {
+          "name": "Hypleurochilus bermudensis",
+          "url": "http://fishbase.org/summary/3758"
+        },
+        {
+          "name": "Hypleurochilus caudovittatus",
+          "url": "http://fishbase.org/summary/61240"
+        },
+        {
+          "name": "Hypoatherina harringtonensis",
+          "url": "http://fishbase.org/summary/3237"
+        },
+        {
+          "name": "Hypoplectrus ecosur",
+          "url": "http://fishbase.org/summary/66622"
+        },
+        {
+          "name": "Hypoplectrus floridae",
+          "url": "http://fishbase.org/summary/66621"
+        },
+        {
+          "name": "Hypoplectrus nigricans",
+          "url": "http://fishbase.org/summary/16535"
+        },
+        {
+          "name": "Hypoplectrus puella",
+          "url": "http://fishbase.org/summary/12759"
+        },
+        {
+          "name": "Hypoplectrus unicolor",
+          "url": "http://fishbase.org/summary/3329"
+        },
+        {
+          "name": "Hypsoblennius hentz",
+          "url": "http://fishbase.org/summary/3763"
+        },
+        {
+          "name": "Jenkinsia lamprotaenia",
+          "url": "http://fishbase.org/summary/1461"
+        },
+        {
+          "name": "Kaupichthys nuchalis",
+          "url": "http://fishbase.org/summary/2607"
+        },
+        {
+          "name": "Labrisomus nuchipinnis",
+          "url": "http://fishbase.org/summary/3735"
+        },
+        {
+          "name": "Liopropoma eukrines",
+          "url": "http://fishbase.org/summary/3330"
+        },
+        {
+          "name": "Lonchopisthus micrognathus",
+          "url": "http://fishbase.org/summary/3683"
+        },
+        {
+          "name": "Lupinoblennius nicholsi",
+          "url": "http://fishbase.org/summary/3767"
+        },
+        {
+          "name": "Lupinoblennius vinctus",
+          "url": "http://fishbase.org/summary/48360"
+        },
+        {
+          "name": "Lythrypnus elasson",
+          "url": "http://fishbase.org/summary/16648"
+        },
+        {
+          "name": "Lythrypnus nesiotes",
+          "url": "http://fishbase.org/summary/3886"
+        },
+        {
+          "name": "Lythrypnus phorellus",
+          "url": "http://fishbase.org/summary/3887"
+        },
+        {
+          "name": "Lythrypnus spilus",
+          "url": "http://fishbase.org/summary/3888"
+        },
+        {
+          "name": "Malacoctenus aurolineatus",
+          "url": "http://fishbase.org/summary/3736"
+        },
+        {
+          "name": "Malacoctenus gilli",
+          "url": "http://fishbase.org/summary/16559"
+        },
+        {
+          "name": "Malacoctenus macropus",
+          "url": "http://fishbase.org/summary/3737"
+        },
+        {
+          "name": "Malacoctenus triangulatus",
+          "url": "http://fishbase.org/summary/3738"
+        },
+        {
+          "name": "Microgobius carri",
+          "url": "http://fishbase.org/summary/3890"
+        },
+        {
+          "name": "Microgobius microlepis",
+          "url": "http://fishbase.org/summary/3892"
+        },
+        {
+          "name": "Microspathodon chrysurus",
+          "url": "http://fishbase.org/summary/1122"
+        },
+        {
+          "name": "Monacanthus ciliatus",
+          "url": "http://fishbase.org/summary/4280"
+        },
+        {
+          "name": "Myripristis jacobus",
+          "url": "http://fishbase.org/summary/1063"
+        },
+        {
+          "name": "Ogilbia suarezae",
+          "url": "http://fishbase.org/summary/63283"
+        },
+        {
+          "name": "Ophioblennius macclurei",
+          "url": "http://fishbase.org/summary/15330"
+        },
+        {
+          "name": "Opistognathus aurifrons",
+          "url": "http://fishbase.org/summary/3684"
+        },
+        {
+          "name": "Opistognathus lonchurus",
+          "url": "http://fishbase.org/summary/3685"
+        },
+        {
+          "name": "Opistognathus macrognathus",
+          "url": "http://fishbase.org/summary/3686"
+        },
+        {
+          "name": "Opistognathus whitehursti",
+          "url": "http://fishbase.org/summary/3689"
+        },
+        {
+          "name": "Oxyurichthys stigmalophius",
+          "url": "http://fishbase.org/summary/3867"
+        },
+        {
+          "name": "Parablennius marmoreus",
+          "url": "http://fishbase.org/summary/3769"
+        },
+        {
+          "name": "Paraclinus marmoratus",
+          "url": "http://fishbase.org/summary/3748"
+        },
+        {
+          "name": "Pareques acuminatus",
+          "url": "http://fishbase.org/summary/3583"
+        },
+        {
+          "name": "Pareques umbrosus",
+          "url": "http://fishbase.org/summary/3586"
+        },
+        {
+          "name": "Paroncheilus affinis",
+          "url": "http://fishbase.org/summary/3520"
+        },
+        {
+          "name": "Phaeoptyx pigmentaria",
+          "url": "http://fishbase.org/summary/3537"
+        },
+        {
+          "name": "Phaeoptyx xenus",
+          "url": "http://fishbase.org/summary/3538"
+        },
+        {
+          "name": "Plectrypops retrospinis",
+          "url": "http://fishbase.org/summary/3253"
+        },
+        {
+          "name": "Prionotus ophryas",
+          "url": "http://fishbase.org/summary/4022"
+        },
+        {
+          "name": "Prognathodes aculeatus",
+          "url": "http://fishbase.org/summary/3600"
+        },
+        {
+          "name": "Prognathodes aya",
+          "url": "http://fishbase.org/summary/3601"
+        },
+        {
+          "name": "Ptereleotris calliura",
+          "url": "http://fishbase.org/summary/3881"
+        },
+        {
+          "name": "Risor ruber",
+          "url": "http://fishbase.org/summary/3898"
+        },
+        {
+          "name": "Rypticus bistrispinus",
+          "url": "http://fishbase.org/summary/3353"
+        },
+        {
+          "name": "Sargocentron bullisi",
+          "url": "http://fishbase.org/summary/3247"
+        },
+        {
+          "name": "Sargocentron coruscum",
+          "url": "http://fishbase.org/summary/3248"
+        },
+        {
+          "name": "Sargocentron poco",
+          "url": "http://fishbase.org/summary/3250"
+        },
+        {
+          "name": "Sargocentron vexillarium",
+          "url": "http://fishbase.org/summary/3251"
+        },
+        {
+          "name": "Scartella cristata",
+          "url": "http://fishbase.org/summary/3770"
+        },
+        {
+          "name": "Schultzea beta",
+          "url": "http://fishbase.org/summary/3340"
+        },
+        {
+          "name": "Scorpaena albifimbria",
+          "url": "http://fishbase.org/summary/3935"
+        },
+        {
+          "name": "Scorpaena bergii",
+          "url": "http://fishbase.org/summary/3936"
+        },
+        {
+          "name": "Scorpaena calcarata",
+          "url": "http://fishbase.org/summary/3939"
+        },
+        {
+          "name": "Scorpaena dispar",
+          "url": "http://fishbase.org/summary/3940"
+        },
+        {
+          "name": "Scorpaena elachys",
+          "url": "http://fishbase.org/summary/3941"
+        },
+        {
+          "name": "Scorpaena inermis",
+          "url": "http://fishbase.org/summary/3944"
+        },
+        {
+          "name": "Scorpaenodes caribbaeus",
+          "url": "http://fishbase.org/summary/3946"
+        },
+        {
+          "name": "Scorpaenodes tredecimspinosus",
+          "url": "http://fishbase.org/summary/3947"
+        },
+        {
+          "name": "Serraniculus pumilio",
+          "url": "http://fishbase.org/summary/3341"
+        },
+        {
+          "name": "Serranus annularis",
+          "url": "http://fishbase.org/summary/3342"
+        },
+        {
+          "name": "Serranus baldwini",
+          "url": "http://fishbase.org/summary/3344"
+        },
+        {
+          "name": "Serranus chionaraia",
+          "url": "http://fishbase.org/summary/3345"
+        },
+        {
+          "name": "Serranus notospilus",
+          "url": "http://fishbase.org/summary/3346"
+        },
+        {
+          "name": "Serranus phoebe",
+          "url": "http://fishbase.org/summary/3347"
+        },
+        {
+          "name": "Serranus tortugarum",
+          "url": "http://fishbase.org/summary/3351"
+        },
+        {
+          "name": "Sparisoma aurofrenatum",
+          "url": "http://fishbase.org/summary/1158"
+        },
+        {
+          "name": "Sparisoma radians",
+          "url": "http://fishbase.org/summary/3676"
+        },
+        {
+          "name": "Starksia fasciata",
+          "url": "http://fishbase.org/summary/27685"
+        },
+        {
+          "name": "Starksia ocellata",
+          "url": "http://fishbase.org/summary/3750"
+        },
+        {
+          "name": "Stegastes adustus",
+          "url": "http://fishbase.org/summary/12416"
+        },
+        {
+          "name": "Stegastes diencaeus",
+          "url": "http://fishbase.org/summary/3649"
+        },
+        {
+          "name": "Stegastes leucostictus",
+          "url": "http://fishbase.org/summary/3651"
+        },
+        {
+          "name": "Stegastes partitus",
+          "url": "http://fishbase.org/summary/3652"
+        },
+        {
+          "name": "Stegastes planifrons",
+          "url": "http://fishbase.org/summary/3653"
+        },
+        {
+          "name": "Stegastes xanthurus",
+          "url": "http://fishbase.org/summary/67997"
+        },
+        {
+          "name": "Stephanolepis hispidus",
+          "url": "http://fishbase.org/summary/4281"
+        },
+        {
+          "name": "Stephanolepis setifer",
+          "url": "http://fishbase.org/summary/1195"
+        },
+        {
+          "name": "Synodus poeyi",
+          "url": "http://fishbase.org/summary/2722"
+        },
+        {
+          "name": "Thalassoma bifasciatum",
+          "url": "http://fishbase.org/summary/3673"
+        },
+        {
+          "name": "Tigrigobius macrodon",
+          "url": "http://fishbase.org/summary/3875"
+        },
+        {
+          "name": "Tigrigobius saucrus",
+          "url": "http://fishbase.org/summary/57964"
+        },
+        {
+          "name": "Ulaema lefroyi",
+          "url": "http://fishbase.org/summary/3566"
+        },
+        {
+          "name": "Xyrichtys splendens",
+          "url": "http://fishbase.org/summary/3669"
+        }
+      ]
+    },
+    {
+      "name": "reef-associatedmd",
+      "type": "focal",
+      "taxa": [
+        {
+          "name": "Acanthostracion polygonius",
+          "url": "http://fishbase.org/summary/4287"
+        },
+        {
+          "name": "Acanthostracion quadricornis",
+          "url": "http://fishbase.org/summary/92"
+        },
+        {
+          "name": "Acanthurus bahianus",
+          "url": "http://fishbase.org/summary/942"
+        },
+        {
+          "name": "Acanthurus chirurgus",
+          "url": "http://fishbase.org/summary/943"
+        },
+        {
+          "name": "Acanthurus coeruleus",
+          "url": "http://fishbase.org/summary/944"
+        },
+        {
+          "name": "Ahlia egmontis",
+          "url": "http://fishbase.org/summary/2633"
+        },
+        {
+          "name": "Alphestes afer",
+          "url": "http://fishbase.org/summary/8726"
+        },
+        {
+          "name": "Aluterus monoceros",
+          "url": "http://fishbase.org/summary/4274"
+        },
+        {
+          "name": "Aluterus schoepfii",
+          "url": "http://fishbase.org/summary/1081"
+        },
+        {
+          "name": "Anisotremus surinamensis",
+          "url": "http://fishbase.org/summary/1123"
+        },
+        {
+          "name": "Anisotremus virginicus",
+          "url": "http://fishbase.org/summary/1124"
+        },
+        {
+          "name": "Aprognathodon platyventris",
+          "url": "http://fishbase.org/summary/2634"
+        },
+        {
+          "name": "Apsilus dentatus",
+          "url": "http://fishbase.org/summary/85"
+        },
+        {
+          "name": "Archosargus rhomboidalis",
+          "url": "http://fishbase.org/summary/1219"
+        },
+        {
+          "name": "Ariopsis felis",
+          "url": "http://fishbase.org/summary/947"
+        },
+        {
+          "name": "Ariosoma balearicum",
+          "url": "http://fishbase.org/summary/1744"
+        },
+        {
+          "name": "Astroscopus graecum",
+          "url": "http://fishbase.org/summary/3704"
+        },
+        {
+          "name": "Balistes capriscus",
+          "url": "http://fishbase.org/summary/7327"
+        },
+        {
+          "name": "Balistes vetula",
+          "url": "http://fishbase.org/summary/19"
+        },
+        {
+          "name": "Bascanichthys scuticaris",
+          "url": "http://fishbase.org/summary/2638"
+        },
+        {
+          "name": "Bodianus rufus",
+          "url": "http://fishbase.org/summary/1067"
+        },
+        {
+          "name": "Calamus bajonado",
+          "url": "http://fishbase.org/summary/1221"
+        },
+        {
+          "name": "Calamus calamus",
+          "url": "http://fishbase.org/summary/1222"
+        },
+        {
+          "name": "Calamus nodosus",
+          "url": "http://fishbase.org/summary/1226"
+        },
+        {
+          "name": "Calamus penna",
+          "url": "http://fishbase.org/summary/1227"
+        },
+        {
+          "name": "Calamus pennatula",
+          "url": "http://fishbase.org/summary/1228"
+        },
+        {
+          "name": "Calamus proridens",
+          "url": "http://fishbase.org/summary/1229"
+        },
+        {
+          "name": "Cantherhines macrocerus",
+          "url": "http://fishbase.org/summary/4277"
+        },
+        {
+          "name": "Canthidermis sufflamen",
+          "url": "http://fishbase.org/summary/4279"
+        },
+        {
+          "name": "Caranx crysos",
+          "url": "http://fishbase.org/summary/1933"
+        },
+        {
+          "name": "Caranx ruber",
+          "url": "http://fishbase.org/summary/1918"
+        },
+        {
+          "name": "Centropristis philadelphica",
+          "url": "http://fishbase.org/summary/3317"
+        },
+        {
+          "name": "Centropristis striata",
+          "url": "http://fishbase.org/summary/361"
+        },
+        {
+          "name": "Cephalopholis cruentata",
+          "url": "http://fishbase.org/summary/12"
+        },
+        {
+          "name": "Cephalopholis fulva",
+          "url": "http://fishbase.org/summary/8816"
+        },
+        {
+          "name": "Dactylopterus volitans",
+          "url": "http://fishbase.org/summary/1021"
+        },
+        {
+          "name": "Decapterus punctatus",
+          "url": "http://fishbase.org/summary/994"
+        },
+        {
+          "name": "Decapterus tabl",
+          "url": "http://fishbase.org/summary/995"
+        },
+        {
+          "name": "Decodon puellaris",
+          "url": "http://fishbase.org/summary/3657"
+        },
+        {
+          "name": "Diodon holocanthus",
+          "url": "http://fishbase.org/summary/4659"
+        },
+        {
+          "name": "Diplectrum formosum",
+          "url": "http://fishbase.org/summary/1203"
+        },
+        {
+          "name": "Diplodus argenteus",
+          "url": "http://fishbase.org/summary/3574"
+        },
+        {
+          "name": "Echeneis neucratoides",
+          "url": "http://fishbase.org/summary/3543"
+        },
+        {
+          "name": "Epinephelus guttatus",
+          "url": "http://fishbase.org/summary/15"
+        },
+        {
+          "name": "Fowlerichthys ocellatus",
+          "url": "http://fishbase.org/summary/3085"
+        },
+        {
+          "name": "Gerres cinereus",
+          "url": "http://fishbase.org/summary/1054"
+        },
+        {
+          "name": "Gymnothorax miliaris",
+          "url": "http://fishbase.org/summary/1103"
+        },
+        {
+          "name": "Haemulon album",
+          "url": "http://fishbase.org/summary/1126"
+        },
+        {
+          "name": "Haemulon bonariense",
+          "url": "http://fishbase.org/summary/1129"
+        },
+        {
+          "name": "Haemulon carbonarium",
+          "url": "http://fishbase.org/summary/1131"
+        },
+        {
+          "name": "Haemulon flavolineatum",
+          "url": "http://fishbase.org/summary/1135"
+        },
+        {
+          "name": "Haemulon macrostomum",
+          "url": "http://fishbase.org/summary/1136"
+        },
+        {
+          "name": "Haemulon melanurum",
+          "url": "http://fishbase.org/summary/1138"
+        },
+        {
+          "name": "Haemulon parra",
+          "url": "http://fishbase.org/summary/1139"
+        },
+        {
+          "name": "Haemulon plumierii",
+          "url": "http://fishbase.org/summary/1140"
+        },
+        {
+          "name": "Haemulon sciurus",
+          "url": "http://fishbase.org/summary/1141"
+        },
+        {
+          "name": "Halichoeres bivittatus",
+          "url": "http://fishbase.org/summary/3660"
+        },
+        {
+          "name": "Halichoeres cyanocephalus",
+          "url": "http://fishbase.org/summary/3662"
+        },
+        {
+          "name": "Halichoeres radiatus",
+          "url": "http://fishbase.org/summary/1068"
+        },
+        {
+          "name": "Hemiramphus balao",
+          "url": "http://fishbase.org/summary/1057"
+        },
+        {
+          "name": "Hemiramphus brasiliensis",
+          "url": "http://fishbase.org/summary/1059"
+        },
+        {
+          "name": "Heteropriacanthus cruentatus",
+          "url": "http://fishbase.org/summary/1150"
+        },
+        {
+          "name": "Holacanthus bermudensis",
+          "url": "http://fishbase.org/summary/3608"
+        },
+        {
+          "name": "Holacanthus ciliaris",
+          "url": "http://fishbase.org/summary/3609"
+        },
+        {
+          "name": "Holacanthus tricolor",
+          "url": "http://fishbase.org/summary/3610"
+        },
+        {
+          "name": "Holocentrus adscensionis",
+          "url": "http://fishbase.org/summary/1061"
+        },
+        {
+          "name": "Holocentrus rufus",
+          "url": "http://fishbase.org/summary/1062"
+        },
+        {
+          "name": "Hyporhamphus unifasciatus",
+          "url": "http://fishbase.org/summary/1060"
+        },
+        {
+          "name": "Kaupichthys hyoproroides",
+          "url": "http://fishbase.org/summary/2606"
+        },
+        {
+          "name": "Kyphosus sectatrix",
+          "url": "http://fishbase.org/summary/2498"
+        },
+        {
+          "name": "Lactophrys bicaudalis",
+          "url": "http://fishbase.org/summary/4286"
+        },
+        {
+          "name": "Lactophrys trigonus",
+          "url": "http://fishbase.org/summary/1107"
+        },
+        {
+          "name": "Lepophidium jeannae",
+          "url": "http://fishbase.org/summary/3110"
+        },
+        {
+          "name": "Lutjanus apodus",
+          "url": "http://fishbase.org/summary/1404"
+        },
+        {
+          "name": "Lutjanus buccanella",
+          "url": "http://fishbase.org/summary/1419"
+        },
+        {
+          "name": "Lutjanus griseus",
+          "url": "http://fishbase.org/summary/266"
+        },
+        {
+          "name": "Lutjanus mahogoni",
+          "url": "http://fishbase.org/summary/161"
+        },
+        {
+          "name": "Lutjanus synagris",
+          "url": "http://fishbase.org/summary/181"
+        },
+        {
+          "name": "Lutjanus vivanus",
+          "url": "http://fishbase.org/summary/185"
+        },
+        {
+          "name": "Malacanthus plumieri",
+          "url": "http://fishbase.org/summary/3541"
+        },
+        {
+          "name": "Melichthys niger",
+          "url": "http://fishbase.org/summary/966"
+        },
+        {
+          "name": "Mulloidichthys martinicus",
+          "url": "http://fishbase.org/summary/1092"
+        },
+        {
+          "name": "Mycteroperca acutirostris",
+          "url": "http://fishbase.org/summary/9386"
+        },
+        {
+          "name": "Mycteroperca interstitialis",
+          "url": "http://fishbase.org/summary/1211"
+        },
+        {
+          "name": "Myrophis punctatus",
+          "url": "http://fishbase.org/summary/2652"
+        },
+        {
+          "name": "Naucrates ductor",
+          "url": "http://fishbase.org/summary/998"
+        },
+        {
+          "name": "Nicholsina usta",
+          "url": "http://fishbase.org/summary/1151"
+        },
+        {
+          "name": "Ocyurus chrysurus",
+          "url": "http://fishbase.org/summary/188"
+        },
+        {
+          "name": "Ogcocephalus cubifrons",
+          "url": "http://fishbase.org/summary/27085"
+        },
+        {
+          "name": "Ogcocephalus nasutus",
+          "url": "http://fishbase.org/summary/3092"
+        },
+        {
+          "name": "Oligoplites saurus",
+          "url": "http://fishbase.org/summary/1001"
+        },
+        {
+          "name": "Ophidion holbrookii",
+          "url": "http://fishbase.org/summary/3113"
+        },
+        {
+          "name": "Opisthonema oglinum",
+          "url": "http://fishbase.org/summary/1486"
+        },
+        {
+          "name": "Opsanus pardus",
+          "url": "http://fishbase.org/summary/3068"
+        },
+        {
+          "name": "Paraconger caudilimbatus",
+          "url": "http://fishbase.org/summary/2631"
+        },
+        {
+          "name": "Paranthias furcifer",
+          "url": "http://fishbase.org/summary/1217"
+        },
+        {
+          "name": "Platybelone argalus",
+          "url": "http://sealifebase.org/summary/argalus"
+        },
+        {
+          "name": "Pomacanthus arcuatus",
+          "url": "http://fishbase.org/summary/1117"
+        },
+        {
+          "name": "Pomacanthus paru",
+          "url": "http://fishbase.org/summary/1118"
+        },
+        {
+          "name": "Priacanthus arenatus",
+          "url": "http://fishbase.org/summary/1149"
+        },
+        {
+          "name": "Pristigenys alta",
+          "url": "http://fishbase.org/summary/3518"
+        },
+        {
+          "name": "Pseudupeneus maculatus",
+          "url": "http://fishbase.org/summary/1094"
+        },
+        {
+          "name": "Remora remora",
+          "url": "http://fishbase.org/summary/1751"
+        },
+        {
+          "name": "Rhinesomus triqueter",
+          "url": "http://fishbase.org/summary/1109"
+        },
+        {
+          "name": "Sardinella aurita",
+          "url": "http://fishbase.org/summary/1043"
+        },
+        {
+          "name": "Saurida normani",
+          "url": "http://fishbase.org/summary/2718"
+        },
+        {
+          "name": "Scarus iseri",
+          "url": "http://fishbase.org/summary/1154"
+        },
+        {
+          "name": "Scarus taeniopterus",
+          "url": "http://fishbase.org/summary/1156"
+        },
+        {
+          "name": "Scorpaena brasiliensis",
+          "url": "http://fishbase.org/summary/3938"
+        },
+        {
+          "name": "Scorpaena plumieri",
+          "url": "http://fishbase.org/summary/1201"
+        },
+        {
+          "name": "Selar crumenophthalmus",
+          "url": "http://fishbase.org/summary/387"
+        },
+        {
+          "name": "Sparisoma chrysopterum",
+          "url": "http://fishbase.org/summary/1159"
+        },
+        {
+          "name": "Sparisoma viride",
+          "url": "http://fishbase.org/summary/1161"
+        },
+        {
+          "name": "Sphoeroides nephelus",
+          "url": "http://fishbase.org/summary/1240"
+        },
+        {
+          "name": "Sphoeroides spengleri",
+          "url": "http://fishbase.org/summary/1241"
+        },
+        {
+          "name": "Sphoeroides testudineus",
+          "url": "http://fishbase.org/summary/1242"
+        },
+        {
+          "name": "Sphyraena borealis",
+          "url": "http://fishbase.org/summary/3679"
+        },
+        {
+          "name": "Sphyraena picudilla",
+          "url": "http://fishbase.org/summary/1237"
+        },
+        {
+          "name": "Strongylura notata",
+          "url": "http://sealifebase.org/summary/notata"
+        },
+        {
+          "name": "Strongylura timucu",
+          "url": "http://fishbase.org/summary/975"
+        },
+        {
+          "name": "Syngnathus louisianae",
+          "url": "http://fishbase.org/summary/3304"
+        },
+        {
+          "name": "Synodus foetens",
+          "url": "http://fishbase.org/summary/2719"
+        },
+        {
+          "name": "Synodus intermedius",
+          "url": "http://fishbase.org/summary/2720"
+        },
+        {
+          "name": "Synodus myops",
+          "url": "http://fishbase.org/summary/2724"
+        },
+        {
+          "name": "Synodus synodus",
+          "url": "http://fishbase.org/summary/2723"
+        },
+        {
+          "name": "Trachinotus goodei",
+          "url": "http://fishbase.org/summary/1011"
+        },
+        {
+          "name": "Trachurus lathami",
+          "url": "http://fishbase.org/summary/369"
+        },
+        {
+          "name": "Uropterygius macularius",
+          "url": "http://fishbase.org/summary/11910"
+        },
+        {
+          "name": "Xyrichtys novacula",
+          "url": "http://fishbase.org/summary/4581"
+        }
+      ]
+    },
+    {
+      "name": "reef-associatedlg",
+      "type": "focal",
+      "taxa": [
+        {
+          "name": "Ablennes hians",
+          "url": "http://fishbase.org/summary/972"
+        },
+        {
+          "name": "Albula vulpes",
+          "url": "http://fishbase.org/summary/228"
+        },
+        {
+          "name": "Alectis ciliaris",
+          "url": "http://fishbase.org/summary/988"
+        },
+        {
+          "name": "Aluterus scriptus",
+          "url": "http://fishbase.org/summary/4275"
+        },
+        {
+          "name": "Archosargus probatocephalus",
+          "url": "http://fishbase.org/summary/441"
+        },
+        {
+          "name": "Aulostomus maculatus",
+          "url": "http://fishbase.org/summary/964"
+        },
+        {
+          "name": "Brotula barbata",
+          "url": "http://fishbase.org/summary/486"
+        },
+        {
+          "name": "Carangoides bartholomaei",
+          "url": "http://fishbase.org/summary/1913"
+        },
+        {
+          "name": "Caranx hippos",
+          "url": "http://fishbase.org/summary/71"
+        },
+        {
+          "name": "Caranx latus",
+          "url": "http://fishbase.org/summary/1935"
+        },
+        {
+          "name": "Centropomus undecimalis",
+          "url": "http://fishbase.org/summary/345"
+        },
+        {
+          "name": "Chaetodipterus faber",
+          "url": "http://fishbase.org/summary/1024"
+        },
+        {
+          "name": "Dermatolepis inermis",
+          "url": "http://fishbase.org/summary/3322"
+        },
+        {
+          "name": "Diodon hystrix",
+          "url": "http://fishbase.org/summary/1022"
+        },
+        {
+          "name": "Echiophis punctifer",
+          "url": "http://fishbase.org/summary/2645"
+        },
+        {
+          "name": "Elagatis bipinnulata",
+          "url": "http://fishbase.org/summary/412"
+        },
+        {
+          "name": "Elops saurus",
+          "url": "http://fishbase.org/summary/175"
+        },
+        {
+          "name": "Enchelycore nigricans",
+          "url": "http://fishbase.org/summary/1098"
+        },
+        {
+          "name": "Epinephelus itajara",
+          "url": "http://fishbase.org/summary/16"
+        },
+        {
+          "name": "Epinephelus morio",
+          "url": "http://fishbase.org/summary/17"
+        },
+        {
+          "name": "Epinephelus striatus",
+          "url": "http://fishbase.org/summary/18"
+        },
+        {
+          "name": "Euthynnus alletteratus",
+          "url": "http://fishbase.org/summary/97"
+        },
+        {
+          "name": "Fistularia petimba",
+          "url": "http://fishbase.org/summary/3276"
+        },
+        {
+          "name": "Fistularia tabacaria",
+          "url": "http://fishbase.org/summary/3275"
+        },
+        {
+          "name": "Gymnothorax funebris",
+          "url": "http://fishbase.org/summary/7546"
+        },
+        {
+          "name": "Gymnothorax moringa",
+          "url": "http://fishbase.org/summary/7547"
+        },
+        {
+          "name": "Gymnothorax nigromarginatus",
+          "url": "http://fishbase.org/summary/2615"
+        },
+        {
+          "name": "Gymnothorax ocellatus",
+          "url": "http://fishbase.org/summary/1099"
+        },
+        {
+          "name": "Gymnothorax vicinus",
+          "url": "http://fishbase.org/summary/7548"
+        },
+        {
+          "name": "Kyphosus incisor",
+          "url": "http://fishbase.org/summary/1064"
+        },
+        {
+          "name": "Lachnolaimus maximus",
+          "url": "http://fishbase.org/summary/1071"
+        },
+        {
+          "name": "Lutjanus analis",
+          "url": "http://fishbase.org/summary/1403"
+        },
+        {
+          "name": "Lutjanus campechanus",
+          "url": "http://fishbase.org/summary/1423"
+        },
+        {
+          "name": "Lutjanus cyanopterus",
+          "url": "http://fishbase.org/summary/1427"
+        },
+        {
+          "name": "Lutjanus jocu",
+          "url": "http://fishbase.org/summary/154"
+        },
+        {
+          "name": "Megalops atlanticus",
+          "url": "http://fishbase.org/summary/1079"
+        },
+        {
+          "name": "Mugil curema",
+          "url": "http://fishbase.org/summary/1086"
+        },
+        {
+          "name": "Mycteroperca bonaci",
+          "url": "http://fishbase.org/summary/1209"
+        },
+        {
+          "name": "Mycteroperca microlepis",
+          "url": "http://fishbase.org/summary/1212"
+        },
+        {
+          "name": "Mycteroperca phenax",
+          "url": "http://fishbase.org/summary/1213"
+        },
+        {
+          "name": "Mycteroperca tigris",
+          "url": "http://fishbase.org/summary/1215"
+        },
+        {
+          "name": "Mycteroperca venenosa",
+          "url": "http://fishbase.org/summary/1216"
+        },
+        {
+          "name": "Myrichthys breviceps",
+          "url": "http://fishbase.org/summary/2649"
+        },
+        {
+          "name": "Rachycentron canadum",
+          "url": "http://fishbase.org/summary/3542"
+        },
+        {
+          "name": "Scomberomorus cavalla",
+          "url": "http://fishbase.org/summary/120"
+        },
+        {
+          "name": "Scomberomorus regalis",
+          "url": "http://fishbase.org/summary/134"
+        },
+        {
+          "name": "Seriola dumerili",
+          "url": "http://fishbase.org/summary/1005"
+        },
+        {
+          "name": "Seriola rivoliana",
+          "url": "http://fishbase.org/summary/1007"
+        },
+        {
+          "name": "Sphyraena barracuda",
+          "url": "http://fishbase.org/summary/1235"
+        },
+        {
+          "name": "Strongylura marina",
+          "url": "http://fishbase.org/summary/974"
+        },
+        {
+          "name": "Trachinotus falcatus",
+          "url": "http://fishbase.org/summary/1010"
+        },
+        {
+          "name": "Tylosurus acus",
+          "url": "http://sealifebase.org/summary/acus"
+        },
+        {
+          "name": "Tylosurus crocodilus",
+          "url": "http://fishbase.org/summary/977"
+        }
+      ]
+    },
+    {
+      "name": "sharksm-md",
+      "type": "focal",
+      "taxa": [
+        {
+          "name": "Apristurus laurussonii",
+          "url": "http://fishbase.org/summary/770"
+        },
+        {
+          "name": "Apristurus parvipinnis",
+          "url": "http://fishbase.org/summary/777"
+        },
+        {
+          "name": "Apristurus riveri",
+          "url": "http://fishbase.org/summary/780"
+        },
+        {
+          "name": "Etmopterus bigelowi",
+          "url": "http://fishbase.org/summary/25482"
+        },
+        {
+          "name": "Etmopterus hillianus",
+          "url": "http://fishbase.org/summary/680"
+        },
+        {
+          "name": "Etmopterus schultzi",
+          "url": "http://fishbase.org/summary/685"
+        },
+        {
+          "name": "Etmopterus virens",
+          "url": "http://fishbase.org/summary/690"
+        },
+        {
+          "name": "Galeus arae",
+          "url": "http://fishbase.org/summary/804"
+        },
+        {
+          "name": "Isistius brasiliensis",
+          "url": "http://fishbase.org/summary/696"
+        },
+        {
+          "name": "Scyliorhinus retifer",
+          "url": "http://fishbase.org/summary/853"
+        },
+        {
+          "name": "Squatina heteroptera",
+          "url": "http://fishbase.org/summary/63662"
+        },
+        {
+          "name": "Zameus squamulosus",
+          "url": "http://fishbase.org/summary/701"
+        }
+      ]
+    },
+    {
+      "name": "sharklg",
+      "type": "focal",
+      "taxa": [
+        {
+          "name": "Alopias superciliosus",
+          "url": "http://fishbase.org/summary/2534"
+        },
+        {
+          "name": "Alopias vulpinus",
+          "url": "http://fishbase.org/summary/2535"
+        },
+        {
+          "name": "Carcharhinus acronotus",
+          "url": "http://fishbase.org/summary/857"
+        },
+        {
+          "name": "Carcharhinus altimus",
+          "url": "http://fishbase.org/summary/859"
+        },
+        {
+          "name": "Carcharhinus brevipinna",
+          "url": "http://fishbase.org/summary/865"
+        },
+        {
+          "name": "Carcharhinus falciformis",
+          "url": "http://fishbase.org/summary/868"
+        },
+        {
+          "name": "Carcharhinus isodon",
+          "url": "http://fishbase.org/summary/872"
+        },
+        {
+          "name": "Carcharhinus leucas",
+          "url": "http://fishbase.org/summary/873"
+        },
+        {
+          "name": "Carcharhinus limbatus",
+          "url": "http://fishbase.org/summary/874"
+        },
+        {
+          "name": "Carcharhinus longimanus",
+          "url": "http://fishbase.org/summary/875"
+        },
+        {
+          "name": "Carcharhinus obscurus",
+          "url": "http://fishbase.org/summary/878"
+        },
+        {
+          "name": "Carcharhinus perezii",
+          "url": "http://fishbase.org/summary/879"
+        },
+        {
+          "name": "Carcharhinus plumbeus",
+          "url": "http://fishbase.org/summary/880"
+        },
+        {
+          "name": "Carcharhinus porosus",
+          "url": "http://fishbase.org/summary/881"
+        },
+        {
+          "name": "Carcharhinus signatus",
+          "url": "http://fishbase.org/summary/883"
+        },
+        {
+          "name": "Carcharias taurus",
+          "url": "http://fishbase.org/summary/747"
+        },
+        {
+          "name": "Carcharodon carcharias",
+          "url": "http://fishbase.org/summary/751"
+        },
+        {
+          "name": "Centrophorus granulosus",
+          "url": "http://fishbase.org/summary/648"
+        },
+        {
+          "name": "Centrophorus uyato",
+          "url": "http://fishbase.org/summary/655"
+        },
+        {
+          "name": "Cetorhinus maximus",
+          "url": "http://fishbase.org/summary/90"
+        },
+        {
+          "name": "Cirrhigaleus asper",
+          "url": "http://fishbase.org/summary/707"
+        },
+        {
+          "name": "Dalatias licha",
+          "url": "http://fishbase.org/summary/669"
+        },
+        {
+          "name": "Galeocerdo cuvier",
+          "url": "http://fishbase.org/summary/886"
+        },
+        {
+          "name": "Ginglymostoma cirratum",
+          "url": "http://fishbase.org/summary/2532"
+        },
+        {
+          "name": "Heptranchias perlo",
+          "url": "http://fishbase.org/summary/636"
+        },
+        {
+          "name": "Hexanchus griseus",
+          "url": "http://fishbase.org/summary/637"
+        },
+        {
+          "name": "Isurus oxyrinchus",
+          "url": "http://fishbase.org/summary/752"
+        },
+        {
+          "name": "Mitsukurina owstoni",
+          "url": "http://fishbase.org/summary/5910"
+        },
+        {
+          "name": "Mustelus canis",
+          "url": "http://fishbase.org/summary/2539"
+        },
+        {
+          "name": "Mustelus norrisi",
+          "url": "http://fishbase.org/summary/2542"
+        },
+        {
+          "name": "Mustelus sinusmexicanus",
+          "url": "http://fishbase.org/summary/50773"
+        },
+        {
+          "name": "Negaprion brevirostris",
+          "url": "http://fishbase.org/summary/897"
+        },
+        {
+          "name": "Prionace glauca",
+          "url": "http://fishbase.org/summary/898"
+        },
+        {
+          "name": "Rhincodon typus",
+          "url": "http://fishbase.org/summary/2081"
+        },
+        {
+          "name": "Rhizoprionodon terraenovae",
+          "url": "http://fishbase.org/summary/905"
+        },
+        {
+          "name": "Sphyrna lewini",
+          "url": "http://fishbase.org/summary/912"
+        },
+        {
+          "name": "Sphyrna mokarran",
+          "url": "http://fishbase.org/summary/914"
+        },
+        {
+          "name": "Sphyrna tiburo",
+          "url": "http://fishbase.org/summary/915"
+        },
+        {
+          "name": "Squalus cubensis",
+          "url": "http://fishbase.org/summary/709"
+        },
+        {
+          "name": "Squatina dumeril",
+          "url": "http://fishbase.org/summary/731"
+        }
+      ]
+    },
+    {
+      "name": "raysm md",
+      "type": "focal",
+      "taxa": [
+        {
+          "name": "Anacanthobatis folirostris",
+          "url": "http://fishbase.org/summary/51848"
+        },
+        {
+          "name": "Breviraja spinosa",
+          "url": "http://fishbase.org/summary/27772"
+        },
+        {
+          "name": "Cruriraja rugosa",
+          "url": "http://fishbase.org/summary/51854"
+        },
+        {
+          "name": "Dactylobatus armatus",
+          "url": "http://fishbase.org/summary/51857"
+        },
+        {
+          "name": "Dactylobatus clarkii",
+          "url": "http://fishbase.org/summary/7608"
+        },
+        {
+          "name": "Dipturus olseni",
+          "url": "http://fishbase.org/summary/2563"
+        },
+        {
+          "name": "Fenestraja ishiyamai",
+          "url": "http://fishbase.org/summary/51804"
+        },
+        {
+          "name": "Fenestraja plutonia",
+          "url": "http://fishbase.org/summary/51799"
+        },
+        {
+          "name": "Fenestraja sinusmexicanus",
+          "url": "http://fishbase.org/summary/51807"
+        },
+        {
+          "name": "Gymnura altavela",
+          "url": "http://fishbase.org/summary/2577"
+        },
+        {
+          "name": "Gymnura micrura",
+          "url": "http://fishbase.org/summary/2579"
+        },
+        {
+          "name": "Leucoraja lentiginosa",
+          "url": "http://fishbase.org/summary/11877"
+        },
+        {
+          "name": "Leucoraja yucatanensis",
+          "url": "http://fishbase.org/summary/51861"
+        },
+        {
+          "name": "Narcine brasiliensis",
+          "url": "http://fishbase.org/summary/2551"
+        },
+        {
+          "name": "Pseudobatos lentiginosus",
+          "url": "http://fishbase.org/summary/2548"
+        },
+        {
+          "name": "Pseudoraja fischeri",
+          "url": "http://fishbase.org/summary/51846"
+        },
+        {
+          "name": "Raja ackleyi",
+          "url": "http://fishbase.org/summary/2554"
+        },
+        {
+          "name": "Raja eglanteria",
+          "url": "http://fishbase.org/summary/1252"
+        },
+        {
+          "name": "Raja texana",
+          "url": "http://fishbase.org/summary/1254"
+        },
+        {
+          "name": "Rajella bigelowi",
+          "url": "http://fishbase.org/summary/8936"
+        },
+        {
+          "name": "Rajella purpuriventralis",
+          "url": "http://fishbase.org/summary/7611"
+        },
+        {
+          "name": "Urobatis jamaicensis",
+          "url": "http://fishbase.org/summary/2581"
+        }
+      ]
+    },
+    {
+      "name": "raylg",
+      "type": "focal",
+      "taxa": [
+        {
+          "name": "Aetobatus narinari",
+          "url": "http://fishbase.org/summary/1250"
+        },
+        {
+          "name": "Dasyatis americana",
+          "url": "http://fishbase.org/summary/1247"
+        },
+        {
+          "name": "Dasyatis centroura",
+          "url": "http://fishbase.org/summary/2572"
+        },
+        {
+          "name": "Dasyatis guttata",
+          "url": "http://fishbase.org/summary/1248"
+        },
+        {
+          "name": "Dasyatis sabina",
+          "url": "http://fishbase.org/summary/2574"
+        },
+        {
+          "name": "Dasyatis say",
+          "url": "http://fishbase.org/summary/2575"
+        },
+        {
+          "name": "Dipturus garricki",
+          "url": "http://fishbase.org/summary/51859"
+        },
+        {
+          "name": "Dipturus oregoni",
+          "url": "http://fishbase.org/summary/51860"
+        },
+        {
+          "name": "Manta birostris",
+          "url": "http://fishbase.org/summary/2061"
+        },
+        {
+          "name": "Myliobatis freminvillei",
+          "url": "http://fishbase.org/summary/1251"
+        },
+        {
+          "name": "Rhinoptera bonasus",
+          "url": "http://fishbase.org/summary/2584"
+        },
+        {
+          "name": "Tetronarce nobiliana",
+          "url": "http://fishbase.org/summary/2553"
+        }
+      ]
+    },
+    {
+      "name": "flatfishsm md",
+      "type": "focal",
+      "taxa": [
+        {
+          "name": "Achirus lineatus",
+          "url": "http://fishbase.org/summary/4256"
+        },
+        {
+          "name": "Ancylopsetta dilecta",
+          "url": "http://fishbase.org/summary/4205"
+        },
+        {
+          "name": "Ancylopsetta ommata",
+          "url": "http://fishbase.org/summary/4206"
+        },
+        {
+          "name": "Bothus ocellatus",
+          "url": "http://fishbase.org/summary/4207"
+        },
+        {
+          "name": "Bothus robinsi",
+          "url": "http://fishbase.org/summary/4208"
+        },
+        {
+          "name": "Chascanopsetta lugubris",
+          "url": "http://fishbase.org/summary/1323"
+        },
+        {
+          "name": "Citharichthys arctifrons",
+          "url": "http://fishbase.org/summary/4209"
+        },
+        {
+          "name": "Citharichthys cornutus",
+          "url": "http://fishbase.org/summary/4211"
+        },
+        {
+          "name": "Citharichthys macrops",
+          "url": "http://fishbase.org/summary/4214"
+        },
+        {
+          "name": "Citharichthys spilopterus",
+          "url": "http://fishbase.org/summary/4216"
+        },
+        {
+          "name": "Cyclopsetta chittendeni",
+          "url": "http://fishbase.org/summary/979"
+        },
+        {
+          "name": "Cyclopsetta fimbriata",
+          "url": "http://fishbase.org/summary/4219"
+        },
+        {
+          "name": "Engyophrys senta",
+          "url": "http://fishbase.org/summary/4220"
+        },
+        {
+          "name": "Etropus crossotus",
+          "url": "http://fishbase.org/summary/4221"
+        },
+        {
+          "name": "Etropus microstomus",
+          "url": "http://fishbase.org/summary/4222"
+        },
+        {
+          "name": "Etropus rimosus",
+          "url": "http://fishbase.org/summary/4223"
+        },
+        {
+          "name": "Gastropsetta frontalis",
+          "url": "http://fishbase.org/summary/4224"
+        },
+        {
+          "name": "Gymnachirus melas",
+          "url": "http://fishbase.org/summary/4257"
+        },
+        {
+          "name": "Gymnachirus texae",
+          "url": "http://fishbase.org/summary/4258"
+        },
+        {
+          "name": "Monolene antillarum",
+          "url": "http://fishbase.org/summary/4226"
+        },
+        {
+          "name": "Paralichthys albigutta",
+          "url": "http://fishbase.org/summary/980"
+        },
+        {
+          "name": "Paralichthys lethostigma",
+          "url": "http://fishbase.org/summary/981"
+        },
+        {
+          "name": "Paralichthys squamilentus",
+          "url": "http://fishbase.org/summary/4230"
+        },
+        {
+          "name": "Poecilopsetta beanii",
+          "url": "http://fishbase.org/summary/58866"
+        },
+        {
+          "name": "Pseudopleuronectes americanus",
+          "url": "http://fishbase.org/summary/524"
+        },
+        {
+          "name": "Syacium gunteri",
+          "url": "http://fishbase.org/summary/4231"
+        },
+        {
+          "name": "Syacium micrurum",
+          "url": "http://fishbase.org/summary/4232"
+        },
+        {
+          "name": "Syacium papillosum",
+          "url": "http://fishbase.org/summary/4233"
+        },
+        {
+          "name": "Symphurus civitatium",
+          "url": "http://fishbase.org/summary/4263"
+        },
+        {
+          "name": "Symphurus diomedeanus",
+          "url": "http://fishbase.org/summary/1018"
+        },
+        {
+          "name": "Symphurus parvus",
+          "url": "http://fishbase.org/summary/4266"
+        },
+        {
+          "name": "Symphurus pelicanus",
+          "url": "http://fishbase.org/summary/4267"
+        },
+        {
+          "name": "Symphurus piger",
+          "url": "http://fishbase.org/summary/4268"
+        },
+        {
+          "name": "Symphurus plagiusa",
+          "url": "http://fishbase.org/summary/1019"
+        },
+        {
+          "name": "Symphurus pusillus",
+          "url": "http://fishbase.org/summary/4269"
+        },
+        {
+          "name": "Symphurus stigmosus",
+          "url": "http://fishbase.org/summary/47251"
+        },
+        {
+          "name": "Symphurus urospilus",
+          "url": "http://fishbase.org/summary/4270"
+        },
+        {
+          "name": "Trichopsetta ventralis",
+          "url": "http://fishbase.org/summary/4234"
+        },
+        {
+          "name": "Trinectes maculatus",
+          "url": "http://fishbase.org/summary/4260"
+        }
+      ]
+    }
+  ]
+}
