@@ -96,7 +96,7 @@ public class ConfigServiceTest {
         taxon.setUrl("http://fishbase.org/summary/1006");
         backgroundOne.setTaxa(Collections.singletonList(taxon));
         final StreamingOutput streamingOutput = ConfigServiceUtil.asStream(Arrays.asList(focalOne, backgroundOne),
-                new ValueFactoryFishbase());
+                new ValueFactoryFishbaseAPI());
 
         ByteArrayOutputStream os = new ByteArrayOutputStream();
         streamingOutput.write(os);

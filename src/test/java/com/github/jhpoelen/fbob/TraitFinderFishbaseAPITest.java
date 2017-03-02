@@ -18,36 +18,36 @@ import static org.hamcrest.core.IsNot.not;
 import static org.junit.Assert.assertThat;
 import static org.junit.internal.matchers.IsCollectionContaining.hasItem;
 
-public class TraitFinderTest {
+public class TraitFinderFishbaseAPITest {
 
     @Test
     public void buildQuery() throws URISyntaxException {
-        assertKingMackerel(TraitFinder.queryForNameOnly("ScomberomorusCavalla"));
+        assertKingMackerel(TraitFinderFishbaseAPI.queryForNameOnly("ScomberomorusCavalla"));
     }
 
     @Test
     public void buildQuery2() throws URISyntaxException {
-        assertKingMackerel(TraitFinder.queryForNameOnly("Scomberomorus cavalla"));
+        assertKingMackerel(TraitFinderFishbaseAPI.queryForNameOnly("Scomberomorus cavalla"));
     }
 
     @Test
     public void buildQueryByUrl() throws URISyntaxException {
         final Taxon taxon = new Taxon("scomberomorus  cavalla");
         taxon.setUrl("http://fishbase.org/summary/120");
-        assertThat(TraitFinder.queryTable(taxon, "/species"), is(new URI("https://fishbase.ropensci.org/species?SpecCode=120&limit=5000")));
+        assertThat(TraitFinderFishbaseAPI.queryTable(taxon, "/species"), is(new URI("https://fishbase.ropensci.org/species?SpecCode=120&limit=5000")));
     }
 
     @Test
     public void buildQueryByUrl2() throws URISyntaxException {
         final Taxon taxon = new Taxon("donald duck");
         taxon.setUrl("http://sealifebase.org/summary/120");
-        assertThat(TraitFinder.queryTable(taxon, "/species"), is(new URI("https://fishbase.ropensci.org/sealifebase/species?SpecCode=120&limit=5000")));
+        assertThat(TraitFinderFishbaseAPI.queryTable(taxon, "/species"), is(new URI("https://fishbase.ropensci.org/sealifebase/species?SpecCode=120&limit=5000")));
     }
 
     public void assertKingMackerel(String query) throws URISyntaxException {
         String expectedUrl = "Genus=Scomberomorus&Species=cavalla";
         assertThat(query, is(expectedUrl));
-        URI uri = TraitFinder.uriForTableQuery("/species", query);
+        URI uri = TraitFinderFishbaseAPI.uriForTableQuery("/species", query);
         assertThat(uri.toString(), is("https://fishbase.ropensci.org/species?Genus=Scomberomorus&Species=cavalla"));
     }
 
@@ -59,14 +59,14 @@ public class TraitFinderTest {
         TreeMap<String, String> resultMap = new TreeMap<String, String>() {{
             put("species", jsonString);
         }};
-        speciesProperties.putAll(TraitFinder.mapProperties(resultMap, getClass().getResourceAsStream("fishbase-mapping.csv")));
+        speciesProperties.putAll(TraitFinderFishbaseAPI.mapProperties(resultMap, getClass().getResourceAsStream("fishbase-mapping.csv")));
         assertThat(speciesProperties.get("species.lifespan.sp"), is("14.0"));
     }
 
     @Test
     public void tablesNeeded() throws IOException, URISyntaxException {
         String someMapping = getSomeMapping();
-        List<String> tables = TraitFinder.findUsedTables(IOUtils.toInputStream(someMapping), new TreeSet<>());
+        List<String> tables = TraitFinderFishbaseAPI.findUsedTablesStatic(IOUtils.toInputStream(someMapping), new TreeSet<>());
         assertThat(tables, hasItem("popgrowth"));
         assertThat(tables, hasItem("species"));
     }
@@ -96,7 +96,7 @@ public class TraitFinderTest {
 
     private List<String> findUsedTables(List<String> availableNames) throws IOException {
         String someMapping = getSomeMapping();
-        return TraitFinder.findUsedTables(IOUtils.toInputStream(someMapping), new TreeSet<>(availableNames));
+        return TraitFinderFishbaseAPI.findUsedTablesStatic(IOUtils.toInputStream(someMapping), new TreeSet<>(availableNames));
     }
 
     private String getSomeMapping() {

@@ -9,23 +9,27 @@ import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
-public class ValueFactoryFishbaseTest {
+
+public abstract class ValueFactoryFishbaseTestBase {
+
+    abstract ValueFactory createValueFactory();
 
     @Test
     public void knownTrait() {
-        ValueFactory valueFactory = new ValueFactoryFishbase();
+        ValueFactory valueFactory = createValueFactory();
         Group group = new Group("someGroupName");
         Taxon kingMackerel = new Taxon("ScomberomorusCavalla");
         kingMackerel.setUrl("http://fishbase.org/summary/120");
         group.setTaxa(Collections.singletonList(kingMackerel));
-        assertThat(valueFactory.groupValueFor("species.lifespan.sp", group), is("14.0"));
+        assertThat(Double.parseDouble(valueFactory.groupValueFor("species.lifespan.sp", group)), is(14.0d));
         assertThat(valueFactory.groupValueFor("species.sexratio.sp", group), is(nullValue()));
         assertThat(valueFactory.groupValueFor("nonexisting.trait.sp", group), is(nullValue()));
     }
 
+
     @Test
     public void knownUnknownTwoSpecies() {
-        ValueFactory valueFactory = new ValueFactoryFishbase();
+        ValueFactory valueFactory = createValueFactory();
         Group group = new Group("knownUnknown");
         Taxon taxonLifespanUnknown = new Taxon("Seriola dumerili");
         taxonLifespanUnknown.setUrl("http://fishbase.org/summary/1005");
@@ -33,17 +37,17 @@ public class ValueFactoryFishbaseTest {
         kingMackerel.setUrl("http://fishbase.org/summary/120");
         Taxon taxonLifespanKnown = kingMackerel;
         group.setTaxa(Arrays.asList(taxonLifespanUnknown, taxonLifespanKnown));
-        assertThat(valueFactory.groupValueFor("species.lifespan.sp", group), is("14.0"));
+        assertThat(Double.parseDouble(valueFactory.groupValueFor("species.lifespan.sp", group)), is(14.0d));
     }
 
     @Test
     public void knownTraitTwoSpeciesPickFirst() {
-        ValueFactory valueFactory = new ValueFactoryFishbase();
+        ValueFactory valueFactory = createValueFactory();
         Group group = new Group("knownUnknown");
         Taxon kingMackerel = new Taxon("ScomberomorusCavalla");
         kingMackerel.setUrl("http://fishbase.org/summary/120");
         group.setTaxa(Arrays.asList(atlanticCod(), kingMackerel));
-        assertThat(valueFactory.groupValueFor("species.lifespan.sp", group), is("25.0"));
+        assertThat(Double.parseDouble(valueFactory.groupValueFor("species.lifespan.sp", group)), is(25.0d));
     }
 
     private Taxon atlanticCod() {
@@ -54,12 +58,12 @@ public class ValueFactoryFishbaseTest {
 
     @Test
     public void knownTraitTwoSpeciesPickFirstFlipped() {
-        ValueFactory valueFactory = new ValueFactoryFishbase();
+        ValueFactory valueFactory = createValueFactory();
         Group group = new Group("knownUnknown");
         Taxon kingMackerel = new Taxon("ScomberomorusCavalla");
         kingMackerel.setUrl("http://fishbase.org/summary/120");
         group.setTaxa(Arrays.asList(kingMackerel, atlanticCod()));
-        assertThat(valueFactory.groupValueFor("species.lifespan.sp", group), is("14.0"));
+        assertThat(Double.parseDouble(valueFactory.groupValueFor("species.lifespan.sp", group)), is(14.0d));
     }
 
 }

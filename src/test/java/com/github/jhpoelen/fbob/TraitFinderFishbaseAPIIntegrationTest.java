@@ -1,8 +1,6 @@
 package com.github.jhpoelen.fbob;
 
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -17,7 +15,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.internal.matchers.IsCollectionContaining.hasItem;
 
-public class TraitFinderIntegrationTest {
+public class TraitFinderFishbaseAPIIntegrationTest {
 
     @Test
     public void findMackerelTraits() throws IOException, URISyntaxException {
@@ -51,7 +49,7 @@ public class TraitFinderIntegrationTest {
         Taxon amberjack = new Taxon("someSpecies");
         amberjack.setUrl("http://fishbase.org/summary/" + specCode);
         InputStream mappingFile = getClass().getResourceAsStream("fishbase-mapping.csv");
-        final Map<String, String> speciesProperties = TraitFinder.findTraits(amberjack, mappingFile);
+        final Map<String, String> speciesProperties = TraitFinderFishbaseAPI.findTraitsStatic(amberjack, mappingFile);
         assertThat(speciesProperties.get("species.lifespan.sp"), is(nullValue()));
     }
 
@@ -69,7 +67,7 @@ public class TraitFinderIntegrationTest {
     }
 
     private void assertExpectedTraits(Taxon kingMackerel, InputStream mappingFile, Map<String, String> expectedTraits) throws URISyntaxException, IOException {
-        final Map<String, String> speciesProperties = TraitFinder.findTraits(kingMackerel, mappingFile);
+        final Map<String, String> speciesProperties = TraitFinderFishbaseAPI.findTraitsStatic(kingMackerel, mappingFile);
         ArrayList<String> msgs = new ArrayList<>();
         for (String traitName : expectedTraits.keySet()) {
             assertNotNull("expected [" + traitName + "], but found none", speciesProperties.get(traitName));
@@ -84,7 +82,7 @@ public class TraitFinderIntegrationTest {
 
     @Test
     public void tableDocs() throws URISyntaxException, IOException {
-        Set<String> tables = TraitFinder.availableTables();
+        Set<String> tables = TraitFinderFishbaseAPI.availableTablesStatic();
         assertThat(tables, hasItem("species"));
         assertThat(tables, hasItem("popqb"));
         assertThat(tables, hasItem("genera"));
@@ -92,7 +90,7 @@ public class TraitFinderIntegrationTest {
 
     @Test
     public void tablesUsed() throws IOException, URISyntaxException {
-        List<String> tables = TraitFinder.findUsedTables();
+        List<String> tables = TraitFinderFishbaseAPI.findUsedTablesStatic();
         assertThat(tables, hasItem("popqb"));
         assertThat(tables, hasItem("species"));
         assertThat(tables, not(hasItem("genera")));
