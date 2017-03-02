@@ -53,8 +53,7 @@ class ValueFactoryFishbaseCache implements ValueFactory {
                         Map<String, String> valuesForSpecCodes = collectValuesForSpecCodes(columnName, remoteLocalURI.get(uri).toURL().openStream(), specCodes);
                         selectGroupValueUsingOrderedTaxonList(valuesForSpecCodes, specCodes);
                         stopWatch.stop();
-                        System.err.println("processed [" + tableName + ":" + columnName + "] in [" + stopWatch.getTime() + "] ms");
-
+                        System.err.println("processed [" + tableName + ":" + columnName + "] for [" + group.getName() + "] in [" + stopWatch.getTime() + "] ms");
                     }
                 }
 
