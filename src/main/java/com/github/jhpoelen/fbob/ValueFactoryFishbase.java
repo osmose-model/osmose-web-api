@@ -33,7 +33,7 @@ public class ValueFactoryFishbase implements ValueFactory {
                 valuesForGroup = new HashMap<>();
                 for (Taxon taxon : taxa) {
                     Set<String> availableNames = valuesForGroup.keySet();
-                    List<String> tables = findUsedTables(TraitFinder.class.getResourceAsStream("fishbase-mapping.csv"), availableNames);
+                    List<String> tables = findUsedTables(TraitFinder.class.getResourceAsStream(mappingResource), availableNames);
                     tables.retainAll(availableTables);
 
                     final Map<String, String> traitsForGroup = TraitFinder.findTraits(taxon,
