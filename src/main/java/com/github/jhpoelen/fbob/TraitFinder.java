@@ -5,17 +5,36 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.config.RequestConfig;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.DefaultHttpRequestRetryHandler;
+import org.apache.http.impl.client.DefaultServiceUnavailableRetryStrategy;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class TraitFinder {
+
+    private static CloseableHttpClient httpClient;
 
     public static void doMapping(InputStream mappingInputStream, PropertyMapping mapper) throws IOException {
         final CSVReader reader = new CSVReader(new InputStreamReader(mappingInputStream), ',');
@@ -121,7 +140,16 @@ public class TraitFinder {
         Map<String, String> results = new TreeMap<>();
         for (String tableName : tableNames) {
             try {
-                results.put(tableName, IOUtils.toString(queryTable(taxon, "/" + tableName), "UTF-8"));
+                URI uri = queryTable(taxon, "/" + tableName);
+                System.out.print(uri + " processing...");
+                HttpResponse resp = getHttpClient().execute(new HttpGet(uri));
+                int statusCode = resp.getStatusLine().getStatusCode();
+                if (statusCode == HttpStatus.SC_OK) {
+                    InputStream content = resp.getEntity().getContent();
+                    results.put(tableName, IOUtils.toString(content, "UTF-8"));
+                }
+                EntityUtils.consume(resp.getEntity());
+                System.out.println(" completed with code [" + statusCode + "].");
             } catch (IOException ex) {
                 System.err.println("failed to retrieve trait for [" + taxon.getName() + "]:[" + taxon.getUrl() + "] in table [" + tableName + "]");
                 ex.printStackTrace(System.err);
@@ -129,6 +157,25 @@ public class TraitFinder {
         }
         speciesProperties.putAll(mapProperties(results, fishbaseMapping));
         return speciesProperties;
+    }
+
+    protected static CloseableHttpClient createHttpClient(int soTimeoutMs) {
+        RequestConfig config = RequestConfig.custom()
+            .setSocketTimeout(soTimeoutMs)
+            .setConnectTimeout(soTimeoutMs)
+            .build();
+
+        return HttpClientBuilder.create()
+            .setRetryHandler(new DefaultHttpRequestRetryHandler(3, true))
+            .setServiceUnavailableRetryStrategy(new DefaultServiceUnavailableRetryStrategy(10, 5 * 1000))
+            .setDefaultRequestConfig(config).build();
+    }
+
+    public static HttpClient getHttpClient() {
+        if (httpClient == null) {
+            httpClient = createHttpClient(5 * 1000);
+        }
+        return httpClient;
     }
 
     static Set<String> availableTables() throws URISyntaxException, IOException {
