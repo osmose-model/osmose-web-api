@@ -1,5 +1,6 @@
 package com.github.jhpoelen.fbob;
 
+import org.apache.commons.lang3.time.StopWatch;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -21,9 +22,13 @@ public abstract class ValueFactoryFishbaseTestBase {
         Taxon kingMackerel = new Taxon("ScomberomorusCavalla");
         kingMackerel.setUrl("http://fishbase.org/summary/120");
         group.setTaxa(Collections.singletonList(kingMackerel));
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
         assertThat(Double.parseDouble(valueFactory.groupValueFor("species.lifespan.sp", group)), is(14.0d));
         assertThat(valueFactory.groupValueFor("species.sexratio.sp", group), is(nullValue()));
         assertThat(valueFactory.groupValueFor("nonexisting.trait.sp", group), is(nullValue()));
+        stopWatch.stop();
+        System.err.println("lookup took [" + stopWatch.getTime() + "] ms");
     }
 
 
