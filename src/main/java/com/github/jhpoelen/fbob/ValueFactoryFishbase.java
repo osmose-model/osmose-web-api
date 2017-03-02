@@ -6,6 +6,10 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
+
+import static com.github.jhpoelen.fbob.TraitFinder.findUsedTables;
 
 public class ValueFactoryFishbase implements ValueFactory {
     private final String mappingResource;
@@ -25,9 +29,17 @@ public class ValueFactoryFishbase implements ValueFactory {
         if (valuesForGroup == null) {
             try {
                 List<Taxon> taxa = group.getTaxa().size() == 0 ? Collections.singletonList(new Taxon(group.getName())) : group.getTaxa();
+                Set<String> availableTables = TraitFinder.availableTables();
                 valuesForGroup = new HashMap<>();
                 for (Taxon taxon : taxa) {
-                    final Map<String, String> traitsForGroup = TraitFinder.findTraits(taxon, getClass().getResourceAsStream(mappingResource));
+                    Set<String> availableNames = valuesForGroup.keySet();
+                    List<String> tables = findUsedTables(TraitFinder.class.getResourceAsStream("fishbase-mapping.csv"), availableNames);
+                    tables.retainAll(availableTables);
+
+                    final Map<String, String> traitsForGroup = TraitFinder.findTraits(taxon,
+                        getClass().getResourceAsStream(mappingResource),
+                        tables);
+
                     for (Map.Entry<String, String> trait : traitsForGroup.entrySet()) {
                         valuesForGroup.putIfAbsent(trait.getKey(), trait.getValue());
                     }

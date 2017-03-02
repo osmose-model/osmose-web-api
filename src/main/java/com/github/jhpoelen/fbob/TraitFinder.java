@@ -29,6 +29,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
+import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -129,9 +130,19 @@ public class TraitFinder {
         return findTraits(taxon, fishbaseMapping, findUsedTables());
     }
 
-    protected static List<String> findUsedTables(InputStream mappingInputStream) throws IOException {
+    static List<String> findUsedTables() throws IOException, URISyntaxException {
+        List<String> tables = findUsedTables(TraitFinder.class.getResourceAsStream("fishbase-mapping.csv"), new TreeSet<>());
+        tables.retainAll(availableTables());
+        return tables;
+    }
+
+    protected static List<String> findUsedTables(InputStream mappingInputStream, Set<String> availableNames) throws IOException {
         Set<String> tableNames = new HashSet<>();
-        doMapping(mappingInputStream, (tableName, columnName, mappedName, defaultValue) -> tableNames.add(tableName));
+        doMapping(mappingInputStream, (tableName, columnName, mappedName, defaultValue) -> {
+            if (!availableNames.contains(mappedName)) {
+                tableNames.add(tableName);
+            }
+        });
         return new ArrayList<>(tableNames);
     }
 
@@ -198,9 +209,4 @@ public class TraitFinder {
         return tables;
     }
 
-    static List<String> findUsedTables() throws IOException, URISyntaxException {
-        List<String> tables = findUsedTables(TraitFinder.class.getResourceAsStream("fishbase-mapping.csv"));
-        tables.retainAll(availableTables());
-        return tables;
-    }
 }
