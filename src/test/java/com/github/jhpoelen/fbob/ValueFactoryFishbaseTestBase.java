@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.core.Is.is;
@@ -13,20 +14,25 @@ import static org.junit.Assert.assertThat;
 
 public abstract class ValueFactoryFishbaseTestBase {
 
-    abstract ValueFactory createValueFactory();
+    abstract ValueFactory createValueFactory(List<Group> groups);
 
     @Test
     public void knownTrait() {
-        ValueFactory valueFactory = createValueFactory();
+        String name = "species.lifespan.sp";
+        String name1 = "species.sexratio.sp";
+        String name2 = "nonexisting.trait.sp";
         Group group = new Group("someGroupName");
         Taxon kingMackerel = new Taxon("ScomberomorusCavalla");
         kingMackerel.setUrl("http://fishbase.org/summary/120");
         group.setTaxa(Collections.singletonList(kingMackerel));
+
+        ValueFactory valueFactory = createValueFactory(Collections.singletonList(group));
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
-        assertThat(Double.parseDouble(valueFactory.groupValueFor("species.lifespan.sp", group)), is(14.0d));
-        assertThat(valueFactory.groupValueFor("species.sexratio.sp", group), is(nullValue()));
-        assertThat(valueFactory.groupValueFor("nonexisting.trait.sp", group), is(nullValue()));
+
+        assertThat(Double.parseDouble(valueFactory.groupValueFor(name, group)), is(14.0d));
+        assertThat(valueFactory.groupValueFor(name1, group), is(nullValue()));
+        assertThat(valueFactory.groupValueFor(name2, group), is(nullValue()));
         stopWatch.stop();
         System.err.println("lookup took [" + stopWatch.getTime() + "] ms");
     }
@@ -34,7 +40,6 @@ public abstract class ValueFactoryFishbaseTestBase {
 
     @Test
     public void knownUnknownTwoSpecies() {
-        ValueFactory valueFactory = createValueFactory();
         Group group = new Group("knownUnknown");
         Taxon taxonLifespanUnknown = new Taxon("Seriola dumerili");
         taxonLifespanUnknown.setUrl("http://fishbase.org/summary/1005");
@@ -42,17 +47,21 @@ public abstract class ValueFactoryFishbaseTestBase {
         kingMackerel.setUrl("http://fishbase.org/summary/120");
         Taxon taxonLifespanKnown = kingMackerel;
         group.setTaxa(Arrays.asList(taxonLifespanUnknown, taxonLifespanKnown));
-        assertThat(Double.parseDouble(valueFactory.groupValueFor("species.lifespan.sp", group)), is(14.0d));
+        String name = "species.lifespan.sp";
+        ValueFactory valueFactory = createValueFactory(Arrays.asList(group));
+        assertThat(Double.parseDouble(valueFactory.groupValueFor(name, group)), is(14.0d));
     }
 
     @Test
     public void knownTraitTwoSpeciesPickFirst() {
-        ValueFactory valueFactory = createValueFactory();
         Group group = new Group("knownUnknown");
         Taxon kingMackerel = new Taxon("ScomberomorusCavalla");
         kingMackerel.setUrl("http://fishbase.org/summary/120");
         group.setTaxa(Arrays.asList(atlanticCod(), kingMackerel));
-        assertThat(Double.parseDouble(valueFactory.groupValueFor("species.lifespan.sp", group)), is(25.0d));
+        String name = "species.lifespan.sp";
+        ValueFactory valueFactory = createValueFactory(Arrays.asList(group));
+
+        assertThat(Double.parseDouble(valueFactory.groupValueFor(name, group)), is(25.0d));
     }
 
     private Taxon atlanticCod() {
@@ -63,12 +72,13 @@ public abstract class ValueFactoryFishbaseTestBase {
 
     @Test
     public void knownTraitTwoSpeciesPickFirstFlipped() {
-        ValueFactory valueFactory = createValueFactory();
         Group group = new Group("knownUnknown");
         Taxon kingMackerel = new Taxon("ScomberomorusCavalla");
         kingMackerel.setUrl("http://fishbase.org/summary/120");
         group.setTaxa(Arrays.asList(kingMackerel, atlanticCod()));
-        assertThat(Double.parseDouble(valueFactory.groupValueFor("species.lifespan.sp", group)), is(14.0d));
+        String name = "species.lifespan.sp";
+        ValueFactory valueFactory = createValueFactory(Arrays.asList(group));
+        assertThat(Double.parseDouble(valueFactory.groupValueFor(name, group)), is(14.0d));
     }
 
 }

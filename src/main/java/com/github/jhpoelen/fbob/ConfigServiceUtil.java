@@ -7,7 +7,6 @@ import org.reflections.scanners.ResourcesScanner;
 import org.reflections.util.ClasspathHelper;
 import org.reflections.util.ConfigurationBuilder;
 
-import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.StreamingOutput;
 import java.io.IOException;
@@ -18,20 +17,17 @@ import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
-
-import static java.util.stream.Stream.concat;
 
 public class ConfigServiceUtil {
     private static final Logger LOG = Logger.getLogger(ConfigService.class.getName());
 
     static public Set<String> getResources() {
         Reflections reflections = new Reflections(new ConfigurationBuilder()
-                .setUrls(ClasspathHelper.forPackage("com.github.jhpoelen.fbob." + ConfigService.OSMOSE_CONFIG))
-                .setScanners(new ResourcesScanner()));
+            .setUrls(ClasspathHelper.forPackage("com.github.jhpoelen.fbob." + ConfigService.OSMOSE_CONFIG))
+            .setScanners(new ResourcesScanner()));
         return reflections.getResources(Pattern.compile(".*\\.csv"));
     }
 
@@ -52,14 +48,9 @@ public class ConfigServiceUtil {
 
     public static Response responseFor(StreamingOutput os) {
         return Response
-                .ok(os)
-                .header("Content-Disposition", "attachment; filename=osmose_config.zip")
-                .build();
-    }
-
-    public static StreamingOutput asStream(final List<String> focalGroupNames, final List<String> backgroundGroupNames, final ValueFactory valueFactory) {
-        final Stream<Group> groups = concat(asGroups(focalGroupNames, GroupType.FOCAL), asGroups(backgroundGroupNames, GroupType.BACKGROUND));
-        return asStream(groups.collect(Collectors.toList()), valueFactory);
+            .ok(os)
+            .header("Content-Disposition", "attachment; filename=osmose_config.zip")
+            .build();
     }
 
     public static StreamingOutput asStream(List<Group> groups, final ValueFactory valueFactory) {
@@ -74,29 +65,23 @@ public class ConfigServiceUtil {
         }
 
         System.err.println("configuration generating...");
-        return new StreamingOutput() {
-            @Override
-            public void write(OutputStream os) throws IOException, WebApplicationException {
-                ZipOutputStream zos = new ZipOutputStream(os);
-                ConfigUtil.generateConfigFor(config, new StreamFactory() {
-                    @Override
-                    public OutputStream outputStreamFor(String name) throws IOException {
-                        ZipEntry e = new ZipEntry(name);
-                        LOG.info("adding [" + name + "]");
-                        zos.putNextEntry(e);
-                        return zos;
-                    }
-                }, valueFactory);
-                close(zos);
-            }
+        return os -> {
+            ZipOutputStream zos = new ZipOutputStream(os);
+            ConfigUtil.generateConfigFor(config, name -> {
+                ZipEntry e = new ZipEntry(name);
+                LOG.info("adding [" + name + "]");
+                zos.putNextEntry(e);
+                return zos;
+            }, valueFactory);
+            close(zos);
         };
 
     }
 
     public static Stream<Group> asGroups(List<String> groupNames, GroupType type) {
         return groupNames
-                .stream()
-                .map(groupName -> new Group(groupName, type, Collections.singletonList(new Taxon(groupName))));
+            .stream()
+            .map(groupName -> new Group(groupName, type, Collections.singletonList(new Taxon(groupName))));
     }
 
     private static void close(ZipOutputStream zos) throws IOException {
@@ -109,16 +94,18 @@ public class ConfigServiceUtil {
         StreamingOutput stream = os -> toZipOutputStream(getResources(), os);
 
         return Response
-                .ok(stream)
-                .header("Content-Disposition", "attachment; filename=osmose_config.zip")
-                .build();
+            .ok(stream)
+            .header("Content-Disposition", "attachment; filename=osmose_config.zip")
+            .build();
     }
 
-    public static ValueFactory getValueFactory() {
+    public static ValueFactory getValueFactory(List<Group> groups) {
+        ValueFactoryFishbaseCache valueFactoryFishbaseCache = new ValueFactoryFishbaseCache();
+        valueFactoryFishbaseCache.setGroups(groups);
         final List<ValueFactory> valueFactories = Arrays.asList(
-                new ValueFactoryFishbaseCache(),
-                new ValueFactoryMappingDefault(),
-                new ValueFactoryDefault());
+            valueFactoryFishbaseCache,
+            new ValueFactoryMappingDefault(),
+            new ValueFactoryDefault());
         return ConfigUtil.getProxyValueFactory(valueFactories);
     }
 }

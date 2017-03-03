@@ -15,7 +15,7 @@ public class ConfigServiceV2  {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces("application/zip")
     public Response configTemplateFromGroups(Config config) throws IOException {
-        return ConfigServiceUtil.responseFor(ConfigServiceUtil.asStream(config, ConfigServiceUtil.getValueFactory()));
+        return ConfigServiceUtil.responseFor(ConfigServiceUtil.asStream(config, ConfigServiceUtil.getValueFactory(config.getGroups())));
     }
 
 }

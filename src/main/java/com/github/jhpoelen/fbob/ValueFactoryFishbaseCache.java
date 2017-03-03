@@ -13,7 +13,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -28,15 +31,23 @@ class ValueFactoryFishbaseCache implements ValueFactory {
     public static final String COLUMN_NAME_SPEC_CODE = "SpecCode";
 
     private Map<URI, URI> remoteLocalURI = new HashMap<>();
-    private Map<String, Map<String, String>> groupValueMap = new HashMap<>();
-    private List<String> tables = availableTables();
+    private Map<String, Map<String, String>> groupValueMap = null;
 
-    @Override
-    public String groupValueFor(String name, Group group) {
+    private List<String> tables = Collections.emptyList();
+    private List<String> names = new ArrayList<>();
+    private List<Group> groups = Collections.emptyList();
+
+    private void init(String name) {
+        this.tables = availableTables();
+        if (groupValueMap == null) {
+            groupValueMap = new HashMap<>();
+        }
+        names.add(name);
         try {
-
-            final List<String> specCodes = group.getTaxa()
-                .stream()
+            final List<String> specCodesAll = groups.
+                stream()
+                .map(Group::getTaxa)
+                .flatMap(Collection::stream)
                 .map(taxon -> StringUtils.replace(taxon.getUrl(), "http://fishbase.org/summary/", ""))
                 .collect(Collectors.toList());
 
@@ -50,20 +61,27 @@ class ValueFactoryFishbaseCache implements ValueFactory {
                         }
                         StopWatch stopWatch = new StopWatch();
                         stopWatch.start();
-                        Map<String, String> valuesForSpecCodes = collectValuesForSpecCodes(columnName, remoteLocalURI.get(uri).toURL().openStream(), specCodes);
-                        selectGroupValueUsingOrderedTaxonList(valuesForSpecCodes, specCodes);
+                        Map<String, String> valuesForSpecCodes = collectValuesForSpecCodes(columnName, remoteLocalURI.get(uri).toURL().openStream(), specCodesAll);
+                        groups.forEach(group -> {
+                            selectGroupValueUsingOrderedTaxonList(valuesForSpecCodes, group, mappedName);
+                        });
                         stopWatch.stop();
-                        System.err.println("processed [" + tableName + ":" + columnName + "] for [" + group.getName() + "] in [" + stopWatch.getTime() + "] ms");
+                        System.err.println("processed [" + tableName + ":" + columnName + "] in [" + stopWatch.getTime() + "] ms");
                     }
                 }
 
-                private void selectGroupValueUsingOrderedTaxonList(Map<String, String> valuesForSpecCodes, List<String> specCodeCandidates) {
+                private void selectGroupValueUsingOrderedTaxonList(Map<String, String> valuesForSpecCodes, Group group, String name) {
+                    final List<String> specCodes = group.getTaxa()
+                        .stream()
+                        .map(taxon -> StringUtils.replace(taxon.getUrl(), "http://fishbase.org/summary/", ""))
+                        .collect(Collectors.toList());
+
                     if (!groupValueMap.containsKey(group.getName())) {
                         groupValueMap.put(group.getName(), new HashMap<>());
                     }
                     Map<String, String> valuesForGroup = groupValueMap.get(group.getName());
 
-                    Iterator<String> iter = specCodeCandidates.iterator();
+                    Iterator<String> iter = specCodes.iterator();
                     while (iter.hasNext()
                         && !valuesForGroup.containsKey(name)) {
                         String v = valuesForSpecCodes.get(iter.next());
@@ -113,9 +131,18 @@ class ValueFactoryFishbaseCache implements ValueFactory {
                 }
             });
         } catch (IOException e) {
-            LOG.log(Level.SEVERE, "failed to extract value [" + name + "] for group [" + group.getName() + "]", e);
+            LOG.log(Level.SEVERE, "failed to extract values for [" + StringUtils.join(names, ";") + "] for groups [" + StringUtils.join(groups.stream().map(group -> group.getName()).collect(Collectors.toList()), ";") + "]", e);
         }
-        return groupValueMap.containsKey(group.getName())
+
+
+    }
+
+    @Override
+    public String groupValueFor(String name, Group group) {
+        if (groupValueMap == null || !names.contains(name)) {
+            init(name);
+        }
+        return groupValueMap != null && groupValueMap.containsKey(group.getName())
             ? groupValueMap.get(group.getName()).get(name)
             : null;
     }
@@ -134,4 +161,10 @@ class ValueFactoryFishbaseCache implements ValueFactory {
     private InputStream getMappingInputStream() {
         return getClass().getResourceAsStream(ValueFactoryFishbaseBase.FISHBASE_MAPPING_CSV);
     }
+
+    public void setGroups(List<Group> groups) {
+        this.groups = groups;
+    }
+
+
 }

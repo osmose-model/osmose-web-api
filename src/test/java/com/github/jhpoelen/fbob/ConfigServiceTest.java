@@ -9,9 +9,11 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.*;
+import java.util.stream.Collectors;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
+import static java.util.stream.Stream.concat;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNull.notNullValue;
@@ -66,9 +68,8 @@ public class ConfigServiceTest {
 
     @Test
     public void configForSimpleGroups() throws IOException {
-        final StreamingOutput streamingOutput = ConfigServiceUtil.asStream(Arrays.asList("focalOne", "focalTwo"),
-                Arrays.asList("backgroundOne", "backgroundTwo"),
-                new ValueFactoryDefault());
+        List<Group> groups = concat(ConfigServiceUtil.asGroups(Arrays.asList("focalOne", "focalTwo"), GroupType.FOCAL), ConfigServiceUtil.asGroups(Arrays.asList("backgroundOne", "backgroundTwo"), GroupType.BACKGROUND)).collect(Collectors.toList());
+        final StreamingOutput streamingOutput = ConfigServiceUtil.asStream(groups, new ValueFactoryDefault());
 
         configFileShouldBeGenerated(streamingOutput);
     }

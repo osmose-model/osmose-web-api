@@ -1,9 +1,13 @@
 package com.github.jhpoelen.fbob;
 
+import java.util.List;
+
 public class ValueFactoryFishbaseCacheTest extends ValueFactoryFishbaseTestBase {
 
-    ValueFactory createValueFactory() {
-        return new ValueFactoryFishbaseCache();
+    @Override
+    ValueFactory createValueFactory(List<Group> groups) {
+        ValueFactoryFishbaseCache valueFactoryFishbaseCache = new ValueFactoryFishbaseCache();
+        valueFactoryFishbaseCache.setGroups(groups);
+        return valueFactoryFishbaseCache;
     }
-
 }

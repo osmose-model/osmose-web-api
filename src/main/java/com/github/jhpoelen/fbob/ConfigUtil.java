@@ -18,80 +18,80 @@ public class ConfigUtil {
     public static final List<String> YEAR_PARTS = Arrays.asList("0.0", "0.083333336", "0.16666667", "0.25", "0.33333334", "0.41666666", "0.5", "0.5833333", "0.6666667", "0.75", "0.8333333", "0.9166667");
 
     public static final String OUTPUT_DEFAULTS = "output.start.year;0;;\n" +
-            "output.file.prefix;osm;;\n" +
-            "output.dir.path;output;;\n" +
-            "output.recordfrequency.ndt;12;;\n" +
-            ";;;\n" +
-            "# CSV separator (COMA, SEMICOLON, EQUALS, COLON, TAB);;;\n" +
-            "output.csv.separator;COMA;;\n" +
-            ";;;\n" +
-            "# Save restart file;;;\n" +
-            "output.restart.enabled;false;;\n" +
-            "output.restart.recordfrequency.ndt;60;;\n" +
-            "output.restart.spinup;114;;\n" +
-            ";;;\n" +
-            "# Biomass;;;\n" +
-            "output.biomass.enabled;true;;\n" +
-            "output.exploitable.biomass.enabled;true;;\n" +
-            "output.biomass.bysize.enabled;false;;\n" +
-            "output.biomass.byage.enabled;false;;\n" +
-            "output.ssb.enabled;true;;\n" +
-            "output.ssb.byage.enabled;true;;\n" +
-            "# Abundance;;;\n" +
-            "output.abundance.enabled;false;;\n" +
-            "output.abundance.bysize.enabled;false;;\n" +
-            "output.abundance.byage.enabled;true;;\n" +
-            "output.recruitment.enabled;false;;\n" +
-            "output.recruits.enabled;false;;\n" +
-            "output.recruits.month.enabled;false;;\n" +
-            "output.eggproduction.enabled;false;;\n" +
-            "output.spawners.abundance.byage.enabled;true;;\n" +
-            "# Mortality;;;\n" +
-            "output.distrib.byAge.max;10;;\n" +
-            "output.mortality.enabled;true;;\n" +
-            "output.mortality.redgrouper.enabled;true;;\n" +
-            "output.mortality.gaggrouper.enabled;true;;\n" +
-            "output.mortality.redsnapper.enabled;true;;\n" +
-            "output.mortality.perSpecies.byAge.enabled;true;;\n" +
-            "output.mortality.perSpecies.bySize.enabled;false;;\n" +
-            "# Yield;;;\n" +
-            "output.yield.biomass.enabled;true;;\n" +
-            "output.yield.abundance.enabled;false;;\n" +
-            "output.yieldN.bySize.enabled;false;;\n" +
-            "output.yield.bySize.enabled;false;;\n" +
-            "output.yieldN.byAge.enabled;false;;\n" +
-            "output.yield.byAge.enabled;false;;\n" +
-            "# Size;;;\n" +
-            "output.size.enabled;true ;;\n" +
-            "output.size.catch.enabled;true ;;\n" +
-            "output.meanSize.byAge.enabled;false;;\n" +
-            "# Weight;;;\n" +
-            "output.meanWeight.byAge.enabled;false;;\n" +
-            "# TL;;;\n" +
-            "output.TL.enabled;true;;\n" +
-            "output.TL.catch.enabled;true;;\n" +
-            "output.biomass.byTL.enabled;true;;\n" +
-            "output.meanTL.bySize.enabled;false;;\n" +
-            "output.meanTL.byAge.enabled;false;;\n" +
-            "# Predation;;;\n" +
-            "output.diet.composition.enabled;true;;\n" +
-            "output.diet.composition.byAge.enabled;false;;\n" +
-            "output.diet.composition.bySize.enabled;false;;\n" +
-            "output.diet.pressure.enabled;true;;\n" +
-            "output.diet.pressure.byAge.enabled;false;;\n" +
-            "output.diet.pressure.bySize.enabled;false;;\n" +
-            "# Spatial;;;\n" +
-            "output.spatial.enabled;false;;\n" +
-            "output.spatial.ltl.enabled;false;;\n" +
-            ";;;\n" +
-            "# Advanced parameters;;;\n" +
-            "# Whether to include step 0 of the simulation in the outputs;;;\n" +
-            "output.step0.include;false;;\n" +
-            "# Cutoff for biomass, abundance, mean size and mean trophic level outputs;;;\n" +
-            "# Size distribution (centimetre) ;;;\n" +
-            "output.distrib.bySize.min;0;;\n" +
-            "output.distrib.bySize.max;205;;\n" +
-            "output.distrib.bySize.incr;10;;";
+        "output.file.prefix;osm;;\n" +
+        "output.dir.path;output;;\n" +
+        "output.recordfrequency.ndt;12;;\n" +
+        ";;;\n" +
+        "# CSV separator (COMA, SEMICOLON, EQUALS, COLON, TAB);;;\n" +
+        "output.csv.separator;COMA;;\n" +
+        ";;;\n" +
+        "# Save restart file;;;\n" +
+        "output.restart.enabled;false;;\n" +
+        "output.restart.recordfrequency.ndt;60;;\n" +
+        "output.restart.spinup;114;;\n" +
+        ";;;\n" +
+        "# Biomass;;;\n" +
+        "output.biomass.enabled;true;;\n" +
+        "output.exploitable.biomass.enabled;true;;\n" +
+        "output.biomass.bysize.enabled;false;;\n" +
+        "output.biomass.byage.enabled;false;;\n" +
+        "output.ssb.enabled;true;;\n" +
+        "output.ssb.byage.enabled;true;;\n" +
+        "# Abundance;;;\n" +
+        "output.abundance.enabled;false;;\n" +
+        "output.abundance.bysize.enabled;false;;\n" +
+        "output.abundance.byage.enabled;true;;\n" +
+        "output.recruitment.enabled;false;;\n" +
+        "output.recruits.enabled;false;;\n" +
+        "output.recruits.month.enabled;false;;\n" +
+        "output.eggproduction.enabled;false;;\n" +
+        "output.spawners.abundance.byage.enabled;true;;\n" +
+        "# Mortality;;;\n" +
+        "output.distrib.byAge.max;10;;\n" +
+        "output.mortality.enabled;true;;\n" +
+        "output.mortality.redgrouper.enabled;true;;\n" +
+        "output.mortality.gaggrouper.enabled;true;;\n" +
+        "output.mortality.redsnapper.enabled;true;;\n" +
+        "output.mortality.perSpecies.byAge.enabled;true;;\n" +
+        "output.mortality.perSpecies.bySize.enabled;false;;\n" +
+        "# Yield;;;\n" +
+        "output.yield.biomass.enabled;true;;\n" +
+        "output.yield.abundance.enabled;false;;\n" +
+        "output.yieldN.bySize.enabled;false;;\n" +
+        "output.yield.bySize.enabled;false;;\n" +
+        "output.yieldN.byAge.enabled;false;;\n" +
+        "output.yield.byAge.enabled;false;;\n" +
+        "# Size;;;\n" +
+        "output.size.enabled;true ;;\n" +
+        "output.size.catch.enabled;true ;;\n" +
+        "output.meanSize.byAge.enabled;false;;\n" +
+        "# Weight;;;\n" +
+        "output.meanWeight.byAge.enabled;false;;\n" +
+        "# TL;;;\n" +
+        "output.TL.enabled;true;;\n" +
+        "output.TL.catch.enabled;true;;\n" +
+        "output.biomass.byTL.enabled;true;;\n" +
+        "output.meanTL.bySize.enabled;false;;\n" +
+        "output.meanTL.byAge.enabled;false;;\n" +
+        "# Predation;;;\n" +
+        "output.diet.composition.enabled;true;;\n" +
+        "output.diet.composition.byAge.enabled;false;;\n" +
+        "output.diet.composition.bySize.enabled;false;;\n" +
+        "output.diet.pressure.enabled;true;;\n" +
+        "output.diet.pressure.byAge.enabled;false;;\n" +
+        "output.diet.pressure.bySize.enabled;false;;\n" +
+        "# Spatial;;;\n" +
+        "output.spatial.enabled;false;;\n" +
+        "output.spatial.ltl.enabled;false;;\n" +
+        ";;;\n" +
+        "# Advanced parameters;;;\n" +
+        "# Whether to include step 0 of the simulation in the outputs;;;\n" +
+        "output.step0.include;false;;\n" +
+        "# Cutoff for biomass, abundance, mean size and mean trophic level outputs;;;\n" +
+        "# Size distribution (centimetre) ;;;\n" +
+        "output.distrib.bySize.min;0;;\n" +
+        "output.distrib.bySize.max;205;;\n" +
+        "output.distrib.bySize.incr;10;;";
 
     public static void writeLine(OutputStream os, List<String> values, boolean leadingNewline) throws IOException {
         List<String> escapedValues = new ArrayList<String>();
@@ -345,9 +345,16 @@ public class ConfigUtil {
     }
 
     public static void generateConfigFor(Config config, StreamFactory factory, ValueFactory valueFactory) throws IOException {
-        generateConfigFor(config.getTimeStepsPerYear(), config.getGroups().stream().filter(group -> group.getType() == GroupType.FOCAL).collect(Collectors.toList()),
-                config.getGroups().stream().filter(group -> group.getType() == GroupType.BACKGROUND).collect(Collectors.toList()),
-                factory, valueFactory);
+        generateConfigFor(config.getTimeStepsPerYear(),
+            config.getGroups()
+                .stream()
+                .filter(group -> group.getType() == GroupType.FOCAL)
+                .collect(Collectors.toList()),
+            config.getGroups()
+                .stream()
+                .filter(group -> group.getType() == GroupType.BACKGROUND)
+                .collect(Collectors.toList()),
+            factory, valueFactory);
     }
 
     public static void generateConfigFor(Integer timeStepsPerYear, List<Group> groupsFocal, List<Group> groupsBackground, StreamFactory factory, ValueFactory valueFactory) throws IOException {
