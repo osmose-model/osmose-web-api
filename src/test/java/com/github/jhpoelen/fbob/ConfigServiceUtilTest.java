@@ -127,18 +127,18 @@ public class ConfigServiceUtilTest {
         assertEquals(expectedFishingParams, actual);
         assertThat(actual, containsString("fishing/fishing-seasonality-groupOne.csv"));
         String expectedFishingSeasonality = "Time;Season\n" +
-                "0.0;0.0\n" +
-                "0.083333336;0.0\n" +
-                "0.16666667;0.0\n" +
-                "0.25;0.0\n" +
-                "0.33333334;0.0\n" +
-                "0.41666666;0.0\n" +
-                "0.5;0.0\n" +
-                "0.5833333;0.0\n" +
-                "0.6666667;0.0\n" +
-                "0.75;0.0\n" +
-                "0.8333333;0.0\n" +
-                "0.9166667;0.0";
+                "0.0;\n" +
+                "0.083333336;\n" +
+                "0.16666667;\n" +
+                "0.25;\n" +
+                "0.33333334;\n" +
+                "0.41666666;\n" +
+                "0.5;\n" +
+                "0.5833333;\n" +
+                "0.6666667;\n" +
+                "0.75;\n" +
+                "0.8333333;\n" +
+                "0.9166667;";
         assertEquals(expectedFishingSeasonality, (getTestFactory()).stringOutputFor("fishing/fishing-seasonality-groupOne.csv"));
         assertEquals(expectedFishingSeasonality, (getTestFactory()).stringOutputFor("fishing/fishing-seasonality-groupTwo.csv"));
     }

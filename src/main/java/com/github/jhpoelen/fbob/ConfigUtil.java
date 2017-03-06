@@ -138,7 +138,7 @@ public class ConfigUtil {
             OutputStream seasonalityOs = factory.outputStreamFor(finishingSeasonalityFilename(group));
             writeLine(seasonalityOs, Arrays.asList("Time", "Season"), false);
             for (String yearPart : YEAR_PARTS) {
-                writeLine(seasonalityOs, Arrays.asList(yearPart, "0.0"));
+                writeLine(seasonalityOs, Arrays.asList(yearPart, ""));
             }
         }
     }
