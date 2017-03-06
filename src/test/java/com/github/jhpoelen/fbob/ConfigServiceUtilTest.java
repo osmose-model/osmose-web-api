@@ -152,6 +152,10 @@ public class ConfigServiceUtilTest {
         assertThat(getTestFactory().stringOutputFor("osm_param-output.csv"), not(containsString("output.diet.stage.threshold.sp2")));
         assertThat(getTestFactory().stringOutputFor("osm_param-output.csv"), containsString("output.cutoff.age.sp1"));
         assertThat(getTestFactory().stringOutputFor("osm_param-output.csv"), not(containsString("output.cutoff.age.sp2")));
+        assertThat(getTestFactory().stringOutputFor("osm_param-output.csv"), containsString("output.distrib.byAge.min"));
+        assertThat(getTestFactory().stringOutputFor("osm_param-output.csv"), containsString("output.distrib.byAge.max" ));
+        assertThat(getTestFactory().stringOutputFor("osm_param-output.csv"), containsString("output.distrib.byAge.incr"));
+        assertThat(getTestFactory().stringOutputFor("osm_param-output.csv"), not(containsString("output.meanWeight.byAge.enabled")));
     }
 
     @Test

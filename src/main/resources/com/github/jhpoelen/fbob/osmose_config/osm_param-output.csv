@@ -71,7 +71,7 @@ output.cutoff.age.sp9;0.08;;
 output.cutoff.age.sp10;0.33;;
 output.cutoff.age.sp11;0.08;;
 # Diet output stages;;;
-output.diet.stage.structure;agesize;;
+output.diet.stage.structure;age;;
 output.diet.stage.threshold.sp0;0.08;73.4;
 output.diet.stage.threshold.sp1;0.08;;
 output.diet.stage.threshold.sp2;0.08;14.8;34.1

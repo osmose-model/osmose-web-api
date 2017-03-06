@@ -261,8 +261,13 @@ public class ConfigUtil {
 
         writeLine(os, Arrays.asList("output.cutoff.enabled", "true"));
         writeParamLines(groupNames, "output.cutoff.age.sp", valueFactory, os);
-        writeLine(os, Arrays.asList("output.diet.stage.structure", "agesize"));
-        writeParamLines(groupNames, "output.diet.stage.threshold.sp", Arrays.asList("0.0", "0.0", "0.0"), os);
+
+        writeLine(os, Arrays.asList("output.distrib.byAge.min", "0"));
+        writeLine(os, Arrays.asList("output.distrib.byAge.max", "10"));
+        writeLine(os, Arrays.asList("output.distrib.byAge.incr", "1"));
+
+        writeLine(os, Arrays.asList("output.diet.stage.structure", "age"));
+        writeParamLines(groupNames, "output.diet.stage.threshold.sp", Arrays.asList("0", "1", "2"), os);
     }
 
     public static void generateNaturalMortalityFor(List<Group> groupNames, StreamFactory factory, ValueFactory valueFactory) throws IOException {
