@@ -41,7 +41,7 @@ public class ValueFactoryDefault implements ValueFactory {
         put("predation.efficiency.critical.sp", "0.57");
         put("predation.accessibility.stage.threshold.sp", "0.0");
 
-        put("plankton.accessibility2fish.plk", "0.2237");
+        put("plankton.accessibility2fish.plk", "0.0");
         put("plankton.conversion2tons.plk", "1");
         put("plankton.size.max.plk", "0.002");
         put("plankton.size.min.plk", "0.0002");
