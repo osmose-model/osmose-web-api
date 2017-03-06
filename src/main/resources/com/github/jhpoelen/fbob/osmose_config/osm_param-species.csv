@@ -156,16 +156,3 @@ species.vonbertalanffy.threshold.age.sp8;2.00
 species.vonbertalanffy.threshold.age.sp9;2.00
 species.vonbertalanffy.threshold.age.sp10;0.00
 species.vonbertalanffy.threshold.age.sp11;0.50
-# Additional parameter in the WFS case study to be able to estimate weight from either fork length (FL) or total length (TL);
-species.length2weight.fl.sp0;true 
-species.length2weight.fl.sp1;true 
-species.length2weight.fl.sp2;false
-species.length2weight.fl.sp3;false
-species.length2weight.fl.sp4;false
-species.length2weight.fl.sp5;true 
-species.length2weight.fl.sp6;false
-species.length2weight.fl.sp7;true 
-species.length2weight.fl.sp8;false
-species.length2weight.fl.sp9;true 
-species.length2weight.fl.sp10;false
-species.length2weight.fl.sp11;false

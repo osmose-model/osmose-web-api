@@ -193,7 +193,6 @@ public class ConfigUtil {
         writeParamLines(groups, "species.sexratio.sp", valueFactory, os);
         writeParamLines(groups, "species.t0.sp", valueFactory, os);
         writeParamLines(groups, "species.vonbertalanffy.threshold.age.sp", valueFactory, os);
-        writeParamLines(groups, "species.length2weight.fl.sp", valueFactory, os);
     }
 
     public static void generateLtlForGroups(List<Group> groupsBackground, StreamFactory factory, ValueFactory valueFactory) throws IOException {

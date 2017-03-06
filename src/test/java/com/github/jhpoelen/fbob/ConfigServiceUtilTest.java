@@ -63,9 +63,7 @@ public class ConfigServiceUtilTest {
                 "\nspecies.t0.sp0;0.0" +
                 "\nspecies.t0.sp1;0.0" +
                 "\nspecies.vonbertalanffy.threshold.age.sp0;0.0" +
-                "\nspecies.vonbertalanffy.threshold.age.sp1;0.0" +
-                "\nspecies.length2weight.fl.sp0;false" +
-                "\nspecies.length2weight.fl.sp1;false";
+                "\nspecies.vonbertalanffy.threshold.age.sp1;0.0";
         assertThat(getTestFactory().stringOutputFor("osm_param-species.csv"), is(asExpected));
     }
 
@@ -78,8 +76,8 @@ public class ConfigServiceUtilTest {
 
         String asExpected = "plankton.name.plk0;groupOne\n" +
                 "plankton.name.plk1;groupTwo\n" +
-                "plankton.accessibility2fish.plk0;0.2237\n" +
-                "plankton.accessibility2fish.plk1;0.2237\n" +
+                "plankton.accessibility2fish.plk0;0.0\n" +
+                "plankton.accessibility2fish.plk1;0.0\n" +
                 "plankton.conversion2tons.plk0;1\n" +
                 "plankton.conversion2tons.plk1;1\n" +
                 "plankton.size.max.plk0;0.002\n" +
