@@ -321,7 +321,7 @@ public class ConfigUtil {
     }
 
     public static String getMapName(int nMaps, Group group) {
-        return "maps/" + group.getName() + nMaps + ".csv";
+        return "maps/" + group.getName() + "_" + nMaps + ".csv";
     }
 
     public static void addMapForGroup(OutputStream os, int nMaps, Group group, String mapName) throws IOException {
