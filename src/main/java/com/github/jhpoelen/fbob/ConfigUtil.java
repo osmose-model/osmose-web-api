@@ -32,26 +32,14 @@ public class ConfigUtil {
         ";;;\n" +
         "# Biomass;;;\n" +
         "output.biomass.enabled;true;;\n" +
-        "output.exploitable.biomass.enabled;true;;\n" +
         "output.biomass.bysize.enabled;false;;\n" +
         "output.biomass.byage.enabled;false;;\n" +
-        "output.ssb.enabled;true;;\n" +
-        "output.ssb.byage.enabled;true;;\n" +
         "# Abundance;;;\n" +
         "output.abundance.enabled;false;;\n" +
         "output.abundance.bysize.enabled;false;;\n" +
         "output.abundance.byage.enabled;true;;\n" +
-        "output.recruitment.enabled;false;;\n" +
-        "output.recruits.enabled;false;;\n" +
-        "output.recruits.month.enabled;false;;\n" +
-        "output.eggproduction.enabled;false;;\n" +
-        "output.spawners.abundance.byage.enabled;true;;\n" +
         "# Mortality;;;\n" +
-        "output.distrib.byAge.max;10;;\n" +
         "output.mortality.enabled;true;;\n" +
-        "output.mortality.redgrouper.enabled;true;;\n" +
-        "output.mortality.gaggrouper.enabled;true;;\n" +
-        "output.mortality.redsnapper.enabled;true;;\n" +
         "output.mortality.perSpecies.byAge.enabled;true;;\n" +
         "output.mortality.perSpecies.bySize.enabled;false;;\n" +
         "# Yield;;;\n" +
@@ -66,7 +54,6 @@ public class ConfigUtil {
         "output.size.catch.enabled;true ;;\n" +
         "output.meanSize.byAge.enabled;false;;\n" +
         "# Weight;;;\n" +
-        "output.meanWeight.byAge.enabled;false;;\n" +
         "# TL;;;\n" +
         "output.TL.enabled;true;;\n" +
         "output.TL.catch.enabled;true;;\n" +
