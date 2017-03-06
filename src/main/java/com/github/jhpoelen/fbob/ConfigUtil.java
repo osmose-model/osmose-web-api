@@ -242,7 +242,6 @@ public class ConfigUtil {
         writeLine(os, Arrays.asList("mortality.subdt", "10"));
         writeLine(os, Arrays.asList("osmose.configuration.output", "osm_param-output.csv"));
         writeLine(os, Arrays.asList("osmose.configuration.movement", "osm_param-movement.csv"));
-        writeLine(os, Arrays.asList("osmose.configuration.mpa", "osm_param-mpa.csv"));
         writeLine(os, Arrays.asList("osmose.configuration.mortality.fishing", "osm_param-fishing.csv"));
         writeLine(os, Arrays.asList("osmose.configuration.mortality.natural", "osm_param-natural-mortality.csv"));
         writeLine(os, Arrays.asList("osmose.configuration.mortality.predation", "osm_param-predation.csv"));
@@ -286,7 +285,6 @@ public class ConfigUtil {
 
 
     public static void generateStatic(StreamFactory factory) throws IOException {
-        generateFromTemplate(factory, "osm_param-mpa.csv");
         generateFromTemplate(factory, "osm_param-grid.csv");
     }
 

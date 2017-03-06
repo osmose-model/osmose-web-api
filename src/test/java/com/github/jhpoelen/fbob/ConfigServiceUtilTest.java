@@ -323,7 +323,6 @@ public class ConfigServiceUtilTest {
                         "mortality.subdt;10\n" +
                         "osmose.configuration.output;osm_param-output.csv\n" +
                         "osmose.configuration.movement;osm_param-movement.csv\n" +
-                        "osmose.configuration.mpa;osm_param-mpa.csv\n" +
                         "osmose.configuration.mortality.fishing;osm_param-fishing.csv\n" +
                         "osmose.configuration.mortality.natural;osm_param-natural-mortality.csv\n" +
                         "osmose.configuration.mortality.predation;osm_param-predation.csv\n" +
