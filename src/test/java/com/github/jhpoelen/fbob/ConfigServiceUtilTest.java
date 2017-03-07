@@ -102,8 +102,8 @@ public class ConfigServiceUtilTest {
 
         assertThat(getTestFactory().stringOutputFor("grid-mask.csv"), is(notNullValue()));
         assertThat(getTestFactory().stringOutputFor("osm_param-movement.csv"), is(notNullValue()));
-        assertThat(getTestFactory().stringOutputFor("maps/speciesOne_0.csv"), is(notNullValue()));
-        assertThat(getTestFactory().stringOutputFor("maps/speciesTwo_1.csv"), is(notNullValue()));
+        assertThat(getTestFactory().stringOutputFor("maps/speciesOne_1.csv"), is(notNullValue()));
+        assertThat(getTestFactory().stringOutputFor("maps/speciesTwo_2.csv"), is(notNullValue()));
     }
 
     @Test
