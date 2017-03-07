@@ -103,6 +103,7 @@ public class ConfigServiceUtil {
         ValueFactoryFishbaseCache valueFactoryFishbaseCache = new ValueFactoryFishbaseCache();
         valueFactoryFishbaseCache.setGroups(groups);
         final List<ValueFactory> valueFactories = Arrays.asList(
+            new ValueFactoryCalculated(valueFactoryFishbaseCache),
             valueFactoryFishbaseCache,
             new ValueFactoryMappingDefault(),
             new ValueFactoryDefault());
