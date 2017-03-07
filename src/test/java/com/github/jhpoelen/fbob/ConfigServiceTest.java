@@ -116,7 +116,7 @@ public class ConfigServiceTest {
                 "osm_param-init-pop.csv",
                 "grid-mask.csv",
                 "osm_param-movement.csv",
-                "maps/focalOne_0.csv",
+                "maps/focalOne_1.csv",
                 "osm_param-natural-mortality.csv",
                 "osm_param-output.csv",
                 "osm_param-predation.csv",
