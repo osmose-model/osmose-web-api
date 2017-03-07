@@ -35,7 +35,6 @@ output.yield.byAge.enabled;false;;
 output.size.enabled;true ;;
 output.size.catch.enabled;true ;;
 output.meanSize.byAge.enabled;false;;
-# Weight;;;
 # TL;;;
 output.TL.enabled;true;;
 output.TL.catch.enabled;true;;
@@ -84,7 +83,7 @@ output.diet.stage.threshold.sp8;0.08;;
 output.diet.stage.threshold.sp9;0.08;;
 output.diet.stage.threshold.sp10;0.08;8;
 output.diet.stage.threshold.sp11;0.08;;
-# Size distribution (centimetre) ;;;
+
 output.distrib.bySize.min;0;;
 output.distrib.bySize.max;205;;
 output.distrib.bySize.incr;10;;

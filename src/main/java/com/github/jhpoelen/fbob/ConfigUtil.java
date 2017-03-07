@@ -57,7 +57,6 @@ public class ConfigUtil {
         "output.size.enabled;true ;;\n" +
         "output.size.catch.enabled;true ;;\n" +
         "output.meanSize.byAge.enabled;false;;\n" +
-        "# Weight;;;\n" +
         "# TL;;;\n" +
         "output.TL.enabled;true;;\n" +
         "output.TL.catch.enabled;true;;\n" +
@@ -78,11 +77,7 @@ public class ConfigUtil {
         "# Advanced parameters;;;\n" +
         "# Whether to include step 0 of the simulation in the outputs;;;\n" +
         "output.step0.include;false;;\n" +
-        "# Cutoff for biomass, abundance, mean size and mean trophic level outputs;;;\n" +
-        "# Size distribution (centimetre) ;;;\n" +
-        "output.distrib.bySize.min;0;;\n" +
-        "output.distrib.bySize.max;205;;\n" +
-        "output.distrib.bySize.incr;10;;";
+        "# Cutoff for biomass, abundance, mean size and mean trophic level outputs;;;";
 
     public static void writeLine(OutputStream os, List<String> values, boolean leadingNewline) throws IOException {
         List<String> escapedValues = new ArrayList<String>();
@@ -295,6 +290,9 @@ public class ConfigUtil {
         writeLine(os, Arrays.asList("output.cutoff.enabled", "true"));
         writeParamLines(groupNames, "output.cutoff.age.sp", valueFactory, os);
 
+        writeLine(os, Arrays.asList("output.distrib.bySize.min", "0"));
+        writeLine(os, Arrays.asList("output.distrib.bySize.max", "205"));
+        writeLine(os, Arrays.asList("output.distrib.bySize.incr", "10"));
         writeLine(os, Arrays.asList("output.distrib.byAge.min", "0"));
         writeLine(os, Arrays.asList("output.distrib.byAge.max", "10"));
         writeLine(os, Arrays.asList("output.distrib.byAge.incr", "1"));
