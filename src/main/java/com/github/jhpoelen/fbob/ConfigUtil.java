@@ -4,6 +4,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.tuple.Pair;
 import ucar.ma2.InvalidRangeException;
 
 import java.io.File;
@@ -15,8 +16,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ConfigUtil {
-    public static final List<String> YEAR_PARTS = Arrays.asList("0.0", "0.083333336", "0.16666667", "0.25", "0.33333334", "0.41666666", "0.5", "0.5833333", "0.6666667", "0.75", "0.8333333", "0.9166667");
-
     public static final String OUTPUT_DEFAULTS = "output.start.year;0;;\n" +
         "output.file.prefix;osm;;\n" +
         "output.dir.path;output;;\n" +
@@ -94,7 +93,7 @@ public class ConfigUtil {
         writeLine(os, values, true);
     }
 
-    public static void generateSeasonalReproductionFor(List<Group> groups, StreamFactory factory) throws IOException {
+    public static void generateSeasonalReproductionFor(List<Group> groups, StreamFactory factory, ValueFactory valueFactory, Integer numberOfTimestepsPerYear) throws IOException {
         OutputStream os = factory.outputStreamFor("osm_param-reproduction.csv");
         for (int i = 0; i < groups.size(); i++) {
             String reproductionFilename = reproductionFilename(i);
@@ -102,30 +101,59 @@ public class ConfigUtil {
             writeLine(os, Arrays.asList(paramName, reproductionFilename), i > 0);
         }
 
+        List<Pair<Double, String>> months = Arrays.asList(
+            Pair.of(1.0 / 12.0, "Jan"),
+            Pair.of(2.0 / 12.0, "Feb"),
+            Pair.of(3.0 / 12.0, "Mar"),
+            Pair.of(4.0 / 12.0, "Apr"),
+            Pair.of(5.0 / 12.0, "May"),
+            Pair.of(6.0 / 12.0, "Jun"),
+            Pair.of(7.0 / 12.0, "Jul"),
+            Pair.of(8.0 / 12.0, "Aug"),
+            Pair.of(9.0 / 12.0, "Sep"),
+            Pair.of(10.0 / 12.0, "Oct"),
+            Pair.of(11.0 / 12.0, "Nov"),
+            Pair.of(12.0 / 12.0, "Dec"));
+
         for (int i = 0; i < groups.size(); i++) {
             OutputStream reprodOs = factory.outputStreamFor(reproductionFilename(i));
-            writeLine(reprodOs, Arrays.asList("Time (year)", groups.get(i).getName()), false);
-            for (String yearPart : YEAR_PARTS) {
-                writeLine(reprodOs, Arrays.asList(yearPart, "0.0"));
+            final Group group = groups.get(i);
+            writeLine(reprodOs, Arrays.asList("Time (year)", group.getName()), false);
+
+            for (int j = 0; j < numberOfTimestepsPerYear; j++) {
+                for (int k = 0; k < months.size(); k++) {
+                    double upper = (double) (j+1) / numberOfTimestepsPerYear;
+                    Pair<Double, String> month = months.get(k);
+                    if (upper <= month.getLeft()) {
+                        String s = valueFactory.groupValueFor("spawning." + month.getRight(), group);
+                        writeLine(reprodOs, Arrays.asList(formatTimeStep(numberOfTimestepsPerYear, j), s));
+                        break;
+                    }
+                }
             }
+
         }
+    }
+
+    private static String formatTimeStep(Integer numberOfTimestepsPerYear, int stepNumber) {
+        return String.format("%.3f", (double) stepNumber / numberOfTimestepsPerYear);
     }
 
     public static String reproductionFilename(int i) {
         return "reproduction-seasonality-sp" + i + ".csv";
     }
 
-    public static void generateFishingParametersFor(List<Group> groupNames, StreamFactory factory) throws IOException {
+    public static void generateFishingParametersFor(List<Group> groupNames, StreamFactory factory, Integer timeStepsPerYear) throws IOException {
         generateFishingSeasonalityConfig(groupNames, factory);
-        generateFishingSeasonalityTables(groupNames, factory);
+        generateFishingSeasonalityTables(groupNames, factory, timeStepsPerYear);
     }
 
-    public static void generateFishingSeasonalityTables(List<Group> groups, StreamFactory factory) throws IOException {
+    public static void generateFishingSeasonalityTables(List<Group> groups, StreamFactory factory, Integer timeStepsPerYear) throws IOException {
         for (Group group : groups) {
             OutputStream seasonalityOs = factory.outputStreamFor(finishingSeasonalityFilename(group));
             writeLine(seasonalityOs, Arrays.asList("Time", "Season"), false);
-            for (String yearPart : YEAR_PARTS) {
-                writeLine(seasonalityOs, Arrays.asList(yearPart, ""));
+            for (int i=0; i < timeStepsPerYear; i++) {
+                writeLine(seasonalityOs, Arrays.asList(formatTimeStep(timeStepsPerYear, i), ""));
             }
         }
     }
@@ -348,14 +376,14 @@ public class ConfigUtil {
 
     public static void generateConfigFor(Integer timeStepsPerYear, List<Group> groupsFocal, List<Group> groupsBackground, StreamFactory factory, ValueFactory valueFactory) throws IOException {
         generateAllParametersFor(timeStepsPerYear, groupsFocal, groupsBackground, factory);
-        generateFishingParametersFor(groupsFocal, factory);
+        generateFishingParametersFor(groupsFocal, factory, timeStepsPerYear);
         generateInitBiomassFor(groupsFocal, factory, valueFactory);
         generateMaps(groupsFocal, factory, valueFactory);
         generateNaturalMortalityFor(groupsFocal, factory, valueFactory);
         generateOutputParamsFor(groupsFocal, factory, valueFactory);
         generatePredationFor(groupsFocal, factory, valueFactory);
         generatePredationAccessibilityFor(groupsFocal, groupsBackground, factory);
-        generateSeasonalReproductionFor(groupsFocal, factory);
+        generateSeasonalReproductionFor(groupsFocal, factory, valueFactory, timeStepsPerYear);
 
         generateSpecies(groupsFocal, factory, valueFactory);
         generateStarvationFor(groupsFocal, factory);

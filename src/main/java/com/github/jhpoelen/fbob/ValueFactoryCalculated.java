@@ -19,6 +19,7 @@ class ValueFactoryCalculated implements ValueFactory {
         String calculatedPropertyName = "predation.efficiency.critical.sp";
         try {
             if (StringUtils.equals(name, calculatedPropertyName)) {
+                String value = null;
                 String ingestionRateMax = "predation.ingestion.rate.max.sp";
                 String ingestionRate = valueFactory.groupValueFor(ingestionRateMax, group);
                 String maintQB = valueFactory.groupValueFor("popqb.MaintQB", group);
@@ -27,9 +28,10 @@ class ValueFactoryCalculated implements ValueFactory {
                     if (ingestionRateParsed == 0) {
                         LOG.warning(getMsg(calculatedPropertyName) + ": tried to divide by zero value for [" + ingestionRateMax + "]");
                     } else {
-                        return String.format("%.2f", Float.parseFloat(maintQB) / ingestionRateParsed);
+                        value = String.format("%.2f", Float.parseFloat(maintQB) / ingestionRateParsed);
                     }
                 }
+                return value;
             }
         } catch (NumberFormatException ex) {
             LOG.log(Level.WARNING, getMsg(calculatedPropertyName), ex);
