@@ -318,6 +318,7 @@ public class ConfigUtil {
 
     public static void generateStatic(StreamFactory factory) throws IOException {
         generateFromTemplate(factory, "osm_param-grid.csv");
+        generateFromTemplate(factory, "README.xlsx");
     }
 
     public static void generateFromTemplate(StreamFactory factory, String staticTemplate) throws IOException {
@@ -395,6 +396,8 @@ public class ConfigUtil {
         generateLtlForGroups(groupsBackground, factory, valueFactory);
         generateLtlBiomassForGroups(groupsBackground, factory, valueFactory);
         generateStatic(factory);
+
+
     }
 
     private static void generateLtlBiomassForGroups(List<Group> groupsBackground, StreamFactory factory, ValueFactory valueFactory) throws IOException {
