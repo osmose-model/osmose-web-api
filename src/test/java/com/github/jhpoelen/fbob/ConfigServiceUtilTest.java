@@ -10,8 +10,10 @@ import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -201,43 +203,33 @@ public class ConfigServiceUtilTest {
     @Test
     public void predationAccessibility() throws IOException {
         List<String> groupNames = new ArrayList<String>() {{
-            add("groupNameOne");
-            add("groupNameTwo");
+            add("groupB");
+            add("groupA");
         }};
 
-        List<String> implicitGroupNames = new ArrayList<String>() {
-            {
-                add("Small_phytoplankton");
-                add("Diatoms");
-                add("Microzooplankton");
-                add("Mesozooplankton");
-                add("Meiofauna");
-                add("Small_infauna");
-                add("Small_mobile_epifauna");
-                add("Bivalves");
-                add("Echinoderms_and_large_gastropods");
-            }
+        List<String> implicitGroupNames = new ArrayList<String>() {{
+            add("groupC");
+            add("groupD");
+        }};
+
+        final Set<String> names = new HashSet<String>();
+        ValueFactory valueFactory = (name, group) -> {
+            names.add(name);
+            return "";
         };
 
-        ConfigUtil.generatePredationAccessibilityFor(toGroups(groupNames), toGroups(implicitGroupNames), factory);
+        ConfigUtil.generatePredationAccessibilityFor(toGroups(groupNames), toGroups(implicitGroupNames), factory, valueFactory);
         // including the "implicit" functional groups
-        String expectedPredationAccessibility = "v Prey / Predator >;groupNameOne < 0.0 year;groupNameOne > 0.0 year;groupNameTwo < 0.0 year;groupNameTwo > 0.0 year;Small_phytoplankton;Diatoms;Microzooplankton;Mesozooplankton;Meiofauna;Small_infauna;Small_mobile_epifauna;Bivalves;Echinoderms_and_large_gastropods\n" +
-            "groupNameOne < 0.0 year;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0\n" +
-            "groupNameOne > 0.0 year;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0\n" +
-            "groupNameTwo < 0.0 year;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0\n" +
-            "groupNameTwo > 0.0 year;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0\n" +
-            "Small_phytoplankton;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0\n" +
-            "Diatoms;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0\n" +
-            "Microzooplankton;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0\n" +
-            "Mesozooplankton;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0\n" +
-            "Meiofauna;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0\n" +
-            "Small_infauna;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0\n" +
-            "Small_mobile_epifauna;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0\n" +
-            "Bivalves;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0\n" +
-            "Echinoderms_and_large_gastropods;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0;0.0";
-
+        String expectedPredationAccessibility = "v Prey / Predator >;groupB;groupA;groupC;groupD\n" +
+            "groupB;0.80;0.08;0.08;0.08\n" +
+            "groupA;0.08;0.80;0.08;0.08\n" +
+            "groupC;0.08;0.08;0.80;0.08\n" +
+            "groupD;0.08;0.08;0.08;0.80";
 
         assertEquals(expectedPredationAccessibility, (getTestFactory()).stringOutputFor("predation-accessibility.csv"));
+
+        assertThat(names, hasItems("ecology.Demersal", "ecology.Benthic", "ecology.Pelagic"));
+        assertThat(names, hasItems("estimate.DepthMin", "estimate.DepthMax"));
     }
 
     @Test

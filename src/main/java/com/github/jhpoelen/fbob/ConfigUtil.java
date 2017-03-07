@@ -13,9 +13,14 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 public class ConfigUtil {
+    private static final Logger LOG = Logger.getLogger(ConfigUtil.class.getName());
+
+
     public static final String OUTPUT_DEFAULTS = "output.start.year;0;;\n" +
         "output.file.prefix;osm;;\n" +
         "output.dir.path;output;;\n" +
@@ -383,7 +388,7 @@ public class ConfigUtil {
         generateNaturalMortalityFor(groupsFocal, factory, valueFactory);
         generateOutputParamsFor(groupsFocal, factory, valueFactory);
         generatePredationFor(groupsFocal, factory, valueFactory);
-        generatePredationAccessibilityFor(groupsFocal, groupsBackground, factory);
+        generatePredationAccessibilityFor(groupsFocal, groupsBackground, factory, valueFactory);
         generateSeasonalReproductionFor(groupsFocal, factory, valueFactory, timeStepsPerYear);
 
         generateSpecies(groupsFocal, factory, valueFactory);
@@ -413,27 +418,131 @@ public class ConfigUtil {
         return new ValueFactoryProxy(valueFactories);
     }
 
-    public static void generatePredationAccessibilityFor(List<Group> focalGroups, List<Group> backgroundGroups, StreamFactory factory) throws IOException {
-        List<String> columnHeaders = new ArrayList<String>();
-        for (Group group : focalGroups) {
-            columnHeaders.add(group.getName() + " < 0.0 year");
-            columnHeaders.add(group.getName() + " > 0.0 year");
+            /* from https://github.com/jhpoelen/fb-osmose-bridge/issues/93 :
+Here is how accessibility coefficients (for focal functional groups) and theoretical accessibility coefficients (for background functional groups) should be estimated by the API. Hereafter, the term “accessibility coefficient” stands for “accessibility coefficient” or “theoretical accessibility coefficient”, since the two types of parameters should be estimated by the API exactly the same way.
+Let us assume that the API considers “Species 1” and “Species 2”.
+(1) The accessibility coefficient of Species 1 to Species 2 is determined as: accessibility coefficient = 0.8* coeff_1, where coeff_1 reflects the degree of overlap between functional groups in the water column. Coeff_1 can take the following values: (i) 1 (strong overlap in the water column); (ii) 0.5 (moderate overlap in the water column); or (iii) 0.1 (small overlap in the water column).
+(2) In FishBase's ecology.csv, the API looks for the "Benthic", "Demersal" and "Pelagic" fields to determine whether: (i) Species 1 is benthic, demersal or pelagic; and (ii) Species 2 is benthic, demersal or pelagic.
+(3) In FishBase's estimatedepth.csv, the API looks for the "DepthMin" and "DepthMax" fields to determine whether the depth range (i.e., the interval [DepthMin DepthMax]) of Species 1 overlaps with the depth range of Species 2.
+(4) Finally:
+(i) If (Species 1 and Species 2 are both benthic OR are both demersal OR are both pelagic) AND (Species 1 and Species 2 have overlapping depth ranges), then coeff_1 = 1;
+(ii) If (Species 1 and Species 2 are not both benthic OR are not both demersal OR are not both pelagic) AND (Species 1 and Species 2 have overlapping depth ranges), then coeff_1 = 0.5;
+(iii) If (Species 1 and Species 2 are both benthic OR are both demersal OR are both pelagic) AND (Species 1 and Species 2 do not have overlapping depth ranges), then coeff_1 = 0.5;
+(ii) If (Species 1 and Species 2 are not both benthic OR are not both demersal OR are not both pelagic) AND (Species 1 and Species 2 do not have overlapping depth ranges), then coeff_1 = 0.1;
+
+         */
+
+    enum Overlap {
+        small(0.1), moderate(0.5), strong(1.0);
+
+        private final double value;
+
+        Overlap(double value) {
+            this.value = value;
         }
-        columnHeaders.addAll(backgroundGroups.stream().map(Group::getName).collect(Collectors.toList()));
+    }
+
+    enum EcologicalRegion {
+        benthic, demersal, pelagic
+    }
+
+    public static void generatePredationAccessibilityFor(List<Group> focalGroups, List<Group> backgroundGroups, StreamFactory factory, ValueFactory valueFactory) throws IOException {
+        List<Group> groupList = new ArrayList<Group>() {{
+            addAll(focalGroups);
+            addAll(backgroundGroups);
+        }};
+        List<String> groupNames = groupList.stream().map(Group::getName).collect(Collectors.toList());
 
         OutputStream outputStream = factory.outputStreamFor("predation-accessibility.csv");
         writeLine(outputStream, new ArrayList<String>() {{
             add("v Prey / Predator >");
-            addAll(columnHeaders);
+            addAll(groupNames);
         }}, false);
 
-        for (String header : columnHeaders) {
+        for (int j = 0; j < groupNames.size(); j++) {
             List<String> row = new ArrayList<String>();
-            row.add(header);
-            for (int i = 0; i < columnHeaders.size(); i++) {
-                row.add("0.0");
+            row.add(groupNames.get(j));
+            for (int i = 0; i < groupNames.size(); i++) {
+                Overlap overlap = i == j
+                    ? Overlap.strong
+                    : calculateOverlap(groupList, valueFactory, j, i);
+
+                row.add(String.format("%.2f", 0.8 * overlap.value));
             }
             writeLine(outputStream, row);
         }
+    }
+
+    private static Overlap calculateOverlap(List<Group> groupList, ValueFactory valueFactory, int j, int i) {
+        Group groupA = groupList.get(i);
+        EcologicalRegion regionA = ecologicalRegionFor(valueFactory, groupA);
+        Pair<Double, Double> depthRangeA = depthRangeFor(valueFactory, groupA);
+
+        Group groupB = groupList.get(j);
+        EcologicalRegion regionB = ecologicalRegionFor(valueFactory, groupB);
+        Pair<Double, Double> depthRangeB = depthRangeFor(valueFactory, groupB);
+
+        return determineOverlap(Pair.of(regionA, regionB), Pair.of(depthRangeA, depthRangeB));
+    }
+
+    private static EcologicalRegion ecologicalRegionFor(ValueFactory valueFactory, Group group) {
+        EcologicalRegion region = null;
+        if (ecoRegionMatches(valueFactory, "Benthic", group)) {
+            region = EcologicalRegion.benthic;
+        } else if (ecoRegionMatches(valueFactory, "Demersal", group)) {
+            region = EcologicalRegion.demersal;
+        } else if (ecoRegionMatches(valueFactory, "Pelagic", group)) {
+            region = EcologicalRegion.pelagic;
+        }
+        return region;
+    }
+
+    private static Pair<Double, Double> depthRangeFor(ValueFactory valueFactory, Group group) {
+        String depthMin = valueFactory.groupValueFor("estimate.DepthMin", group);
+        String depthMax = valueFactory.groupValueFor("estimate.DepthMax", group);
+        Pair<Double, Double> depthRangeMinMax = null;
+        if (StringUtils.isNotBlank(depthMin) && StringUtils.isNotBlank(depthMax)) {
+            try {
+                depthRangeMinMax = Pair.of(Double.parseDouble(depthMin), Double.parseDouble(depthMax));
+            } catch (NumberFormatException ex) {
+                LOG.log(Level.WARNING, "illegal depth format depthMin: [" + depthMin + "], depthMax: [" + depthMax + "]", ex);
+            }
+        }
+        return depthRangeMinMax;
+    }
+
+    private static Overlap determineOverlap(Pair<EcologicalRegion, EcologicalRegion> region,
+                                            Pair<Pair<Double, Double>, Pair<Double, Double>> depthRangeMinMax) {
+        Overlap overlap;
+        if (matchingEcoRegions(region)
+            && overlappingDepthRange(depthRangeMinMax)) {
+            overlap = Overlap.strong;
+        } else if (!matchingEcoRegions(region)
+            && overlappingDepthRange(depthRangeMinMax)) {
+            overlap = Overlap.moderate;
+        } else if (matchingEcoRegions(region)
+            && !overlappingDepthRange(depthRangeMinMax)) {
+            overlap = Overlap.moderate;
+        } else {
+            overlap = Overlap.small;
+        }
+        return overlap;
+    }
+
+    private static boolean matchingEcoRegions(Pair<EcologicalRegion, EcologicalRegion> regionPair) {
+        return regionPair.getLeft() != null
+            && regionPair.getLeft() == regionPair.getRight();
+    }
+
+    private static boolean overlappingDepthRange(Pair<Pair<Double, Double>, Pair<Double, Double>> depthRangeMinMax) {
+        Pair<Double, Double> left = depthRangeMinMax.getLeft();
+        Pair<Double, Double> right = depthRangeMinMax.getRight();
+        return left != null
+            && right != null
+            && (left.getLeft() < right.getRight() || right.getLeft() < left.getRight());
+    }
+
+    private static boolean ecoRegionMatches(ValueFactory valueFactory, String ecologyFieldName, Group group) {
+        return StringUtils.equals("-1", valueFactory.groupValueFor("ecology." + ecologyFieldName, group));
     }
 }
