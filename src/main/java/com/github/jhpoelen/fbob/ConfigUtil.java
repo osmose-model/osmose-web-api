@@ -397,7 +397,33 @@ public class ConfigUtil {
         generateLtlBiomassForGroups(groupsBackground, factory, valueFactory);
         generateStatic(factory);
 
+        generateFunctionGroupList(new ArrayList<Group>() {{
+            addAll(groupsFocal);
+            addAll(groupsBackground);
+        }}, factory);
 
+    }
+
+    protected static void generateFunctionGroupList(List<Group> groups, StreamFactory factory) throws IOException {
+        OutputStream outputStream = factory.outputStreamFor("functional_groups.csv");
+        IOUtils.write("functional group name,functional group type,species name,species url", outputStream);
+        for (Group group : groups) {
+            for (Taxon taxon : group.getTaxa()) {
+                List<String> row = Arrays.asList(group.getName(), group.getType().name().toLowerCase(), taxon.getName(), taxon.getUrl());
+                IOUtils.write("\n", outputStream);
+                IOUtils.write(StringUtils.join(row, ","), outputStream);
+            }
+        }
+    }
+
+    private static void writeGroup(OutputStream outputStream, List<Group> groups) throws IOException {
+        for (Group group : groups) {
+            for (Taxon taxon : group.getTaxa()) {
+                List<String> row = Arrays.asList(group.getName(), group.getType().name(), taxon.getName(), taxon.getUrl());
+                IOUtils.write("\n", outputStream);
+                IOUtils.write(StringUtils.join(row, ","), outputStream);
+            }
+        }
     }
 
     private static void generateLtlBiomassForGroups(List<Group> groupsBackground, StreamFactory factory, ValueFactory valueFactory) throws IOException {

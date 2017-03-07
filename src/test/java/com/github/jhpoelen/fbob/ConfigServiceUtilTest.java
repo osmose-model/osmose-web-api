@@ -10,6 +10,7 @@ import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -287,6 +288,26 @@ public class ConfigServiceUtilTest {
         String suffix = "\n0.000;spawning.Jun\n0.500;spawning.Dec";
         assertEquals((getTestFactory()).stringOutputFor("reproduction-seasonality-sp0.csv"), (prefix + "groupNameOne" + suffix));
         assertEquals((getTestFactory()).stringOutputFor("reproduction-seasonality-sp1.csv"), (prefix + "groupNameTwo" + suffix));
+    }
+
+    @Test
+    public void functionalGroupList() throws IOException {
+        Taxon taxonX = new Taxon("donald duck");
+        taxonX.setUrl("http://example.com/donald");
+        Group groupA = new Group("groupA", GroupType.FOCAL, Collections.singletonList(taxonX));
+
+        Taxon taxonY = new Taxon("mickey mouse");
+        taxonY.setUrl("http://example.com/mickey");
+        Group groupB = new Group("groupB", GroupType.BACKGROUND, Collections.singletonList(taxonY));
+
+        ConfigUtil.generateFunctionGroupList(Arrays.asList(groupA, groupB), factory);
+
+        String functionalGroups = (getTestFactory()).stringOutputFor("functional_groups.csv");
+
+        String[] lines = functionalGroups.split("\n");
+        assertThat(lines[0], is("functional group name,functional group type,species name,species url"));
+        assertThat(lines[1], is("groupA,focal,donald duck,http://example.com/donald"));
+        assertThat(lines[2], is("groupB,background,mickey mouse,http://example.com/mickey"));
     }
 
     @Test

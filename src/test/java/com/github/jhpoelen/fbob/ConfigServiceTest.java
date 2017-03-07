@@ -145,6 +145,7 @@ public class ConfigServiceTest {
 
         assertThat(names, hasItems(
                 "README.xlsx",
+                "functional_groups.csv",
                 "osm_param-fishing.csv",
                 "fishing/fishing-seasonality-focalOne.csv",
                 "fishing/fishing-seasonality-focalTwo.csv",
