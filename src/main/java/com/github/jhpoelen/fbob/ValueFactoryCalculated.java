@@ -40,8 +40,8 @@ class ValueFactoryCalculated implements ValueFactory {
         return null;
     }
 
-    private String getMsg(String cs2) {
-        return "failed to calculate [" + cs2 + "]";
+    private String getMsg(String name) {
+        return "failed to calculate [" + name + "]";
     }
 
 

@@ -120,13 +120,14 @@ public class ConfigUtil {
             final Group group = groups.get(i);
             writeLine(reprodOs, Arrays.asList("Time (year)", group.getName()), false);
 
-            for (int j = 0; j < numberOfTimestepsPerYear; j++) {
-                for (int k = 0; k < months.size(); k++) {
-                    double upper = (double) (j+1) / numberOfTimestepsPerYear;
-                    Pair<Double, String> month = months.get(k);
+            for (int timeStep = 0; timeStep < numberOfTimestepsPerYear; timeStep++) {
+                for (Pair<Double, String> month : months) {
+                    double upper = (double) (timeStep + 1) / numberOfTimestepsPerYear;
                     if (upper <= month.getLeft()) {
-                        String s = valueFactory.groupValueFor("spawning." + month.getRight(), group);
-                        writeLine(reprodOs, Arrays.asList(formatTimeStep(numberOfTimestepsPerYear, j), s));
+                        String reproductionForSpawningMonth = valueFactory.groupValueFor("spawning." + month.getRight(), group);
+                        writeLine(reprodOs,
+                            Arrays.asList(formatTimeStep(numberOfTimestepsPerYear, timeStep),
+                                reproductionForSpawningMonth));
                         break;
                     }
                 }
@@ -152,7 +153,7 @@ public class ConfigUtil {
         for (Group group : groups) {
             OutputStream seasonalityOs = factory.outputStreamFor(finishingSeasonalityFilename(group));
             writeLine(seasonalityOs, Arrays.asList("Time", "Season"), false);
-            for (int i=0; i < timeStepsPerYear; i++) {
+            for (int i = 0; i < timeStepsPerYear; i++) {
                 writeLine(seasonalityOs, Arrays.asList(formatTimeStep(timeStepsPerYear, i), ""));
             }
         }
