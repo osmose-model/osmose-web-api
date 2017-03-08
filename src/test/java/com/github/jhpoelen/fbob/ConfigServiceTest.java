@@ -153,7 +153,7 @@ public class ConfigServiceTest {
                 "grid-mask.csv",
                 "osm_param-movement.csv",
                 "maps/focalOne_1.csv",
-                "maps/focalTwo_2.csv",
+                "maps/focalTwo_1.csv",
                 "osm_param-natural-mortality.csv",
                 "osm_param-output.csv",
                 "osm_param-predation.csv",

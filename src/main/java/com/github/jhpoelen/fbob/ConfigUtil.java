@@ -336,7 +336,7 @@ public class ConfigUtil {
     public static void generateMovementMapTemplates(List<Group> groups, StreamFactory factory) throws IOException {
         int nMaps = 1;
         for (Group group : groups) {
-            OutputStream mapOutputStream = factory.outputStreamFor(getMapName(nMaps, group));
+            OutputStream mapOutputStream = factory.outputStreamFor(getMapName(group));
             IOUtils.copy(ConfigUtil.class.getResourceAsStream("osmose_config/maps/Amberjacks_1.csv"), mapOutputStream);
             nMaps++;
         }
@@ -348,13 +348,13 @@ public class ConfigUtil {
         writeParamLines(groups, "movement.randomwalk.range.sp", valueFactory, os);
         int nMaps = 1;
         for (Group group : groups) {
-            addMapForGroup(os, nMaps, group, getMapName(nMaps, group));
+            addMapForGroup(os, nMaps, group, getMapName(group));
             nMaps++;
         }
     }
 
-    public static String getMapName(int nMaps, Group group) {
-        return "maps/" + group.getName() + "_" + nMaps + ".csv";
+    public static String getMapName(Group group) {
+        return "maps/" + group.getName() + "_1.csv";
     }
 
     public static void addMapForGroup(OutputStream os, int nMaps, Group group, String mapName) throws IOException {
