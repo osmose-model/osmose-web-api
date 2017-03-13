@@ -81,8 +81,8 @@ public class TraitFinderFishbaseAPI implements TraitFinder {
     }
 
     public static List<URI> urisForTableDocs() throws URISyntaxException {
-        return Arrays.asList(new URI("https", "fishbase.ropensci.org", "/docs", null, null),
-                new URI("https", "fishbase.ropensci.org", "/sealifebase/docs", null, null));
+        return Arrays.asList(new URI("https", "fishbase.ropensci.org", "/docs/", null, null),
+                new URI("https", "fishbase.ropensci.org", "/sealifebase/docs/", null, null));
     }
 
     public static URI queryTable(Taxon taxon, String tableName) throws URISyntaxException {
@@ -184,17 +184,21 @@ public class TraitFinderFishbaseAPI implements TraitFinder {
         List<URI> uris = urisForTableDocs();
         Set<String> tables = new HashSet<>();
         for (URI uri : uris) {
-            final JsonNode jsonNode = new ObjectMapper().readTree(uri.toURL());
-            JsonNode data = jsonNode.get("data");
-            if (data != null && data.isArray()) {
-                for (JsonNode table : data) {
-                    if (table.has("table")) {
-                        String tableName = table.get("table").asText();
-                        if (StringUtils.isNotBlank(tableName)) {
-                            tables.add(tableName);
+            try {
+                final JsonNode jsonNode = new ObjectMapper().readTree(IOUtils.toString(uri));
+                JsonNode data = jsonNode.get("data");
+                if (data != null && data.isArray()) {
+                    for (JsonNode table : data) {
+                        if (table.has("table")) {
+                            String tableName = table.get("table").asText();
+                            if (StringUtils.isNotBlank(tableName)) {
+                                tables.add(tableName);
+                            }
                         }
                     }
                 }
+            } catch (IOException ex) {
+                throw new IOException("failed to access [" + uri + "]", ex);
             }
         }
         return tables;
