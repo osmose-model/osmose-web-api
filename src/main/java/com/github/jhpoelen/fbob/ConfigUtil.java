@@ -117,7 +117,8 @@ public class ConfigUtil {
             Pair.of(12.0 / 12.0, "Dec"));
 
         for (int i = 0; i < groups.size(); i++) {
-            List<Double> values = new ArrayList<>(numberOfTimestepsPerYear);
+            double values[] = new double[numberOfTimestepsPerYear];
+            Arrays.fill(values, 0);
             double valuesSum = 0.0;
             OutputStream reprodOs = factory.outputStreamFor(reproductionFilename(i));
             final Group group = groups.get(i);
@@ -131,18 +132,18 @@ public class ConfigUtil {
                         if (NumberUtils.isParsable(reproductionForSpawningMonth)) {
                             double value = Double.parseDouble(reproductionForSpawningMonth);
                             valuesSum += value;
-                            values.add(timeStep, value);
+                            values[timeStep]= value;
                         }
                         break;
                     }
                 }
             }
 
-            if (values.size() > 0) {
+            if (values.length > 0) {
                 for (int timeStep = 0; timeStep < numberOfTimestepsPerYear; timeStep++) {
                     double valueNormalized = valuesSum == 0
                         ? (1.0 / numberOfTimestepsPerYear)
-                        : (values.get(timeStep) / valuesSum);
+                        : (values[timeStep] / valuesSum);
 
                     writeLine(reprodOs,
                         Arrays.asList(formatTimeStep(numberOfTimestepsPerYear, timeStep),
