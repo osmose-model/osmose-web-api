@@ -4,6 +4,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.commons.lang3.tuple.Pair;
 import ucar.ma2.InvalidRangeException;
 
@@ -116,6 +117,8 @@ public class ConfigUtil {
             Pair.of(12.0 / 12.0, "Dec"));
 
         for (int i = 0; i < groups.size(); i++) {
+            List<Double> values = new ArrayList<>(numberOfTimestepsPerYear);
+            double valuesSum = 0.0;
             OutputStream reprodOs = factory.outputStreamFor(reproductionFilename(i));
             final Group group = groups.get(i);
             writeLine(reprodOs, Arrays.asList("Time (year)", group.getName()), false);
@@ -125,11 +128,25 @@ public class ConfigUtil {
                     double upper = (double) (timeStep + 1) / numberOfTimestepsPerYear;
                     if (upper <= month.getLeft()) {
                         String reproductionForSpawningMonth = valueFactory.groupValueFor("spawning." + month.getRight(), group);
-                        writeLine(reprodOs,
-                            Arrays.asList(formatTimeStep(numberOfTimestepsPerYear, timeStep),
-                                reproductionForSpawningMonth));
+                        if (NumberUtils.isParsable(reproductionForSpawningMonth)) {
+                            double value = Double.parseDouble(reproductionForSpawningMonth);
+                            valuesSum += value;
+                            values.add(timeStep, value);
+                        }
                         break;
                     }
+                }
+            }
+
+            if (values.size() > 0) {
+                for (int timeStep = 0; timeStep < numberOfTimestepsPerYear; timeStep++) {
+                    double valueNormalized = valuesSum == 0
+                        ? (1.0 / numberOfTimestepsPerYear)
+                        : (values.get(timeStep) / valuesSum);
+
+                    writeLine(reprodOs,
+                        Arrays.asList(formatTimeStep(numberOfTimestepsPerYear, timeStep),
+                            String.format("%.3f", valueNormalized)));
                 }
             }
 

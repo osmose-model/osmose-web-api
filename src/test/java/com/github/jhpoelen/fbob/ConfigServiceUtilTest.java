@@ -267,9 +267,49 @@ public class ConfigServiceUtilTest {
 
         assertThat((getTestFactory()).stringOutputFor("osm_param-reproduction.csv"), is("reproduction.season.file.sp0;reproduction-seasonality-sp0.csv\nreproduction.season.file.sp1;reproduction-seasonality-sp1.csv"));
         String prefix = "Time (year);";
-        String suffix = "\n0.000;0.0\n0.083;0.0\n0.167;0.0\n0.250;0.0\n0.333;0.0\n0.417;0.0\n0.500;0.0\n0.583;0.0\n0.667;0.0\n0.750;0.0\n0.833;0.0\n0.917;0.0";
-        assertEquals((getTestFactory()).stringOutputFor("reproduction-seasonality-sp0.csv"), (prefix + "groupNameOne" + suffix));
-        assertEquals((getTestFactory()).stringOutputFor("reproduction-seasonality-sp1.csv"), (prefix + "groupNameTwo" + suffix));
+        String suffix = "\n0.000;0.083\n" +
+            "0.083;0.083\n" +
+            "0.167;0.083\n" +
+            "0.250;0.083\n" +
+            "0.333;0.083\n" +
+            "0.417;0.083\n" +
+            "0.500;0.083\n" +
+            "0.583;0.083\n" +
+            "0.667;0.083\n" +
+            "0.750;0.083\n" +
+            "0.833;0.083\n" +
+            "0.917;0.083";
+        assertEquals(prefix + "groupNameOne" + suffix, getTestFactory().stringOutputFor("reproduction-seasonality-sp0.csv"));
+        assertEquals((prefix + "groupNameTwo" + suffix), getTestFactory().stringOutputFor("reproduction-seasonality-sp1.csv"));
+    }
+
+    @Test
+    public void reproductionSeasonTemplatesSome() throws IOException {
+        List<String> groupNames = new ArrayList<String>() {{
+            add("groupNameOne");
+            add("groupNameTwo");
+        }};
+
+        ValueFactory valueFactory = (name, group) -> "spawning.Aug".equals(name) ? "111" : "0";
+
+        ConfigUtil.generateSeasonalReproductionFor(toGroups(groupNames), factory, valueFactory, 12);
+
+        assertThat((getTestFactory()).stringOutputFor("osm_param-reproduction.csv"), is("reproduction.season.file.sp0;reproduction-seasonality-sp0.csv\nreproduction.season.file.sp1;reproduction-seasonality-sp1.csv"));
+        String prefix = "Time (year);";
+        String suffix = "\n0.000;0.000\n" +
+            "0.083;0.000\n" +
+            "0.167;0.000\n" +
+            "0.250;0.000\n" +
+            "0.333;0.000\n" +
+            "0.417;0.000\n" +
+            "0.500;0.000\n" +
+            "0.583;1.000\n" +
+            "0.667;0.000\n" +
+            "0.750;0.000\n" +
+            "0.833;0.000\n" +
+            "0.917;0.000";
+        assertEquals(prefix + "groupNameOne" + suffix, getTestFactory().stringOutputFor("reproduction-seasonality-sp0.csv"));
+        assertEquals(prefix + "groupNameTwo" + suffix, getTestFactory().stringOutputFor("reproduction-seasonality-sp1.csv"));
     }
 
     @Test
@@ -279,15 +319,15 @@ public class ConfigServiceUtilTest {
             add("groupNameTwo");
         }};
 
-        ValueFactory valueFactory = (name, group) -> name;
+        ValueFactory valueFactory = (name, group) -> "spawning.Jun".equals(name) ? "2.0" : "1.0";
 
         ConfigUtil.generateSeasonalReproductionFor(toGroups(groupNames), factory, valueFactory, 2);
 
         assertThat((getTestFactory()).stringOutputFor("osm_param-reproduction.csv"), is("reproduction.season.file.sp0;reproduction-seasonality-sp0.csv\nreproduction.season.file.sp1;reproduction-seasonality-sp1.csv"));
         String prefix = "Time (year);";
-        String suffix = "\n0.000;spawning.Jun\n0.500;spawning.Dec";
-        assertEquals((getTestFactory()).stringOutputFor("reproduction-seasonality-sp0.csv"), (prefix + "groupNameOne" + suffix));
-        assertEquals((getTestFactory()).stringOutputFor("reproduction-seasonality-sp1.csv"), (prefix + "groupNameTwo" + suffix));
+        String suffix = "\n0.000;0.667\n0.500;0.333";
+        assertEquals(prefix + "groupNameOne" + suffix, getTestFactory().stringOutputFor("reproduction-seasonality-sp0.csv"));
+        assertEquals(prefix + "groupNameTwo" + suffix, getTestFactory().stringOutputFor("reproduction-seasonality-sp1.csv"));
     }
 
     @Test
