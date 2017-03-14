@@ -61,8 +61,8 @@ public class ConfigServiceUtilTest {
             "\nspecies.maturity.age.sp1;0.0" +
             "\nspecies.relativefecundity.sp0;0" +
             "\nspecies.relativefecundity.sp1;0" +
-            "\nspecies.sexratio.sp0;0.0" +
-            "\nspecies.sexratio.sp1;0.0" +
+            "\nspecies.sexratio.sp0;0.00" +
+            "\nspecies.sexratio.sp1;0.00" +
             "\nspecies.t0.sp0;0.0" +
             "\nspecies.t0.sp1;0.0" +
             "\nspecies.vonbertalanffy.threshold.age.sp0;0.0" +

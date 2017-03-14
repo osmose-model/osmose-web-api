@@ -132,7 +132,7 @@ public class ConfigUtil {
                         if (NumberUtils.isParsable(reproductionForSpawningMonth)) {
                             double value = Double.parseDouble(reproductionForSpawningMonth);
                             valuesSum += value;
-                            values[timeStep]= value;
+                            values[timeStep] = value;
                         }
                         break;
                     }
@@ -224,7 +224,13 @@ public class ConfigUtil {
         writeParamLines(groups, "species.maturity.size.sp", valueFactory, os);
         writeParamLines(groups, "species.maturity.age.sp", valueFactory, os);
         writeParamLines(groups, "species.relativefecundity.sp", valueFactory, os);
-        writeParamLines(groups, "species.sexratio.sp", valueFactory, os);
+
+        writeParamLines(groups, "species.sexratio.sp", (name, group) -> {
+            String someValue = valueFactory.groupValueFor(name, group);
+            return NumberUtils.isParsable(someValue)
+                ? String.format("%.2f", Double.parseDouble(someValue) / 100.0)
+                : someValue;
+        }, os);
         writeParamLines(groups, "species.t0.sp", valueFactory, os);
         writeParamLines(groups, "species.vonbertalanffy.threshold.age.sp", valueFactory, os);
     }
