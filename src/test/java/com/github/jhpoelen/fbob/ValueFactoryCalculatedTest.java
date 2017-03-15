@@ -40,12 +40,33 @@ public class ValueFactoryCalculatedTest {
 
     @Test
     public void predationEfficiencyCriticalMissing() {
-        ValueFactoryCalculated valueFactory = new ValueFactoryCalculated((name, group) -> {
-            return null;
-        });
+        ValueFactoryCalculated valueFactory = new ValueFactoryCalculated((name, group) -> null);
 
         String value = valueFactory.groupValueFor("predation.efficiency.critical.sp", null);
         assertThat(value, is(nullValue()));
+    }
+
+    @Test
+    public void relativeFecundityNoValue() {
+        ValueFactoryCalculated valueFactory = new ValueFactoryCalculated((name, group) -> null);
+
+        String value = valueFactory.groupValueFor("species.relativefecundity.sp", null);
+        assertThat(value, is(nullValue()));
+    }
+
+    @Test
+    public void relativeFecundityCalculated() {
+        ValueFactoryCalculated valueFactory = new ValueFactoryCalculated((name, group) -> {
+            if (name.equals("fecundity.SpawningCycles")) {
+                return "1.0";
+            } else if (name.equals("fecundity.RelFecundityMean")) {
+                return "2";
+            }
+            return null;
+        });
+
+        String value = valueFactory.groupValueFor("species.relativefecundity.sp", null);
+        assertThat(value, is("2.00"));
     }
 
 }

@@ -1,6 +1,7 @@
 package com.github.jhpoelen.fbob;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,10 +17,10 @@ class ValueFactoryCalculated implements ValueFactory {
 
     @Override
     public String groupValueFor(String name, Group group) {
+        String value = null;
         String calculatedPropertyName = "predation.efficiency.critical.sp";
-        try {
-            if (StringUtils.equals(name, calculatedPropertyName)) {
-                String value = null;
+        if (StringUtils.equals(name, calculatedPropertyName)) {
+            try {
                 String ingestionRateMax = "predation.ingestion.rate.max.sp";
                 String ingestionRate = valueFactory.groupValueFor(ingestionRateMax, group);
                 String maintQB = valueFactory.groupValueFor("popqb.MaintQB", group);
@@ -31,18 +32,21 @@ class ValueFactoryCalculated implements ValueFactory {
                         value = String.format("%.2f", Float.parseFloat(maintQB) / ingestionRateParsed);
                     }
                 }
-                return value;
+            } catch (NumberFormatException ex) {
+                LOG.log(Level.WARNING, getMsg(calculatedPropertyName), ex);
             }
-        } catch (NumberFormatException ex) {
-            LOG.log(Level.WARNING, getMsg(calculatedPropertyName), ex);
+        } else if (StringUtils.equals(name, "species.relativefecundity.sp")) {
+            String relFecundityMean = valueFactory.groupValueFor("fecundity.RelFecundityMean", group);
+            String spawningCycles = valueFactory.groupValueFor("fecundity.SpawningCycles", group);
+            if (NumberUtils.isParsable(relFecundityMean) && NumberUtils.isParsable(spawningCycles)) {
+                value = String.format("%.2f", Float.parseFloat(spawningCycles) * Float.parseFloat(relFecundityMean));
+            }
         }
-
-        return null;
+        return value;
     }
 
     private String getMsg(String name) {
         return "failed to calculate [" + name + "]";
     }
-
 
 }
