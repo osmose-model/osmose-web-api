@@ -55,7 +55,7 @@ class ValueFactoryFishbaseCache implements ValueFactory {
                 @Override
                 public void forMapping(String tableName, String columnName, String mappedName, String defaultValue) throws IOException {
                     if (tables.contains(tableName) && StringUtils.equals(name, mappedName)) {
-                        URI uri = URI.create("https://github.com/jhpoelen/fishbase_archiver/releases/download/v0.2.0/" + tableName + "_fishbase.tsv.gz");
+                        URI uri = URI.create("https://github.com/jhpoelen/fishbase_archiver/releases/download/v0.2.1/" + tableName + "_fishbase.tsv.gz");
                         if (!remoteLocalURI.containsKey(uri)) {
                             cache(uri);
                         }
