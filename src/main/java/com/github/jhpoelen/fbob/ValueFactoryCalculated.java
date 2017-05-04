@@ -11,11 +11,9 @@ import java.util.logging.Logger;
 class ValueFactoryCalculated implements ValueFactory {
     private static final Logger LOG = Logger.getLogger(ValueFactoryCalculated.class.getName());
 
-    private final ValueFactory valueFactory;
     private final Map<String, ValueFactory> factoryMap;
 
     public ValueFactoryCalculated(ValueFactory valueFactory) {
-        this.valueFactory = valueFactory;
         this.factoryMap = new HashMap<String, ValueFactory>() {{
             put("predation.efficiency.critical.sp", (name, group) -> {
                 String calculatedPropertyName = "predation.efficiency.critical.sp";
@@ -46,14 +44,23 @@ class ValueFactoryCalculated implements ValueFactory {
                 }
                 return value;
             });
+            put("species.egg.weight.sp", (name, group) -> {
+                String value = null;
+                String eggDiameter = valueFactory.groupValueFor("eggs.Eggsdiammod", group);
+                if (NumberUtils.isParsable(eggDiameter)) {
+                    float radius = Float.parseFloat(eggDiameter) / 2;
+                    value = String.format("%.8f", 1.0254 * 4/3 * Math.PI * Math.pow(radius, 3));
+                }
+                return value;
+            });
         }};
     }
 
     @Override
     public String groupValueFor(String name, Group group) {
         return factoryMap.containsKey(name)
-            ? factoryMap.get(name).groupValueFor(name, group)
-            : null;
+                ? factoryMap.get(name).groupValueFor(name, group)
+                : null;
     }
 
     private String getMsg(String name) {

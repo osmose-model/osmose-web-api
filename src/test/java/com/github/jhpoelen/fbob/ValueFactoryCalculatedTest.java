@@ -24,6 +24,19 @@ public class ValueFactoryCalculatedTest {
     }
 
     @Test
+    public void eggWeight() {
+        ValueFactoryCalculated valueFactory = new ValueFactoryCalculated((name, group) -> {
+            if (name.equals("eggs.Eggsdiammod")) {
+                return "0.1";
+            }
+            return null;
+        });
+
+        String value = valueFactory.groupValueFor("species.egg.weight.sp", null);
+        assertThat(value, is("0.00053690"));
+    }
+
+    @Test
     public void predationEfficiencyCriticalDivideByZero() {
         ValueFactoryCalculated valueFactory = new ValueFactoryCalculated((name, group) -> {
             if (name.equals("popqb.MaintQB")) {
