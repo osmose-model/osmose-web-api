@@ -46,7 +46,7 @@ class ValueFactoryCalculated implements ValueFactory {
             });
             put("species.egg.weight.sp", (name, group) -> {
                 String value = null;
-                String eggDiameter = valueFactory.groupValueFor("eggs.Eggsdiammod", group);
+                String eggDiameter = valueFactory.groupValueFor("species.egg.size.sp", group);
                 if (NumberUtils.isParsable(eggDiameter)) {
                     float radius = Float.parseFloat(eggDiameter) / 2;
                     value = String.format("%.8f", 1.025 * 4/3 * Math.PI * Math.pow(radius, 3));

@@ -7,7 +7,6 @@ public class ValueFactoryDefault implements ValueFactory {
 
     private final static Map<String, String> DEFAULTS = new HashMap<String, String>() {{
         put("species.egg.size.sp", "0.1");
-        put("species.egg.weight.sp", "0.0005386");
         put("species.K.sp", "0.0");
         put("species.length2weight.allometric.power.sp", "0.0");
         put("species.length2weight.condition.factor.sp", "0.0");

@@ -46,8 +46,8 @@ public class ConfigServiceUtilTest {
             "\nspecies.name.sp1;groupTwo" +
             "\nspecies.egg.size.sp0;0.1" +
             "\nspecies.egg.size.sp1;0.1" +
-            "\nspecies.egg.weight.sp0;0.0005386" +
-            "\nspecies.egg.weight.sp1;0.0005386" +
+            "\nspecies.egg.weight.sp0;" +
+            "\nspecies.egg.weight.sp1;" +
             "\nspecies.K.sp0;0.0\nspecies.K.sp1;0.0" +
             "\nspecies.length2weight.allometric.power.sp0;0.0" +
             "\nspecies.length2weight.allometric.power.sp1;0.0" +

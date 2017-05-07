@@ -26,7 +26,7 @@ public class ValueFactoryCalculatedTest {
     @Test
     public void eggWeight() {
         ValueFactoryCalculated valueFactory = new ValueFactoryCalculated((name, group) -> {
-            if (name.equals("eggs.Eggsdiammod")) {
+            if (name.equals("species.egg.size.sp")) {
                 return "0.1";
             }
             return null;
