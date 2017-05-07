@@ -33,7 +33,7 @@ public class ValueFactoryCalculatedTest {
         });
 
         String value = valueFactory.groupValueFor("species.egg.weight.sp", null);
-        assertThat(value, is("0.00053690"));
+        assertThat(value, is("0.00053669"));
     }
 
     @Test
