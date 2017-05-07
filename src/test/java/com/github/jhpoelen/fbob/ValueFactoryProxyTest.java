@@ -24,6 +24,5 @@ public class ValueFactoryProxyTest {
         ValueFactory valueFactoryName = (name, groupName) -> name;
         ValueFactoryProxy proxy = new ValueFactoryProxy(Arrays.asList(valueFactoryBar, valueFactoryName));
         assertThat(proxy.groupValueFor("foo", new Group()), is("bar"));
-
     }
 }

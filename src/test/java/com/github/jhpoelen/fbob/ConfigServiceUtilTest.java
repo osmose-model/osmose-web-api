@@ -412,7 +412,7 @@ public class ConfigServiceUtilTest {
         }
 
         public String stringOutputFor(String name) throws UnsupportedEncodingException {
-            return streamMap.containsKey(name) ? streamMap.get(name).toString("UTF-8") : null;
+            return streamMap.containsKey(name) ? streamMap.get(name). toString("UTF-8") : null;
         }
     }
 }
