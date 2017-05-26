@@ -12,11 +12,11 @@ public class PropertyMapper {
         final CSVReader reader = new CSVReader(new InputStreamReader(mappingInputStream), ',');
         String[] line;
         while ((line = reader.readNext()) != null) {
-            final String tableName = line[0];
-            final String columnName = line[1];
+            final String tableName = StringUtils.trim(line[0]);
+            final String columnName = StringUtils.trim(line[1]);
             if (line.length > 3 && StringUtils.isNotBlank(columnName)) {
-                final String propertyName = line[2];
-                final String defaultValue = line[3];
+                final String propertyName = StringUtils.trim(line[2]);
+                final String defaultValue = StringUtils.trim(line[3]);
                 if (StringUtils.isNotBlank(defaultValue) && !StringUtils.equalsIgnoreCase(defaultValue,"NA")) {
                     mapper.forMapping(tableName, columnName, propertyName, defaultValue);
                 }
