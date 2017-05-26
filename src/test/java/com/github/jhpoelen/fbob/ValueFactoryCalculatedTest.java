@@ -2,6 +2,8 @@ package com.github.jhpoelen.fbob;
 
 import org.junit.Test;
 
+import java.util.Arrays;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.*;
@@ -21,6 +23,41 @@ public class ValueFactoryCalculatedTest {
 
         String value = valueFactory.groupValueFor("predation.efficiency.critical.sp", null);
         assertThat(value, is("0.50"));
+    }
+
+    @Test
+    public void predationEfficiencyCriticalMaintQBMissing() {
+        ValueFactoryCalculated valueFactoryCalc = new ValueFactoryCalculated((name, group) -> {
+            if (name.equals("popqb.MaintQB")) {
+                return null;
+            } else if (name.equals("predation.ingestion.rate.max.sp")) {
+                return "0.1";
+            }
+            return null;
+        });
+
+        ValueFactory valueFactory = new ValueFactoryProxy(
+                Arrays.asList(
+                        valueFactoryCalc,
+                        new ValueFactoryDefault()
+                )
+        );
+
+        String value = valueFactory.groupValueFor("predation.efficiency.critical.sp", null);
+        assertThat(value, is("0.57"));
+    }
+
+    @Test
+    public void predationEfficiencyCriticalAllMissing() {
+        ValueFactory valueFactory = new ValueFactoryProxy(
+                Arrays.asList(
+                        new ValueFactoryCalculated((name, group) -> null),
+                        new ValueFactoryDefault()
+                )
+        );
+
+        String value = valueFactory.groupValueFor("predation.efficiency.critical.sp", null);
+        assertThat(value, is("0.57"));
     }
 
     @Test
