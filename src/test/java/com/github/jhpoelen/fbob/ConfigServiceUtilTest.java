@@ -116,7 +116,7 @@ public class ConfigServiceUtilTest {
         List<Group> groups = Arrays.asList(new Group("groupOne"), new Group("groupTwo"));
         StreamFactoryMemory factory = getTestFactory();
 
-        ConfigUtil.generateLtlForGroups(groups, factory, getTestValueFactory());
+        ConfigUtil.generateLtlForGroups(groups, factory, new ValueFactoryNA(getTestValueFactory()));
 
         String asExpected = "plankton.name.plk0;groupOne\n" +
             "plankton.name.plk1;groupTwo\n" +
@@ -124,12 +124,12 @@ public class ConfigServiceUtilTest {
             "plankton.accessibility2fish.plk1;0.0\n" +
             "plankton.conversion2tons.plk0;1\n" +
             "plankton.conversion2tons.plk1;1\n" +
-            "plankton.size.max.plk0;0.002\n" +
-            "plankton.size.max.plk1;0.002\n" +
-            "plankton.size.min.plk0;0.0002\n" +
-            "plankton.size.min.plk1;0.0002\n" +
-            "plankton.TL.plk0;1\n" +
-            "plankton.TL.plk1;1";
+            "plankton.size.max.plk0;NA\n" +
+            "plankton.size.max.plk1;NA\n" +
+            "plankton.size.min.plk0;NA\n" +
+            "plankton.size.min.plk1;NA\n" +
+            "plankton.TL.plk0;NA\n" +
+            "plankton.TL.plk1;NA";
         assertThat(getTestFactory().stringOutputFor("osm_param-ltl.csv"), is(asExpected));
     }
 
