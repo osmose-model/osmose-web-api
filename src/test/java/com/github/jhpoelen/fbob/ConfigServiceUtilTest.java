@@ -37,35 +37,35 @@ public class ConfigServiceUtilTest {
     }
 
     @Test
-    public void species() throws IOException {
+    public void speciesDefaultsOnly() throws IOException {
         List<Group> groups = Arrays.asList(new Group("groupOne"), new Group("groupTwo"));
         StreamFactoryMemory factory = getTestFactory();
 
-        ConfigUtil.generateSpecies(groups, factory, getTestValueFactory());
+        ConfigUtil.generateSpecies(groups, factory, new ValueFactoryNA(getTestValueFactory()));
 
         String asExpected = "species.name.sp0;groupOne" +
             "\nspecies.name.sp1;groupTwo" +
             "\nspecies.egg.size.sp0;0.1" +
             "\nspecies.egg.size.sp1;0.1" +
-            "\nspecies.egg.weight.sp0;" +
-            "\nspecies.egg.weight.sp1;" +
-            "\nspecies.K.sp0;0.0\nspecies.K.sp1;0.0" +
-            "\nspecies.length2weight.allometric.power.sp0;0.0" +
-            "\nspecies.length2weight.allometric.power.sp1;0.0" +
-            "\nspecies.length2weight.condition.factor.sp0;0.0" +
-            "\nspecies.length2weight.condition.factor.sp1;0.0" +
-            "\nspecies.lifespan.sp0;0\nspecies.lifespan.sp1;0" +
-            "\nspecies.lInf.sp0;0.0\nspecies.lInf.sp1;0.0" +
-            "\nspecies.maturity.size.sp0;0.0" +
-            "\nspecies.maturity.size.sp1;0.0" +
-            "\nspecies.maturity.age.sp0;0.0" +
-            "\nspecies.maturity.age.sp1;0.0" +
-            "\nspecies.relativefecundity.sp0;0" +
-            "\nspecies.relativefecundity.sp1;0" +
+            "\nspecies.egg.weight.sp0;NA" +
+            "\nspecies.egg.weight.sp1;NA" +
+            "\nspecies.K.sp0;NA\nspecies.K.sp1;NA" +
+            "\nspecies.length2weight.allometric.power.sp0;NA" +
+            "\nspecies.length2weight.allometric.power.sp1;NA" +
+            "\nspecies.length2weight.condition.factor.sp0;NA" +
+            "\nspecies.length2weight.condition.factor.sp1;NA" +
+            "\nspecies.lifespan.sp0;NA\nspecies.lifespan.sp1;NA" +
+            "\nspecies.lInf.sp0;NA\nspecies.lInf.sp1;NA" +
+            "\nspecies.maturity.size.sp0;NA" +
+            "\nspecies.maturity.size.sp1;NA" +
+            "\nspecies.maturity.age.sp0;NA" +
+            "\nspecies.maturity.age.sp1;NA" +
+            "\nspecies.relativefecundity.sp0;NA" +
+            "\nspecies.relativefecundity.sp1;NA" +
             "\nspecies.sexratio.sp0;0.00" +
             "\nspecies.sexratio.sp1;0.00" +
-            "\nspecies.t0.sp0;0.0" +
-            "\nspecies.t0.sp1;0.0" +
+            "\nspecies.t0.sp0;NA" +
+            "\nspecies.t0.sp1;NA" +
             "\nspecies.vonbertalanffy.threshold.age.sp0;0.0" +
             "\nspecies.vonbertalanffy.threshold.age.sp1;0.0";
         assertThat(getTestFactory().stringOutputFor("osm_param-species.csv"), is(asExpected));

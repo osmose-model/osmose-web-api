@@ -7,22 +7,22 @@ public class ValueFactoryDefault implements ValueFactory {
 
     private final static Map<String, String> DEFAULTS = new HashMap<String, String>() {{
         put("species.egg.size.sp", "0.1");
-        put("species.K.sp", "NA");
-        put("species.length2weight.allometric.power.sp", "NA");
-        put("species.length2weight.condition.factor.sp", "NA");
-        put("species.lifespan.sp", "NA");
-        put("species.lInf.sp", "NA");
-        put("species.maturity.size.sp", "NA");
-        put("species.maturity.age.sp", "NA");
-        put("species.relativefecundity.sp", "NA");
+        put("species.K.sp", null);
+        put("species.length2weight.allometric.power.sp", null);
+        put("species.length2weight.condition.factor.sp", null);
+        put("species.lifespan.sp", null);
+        put("species.lInf.sp", null);
+        put("species.maturity.size.sp", null);
+        put("species.maturity.age.sp", null);
+        put("species.relativefecundity.sp", null);
         put("species.sexratio.sp", "0.0");
-        put("species.t0.sp", "NA");
+        put("species.t0.sp", null);
         put("species.vonbertalanffy.threshold.age.sp", "0.0");
 
-        put("predation.accessibility.stage.threshold.sp", "NA");
+        put("predation.accessibility.stage.threshold.sp", null);
         put("predation.efficiency.critical.sp", "0.57");
         put("predation.ingestion.rate.max.sp", "3.5");
-        put("predation.predPrey.stage.threshold.sp", "NA");
+        put("predation.predPrey.stage.threshold.sp", null);
 
         put("movement.distribution.method.sp", "maps");
         put("movement.randomwalk.range.sp", "1");

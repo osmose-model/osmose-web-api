@@ -17,7 +17,7 @@ public class ValueFactoryDefaultTest {
         Taxon kingMackerel = new Taxon("ScomberomorusCavalla");
         kingMackerel.setUrl("http://fishbase.org/summary/120");
         group.setTaxa(Collections.singletonList(kingMackerel));
-        assertThat(valueFactory.groupValueFor("species.lifespan.sp", group), is("0"));
+        assertThat(valueFactory.groupValueFor("species.lifespan.sp", group), is(nullValue()));
         assertThat(valueFactory.groupValueFor("species.sexratio.sp", group), is("0.0"));
         assertThat(valueFactory.groupValueFor("nonexisting.trait.sp", group), is(nullValue()));
     }

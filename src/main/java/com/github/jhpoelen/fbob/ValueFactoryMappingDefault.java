@@ -1,5 +1,7 @@
 package com.github.jhpoelen.fbob;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.io.IOException;
 import java.util.Map;
 import java.util.TreeMap;
@@ -27,7 +29,11 @@ public class ValueFactoryMappingDefault implements ValueFactory {
 
     private void populateDefaults(String name, Group group) {
         defaults = new TreeMap<>();
-        PropertyMapping defaultMapping = (tableName, columnName, mappedName, defaultValue) -> defaults.put(mappedName, defaultValue);
+        PropertyMapping defaultMapping = (tableName, columnName, mappedName, defaultValue) -> {
+            if (StringUtils.isNotBlank(defaultValue)) {
+                defaults.put(mappedName, defaultValue);
+            }
+        };
         try {
             PropertyMapper.doMapping(getClass().getResourceAsStream(mappingResource), defaultMapping);
         } catch (IOException e) {

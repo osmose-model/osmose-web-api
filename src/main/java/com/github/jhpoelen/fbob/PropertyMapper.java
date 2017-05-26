@@ -17,9 +17,8 @@ public class PropertyMapper {
             if (line.length > 3 && StringUtils.isNotBlank(columnName)) {
                 final String propertyName = StringUtils.trim(line[2]);
                 final String defaultValue = StringUtils.trim(line[3]);
-                if (StringUtils.isNotBlank(defaultValue) && !StringUtils.equalsIgnoreCase(defaultValue,"NA")) {
-                    mapper.forMapping(tableName, columnName, propertyName, defaultValue);
-                }
+                String defaultValueNA = StringUtils.equalsIgnoreCase(defaultValue, "NA") ? "" : defaultValue;
+                mapper.forMapping(tableName, columnName, propertyName, defaultValueNA);
             }
         }
     }
