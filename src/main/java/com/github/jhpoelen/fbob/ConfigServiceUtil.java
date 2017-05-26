@@ -102,11 +102,14 @@ public class ConfigServiceUtil {
     public static ValueFactory getValueFactory(List<Group> groups) {
         ValueFactoryFishbaseCache valueFactoryFishbaseCache = new ValueFactoryFishbaseCache();
         valueFactoryFishbaseCache.setGroups(groups);
-        ValueFactory valueOrDefault = ConfigUtil.getProxyValueFactory(Arrays.asList(valueFactoryFishbaseCache, new ValueFactoryMappingDefault(), new ValueFactoryDefault()));
+        ValueFactory valueOrDefault = ConfigUtil.getProxyValueFactory(
+                Arrays.asList(valueFactoryFishbaseCache,
+                        new ValueFactoryMappingDefault(),
+                        new ValueFactoryDefault()));
 
         final List<ValueFactory> valueFactories = Arrays.asList(
             new ValueFactoryCalculated(valueOrDefault),
             valueOrDefault);
-        return ConfigUtil.getProxyValueFactory(valueFactories);
+        return new ValueFactoryNA(ConfigUtil.getProxyValueFactory(valueFactories));
     }
 }

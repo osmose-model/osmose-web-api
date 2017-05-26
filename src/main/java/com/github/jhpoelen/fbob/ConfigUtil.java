@@ -440,16 +440,6 @@ public class ConfigUtil {
         }
     }
 
-    private static void writeGroup(OutputStream outputStream, List<Group> groups) throws IOException {
-        for (Group group : groups) {
-            for (Taxon taxon : group.getTaxa()) {
-                List<String> row = Arrays.asList(group.getName(), group.getType().name(), taxon.getName(), taxon.getUrl());
-                IOUtils.write("\n", outputStream);
-                IOUtils.write(StringUtils.join(row, ","), outputStream);
-            }
-        }
-    }
-
     private static void generateLtlBiomassForGroups(List<Group> groupsBackground, StreamFactory factory, ValueFactory valueFactory) throws IOException {
         final String resourceName = "osm_ltlbiomass.nc";
         OutputStream os = factory.outputStreamFor(resourceName);

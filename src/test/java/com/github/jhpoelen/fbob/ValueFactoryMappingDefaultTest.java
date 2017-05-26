@@ -20,6 +20,7 @@ public class ValueFactoryMappingDefaultTest {
         assertThat(valueFactory.groupValueFor("trait1", group), is("0"));
         assertThat(valueFactory.groupValueFor("trait2", group), is("0.5"));
         assertThat(valueFactory.groupValueFor("non.existence.trait1", group), is(nullValue()));
+        assertThat(valueFactory.groupValueFor("trait3", group), is(nullValue()));
     }
 
 }

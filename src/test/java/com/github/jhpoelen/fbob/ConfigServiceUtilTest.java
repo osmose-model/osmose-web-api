@@ -1,6 +1,7 @@
 package com.github.jhpoelen.fbob;
 
 import org.apache.commons.lang3.StringEscapeUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -67,6 +68,46 @@ public class ConfigServiceUtilTest {
             "\nspecies.t0.sp1;0.0" +
             "\nspecies.vonbertalanffy.threshold.age.sp0;0.0" +
             "\nspecies.vonbertalanffy.threshold.age.sp1;0.0";
+        assertThat(getTestFactory().stringOutputFor("osm_param-species.csv"), is(asExpected));
+    }
+
+    @Test
+    public void speciesWithNAValues() throws IOException {
+        List<Group> groups = Arrays.asList(new Group("groupOne"), new Group("groupTwo"));
+        StreamFactoryMemory factory = getTestFactory();
+
+        ValueFactory valueFactoryNull = (name, group) -> null;
+
+        ConfigUtil.generateSpecies(groups, factory, new ValueFactoryNA(valueFactoryNull));
+
+        String asExpected = "species.name.sp0;groupOne\n" +
+                "species.name.sp1;groupTwo\n" +
+                "species.egg.size.sp0;NA\n" +
+                "species.egg.size.sp1;NA\n" +
+                "species.egg.weight.sp0;NA\n" +
+                "species.egg.weight.sp1;NA\n" +
+                "species.K.sp0;NA\n" +
+                "species.K.sp1;NA\n" +
+                "species.length2weight.allometric.power.sp0;NA\n" +
+                "species.length2weight.allometric.power.sp1;NA\n" +
+                "species.length2weight.condition.factor.sp0;NA\n" +
+                "species.length2weight.condition.factor.sp1;NA\n" +
+                "species.lifespan.sp0;NA\n" +
+                "species.lifespan.sp1;NA\n" +
+                "species.lInf.sp0;NA\n" +
+                "species.lInf.sp1;NA\n" +
+                "species.maturity.size.sp0;NA\n" +
+                "species.maturity.size.sp1;NA\n" +
+                "species.maturity.age.sp0;NA\n" +
+                "species.maturity.age.sp1;NA\n" +
+                "species.relativefecundity.sp0;NA\n" +
+                "species.relativefecundity.sp1;NA\n" +
+                "species.sexratio.sp0;NA\n" +
+                "species.sexratio.sp1;NA\n" +
+                "species.t0.sp0;NA\n" +
+                "species.t0.sp1;NA\n" +
+                "species.vonbertalanffy.threshold.age.sp0;NA\n" +
+                "species.vonbertalanffy.threshold.age.sp1;NA";
         assertThat(getTestFactory().stringOutputFor("osm_param-species.csv"), is(asExpected));
     }
 
