@@ -26,6 +26,21 @@ public class ValueFactoryCalculatedTest {
     }
 
     @Test
+    public void predationEfficiencyCriticalMaintQBGreaterThanIngestionRateMax() {
+        ValueFactoryCalculated valueFactory = new ValueFactoryCalculated((name, group) -> {
+            if (name.equals("popqb.MaintQB")) {
+                return "2.0";
+            } else if (name.equals("predation.ingestion.rate.max.sp")) {
+                return "1.0";
+            }
+            return null;
+        });
+
+        String value = valueFactory.groupValueFor("predation.efficiency.critical.sp", null);
+        assertThat(value, is(nullValue()));
+    }
+
+    @Test
     public void predationEfficiencyCriticalMaintQBMissing() {
         ValueFactoryCalculated valueFactoryCalc = new ValueFactoryCalculated((name, group) -> {
             if (name.equals("popqb.MaintQB")) {

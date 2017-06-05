@@ -8,30 +8,30 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static com.github.jhpoelen.fbob.OsmosePropertyName.*;
+
 class ValueFactoryCalculated implements ValueFactory {
     private static final Logger LOG = Logger.getLogger(ValueFactoryCalculated.class.getName());
+    public static final String FISHBASE_POPQB_MAINT_QB = "popqb.MaintQB";
 
     private final Map<String, ValueFactory> factoryMap;
 
     public ValueFactoryCalculated(ValueFactory valueFactory) {
         this.factoryMap = new HashMap<String, ValueFactory>() {{
             put("predation.efficiency.critical.sp", (name, group) -> {
-                String calculatedPropertyName = "predation.efficiency.critical.sp";
                 String value = null;
                 try {
-                    String ingestionRateMax = "predation.ingestion.rate.max.sp";
-                    String ingestionRate = valueFactory.groupValueFor(ingestionRateMax, group);
-                    String maintQB = valueFactory.groupValueFor("popqb.MaintQB", group);
-                    if (StringUtils.isNotBlank(ingestionRate) && StringUtils.isNotBlank(maintQB)) {
+                    String ingestionRate = valueFactory.groupValueFor(PREDATION_INGESTION_RATE_MAX, group);
+                    String maintQBString = valueFactory.groupValueFor(FISHBASE_POPQB_MAINT_QB, group);
+                    if (StringUtils.isNotBlank(ingestionRate) && StringUtils.isNotBlank(maintQBString)) {
                         float ingestionRateParsed = Float.parseFloat(ingestionRate);
-                        if (ingestionRateParsed == 0) {
-                            LOG.warning(getMsg(calculatedPropertyName) + ": tried to divide by zero value for [" + ingestionRateMax + "]");
-                        } else {
-                            value = String.format("%.2f", Float.parseFloat(maintQB) / ingestionRateParsed);
+                        float maintQB = Float.parseFloat(maintQBString);
+                        if (isValidPredationEfficiency(ingestionRateParsed, maintQB)) {
+                            value = String.format("%.2f", maintQB / ingestionRateParsed);
                         }
                     }
                 } catch (NumberFormatException ex) {
-                    LOG.log(Level.WARNING, getMsg(calculatedPropertyName), ex);
+                    LOG.log(Level.WARNING, getMsg(PREDATION_EFFICIENCY_CRITICAL), ex);
                 }
                 return value;
             });
@@ -53,7 +53,22 @@ class ValueFactoryCalculated implements ValueFactory {
                 }
                 return value;
             });
-        }};
+        }
+
+            private boolean isValidPredationEfficiency(float ingestionRateParsed, float maintQB) {
+                boolean valid = false;
+                if (ingestionRateParsed == 0) {
+                    LOG.warning(getMsg(PREDATION_EFFICIENCY_CRITICAL) + ": tried to divide by zero value for [" + PREDATION_INGESTION_RATE_MAX + "]");
+                } else {
+                    if (maintQB >= ingestionRateParsed) {
+                        LOG.warning(getMsg(PREDATION_EFFICIENCY_CRITICAL) + ": [" + PREDATION_INGESTION_RATE_MAX + ":" + ingestionRateParsed + "] may not be smaller than [" + FISHBASE_POPQB_MAINT_QB + ":" + maintQB + "].");
+                    } else {
+                        valid = true;
+                    }
+                }
+                return valid;
+            }
+        };
     }
 
     @Override
