@@ -487,23 +487,24 @@ Let us assume that the API considers “Species 1” and “Species 2”.
         benthic, demersal, pelagic
     }
 
-    public static void generatePredationAccessibilityFor(List<Group> focalGroups, List<Group> backgroundGroups, StreamFactory factory, ValueFactory valueFactory) throws IOException {
+    public static void generatePredationAccessibilityFor(List<Group> groupsFocal, List<Group> groupsBackground, StreamFactory factory, ValueFactory valueFactory) throws IOException {
         List<Group> groupList = new ArrayList<Group>() {{
-            addAll(focalGroups);
-            addAll(backgroundGroups);
+            addAll(groupsFocal);
+            addAll(groupsBackground);
         }};
         List<String> groupNames = groupList.stream().map(Group::getName).collect(Collectors.toList());
+        List<String> groupNamesFocal = groupsFocal.stream().map(Group::getName).collect(Collectors.toList());
 
         OutputStream outputStream = factory.outputStreamFor("predation-accessibility.csv");
         writeLine(outputStream, new ArrayList<String>() {{
             add("v Prey / Predator >");
-            addAll(groupNames);
+            addAll(groupNamesFocal);
         }}, false);
 
         for (int j = 0; j < groupNames.size(); j++) {
             List<String> row = new ArrayList<String>();
             row.add(groupNames.get(j));
-            for (int i = 0; i < groupNames.size(); i++) {
+            for (int i = 0; i < groupNamesFocal.size(); i++) {
                 Overlap overlap = i == j
                     ? Overlap.strong
                     : calculateOverlap(groupList, valueFactory, j, i);

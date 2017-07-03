@@ -244,12 +244,12 @@ public class ConfigServiceUtilTest {
 
     @Test
     public void predationAccessibility() throws IOException {
-        List<String> groupNames = new ArrayList<String>() {{
+        List<String> groupsFocal = new ArrayList<String>() {{
             add("groupB");
             add("groupA");
         }};
 
-        List<String> implicitGroupNames = new ArrayList<String>() {{
+        List<String> groupsBackground = new ArrayList<String>() {{
             add("groupC");
             add("groupD");
         }};
@@ -260,13 +260,12 @@ public class ConfigServiceUtilTest {
             return "";
         };
 
-        ConfigUtil.generatePredationAccessibilityFor(toGroups(groupNames), toGroups(implicitGroupNames), factory, valueFactory);
-        // including the "implicit" functional groups
-        String expectedPredationAccessibility = "v Prey / Predator >;groupB;groupA;groupC;groupD\n" +
-            "groupB;0.80;0.08;0.08;0.08\n" +
-            "groupA;0.08;0.80;0.08;0.08\n" +
-            "groupC;0.08;0.08;0.80;0.08\n" +
-            "groupD;0.08;0.08;0.08;0.80";
+        ConfigUtil.generatePredationAccessibilityFor(toGroups(groupsFocal), toGroups(groupsBackground), factory, valueFactory);
+        String expectedPredationAccessibility = "v Prey / Predator >;groupB;groupA\n" +
+            "groupB;0.80;0.08\n" +
+            "groupA;0.08;0.80\n" +
+            "groupC;0.08;0.08\n" +
+            "groupD;0.08;0.08";
 
         assertEquals(expectedPredationAccessibility, (getTestFactory()).stringOutputFor("predation-accessibility.csv"));
 
