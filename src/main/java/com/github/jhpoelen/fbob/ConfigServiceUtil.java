@@ -104,7 +104,8 @@ public class ConfigServiceUtil {
         valueFactoryFishbaseCache.setGroups(groups);
         ValueFactory valueOrDefault = ConfigUtil.getProxyValueFactory(
                 Arrays.asList(valueFactoryFishbaseCache,
-                        new ValueFactoryMappingDefaultsPhytoplankton(),
+                        new ValueFactoryMappingDefaultsForGroup("fishbase-mapping-phytoplankton.csv", new Group("phytoplankton", GroupType.BACKGROUND)),
+                        new ValueFactoryMappingDefaultsForGroup("fishbase-mapping-zooplankton.csv", new Group("zooplankton", GroupType.BACKGROUND)),
                         new ValueFactoryMappingDefault(),
                         new ValueFactoryDefault()));
 
