@@ -65,7 +65,8 @@ public class ConfigServiceTest {
         assertThat(entryNames, not(hasItem("")));
         assertThat(resources, hasItem("com/github/jhpoelen/fbob/fishbase-mapping.csv"));
         assertThat(resources, hasItem("com/github/jhpoelen/fbob/fishbase-mapping-phytoplankton.csv"));
-        assertThat(entryNames.size(), is(resources.size() - 2));
+        assertThat(resources, hasItem("com/github/jhpoelen/fbob/fishbase-mapping-zooplankton.csv"));
+        assertThat(entryNames.size(), is(resources.size() - 3));
     }
 
     @Test
