@@ -433,9 +433,11 @@ public class ConfigUtil {
         IOUtils.write("functional group name,functional group type,species name,species url", outputStream);
         for (Group group : groups) {
             for (Taxon taxon : group.getTaxa()) {
-                List<String> row = Arrays.asList(group.getName(), group.getType().name().toLowerCase(), taxon.getName(), taxon.getUrl());
-                IOUtils.write("\n", outputStream);
-                IOUtils.write(StringUtils.join(row, ","), outputStream);
+                if (!StringUtils.equalsIgnoreCase("implicit", taxon.getSelectionCriteria())) {
+                    List<String> row = Arrays.asList(group.getName(), group.getType().name().toLowerCase(), taxon.getName(), taxon.getUrl());
+                    IOUtils.write("\n", outputStream);
+                    IOUtils.write(StringUtils.join(row, ","), outputStream);
+                }
             }
         }
     }

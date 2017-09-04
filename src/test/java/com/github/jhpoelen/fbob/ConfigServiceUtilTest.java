@@ -378,7 +378,11 @@ public class ConfigServiceUtilTest {
 
         Taxon taxonY = new Taxon("mickey mouse");
         taxonY.setUrl("http://example.com/mickey");
-        Group groupB = new Group("groupB", GroupType.BACKGROUND, Collections.singletonList(taxonY));
+
+        Taxon taxonZ = new Taxon("minni mouse");
+        taxonZ.setUrl("http://example.com/minni");
+        taxonZ.setSelectionCriteria("implicit");
+        Group groupB = new Group("groupB", GroupType.BACKGROUND, Arrays.asList(taxonY, taxonZ));
 
         ConfigUtil.generateFunctionGroupList(Arrays.asList(groupA, groupB), factory);
 
@@ -388,6 +392,8 @@ public class ConfigServiceUtilTest {
         assertThat(lines[0], is("functional group name,functional group type,species name,species url"));
         assertThat(lines[1], is("groupA,focal,donald duck,http://example.com/donald"));
         assertThat(lines[2], is("groupB,background,mickey mouse,http://example.com/mickey"));
+
+        assertThat(lines.length, is(3));
     }
 
     @Test

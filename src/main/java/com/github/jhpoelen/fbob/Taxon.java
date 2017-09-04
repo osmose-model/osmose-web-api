@@ -6,7 +6,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Taxon {
     private String url;
     private String name;
-    private String rank;
+    private String selectionCriteria;
 
     public Taxon() {}
 
@@ -28,5 +28,13 @@ public class Taxon {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public String getSelectionCriteria() {
+        return selectionCriteria;
+    }
+
+    public void setSelectionCriteria(String selectionCriteria) {
+        this.selectionCriteria = selectionCriteria;
     }
 }

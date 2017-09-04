@@ -36,6 +36,17 @@ public class ValidateConfigServiceTest extends ServerTestBase {
     }
 
     @Test
+    public void validateConfigWithTaxaImplicit() throws IOException {
+        String groupString = IOUtils.toString(getClass().getResourceAsStream("exampleGroupImplicit.json"), "UTF-8");
+        String responseMsg = sendRequest(groupString, "validate");
+        assertNotNull(responseMsg);
+        assertThat(responseMsg, containsString("background"));
+        assertThat(responseMsg, containsString("implicit"));
+        assertThat(responseMsg, containsString("focal"));
+        assertThat(responseMsg, containsString("taxa"));
+    }
+
+    @Test
     public void validateConfigWithTaxaV2() throws IOException {
         String groupString = IOUtils.toString(getClass().getResourceAsStream("exampleConfig.json"), "UTF-8");
         String responseMsg = sendRequest(groupString, "v2/validate");
