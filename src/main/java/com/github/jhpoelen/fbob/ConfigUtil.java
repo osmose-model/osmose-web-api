@@ -544,8 +544,13 @@ Let us assume that the API considers “Species 1” and “Species 2”.
     private static Pair<Double, Double> depthRangeFor(ValueFactory valueFactory, Group group) {
         String depthMin = valueFactory.groupValueFor("estimate.DepthMin", group);
         String depthMax = valueFactory.groupValueFor("estimate.DepthMax", group);
+        Pair<Double, Double> depthRangeMinMax = parseDepthMinMax(depthMin, depthMax);
+        return depthRangeMinMax;
+    }
+
+    static Pair<Double, Double> parseDepthMinMax(String depthMin, String depthMax) {
         Pair<Double, Double> depthRangeMinMax = null;
-        if (StringUtils.isNotBlank(depthMin) && StringUtils.isNotBlank(depthMax)) {
+        if (NumberUtils.isParsable(depthMin) && NumberUtils.isParsable(depthMax)) {
             try {
                 depthRangeMinMax = Pair.of(Double.parseDouble(depthMin), Double.parseDouble(depthMax));
             } catch (NumberFormatException ex) {
