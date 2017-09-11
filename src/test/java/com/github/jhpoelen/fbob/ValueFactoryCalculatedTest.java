@@ -120,6 +120,14 @@ public class ValueFactoryCalculatedTest {
     }
 
     @Test
+    public void relativeFecundityNAValue() {
+        ValueFactoryCalculated valueFactory = new ValueFactoryCalculated((name, group) -> "NA");
+
+        String value = valueFactory.groupValueFor("species.relativefecundity.sp", null);
+        assertThat(value, is(nullValue()));
+    }
+
+    @Test
     public void relativeFecundityCalculated() {
         ValueFactoryCalculated valueFactory = new ValueFactoryCalculated((name, group) -> {
             if (name.equals("fecundity.SpawningCycles")) {
