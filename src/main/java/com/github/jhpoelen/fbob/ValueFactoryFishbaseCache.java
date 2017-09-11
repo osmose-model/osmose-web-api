@@ -32,13 +32,23 @@ class ValueFactoryFishbaseCache implements ValueFactory {
     private Map<URI, URI> remoteLocalURI = new HashMap<>();
     private Map<String, Map<String, String>> groupValueMap = null;
 
-    private List<String> tables = Collections.emptyList();
+    private List<String> tables = null;
     private List<String> names = new ArrayList<>();
     private List<Group> groups = Collections.emptyList();
-    private String cacheVersion = "v0.2.1";
+    private final String cacheVersion;
+
+    public ValueFactoryFishbaseCache() {
+        this("v0.2.1");
+    }
+
+    public ValueFactoryFishbaseCache(String cacheVersion) {
+        this.cacheVersion = cacheVersion;
+    }
 
     private void init(String name) {
-        this.tables = availableTables(getCacheVersion());
+        if (null == tables) {
+            this.tables = availableTables(getCacheVersion());
+        }
         if (groupValueMap == null) {
             groupValueMap = new HashMap<>();
         }
@@ -137,10 +147,6 @@ class ValueFactoryFishbaseCache implements ValueFactory {
 
     public String getCacheVersion() {
         return cacheVersion;
-    }
-
-    public void setCacheVersion(String version) {
-        this.cacheVersion = version;
     }
 
     @Override

@@ -100,8 +100,7 @@ public class ConfigServiceUtil {
     }
 
     public static ValueFactory getValueFactory(List<Group> groups) {
-        ValueFactoryFishbaseCache valueFactoryFishbaseCachePatch = new ValueFactoryFishbaseCache();
-        valueFactoryFishbaseCachePatch.setCacheVersion("v0.2.1-patch");
+        ValueFactoryFishbaseCache valueFactoryFishbaseCachePatch = new ValueFactoryFishbaseCache("v0.2.1-patch");
         valueFactoryFishbaseCachePatch.setGroups(groups);
         ValueFactoryFishbaseCache valueFactoryFishbaseCache = new ValueFactoryFishbaseCache();
         valueFactoryFishbaseCache.setGroups(groups);
