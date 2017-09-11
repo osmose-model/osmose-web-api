@@ -33,6 +33,7 @@ class ValueFactoryFishbaseCache implements ValueFactory {
     private Map<String, Map<String, String>> groupValueMap = null;
 
     private List<String> tables = null;
+    private final List<String> tablesIgnored;
     private List<String> names = new ArrayList<>();
     private List<Group> groups = Collections.emptyList();
     private final String cacheVersion;
@@ -42,12 +43,17 @@ class ValueFactoryFishbaseCache implements ValueFactory {
     }
 
     public ValueFactoryFishbaseCache(String cacheVersion) {
+        this(cacheVersion, Collections.emptyList());
+    }
+
+    public ValueFactoryFishbaseCache(String cacheVersion, Collection<String> tablesIgnored) {
         this.cacheVersion = cacheVersion;
+        this.tablesIgnored = new ArrayList<>(tablesIgnored);
     }
 
     private void init(String name) {
         if (null == tables) {
-            this.tables = availableTables(getCacheVersion());
+            this.tables = availableTables(getCacheURIPrefix());
         }
         if (groupValueMap == null) {
             groupValueMap = new HashMap<>();
@@ -55,17 +61,19 @@ class ValueFactoryFishbaseCache implements ValueFactory {
         names.add(name);
         try {
             final List<String> specCodesAll = groups.
-                stream()
-                .map(Group::getTaxa)
-                .flatMap(Collection::stream)
-                .map(taxon -> StringUtils.replace(taxon.getUrl(), "http://fishbase.org/summary/", ""))
-                .collect(Collectors.toList());
+                    stream()
+                    .map(Group::getTaxa)
+                    .flatMap(Collection::stream)
+                    .map(taxon -> StringUtils.replace(taxon.getUrl(), "http://fishbase.org/summary/", ""))
+                    .collect(Collectors.toList());
 
             PropertyMapper.doMapping(getMappingInputStream(), new PropertyMapping() {
                 @Override
                 public void forMapping(String tableName, String columnName, String mappedName, String defaultValue) throws IOException {
-                    if (tables.contains(tableName) && StringUtils.equals(name, mappedName)) {
-                        URI uri = URI.create("https://github.com/jhpoelen/fishbase_archiver/releases/download/" + getCacheVersion() + "/" + tableName + "_fishbase.tsv.gz");
+                    if (!tablesIgnored.contains(tableName)
+                            && tables.contains(tableName)
+                            && StringUtils.equals(name, mappedName)) {
+                        URI uri = URI.create(getCacheURIPrefix() + "/" + tableName + "_fishbase.tsv.gz");
                         if (!remoteLocalURI.containsKey(uri)) {
                             cache(uri);
                         }
@@ -82,9 +90,9 @@ class ValueFactoryFishbaseCache implements ValueFactory {
 
                 private void selectGroupValueUsingOrderedTaxonList(Map<String, String> valuesForSpecCodes, Group group, String name) {
                     final List<String> specCodes = group.getTaxa()
-                        .stream()
-                        .map(taxon -> StringUtils.replace(taxon.getUrl(), "http://fishbase.org/summary/", ""))
-                        .collect(Collectors.toList());
+                            .stream()
+                            .map(taxon -> StringUtils.replace(taxon.getUrl(), "http://fishbase.org/summary/", ""))
+                            .collect(Collectors.toList());
 
                     if (!groupValueMap.containsKey(group.getName())) {
                         groupValueMap.put(group.getName(), new HashMap<>());
@@ -93,7 +101,7 @@ class ValueFactoryFishbaseCache implements ValueFactory {
 
                     Iterator<String> iter = specCodes.iterator();
                     while (iter.hasNext()
-                        && !valuesForGroup.containsKey(name)) {
+                            && !valuesForGroup.containsKey(name)) {
                         String v = valuesForSpecCodes.get(iter.next());
                         if (StringUtils.isNotBlank(v)) {
                             valuesForGroup.put(name, v);
@@ -145,6 +153,10 @@ class ValueFactoryFishbaseCache implements ValueFactory {
         }
     }
 
+    private String getCacheURIPrefix() {
+        return "https://github.com/jhpoelen/fishbase_archiver/releases/download/" + getCacheVersion();
+    }
+
     public String getCacheVersion() {
         return cacheVersion;
     }
@@ -155,14 +167,14 @@ class ValueFactoryFishbaseCache implements ValueFactory {
             init(name);
         }
         return groupValueMap != null && groupValueMap.containsKey(group.getName())
-            ? groupValueMap.get(group.getName()).get(name)
-            : null;
+                ? groupValueMap.get(group.getName()).get(name)
+                : null;
     }
 
-    private static List<String> availableTables(String cacheVersion) {
+    private static List<String> availableTables(String prefix) {
         String s = "";
         try {
-            s = IOUtils.toString(new URI("https://github.com/jhpoelen/fishbase_archiver/releases/download/" + cacheVersion + "/table_names.tsv"));
+            s = IOUtils.toString(new URI(prefix + "/table_names.tsv"));
         } catch (IOException | URISyntaxException e) {
             LOG.log(Level.SEVERE, "failed to retieve tables", e);
         }
