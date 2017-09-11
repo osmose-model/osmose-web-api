@@ -26,8 +26,8 @@ public class ConfigServiceUtil {
 
     static public Set<String> getResources() {
         Reflections reflections = new Reflections(new ConfigurationBuilder()
-            .setUrls(ClasspathHelper.forPackage("com.github.jhpoelen.fbob." + ConfigService.OSMOSE_CONFIG))
-            .setScanners(new ResourcesScanner()));
+                .setUrls(ClasspathHelper.forPackage("com.github.jhpoelen.fbob." + ConfigService.OSMOSE_CONFIG))
+                .setScanners(new ResourcesScanner()));
         return reflections.getResources(Pattern.compile(".*\\.csv"));
     }
 
@@ -48,9 +48,9 @@ public class ConfigServiceUtil {
 
     public static Response responseFor(StreamingOutput os) {
         return Response
-            .ok(os)
-            .header("Content-Disposition", "attachment; filename=osmose_config.zip")
-            .build();
+                .ok(os)
+                .header("Content-Disposition", "attachment; filename=osmose_config.zip")
+                .build();
     }
 
     public static StreamingOutput asStream(List<Group> groups, final ValueFactory valueFactory) {
@@ -80,8 +80,8 @@ public class ConfigServiceUtil {
 
     public static Stream<Group> asGroups(List<String> groupNames, GroupType type) {
         return groupNames
-            .stream()
-            .map(groupName -> new Group(groupName, type, Collections.singletonList(new Taxon(groupName))));
+                .stream()
+                .map(groupName -> new Group(groupName, type, Collections.singletonList(new Taxon(groupName))));
     }
 
     private static void close(ZipOutputStream zos) throws IOException {
@@ -94,24 +94,31 @@ public class ConfigServiceUtil {
         StreamingOutput stream = os -> toZipOutputStream(getResources(), os);
 
         return Response
-            .ok(stream)
-            .header("Content-Disposition", "attachment; filename=osmose_config.zip")
-            .build();
+                .ok(stream)
+                .header("Content-Disposition", "attachment; filename=osmose_config.zip")
+                .build();
     }
 
     public static ValueFactory getValueFactory(List<Group> groups) {
+        ValueFactoryFishbaseCache valueFactoryFishbaseCachePatch = new ValueFactoryFishbaseCache();
+        valueFactoryFishbaseCachePatch.setCacheVersion("v0.2.1-patch");
+        valueFactoryFishbaseCachePatch.setGroups(groups);
         ValueFactoryFishbaseCache valueFactoryFishbaseCache = new ValueFactoryFishbaseCache();
         valueFactoryFishbaseCache.setGroups(groups);
         ValueFactory valueOrDefault = ConfigUtil.getProxyValueFactory(
-                Arrays.asList(valueFactoryFishbaseCache,
+                Arrays.asList(
+                        valueFactoryFishbaseCachePatch,
+                        valueFactoryFishbaseCache,
                         new ValueFactoryMappingDefaultsForGroup("fishbase-mapping-phytoplankton.csv", new Group("phytoplankton", GroupType.BACKGROUND)),
                         new ValueFactoryMappingDefaultsForGroup("fishbase-mapping-zooplankton.csv", new Group("zooplankton", GroupType.BACKGROUND)),
                         new ValueFactoryMappingDefault(),
-                        new ValueFactoryDefault()));
+                        new ValueFactoryDefault()
+                )
+        );
 
         final List<ValueFactory> valueFactories = Arrays.asList(
-            new ValueFactoryCalculated(valueOrDefault),
-            valueOrDefault);
+                new ValueFactoryCalculated(valueOrDefault),
+                valueOrDefault);
         return new ValueFactoryNA(ConfigUtil.getProxyValueFactory(valueFactories));
     }
 }

@@ -29,17 +29,17 @@ import java.util.zip.GZIPInputStream;
 class ValueFactoryFishbaseCache implements ValueFactory {
     private static final Logger LOG = Logger.getLogger(ValueFactoryFishbaseCache.class.getName());
     public static final String COLUMN_NAME_SPEC_CODE = "SpecCode";
-    private static final String FISHBASE_CACHE_VERSION = "v0.2.1";
-
+    private String version = getCacheVersion();
     private Map<URI, URI> remoteLocalURI = new HashMap<>();
     private Map<String, Map<String, String>> groupValueMap = null;
 
     private List<String> tables = Collections.emptyList();
     private List<String> names = new ArrayList<>();
     private List<Group> groups = Collections.emptyList();
+    private String cacheVersion = "v0.2.1";
 
     private void init(String name) {
-        this.tables = availableTables();
+        this.tables = availableTables(getCacheVersion());
         if (groupValueMap == null) {
             groupValueMap = new HashMap<>();
         }
@@ -56,7 +56,7 @@ class ValueFactoryFishbaseCache implements ValueFactory {
                 @Override
                 public void forMapping(String tableName, String columnName, String mappedName, String defaultValue) throws IOException {
                     if (tables.contains(tableName) && StringUtils.equals(name, mappedName)) {
-                        URI uri = URI.create("https://github.com/jhpoelen/fishbase_archiver/releases/download/" + FISHBASE_CACHE_VERSION + "/" + tableName + "_fishbase.tsv.gz");
+                        URI uri = URI.create("https://github.com/jhpoelen/fishbase_archiver/releases/download/" + getCacheVersion() + "/" + tableName + "_fishbase.tsv.gz");
                         if (!remoteLocalURI.containsKey(uri)) {
                             cache(uri);
                         }
@@ -134,8 +134,14 @@ class ValueFactoryFishbaseCache implements ValueFactory {
         } catch (IOException e) {
             LOG.log(Level.SEVERE, "failed to extract values for [" + StringUtils.join(names, ";") + "] for groups [" + StringUtils.join(groups.stream().map(group -> group.getName()).collect(Collectors.toList()), ";") + "]", e);
         }
+    }
 
+    public String getCacheVersion() {
+        return cacheVersion;
+    }
 
+    public void setCacheVersion(String version) {
+        this.cacheVersion = version;
     }
 
     @Override
@@ -148,10 +154,10 @@ class ValueFactoryFishbaseCache implements ValueFactory {
             : null;
     }
 
-    private static List<String> availableTables() {
+    private static List<String> availableTables(String cacheVersion) {
         String s = "";
         try {
-            s = IOUtils.toString(new URI("https://raw.githubusercontent.com/jhpoelen/fishbase_archiver/" + FISHBASE_CACHE_VERSION + "/table_names.tsv"));
+            s = IOUtils.toString(new URI("https://raw.githubusercontent.com/jhpoelen/fishbase_archiver/" + cacheVersion + "/table_names.tsv"));
         } catch (IOException | URISyntaxException e) {
             LOG.log(Level.SEVERE, "failed to retieve tables", e);
         }
