@@ -12,15 +12,17 @@ import static org.junit.Assert.assertThat;
 public class ValueFactoryFishbaseEstimatePatchTest {
 
     @Test
-    public void predPreyRatio() {
-        Group group = new Group("someGroupName");
-        Taxon kingMackerel = new Taxon("ScomberomorusCavalla");
-        kingMackerel.setUrl("http://fishbase.org/summary/120");
-        group.setTaxa(Collections.singletonList(kingMackerel));
+    public void unavailableTable() {
+        Group group = createTestGroup();
+        ValueFactoryFishbaseCache factory = factoryPatch(group);
+        assertThat(factory.groupValueFor("plankton.size.max.plk", group), Is.is(nullValue()));
+    }
 
-        ValueFactoryFishbaseCache factory = new ValueFactoryFishbaseCache();
-        factory.setCacheVersion("v0.2.1-patch");
-        factory.setGroups(Collections.singletonList(group));
+    @Test
+    public void predPreyRatio() {
+        Group group = createTestGroup();
+
+        ValueFactoryFishbaseCache factory = factoryPatch(group);
 
         assertThat(factory.groupValueFor("predation.predPrey.sizeRatio.max.sp", group), Is.is(not(nullValue())));
         assertThat(factory.groupValueFor("predation.predPrey.sizeRatio.min.sp", group), Is.is(not(nullValue())));
@@ -30,5 +32,20 @@ public class ValueFactoryFishbaseEstimatePatchTest {
 
         assertThat(factoryUnpatched.groupValueFor("predation.predPrey.sizeRatio.max.sp", group), Is.is(nullValue()));
         assertThat(factoryUnpatched.groupValueFor("predation.predPrey.sizeRatio.min.sp", group), Is.is(nullValue()));
+    }
+
+    private ValueFactoryFishbaseCache factoryPatch(Group group) {
+        ValueFactoryFishbaseCache factory = new ValueFactoryFishbaseCache();
+        factory.setCacheVersion("v0.2.1-patch");
+        factory.setGroups(Collections.singletonList(group));
+        return factory;
+    }
+
+    private Group createTestGroup() {
+        Group group = new Group("someGroupName");
+        Taxon kingMackerel = new Taxon("ScomberomorusCavalla");
+        kingMackerel.setUrl("http://fishbase.org/summary/120");
+        group.setTaxa(Collections.singletonList(kingMackerel));
+        return group;
     }
 }

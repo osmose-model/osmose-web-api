@@ -29,7 +29,6 @@ import java.util.zip.GZIPInputStream;
 class ValueFactoryFishbaseCache implements ValueFactory {
     private static final Logger LOG = Logger.getLogger(ValueFactoryFishbaseCache.class.getName());
     public static final String COLUMN_NAME_SPEC_CODE = "SpecCode";
-    private String version = getCacheVersion();
     private Map<URI, URI> remoteLocalURI = new HashMap<>();
     private Map<String, Map<String, String>> groupValueMap = null;
 
@@ -157,7 +156,7 @@ class ValueFactoryFishbaseCache implements ValueFactory {
     private static List<String> availableTables(String cacheVersion) {
         String s = "";
         try {
-            s = IOUtils.toString(new URI("https://raw.githubusercontent.com/jhpoelen/fishbase_archiver/" + cacheVersion + "/table_names.tsv"));
+            s = IOUtils.toString(new URI("https://github.com/jhpoelen/fishbase_archiver/releases/download/" + cacheVersion + "/table_names.tsv"));
         } catch (IOException | URISyntaxException e) {
             LOG.log(Level.SEVERE, "failed to retieve tables", e);
         }
