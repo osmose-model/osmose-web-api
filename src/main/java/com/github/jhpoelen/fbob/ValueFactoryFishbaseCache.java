@@ -29,6 +29,7 @@ import java.util.zip.GZIPInputStream;
 class ValueFactoryFishbaseCache implements ValueFactory {
     private static final Logger LOG = Logger.getLogger(ValueFactoryFishbaseCache.class.getName());
     public static final String COLUMN_NAME_SPEC_CODE = "SpecCode";
+    private static final String FISHBASE_CACHE_VERSION = "v0.2.1";
 
     private Map<URI, URI> remoteLocalURI = new HashMap<>();
     private Map<String, Map<String, String>> groupValueMap = null;
@@ -55,7 +56,7 @@ class ValueFactoryFishbaseCache implements ValueFactory {
                 @Override
                 public void forMapping(String tableName, String columnName, String mappedName, String defaultValue) throws IOException {
                     if (tables.contains(tableName) && StringUtils.equals(name, mappedName)) {
-                        URI uri = URI.create("https://github.com/jhpoelen/fishbase_archiver/releases/download/v0.2.1/" + tableName + "_fishbase.tsv.gz");
+                        URI uri = URI.create("https://github.com/jhpoelen/fishbase_archiver/releases/download/" + FISHBASE_CACHE_VERSION + "/" + tableName + "_fishbase.tsv.gz");
                         if (!remoteLocalURI.containsKey(uri)) {
                             cache(uri);
                         }
@@ -150,7 +151,7 @@ class ValueFactoryFishbaseCache implements ValueFactory {
     private static List<String> availableTables() {
         String s = "";
         try {
-            s = IOUtils.toString(new URI("https://raw.githubusercontent.com/jhpoelen/fishbase_archiver/v0.2.0/table_names.tsv"));
+            s = IOUtils.toString(new URI("https://raw.githubusercontent.com/jhpoelen/fishbase_archiver/" + FISHBASE_CACHE_VERSION + "/table_names.tsv"));
         } catch (IOException | URISyntaxException e) {
             LOG.log(Level.SEVERE, "failed to retieve tables", e);
         }
