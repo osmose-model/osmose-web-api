@@ -273,8 +273,8 @@ public class ConfigUtil {
         writeParamLines(groupNames, "predation.accessibility.stage.threshold.sp", valueFactory, os);
         writeParamLines(groupNames, "predation.efficiency.critical.sp", valueFactory, os);
         writeParamLines(groupNames, "predation.ingestion.rate.max.sp", valueFactory, os);
-        writeParamLines(groupNames, "predation.predPrey.sizeRatio.max.sp", Arrays.asList("0.0", "0.0"), os);
-        writeParamLines(groupNames, "predation.predPrey.sizeRatio.min.sp", Arrays.asList("0.0", "0.0"), os);
+        writeParamLines(groupNames, "predation.predPrey.sizeRatio.max.sp", valueFactory, os);
+        writeParamLines(groupNames, "predation.predPrey.sizeRatio.min.sp", valueFactory, os);
         writeLine(os, Arrays.asList("predation.predPrey.stage.structure", "size"));
         writeParamLines(groupNames, "predation.predPrey.stage.threshold.sp", valueFactory, os);
     }

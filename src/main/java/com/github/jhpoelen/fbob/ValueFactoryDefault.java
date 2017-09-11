@@ -22,6 +22,8 @@ public class ValueFactoryDefault implements ValueFactory {
         put("predation.accessibility.stage.threshold.sp", null);
         put("predation.efficiency.critical.sp", "0.57");
         put("predation.ingestion.rate.max.sp", "3.5");
+        put("predation.predPrey.sizeRatio.max.sp", "3.5");
+        put("predation.predPrey.sizeRatio.min.sp", "30.0");
         put("predation.predPrey.stage.threshold.sp", null);
 
         put("movement.distribution.method.sp", "maps");
