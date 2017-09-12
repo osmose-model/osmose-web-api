@@ -68,6 +68,7 @@ public class ConfigServiceUtil {
         return os -> {
             ZipOutputStream zos = new ZipOutputStream(os);
             ConfigUtil.generateConfigFor(config, name -> {
+                zos.flush();
                 ZipEntry e = new ZipEntry(name);
                 LOG.info("adding [" + name + "]");
                 zos.putNextEntry(e);
