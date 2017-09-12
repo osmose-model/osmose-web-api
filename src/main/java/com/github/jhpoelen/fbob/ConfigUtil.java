@@ -256,6 +256,14 @@ public class ConfigUtil {
         }
     }
 
+    public static void writeParamLinesDup(List<Group> groups, String paramPrefix, ValueFactory valueFactory, OutputStream os) throws IOException {
+        for (Group group : groups) {
+            final String paramName = paramPrefix + groups.indexOf(group);
+            String value = valueFactory.groupValueFor(paramPrefix, group);
+            writeLine(os, Arrays.asList(paramName, value, value));
+        }
+    }
+
     public static void writeParamLines(List<Group> groupNames, String paramPrefix, List<String> paramValues, OutputStream os) throws IOException {
         for (Group group : groupNames) {
             List<String> values = new ArrayList<String>() {{
@@ -273,8 +281,8 @@ public class ConfigUtil {
         writeParamLines(groupNames, "predation.accessibility.stage.threshold.sp", valueFactory, os);
         writeParamLines(groupNames, "predation.efficiency.critical.sp", valueFactory, os);
         writeParamLines(groupNames, "predation.ingestion.rate.max.sp", valueFactory, os);
-        writeParamLines(groupNames, "predation.predPrey.sizeRatio.max.sp", valueFactory, os);
-        writeParamLines(groupNames, "predation.predPrey.sizeRatio.min.sp", valueFactory, os);
+        writeParamLinesDup(groupNames, "predation.predPrey.sizeRatio.max.sp", valueFactory, os);
+        writeParamLinesDup(groupNames, "predation.predPrey.sizeRatio.min.sp", valueFactory, os);
         writeLine(os, Arrays.asList("predation.predPrey.stage.structure", "size"));
         writeParamLines(groupNames, "predation.predPrey.stage.threshold.sp", valueFactory, os);
     }

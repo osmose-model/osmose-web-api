@@ -1,7 +1,6 @@
 package com.github.jhpoelen.fbob;
 
 import org.apache.commons.lang3.StringEscapeUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -232,10 +231,10 @@ public class ConfigServiceUtilTest {
             "\npredation.efficiency.critical.sp1;0.57" +
             "\npredation.ingestion.rate.max.sp0;3.5" +
             "\npredation.ingestion.rate.max.sp1;3.5" +
-            "\npredation.predPrey.sizeRatio.max.sp0;3.5" +
-            "\npredation.predPrey.sizeRatio.max.sp1;3.5" +
-            "\npredation.predPrey.sizeRatio.min.sp0;30.0" +
-            "\npredation.predPrey.sizeRatio.min.sp1;30.0" +
+            "\npredation.predPrey.sizeRatio.max.sp0;3.5;3.5" +
+            "\npredation.predPrey.sizeRatio.max.sp1;3.5;3.5" +
+            "\npredation.predPrey.sizeRatio.min.sp0;30.0;30.0" +
+            "\npredation.predPrey.sizeRatio.min.sp1;30.0;30.0" +
             "\npredation.predPrey.stage.structure;size" +
             "\npredation.predPrey.stage.threshold.sp0;0.0" +
             "\npredation.predPrey.stage.threshold.sp1;0.0";
