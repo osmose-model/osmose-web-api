@@ -1,6 +1,7 @@
 package com.github.jhpoelen.fbob;
 
 import org.apache.commons.lang3.StringEscapeUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -43,30 +44,30 @@ public class ConfigServiceUtilTest {
         ConfigUtil.generateSpecies(groups, factory, new ValueFactoryNA(getTestValueFactory()));
 
         String asExpected = "species.name.sp0;groupOne" +
-            "\nspecies.name.sp1;groupTwo" +
-            "\nspecies.egg.size.sp0;0.1" +
-            "\nspecies.egg.size.sp1;0.1" +
-            "\nspecies.egg.weight.sp0;NA" +
-            "\nspecies.egg.weight.sp1;NA" +
-            "\nspecies.K.sp0;NA\nspecies.K.sp1;NA" +
-            "\nspecies.length2weight.allometric.power.sp0;NA" +
-            "\nspecies.length2weight.allometric.power.sp1;NA" +
-            "\nspecies.length2weight.condition.factor.sp0;NA" +
-            "\nspecies.length2weight.condition.factor.sp1;NA" +
-            "\nspecies.lifespan.sp0;NA\nspecies.lifespan.sp1;NA" +
-            "\nspecies.lInf.sp0;NA\nspecies.lInf.sp1;NA" +
-            "\nspecies.maturity.size.sp0;NA" +
-            "\nspecies.maturity.size.sp1;NA" +
-            "\nspecies.maturity.age.sp0;NA" +
-            "\nspecies.maturity.age.sp1;NA" +
-            "\nspecies.relativefecundity.sp0;NA" +
-            "\nspecies.relativefecundity.sp1;NA" +
-            "\nspecies.sexratio.sp0;0.00" +
-            "\nspecies.sexratio.sp1;0.00" +
-            "\nspecies.t0.sp0;NA" +
-            "\nspecies.t0.sp1;NA" +
-            "\nspecies.vonbertalanffy.threshold.age.sp0;0.0" +
-            "\nspecies.vonbertalanffy.threshold.age.sp1;0.0";
+                "\nspecies.name.sp1;groupTwo" +
+                "\nspecies.egg.size.sp0;0.1" +
+                "\nspecies.egg.size.sp1;0.1" +
+                "\nspecies.egg.weight.sp0;NA" +
+                "\nspecies.egg.weight.sp1;NA" +
+                "\nspecies.K.sp0;NA\nspecies.K.sp1;NA" +
+                "\nspecies.length2weight.allometric.power.sp0;NA" +
+                "\nspecies.length2weight.allometric.power.sp1;NA" +
+                "\nspecies.length2weight.condition.factor.sp0;NA" +
+                "\nspecies.length2weight.condition.factor.sp1;NA" +
+                "\nspecies.lifespan.sp0;NA\nspecies.lifespan.sp1;NA" +
+                "\nspecies.lInf.sp0;NA\nspecies.lInf.sp1;NA" +
+                "\nspecies.maturity.size.sp0;NA" +
+                "\nspecies.maturity.size.sp1;NA" +
+                "\nspecies.maturity.age.sp0;NA" +
+                "\nspecies.maturity.age.sp1;NA" +
+                "\nspecies.relativefecundity.sp0;NA" +
+                "\nspecies.relativefecundity.sp1;NA" +
+                "\nspecies.sexratio.sp0;0.00" +
+                "\nspecies.sexratio.sp1;0.00" +
+                "\nspecies.t0.sp0;NA" +
+                "\nspecies.t0.sp1;NA" +
+                "\nspecies.vonbertalanffy.threshold.age.sp0;0.0" +
+                "\nspecies.vonbertalanffy.threshold.age.sp1;0.0";
         assertThat(getTestFactory().stringOutputFor("osm_param-species.csv"), is(asExpected));
     }
 
@@ -118,17 +119,17 @@ public class ConfigServiceUtilTest {
         ConfigUtil.generateLtlForGroups(groups, factory, new ValueFactoryNA(getTestValueFactory()));
 
         String asExpected = "plankton.name.plk0;groupOne\n" +
-            "plankton.name.plk1;groupTwo\n" +
-            "plankton.accessibility2fish.plk0;0.0\n" +
-            "plankton.accessibility2fish.plk1;0.0\n" +
-            "plankton.conversion2tons.plk0;1\n" +
-            "plankton.conversion2tons.plk1;1\n" +
-            "plankton.size.max.plk0;NA\n" +
-            "plankton.size.max.plk1;NA\n" +
-            "plankton.size.min.plk0;NA\n" +
-            "plankton.size.min.plk1;NA\n" +
-            "plankton.TL.plk0;NA\n" +
-            "plankton.TL.plk1;NA";
+                "plankton.name.plk1;groupTwo\n" +
+                "plankton.accessibility2fish.plk0;0.0\n" +
+                "plankton.accessibility2fish.plk1;0.0\n" +
+                "plankton.conversion2tons.plk0;1\n" +
+                "plankton.conversion2tons.plk1;1\n" +
+                "plankton.size.max.plk0;NA\n" +
+                "plankton.size.max.plk1;NA\n" +
+                "plankton.size.min.plk0;NA\n" +
+                "plankton.size.min.plk1;NA\n" +
+                "plankton.TL.plk0;NA\n" +
+                "plankton.TL.plk1;NA";
         assertThat(getTestFactory().stringOutputFor("osm_param-ltl.csv"), is(asExpected));
     }
 
@@ -156,22 +157,22 @@ public class ConfigServiceUtilTest {
         ConfigUtil.generateFishingParametersFor(groupNames, factory, 4);
 
         String expectedFishingParams = "\nmortality.fishing.rate.sp0;0.0\n" +
-            "mortality.fishing.rate.sp1;0.0\n" +
-            "mortality.fishing.recruitment.age.sp0;0.0\n" +
-            "mortality.fishing.recruitment.age.sp1;0.0\n" +
-            "mortality.fishing.recruitment.size.sp0;0.0\n" +
-            "mortality.fishing.recruitment.size.sp1;0.0\n" +
-            "mortality.fishing.season.distrib.file.sp0;fishing/fishing-seasonality-groupOne.csv\n" +
-            "mortality.fishing.season.distrib.file.sp1;fishing/fishing-seasonality-groupTwo.csv";
+                "mortality.fishing.rate.sp1;0.0\n" +
+                "mortality.fishing.recruitment.age.sp0;0.0\n" +
+                "mortality.fishing.recruitment.age.sp1;0.0\n" +
+                "mortality.fishing.recruitment.size.sp0;0.0\n" +
+                "mortality.fishing.recruitment.size.sp1;0.0\n" +
+                "mortality.fishing.season.distrib.file.sp0;fishing/fishing-seasonality-groupOne.csv\n" +
+                "mortality.fishing.season.distrib.file.sp1;fishing/fishing-seasonality-groupTwo.csv";
 
         String actual = (getTestFactory()).stringOutputFor("osm_param-fishing.csv");
         assertEquals(expectedFishingParams, actual);
         assertThat(actual, containsString("fishing/fishing-seasonality-groupOne.csv"));
         String expectedFishingSeasonality = "Time;Season\n" +
-            "0.000;\n" +
-            "0.250;\n" +
-            "0.500;\n" +
-            "0.750;";
+                "0.000;\n" +
+                "0.250;\n" +
+                "0.500;\n" +
+                "0.750;";
 
         assertEquals(expectedFishingSeasonality, (getTestFactory()).stringOutputFor("fishing/fishing-seasonality-groupOne.csv"));
         assertEquals(expectedFishingSeasonality, (getTestFactory()).stringOutputFor("fishing/fishing-seasonality-groupTwo.csv"));
@@ -201,11 +202,11 @@ public class ConfigServiceUtilTest {
         ConfigUtil.generateNaturalMortalityFor(groupNames, factory, getTestValueFactory());
 
         String expected = "mortality.natural.larva.rate.file;null" +
-            "\nmortality.natural.larva.rate.sp0;0.0" +
-            "\nmortality.natural.larva.rate.sp1;0.0" +
-            "\nmortality.natural.rate.file;null" +
-            "\nmortality.natural.rate.sp0;0.0" +
-            "\nmortality.natural.rate.sp1;0.0";
+                "\nmortality.natural.larva.rate.sp0;0.0" +
+                "\nmortality.natural.larva.rate.sp1;0.0" +
+                "\nmortality.natural.rate.file;null" +
+                "\nmortality.natural.rate.sp0;0.0" +
+                "\nmortality.natural.rate.sp1;0.0";
         assertThat(getTestFactory().stringOutputFor("osm_param-natural-mortality.csv"), is(expected));
     }
 
@@ -224,20 +225,20 @@ public class ConfigServiceUtilTest {
 
         ConfigUtil.generatePredationFor(groupNames, factory, getTestValueFactory());
         String expectedPredationParams = "predation.accessibility.file;predation-accessibility.csv" +
-            "\npredation.accessibility.stage.structure;age" +
-            "\npredation.accessibility.stage.threshold.sp0;0.0" +
-            "\npredation.accessibility.stage.threshold.sp1;0.0" +
-            "\npredation.efficiency.critical.sp0;0.57" +
-            "\npredation.efficiency.critical.sp1;0.57" +
-            "\npredation.ingestion.rate.max.sp0;3.5" +
-            "\npredation.ingestion.rate.max.sp1;3.5" +
-            "\npredation.predPrey.sizeRatio.max.sp0;3.5;3.5" +
-            "\npredation.predPrey.sizeRatio.max.sp1;3.5;3.5" +
-            "\npredation.predPrey.sizeRatio.min.sp0;30.0;30.0" +
-            "\npredation.predPrey.sizeRatio.min.sp1;30.0;30.0" +
-            "\npredation.predPrey.stage.structure;size" +
-            "\npredation.predPrey.stage.threshold.sp0;0.0" +
-            "\npredation.predPrey.stage.threshold.sp1;0.0";
+                "\npredation.accessibility.stage.structure;age" +
+                "\npredation.accessibility.stage.threshold.sp0;0.0" +
+                "\npredation.accessibility.stage.threshold.sp1;0.0" +
+                "\npredation.efficiency.critical.sp0;0.57" +
+                "\npredation.efficiency.critical.sp1;0.57" +
+                "\npredation.ingestion.rate.max.sp0;3.5" +
+                "\npredation.ingestion.rate.max.sp1;3.5" +
+                "\npredation.predPrey.sizeRatio.max.sp0;3.5;3.5" +
+                "\npredation.predPrey.sizeRatio.max.sp1;3.5;3.5" +
+                "\npredation.predPrey.sizeRatio.min.sp0;30.0;30.0" +
+                "\npredation.predPrey.sizeRatio.min.sp1;30.0;30.0" +
+                "\npredation.predPrey.stage.structure;size" +
+                "\npredation.predPrey.stage.threshold.sp0;0.0" +
+                "\npredation.predPrey.stage.threshold.sp1;0.0";
         assertThat(getTestFactory().stringOutputFor("osm_param-predation.csv"), is(expectedPredationParams));
     }
 
@@ -256,15 +257,25 @@ public class ConfigServiceUtilTest {
         final Set<String> names = new HashSet<String>();
         ValueFactory valueFactory = (name, group) -> {
             names.add(name);
-            return "";
+            String value = "";
+            if (StringUtils.equalsIgnoreCase("predation.accessibility.stage.threshold.sp", name)) {
+                if (StringUtils.equalsIgnoreCase("groupA", group.getName())) {
+                    value = "1.1";
+                } else {
+                    value = "2.1";
+                }
+            }
+            return value;
         };
 
         ConfigUtil.generatePredationAccessibilityFor(toGroups(groupsFocal), toGroups(groupsBackground), factory, valueFactory);
-        String expectedPredationAccessibility = "v Prey / Predator >;groupB;groupA\n" +
-            "groupB;0.80;0.08\n" +
-            "groupA;0.08;0.80\n" +
-            "groupC;0.08;0.08\n" +
-            "groupD;0.08;0.08";
+        String expectedPredationAccessibility = "v Prey / Predator >;groupB < 2.1 year;groupB > 2.1 year;groupA < 1.1 year;groupA > 1.1 year\n" +
+                "groupB < 2.1 year;0.80;0.80;0.08;0.08\n" +
+                "groupB > 2.1 year;0.80;0.80;0.08;0.08\n" +
+                "groupA < 1.1 year;0.08;0.08;0.80;0.80\n" +
+                "groupA > 1.1 year;0.08;0.08;0.80;0.80\n" +
+                "groupC;0.08;0.08;0.08;0.08\n" +
+                "groupD;0.08;0.08;0.08;0.08";
 
         assertEquals(expectedPredationAccessibility, (getTestFactory()).stringOutputFor("predation-accessibility.csv"));
 
@@ -284,7 +295,7 @@ public class ConfigServiceUtilTest {
         ConfigUtil.generateStarvationFor(toGroups(groupNames), factory);
 
         String expectedStarvation = "mortality.starvation.rate.max.sp0;0.3\n" +
-            "mortality.starvation.rate.max.sp1;0.3";
+                "mortality.starvation.rate.max.sp1;0.3";
         assertThat(getTestFactory().stringOutputFor("osm_param-starvation.csv"), is(expectedStarvation));
     }
 
@@ -307,17 +318,17 @@ public class ConfigServiceUtilTest {
         assertThat((getTestFactory()).stringOutputFor("osm_param-reproduction.csv"), is("reproduction.season.file.sp0;reproduction-seasonality-sp0.csv\nreproduction.season.file.sp1;reproduction-seasonality-sp1.csv"));
         String prefix = "Time (year);";
         String suffix = "\n0.000;0.083\n" +
-            "0.083;0.083\n" +
-            "0.167;0.083\n" +
-            "0.250;0.083\n" +
-            "0.333;0.083\n" +
-            "0.417;0.083\n" +
-            "0.500;0.083\n" +
-            "0.583;0.083\n" +
-            "0.667;0.083\n" +
-            "0.750;0.083\n" +
-            "0.833;0.083\n" +
-            "0.917;0.083";
+                "0.083;0.083\n" +
+                "0.167;0.083\n" +
+                "0.250;0.083\n" +
+                "0.333;0.083\n" +
+                "0.417;0.083\n" +
+                "0.500;0.083\n" +
+                "0.583;0.083\n" +
+                "0.667;0.083\n" +
+                "0.750;0.083\n" +
+                "0.833;0.083\n" +
+                "0.917;0.083";
         assertEquals(prefix + "groupNameOne" + suffix, getTestFactory().stringOutputFor("reproduction-seasonality-sp0.csv"));
         assertEquals((prefix + "groupNameTwo" + suffix), getTestFactory().stringOutputFor("reproduction-seasonality-sp1.csv"));
     }
@@ -336,17 +347,17 @@ public class ConfigServiceUtilTest {
         assertThat((getTestFactory()).stringOutputFor("osm_param-reproduction.csv"), is("reproduction.season.file.sp0;reproduction-seasonality-sp0.csv\nreproduction.season.file.sp1;reproduction-seasonality-sp1.csv"));
         String prefix = "Time (year);";
         String suffix = "\n0.000;0.000\n" +
-            "0.083;0.000\n" +
-            "0.167;0.000\n" +
-            "0.250;0.000\n" +
-            "0.333;0.000\n" +
-            "0.417;0.000\n" +
-            "0.500;0.000\n" +
-            "0.583;1.000\n" +
-            "0.667;0.000\n" +
-            "0.750;0.000\n" +
-            "0.833;0.000\n" +
-            "0.917;0.000";
+                "0.083;0.000\n" +
+                "0.167;0.000\n" +
+                "0.250;0.000\n" +
+                "0.333;0.000\n" +
+                "0.417;0.000\n" +
+                "0.500;0.000\n" +
+                "0.583;1.000\n" +
+                "0.667;0.000\n" +
+                "0.750;0.000\n" +
+                "0.833;0.000\n" +
+                "0.917;0.000";
         assertEquals(prefix + "groupNameOne" + suffix, getTestFactory().stringOutputFor("reproduction-seasonality-sp0.csv"));
         assertEquals(prefix + "groupNameTwo" + suffix, getTestFactory().stringOutputFor("reproduction-seasonality-sp1.csv"));
     }
@@ -419,29 +430,29 @@ public class ConfigServiceUtilTest {
         ConfigUtil.generateAllParametersFor(11, toGroups(groupNames), toGroups(groupNamesBackground), getTestFactory());
 
         assertThat(getTestFactory().stringOutputFor("osm_all-parameters.csv"), is(
-            "\nsimulation.time.ndtPerYear;11\n" +
-                "simulation.time.nyear;134\n" +
-                "simulation.restart.file;null\n" +
-                "output.restart.recordfrequency.ndt;60\n" +
-                "output.restart.spinup;114\n" +
-                "simulation.nschool;20\n" +
-                "simulation.ncpu;8\n" +
-                "simulation.nplankton;3\n" +
-                "simulation.nsimulation;10\n" +
-                "simulation.nspecies;3\n" +
-                "mortality.algorithm;stochastic\n" +
-                "mortality.subdt;10\n" +
-                "osmose.configuration.output;osm_param-output.csv\n" +
-                "osmose.configuration.movement;osm_param-movement.csv\n" +
-                "osmose.configuration.mortality.fishing;osm_param-fishing.csv\n" +
-                "osmose.configuration.mortality.natural;osm_param-natural-mortality.csv\n" +
-                "osmose.configuration.mortality.predation;osm_param-predation.csv\n" +
-                "osmose.configuration.mortality.starvation;osm_param-starvation.csv\n" +
-                "osmose.configuration.reproduction;osm_param-reproduction.csv\n" +
-                "osmose.configuration.species;osm_param-species.csv\n" +
-                "osmose.configuration.plankton;osm_param-ltl.csv\n" +
-                "osmose.configuration.grid;osm_param-grid.csv\n" +
-                "osmose.configuration.initialization;osm_param-init-pop.csv"));
+                "\nsimulation.time.ndtPerYear;11\n" +
+                        "simulation.time.nyear;134\n" +
+                        "simulation.restart.file;null\n" +
+                        "output.restart.recordfrequency.ndt;60\n" +
+                        "output.restart.spinup;114\n" +
+                        "simulation.nschool;20\n" +
+                        "simulation.ncpu;8\n" +
+                        "simulation.nplankton;3\n" +
+                        "simulation.nsimulation;10\n" +
+                        "simulation.nspecies;3\n" +
+                        "mortality.algorithm;stochastic\n" +
+                        "mortality.subdt;10\n" +
+                        "osmose.configuration.output;osm_param-output.csv\n" +
+                        "osmose.configuration.movement;osm_param-movement.csv\n" +
+                        "osmose.configuration.mortality.fishing;osm_param-fishing.csv\n" +
+                        "osmose.configuration.mortality.natural;osm_param-natural-mortality.csv\n" +
+                        "osmose.configuration.mortality.predation;osm_param-predation.csv\n" +
+                        "osmose.configuration.mortality.starvation;osm_param-starvation.csv\n" +
+                        "osmose.configuration.reproduction;osm_param-reproduction.csv\n" +
+                        "osmose.configuration.species;osm_param-species.csv\n" +
+                        "osmose.configuration.plankton;osm_param-ltl.csv\n" +
+                        "osmose.configuration.grid;osm_param-grid.csv\n" +
+                        "osmose.configuration.initialization;osm_param-init-pop.csv"));
     }
 
     private class StreamFactoryMemory implements StreamFactory {
@@ -457,7 +468,7 @@ public class ConfigServiceUtilTest {
         }
 
         public String stringOutputFor(String name) throws UnsupportedEncodingException {
-            return streamMap.containsKey(name) ? streamMap.get(name). toString("UTF-8") : null;
+            return streamMap.containsKey(name) ? streamMap.get(name).toString("UTF-8") : null;
         }
     }
 }

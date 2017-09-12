@@ -17,68 +17,69 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class ConfigUtil {
     private static final Logger LOG = Logger.getLogger(ConfigUtil.class.getName());
 
 
     public static final String OUTPUT_DEFAULTS = "output.start.year;0;;\n" +
-        "output.file.prefix;osm;;\n" +
-        "output.dir.path;output;;\n" +
-        "output.recordfrequency.ndt;12;;\n" +
-        ";;;\n" +
-        "# CSV separator (COMA, SEMICOLON, EQUALS, COLON, TAB);;;\n" +
-        "output.csv.separator;COMA;;\n" +
-        ";;;\n" +
-        "# Save restart file;;;\n" +
-        "output.restart.enabled;false;;\n" +
-        "output.restart.recordfrequency.ndt;60;;\n" +
-        "output.restart.spinup;114;;\n" +
-        ";;;\n" +
-        "# Biomass;;;\n" +
-        "output.biomass.enabled;true;;\n" +
-        "output.biomass.bysize.enabled;false;;\n" +
-        "output.biomass.byage.enabled;false;;\n" +
-        "# Abundance;;;\n" +
-        "output.abundance.enabled;false;;\n" +
-        "output.abundance.bysize.enabled;false;;\n" +
-        "output.abundance.byage.enabled;true;;\n" +
-        "# Mortality;;;\n" +
-        "output.mortality.enabled;true;;\n" +
-        "output.mortality.perSpecies.byAge.enabled;true;;\n" +
-        "output.mortality.perSpecies.bySize.enabled;false;;\n" +
-        "# Yield;;;\n" +
-        "output.yield.biomass.enabled;true;;\n" +
-        "output.yield.abundance.enabled;false;;\n" +
-        "output.yieldN.bySize.enabled;false;;\n" +
-        "output.yield.bySize.enabled;false;;\n" +
-        "output.yieldN.byAge.enabled;false;;\n" +
-        "output.yield.byAge.enabled;false;;\n" +
-        "# Size;;;\n" +
-        "output.size.enabled;true ;;\n" +
-        "output.size.catch.enabled;true ;;\n" +
-        "output.meanSize.byAge.enabled;false;;\n" +
-        "# TL;;;\n" +
-        "output.TL.enabled;true;;\n" +
-        "output.TL.catch.enabled;true;;\n" +
-        "output.biomass.byTL.enabled;true;;\n" +
-        "output.meanTL.bySize.enabled;false;;\n" +
-        "output.meanTL.byAge.enabled;false;;\n" +
-        "# Predation;;;\n" +
-        "output.diet.composition.enabled;true;;\n" +
-        "output.diet.composition.byAge.enabled;false;;\n" +
-        "output.diet.composition.bySize.enabled;false;;\n" +
-        "output.diet.pressure.enabled;true;;\n" +
-        "output.diet.pressure.byAge.enabled;false;;\n" +
-        "output.diet.pressure.bySize.enabled;false;;\n" +
-        "# Spatial;;;\n" +
-        "output.spatial.enabled;false;;\n" +
-        "output.spatial.ltl.enabled;false;;\n" +
-        ";;;\n" +
-        "# Advanced parameters;;;\n" +
-        "# Whether to include step 0 of the simulation in the outputs;;;\n" +
-        "output.step0.include;false;;\n" +
-        "# Cutoff for biomass, abundance, mean size and mean trophic level outputs;;;";
+            "output.file.prefix;osm;;\n" +
+            "output.dir.path;output;;\n" +
+            "output.recordfrequency.ndt;12;;\n" +
+            ";;;\n" +
+            "# CSV separator (COMA, SEMICOLON, EQUALS, COLON, TAB);;;\n" +
+            "output.csv.separator;COMA;;\n" +
+            ";;;\n" +
+            "# Save restart file;;;\n" +
+            "output.restart.enabled;false;;\n" +
+            "output.restart.recordfrequency.ndt;60;;\n" +
+            "output.restart.spinup;114;;\n" +
+            ";;;\n" +
+            "# Biomass;;;\n" +
+            "output.biomass.enabled;true;;\n" +
+            "output.biomass.bysize.enabled;false;;\n" +
+            "output.biomass.byage.enabled;false;;\n" +
+            "# Abundance;;;\n" +
+            "output.abundance.enabled;false;;\n" +
+            "output.abundance.bysize.enabled;false;;\n" +
+            "output.abundance.byage.enabled;true;;\n" +
+            "# Mortality;;;\n" +
+            "output.mortality.enabled;true;;\n" +
+            "output.mortality.perSpecies.byAge.enabled;true;;\n" +
+            "output.mortality.perSpecies.bySize.enabled;false;;\n" +
+            "# Yield;;;\n" +
+            "output.yield.biomass.enabled;true;;\n" +
+            "output.yield.abundance.enabled;false;;\n" +
+            "output.yieldN.bySize.enabled;false;;\n" +
+            "output.yield.bySize.enabled;false;;\n" +
+            "output.yieldN.byAge.enabled;false;;\n" +
+            "output.yield.byAge.enabled;false;;\n" +
+            "# Size;;;\n" +
+            "output.size.enabled;true ;;\n" +
+            "output.size.catch.enabled;true ;;\n" +
+            "output.meanSize.byAge.enabled;false;;\n" +
+            "# TL;;;\n" +
+            "output.TL.enabled;true;;\n" +
+            "output.TL.catch.enabled;true;;\n" +
+            "output.biomass.byTL.enabled;true;;\n" +
+            "output.meanTL.bySize.enabled;false;;\n" +
+            "output.meanTL.byAge.enabled;false;;\n" +
+            "# Predation;;;\n" +
+            "output.diet.composition.enabled;true;;\n" +
+            "output.diet.composition.byAge.enabled;false;;\n" +
+            "output.diet.composition.bySize.enabled;false;;\n" +
+            "output.diet.pressure.enabled;true;;\n" +
+            "output.diet.pressure.byAge.enabled;false;;\n" +
+            "output.diet.pressure.bySize.enabled;false;;\n" +
+            "# Spatial;;;\n" +
+            "output.spatial.enabled;false;;\n" +
+            "output.spatial.ltl.enabled;false;;\n" +
+            ";;;\n" +
+            "# Advanced parameters;;;\n" +
+            "# Whether to include step 0 of the simulation in the outputs;;;\n" +
+            "output.step0.include;false;;\n" +
+            "# Cutoff for biomass, abundance, mean size and mean trophic level outputs;;;";
 
     public static void writeLine(OutputStream os, List<String> values, boolean leadingNewline) throws IOException {
         List<String> escapedValues = new ArrayList<String>();
@@ -103,18 +104,18 @@ public class ConfigUtil {
         }
 
         List<Pair<Double, String>> months = Arrays.asList(
-            Pair.of(1.0 / 12.0, "Jan"),
-            Pair.of(2.0 / 12.0, "Feb"),
-            Pair.of(3.0 / 12.0, "Mar"),
-            Pair.of(4.0 / 12.0, "Apr"),
-            Pair.of(5.0 / 12.0, "May"),
-            Pair.of(6.0 / 12.0, "Jun"),
-            Pair.of(7.0 / 12.0, "Jul"),
-            Pair.of(8.0 / 12.0, "Aug"),
-            Pair.of(9.0 / 12.0, "Sep"),
-            Pair.of(10.0 / 12.0, "Oct"),
-            Pair.of(11.0 / 12.0, "Nov"),
-            Pair.of(12.0 / 12.0, "Dec"));
+                Pair.of(1.0 / 12.0, "Jan"),
+                Pair.of(2.0 / 12.0, "Feb"),
+                Pair.of(3.0 / 12.0, "Mar"),
+                Pair.of(4.0 / 12.0, "Apr"),
+                Pair.of(5.0 / 12.0, "May"),
+                Pair.of(6.0 / 12.0, "Jun"),
+                Pair.of(7.0 / 12.0, "Jul"),
+                Pair.of(8.0 / 12.0, "Aug"),
+                Pair.of(9.0 / 12.0, "Sep"),
+                Pair.of(10.0 / 12.0, "Oct"),
+                Pair.of(11.0 / 12.0, "Nov"),
+                Pair.of(12.0 / 12.0, "Dec"));
 
         for (int i = 0; i < groups.size(); i++) {
             double values[] = new double[numberOfTimestepsPerYear];
@@ -142,12 +143,12 @@ public class ConfigUtil {
             if (values.length > 0) {
                 for (int timeStep = 0; timeStep < numberOfTimestepsPerYear; timeStep++) {
                     double valueNormalized = valuesSum == 0
-                        ? (1.0 / numberOfTimestepsPerYear)
-                        : (values[timeStep] / valuesSum);
+                            ? (1.0 / numberOfTimestepsPerYear)
+                            : (values[timeStep] / valuesSum);
 
                     writeLine(reprodOs,
-                        Arrays.asList(formatTimeStep(numberOfTimestepsPerYear, timeStep),
-                            String.format("%.3f", valueNormalized)));
+                            Arrays.asList(formatTimeStep(numberOfTimestepsPerYear, timeStep),
+                                    String.format("%.3f", valueNormalized)));
                 }
             }
 
@@ -228,8 +229,8 @@ public class ConfigUtil {
         writeParamLines(groups, "species.sexratio.sp", (name, group) -> {
             String someValue = valueFactory.groupValueFor(name, group);
             return NumberUtils.isParsable(someValue)
-                ? String.format("%.2f", Double.parseDouble(someValue) / 100.0)
-                : someValue;
+                    ? String.format("%.2f", Double.parseDouble(someValue) / 100.0)
+                    : someValue;
         }, os);
         writeParamLines(groups, "species.t0.sp", valueFactory, os);
         writeParamLines(groups, "species.vonbertalanffy.threshold.age.sp", valueFactory, os);
@@ -400,15 +401,15 @@ public class ConfigUtil {
 
     public static void generateConfigFor(Config config, StreamFactory factory, ValueFactory valueFactory) throws IOException {
         generateConfigFor(config.getTimeStepsPerYear(),
-            config.getGroups()
-                .stream()
-                .filter(group -> group.getType() == GroupType.FOCAL)
-                .collect(Collectors.toList()),
-            config.getGroups()
-                .stream()
-                .filter(group -> group.getType() == GroupType.BACKGROUND)
-                .collect(Collectors.toList()),
-            factory, valueFactory);
+                config.getGroups()
+                        .stream()
+                        .filter(group -> group.getType() == GroupType.FOCAL)
+                        .collect(Collectors.toList()),
+                config.getGroups()
+                        .stream()
+                        .filter(group -> group.getType() == GroupType.BACKGROUND)
+                        .collect(Collectors.toList()),
+                factory, valueFactory);
     }
 
     public static void generateConfigFor(Integer timeStepsPerYear, List<Group> groupsFocal, List<Group> groupsBackground, StreamFactory factory, ValueFactory valueFactory) throws IOException {
@@ -505,36 +506,57 @@ Let us assume that the API considers “Species 1” and “Species 2”.
         List<String> groupNames = groupList.stream().map(Group::getName).collect(Collectors.toList());
         List<String> groupNamesFocal = groupsFocal.stream().map(Group::getName).collect(Collectors.toList());
 
+        List<Pair<Group, String>> focal = groupsFocal
+                .stream()
+                .map(group -> Pair.of(group, valueFactory.groupValueFor("predation.accessibility.stage.threshold.sp", group)))
+                .flatMap(groupJuvenile -> {
+                    if (StringUtils.isBlank(groupJuvenile.getRight())) {
+                        return Stream.of(groupJuvenile);
+                    } else {
+                        Pair<Group, String> juvenile = Pair.of(groupJuvenile.getLeft(), groupJuvenile.getLeft().getName() + " < " + groupJuvenile.getRight() + " year");
+                        Pair<Group, String> adult = Pair.of(groupJuvenile.getLeft(), groupJuvenile.getLeft().getName() + " > " + groupJuvenile.getRight() + " year");
+                        return Stream.of(juvenile, adult);
+                    }
+                }).collect(Collectors.toList());
+
+        Stream<Pair<Group, String>> back = groupsBackground.stream().map(group -> Pair.of(group, group.getName()));
+
+        Stream<Stream<String>> rows = Stream.concat(focal.stream(), back)
+                .map(row -> {
+                    Stream<String> values = focal.stream().map(column -> {
+                        Overlap overlap = calculateOverlap(valueFactory, row.getLeft(), column.getLeft());
+                        return String.format("%.2f", 0.8 * overlap.value);
+                    });
+                    return Stream.concat(Stream.of(row.getRight()), values);
+                });
+
+
+        Stream<Stream<String>> header = Stream.of(Stream.concat(Stream.of("v Prey / Predator >"), focal.stream().map(Pair::getRight)));
+
+        List<List<String>> rowsOfValues = Stream.concat(header, rows)
+                .map(row -> row.collect(Collectors.toList()))
+                .collect(Collectors.toList());
+
         OutputStream outputStream = factory.outputStreamFor("predation-accessibility.csv");
-        writeLine(outputStream, new ArrayList<String>() {{
-            add("v Prey / Predator >");
-            addAll(groupNamesFocal);
-        }}, false);
 
-        for (int j = 0; j < groupNames.size(); j++) {
-            List<String> row = new ArrayList<String>();
-            row.add(groupNames.get(j));
-            for (int i = 0; i < groupNamesFocal.size(); i++) {
-                Overlap overlap = i == j
-                    ? Overlap.strong
-                    : calculateOverlap(groupList, valueFactory, j, i);
-
-                row.add(String.format("%.2f", 0.8 * overlap.value));
-            }
-            writeLine(outputStream, row);
+        for (List<String> rowsOfValue : rowsOfValues) {
+            writeLine(outputStream, rowsOfValue, rowsOfValues.indexOf(rowsOfValue) != 0);
         }
     }
 
-    private static Overlap calculateOverlap(List<Group> groupList, ValueFactory valueFactory, int j, int i) {
-        Group groupA = groupList.get(i);
-        EcologicalRegion regionA = ecologicalRegionFor(valueFactory, groupA);
-        Pair<Double, Double> depthRangeA = depthRangeFor(valueFactory, groupA);
+    private static Overlap calculateOverlap(ValueFactory valueFactory, Group groupA, Group groupB) {
+        Overlap overlap;
+        if (groupA.equals(groupB)) {
+            overlap = Overlap.strong;
+        } else {
+            EcologicalRegion regionA = ecologicalRegionFor(valueFactory, groupA);
+            Pair<Double, Double> depthRangeA = depthRangeFor(valueFactory, groupA);
 
-        Group groupB = groupList.get(j);
-        EcologicalRegion regionB = ecologicalRegionFor(valueFactory, groupB);
-        Pair<Double, Double> depthRangeB = depthRangeFor(valueFactory, groupB);
-
-        return determineOverlap(Pair.of(regionA, regionB), Pair.of(depthRangeA, depthRangeB));
+            EcologicalRegion regionB = ecologicalRegionFor(valueFactory, groupB);
+            Pair<Double, Double> depthRangeB = depthRangeFor(valueFactory, groupB);
+            overlap = determineOverlap(Pair.of(regionA, regionB), Pair.of(depthRangeA, depthRangeB));
+        }
+        return overlap;
     }
 
     private static EcologicalRegion ecologicalRegionFor(ValueFactory valueFactory, Group group) {
@@ -572,13 +594,13 @@ Let us assume that the API considers “Species 1” and “Species 2”.
                                             Pair<Pair<Double, Double>, Pair<Double, Double>> depthRangeMinMax) {
         Overlap overlap;
         if (matchingEcoRegions(region)
-            && overlappingDepthRange(depthRangeMinMax)) {
+                && overlappingDepthRange(depthRangeMinMax)) {
             overlap = Overlap.strong;
         } else if (!matchingEcoRegions(region)
-            && overlappingDepthRange(depthRangeMinMax)) {
+                && overlappingDepthRange(depthRangeMinMax)) {
             overlap = Overlap.moderate;
         } else if (matchingEcoRegions(region)
-            && !overlappingDepthRange(depthRangeMinMax)) {
+                && !overlappingDepthRange(depthRangeMinMax)) {
             overlap = Overlap.moderate;
         } else {
             overlap = Overlap.small;
@@ -588,15 +610,15 @@ Let us assume that the API considers “Species 1” and “Species 2”.
 
     private static boolean matchingEcoRegions(Pair<EcologicalRegion, EcologicalRegion> regionPair) {
         return regionPair.getLeft() != null
-            && regionPair.getLeft() == regionPair.getRight();
+                && regionPair.getLeft() == regionPair.getRight();
     }
 
     private static boolean overlappingDepthRange(Pair<Pair<Double, Double>, Pair<Double, Double>> depthRangeMinMax) {
         Pair<Double, Double> left = depthRangeMinMax.getLeft();
         Pair<Double, Double> right = depthRangeMinMax.getRight();
         return left != null
-            && right != null
-            && (left.getLeft() < right.getRight() || right.getLeft() < left.getRight());
+                && right != null
+                && (left.getLeft() < right.getRight() || right.getLeft() < left.getRight());
     }
 
     private static boolean ecoRegionMatches(ValueFactory valueFactory, String ecologyFieldName, Group group) {
