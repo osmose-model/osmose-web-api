@@ -121,6 +121,8 @@ public class ConfigServiceUtil {
         final List<ValueFactory> valueFactories = Arrays.asList(
                 new ValueFactoryCalculated(valueOrDefault),
                 valueOrDefault);
-        return new ValueFactoryNA(ConfigUtil.getProxyValueFactory(valueFactories));
+        return new ValueFactoryNA(
+                new ValueFactorySexRatioConstraints(
+                        ConfigUtil.getProxyValueFactory(valueFactories)));
     }
 }
