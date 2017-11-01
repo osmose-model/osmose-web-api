@@ -107,14 +107,22 @@ public class ConfigServiceUtil {
         ValueFactoryFishbaseCache valueFactoryFishbaseCache
                 = new ValueFactoryFishbaseCache("v0.2.1", Collections.singletonList("estimate"));
         valueFactoryFishbaseCache.setGroups(groups);
-        ValueFactory valueOrDefault = ConfigUtil.getProxyValueFactory(
+
+
+        ValueFactory valueDefaults = ConfigUtil.getProxyValueFactory(
                 Arrays.asList(
-                        valueFactoryFishbaseCachePatch,
-                        valueFactoryFishbaseCache,
                         new ValueFactoryMappingDefaultsForGroup("fishbase-mapping-phytoplankton.csv", new Group("phytoplankton", GroupType.BACKGROUND)),
                         new ValueFactoryMappingDefaultsForGroup("fishbase-mapping-zooplankton.csv", new Group("zooplankton", GroupType.BACKGROUND)),
                         new ValueFactoryMappingDefault(),
                         new ValueFactoryDefault()
+                )
+        );
+
+        ValueFactory valueOrDefault = ConfigUtil.getProxyValueFactory(
+                Arrays.asList(
+                        valueFactoryFishbaseCachePatch,
+                        valueFactoryFishbaseCache,
+                        valueDefaults
                 )
         );
 
@@ -123,6 +131,7 @@ public class ConfigServiceUtil {
                 valueOrDefault);
         return new ValueFactoryNA(
                 new ValueFactorySexRatioConstraints(
-                        ConfigUtil.getProxyValueFactory(valueFactories)));
+                        ConfigUtil.getProxyValueFactory(valueFactories),
+                        valueDefaults));
     }
 }

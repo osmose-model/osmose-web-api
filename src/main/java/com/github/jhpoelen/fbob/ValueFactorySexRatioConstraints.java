@@ -6,9 +6,11 @@ import org.apache.commons.lang3.math.NumberUtils;
 public class ValueFactorySexRatioConstraints implements ValueFactory {
 
     final private ValueFactory valueFactory;
+    private final ValueFactory valueDefaults;
 
-    public ValueFactorySexRatioConstraints(ValueFactory valueFactory) {
+    public ValueFactorySexRatioConstraints(ValueFactory valueFactory, ValueFactory valueDefaults) {
         this.valueFactory = valueFactory;
+        this.valueDefaults = valueDefaults;
     }
 
     @Override
@@ -19,7 +21,7 @@ public class ValueFactorySexRatioConstraints implements ValueFactory {
             if (NumberUtils.isNumber(value)) {
                 double x = Double.parseDouble(value);
                 if (x < 0.1 || x > 0.9) {
-                    value = null;
+                    value = valueDefaults.groupValueFor(name, group);
                 }
             }
         }
