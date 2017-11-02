@@ -62,8 +62,8 @@ public class ConfigServiceUtilTest {
                 "\nspecies.maturity.age.sp1;NA" +
                 "\nspecies.relativefecundity.sp0;NA" +
                 "\nspecies.relativefecundity.sp1;NA" +
-                "\nspecies.sexratio.sp0;0.00" +
-                "\nspecies.sexratio.sp1;0.00" +
+                "\nspecies.sexratio.sp0;0.50" +
+                "\nspecies.sexratio.sp1;0.50" +
                 "\nspecies.t0.sp0;NA" +
                 "\nspecies.t0.sp1;NA" +
                 "\nspecies.vonbertalanffy.threshold.age.sp0;0.0" +
@@ -109,6 +109,20 @@ public class ConfigServiceUtilTest {
                 "species.vonbertalanffy.threshold.age.sp0;NA\n" +
                 "species.vonbertalanffy.threshold.age.sp1;NA";
         assertThat(getTestFactory().stringOutputFor("osm_param-species.csv"), is(asExpected));
+    }
+
+    @Test
+    public void speciesWithSexRatioValues() throws IOException {
+        List<Group> groups = Arrays.asList(new Group("groupOne"), new Group("groupTwo"));
+        StreamFactoryMemory factory = getTestFactory();
+
+        ValueFactory valueFactoryNull = (name, group) -> StringUtils.equals(name, "species.sexratio.sp") ? "0.0" : null;
+
+        ConfigUtil.generateSpecies(groups, factory, new ValueFactorySexRatioConstraints(valueFactoryNull, getTestValueFactory()));
+
+        String actual = getTestFactory().stringOutputFor("osm_param-species.csv");
+        assertThat(actual, containsString("species.sexratio.sp0;0.50\n"));
+        assertThat(actual, containsString("species.sexratio.sp1;0.50\n"));
     }
 
     @Test

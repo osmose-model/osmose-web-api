@@ -1,5 +1,6 @@
 package com.github.jhpoelen.fbob;
 
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -125,6 +126,15 @@ public class ValueFactoryCalculatedTest {
 
         String value = valueFactory.groupValueFor("species.relativefecundity.sp", null);
         assertThat(value, is(nullValue()));
+    }
+
+    @Test
+    public void relativeSexRatio() {
+        ValueFactoryCalculated valueFactory = new ValueFactoryCalculated(
+                (name, group) -> StringUtils.equals(name, "spawning.SexRatiomid") ? "43" : null);
+
+        String value = valueFactory.groupValueFor("species.sexratio.sp", null);
+        assertThat(value, is("0.43"));
     }
 
     @Test

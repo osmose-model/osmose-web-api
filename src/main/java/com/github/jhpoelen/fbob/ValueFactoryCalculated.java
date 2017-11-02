@@ -53,6 +53,15 @@ class ValueFactoryCalculated implements ValueFactory {
                 }
                 return value;
             });
+            put("species.sexratio.sp", (name, group) -> {
+                String value = null;
+                String spawningSexRatioMid = valueFactory.groupValueFor("spawning.SexRatiomid", group);
+                if (NumberUtils.isParsable(spawningSexRatioMid)) {
+                    float sexRatio = Float.parseFloat(spawningSexRatioMid) / 100;
+                    value = String.format("%.2f", sexRatio);
+                }
+                return value;
+            });
         }
 
             private boolean isValidPredationEfficiency(float ingestionRateParsed, float maintQB) {

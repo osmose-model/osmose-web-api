@@ -15,7 +15,7 @@ public class ValueFactoryDefault implements ValueFactory {
         put("species.maturity.size.sp", null);
         put("species.maturity.age.sp", null);
         put("species.relativefecundity.sp", null);
-        put("species.sexratio.sp", "0.0");
+        put("species.sexratio.sp", "0.50");
         put("species.t0.sp", null);
         put("species.vonbertalanffy.threshold.age.sp", "0.0");
 

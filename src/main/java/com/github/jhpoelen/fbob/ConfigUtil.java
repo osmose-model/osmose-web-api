@@ -229,7 +229,7 @@ public class ConfigUtil {
         writeParamLines(groups, "species.sexratio.sp", (name, group) -> {
             String someValue = valueFactory.groupValueFor(name, group);
             return NumberUtils.isParsable(someValue)
-                    ? String.format("%.2f", Double.parseDouble(someValue) / 100.0)
+                    ? String.format("%.2f", Double.parseDouble(someValue))
                     : someValue;
         }, os);
         writeParamLines(groups, "species.t0.sp", valueFactory, os);
