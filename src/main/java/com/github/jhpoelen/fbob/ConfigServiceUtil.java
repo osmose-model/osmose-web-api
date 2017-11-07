@@ -102,7 +102,7 @@ public class ConfigServiceUtil {
 
     public static ValueFactory getValueFactory(List<Group> groups) {
         ValueFactoryFishbaseCache valueFactoryFishbaseCachePatch
-                = new ValueFactoryFishbaseCache("v0.2.1-patch");
+                = new ValueFactoryFishbaseCache("v0.2.1-patch2");
         valueFactoryFishbaseCachePatch.setGroups(groups);
         ValueFactoryFishbaseCache valueFactoryFishbaseCache
                 = new ValueFactoryFishbaseCache("v0.2.1", Collections.singletonList("estimate"));

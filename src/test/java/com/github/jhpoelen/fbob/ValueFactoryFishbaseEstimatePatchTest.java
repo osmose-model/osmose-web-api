@@ -35,7 +35,7 @@ public class ValueFactoryFishbaseEstimatePatchTest {
     }
 
     private ValueFactoryFishbaseCache factoryPatch(Group group) {
-        ValueFactoryFishbaseCache factory = new ValueFactoryFishbaseCache("v0.2.1-patch");
+        ValueFactoryFishbaseCache factory = new ValueFactoryFishbaseCache("v0.2.1-patch2");
         factory.setGroups(Collections.singletonList(group));
         return factory;
     }
