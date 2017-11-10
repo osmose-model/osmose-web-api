@@ -36,10 +36,11 @@ public class ConfigServiceUtil {
         for (String resource : resources) {
             String resourceName = StringUtils.substringAfter(resource, ConfigService.OSMOSE_CONFIG + "/");
             if (StringUtils.isNotBlank(resourceName)) {
-                LOG.info("adding [" + resourceName + "]");
+                LOG.info("adding [" + resourceName + "]...");
                 ZipEntry e = new ZipEntry(resourceName);
                 zos.putNextEntry(e);
                 IOUtils.write(IOUtils.toByteArray(ConfigService.class.getResourceAsStream("/" + resource)), zos);
+                LOG.info("adding [" + resourceName + "] done.");
             }
         }
         close(zos);
@@ -70,8 +71,9 @@ public class ConfigServiceUtil {
             ConfigUtil.generateConfigFor(config, name -> {
                 zos.flush();
                 ZipEntry e = new ZipEntry(name);
-                LOG.info("adding [" + name + "]");
+                LOG.info("adding [" + name + "]...");
                 zos.putNextEntry(e);
+                LOG.info("adding [" + name + "] done.");
                 return zos;
             }, valueFactory);
             close(zos);
