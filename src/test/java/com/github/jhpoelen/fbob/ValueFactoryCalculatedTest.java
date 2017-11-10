@@ -159,10 +159,9 @@ public class ValueFactoryCalculatedTest {
         ValueFactoryCalculated valueFactory = new ValueFactoryCalculated((name, group) -> {
             Map<String, String> values = new TreeMap<String, String>() {{
                 put("poplw.LengthMin", "1.0");
-                put("popgrowth.to", "1.0");
-                put("popgrowth.Loo", "2.0");
-                put("popgrowth.LengthMin", "1.0");
-                put("popgrowth.K", "0.2");
+                put("species.t0.sp", "1.0");
+                put("species.lInf.sp", "2.0");
+                put("species.K.sp", "0.2");
             }};
             return values.get(name);
         });
@@ -189,7 +188,7 @@ public class ValueFactoryCalculatedTest {
     public void relativeFecundityCalculatedAmexCase3() {
         ValueFactoryCalculated valueFactory = new ValueFactoryCalculated((name, group) -> {
             Map<String, String> values = new TreeMap<String, String>() {{
-                put("species.LongevityWild", "1.9");
+                put("species.lifespan.sp", "1.9");
                 put("estimate.AgeMin", "2");
                 put("estimate.AgeMax", "5");
             }};
@@ -204,7 +203,7 @@ public class ValueFactoryCalculatedTest {
     public void relativeFecundityCalculatedAmexCase3NegativeAgeMin() {
         ValueFactoryCalculated valueFactory = new ValueFactoryCalculated((name, group) -> {
             Map<String, String> values = new TreeMap<String, String>() {{
-                put("species.LongevityWild", "10");
+                put("species.lifespan.sp", "10");
                 put("estimate.AgeMin", "-2");
                 put("estimate.AgeMax", "5");
             }};
@@ -227,7 +226,7 @@ public class ValueFactoryCalculatedTest {
     public void relativeFecundityCalculatedAmexCase5() {
         ValueFactoryCalculated valueFactory = new ValueFactoryCalculated((name, group) -> {
             Map<String, String> values = new TreeMap<String, String>() {{
-                put("species.LongevityWild", "1.9");
+                put("species.lifespan.sp", "1.9");
             }};
             return values.get(name);
         });

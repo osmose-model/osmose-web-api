@@ -66,11 +66,10 @@ class ValueFactoryCalculated implements ValueFactory {
                 });
                 put("species.vonbertalanffy.threshold.age.sp", (name, group) -> {
                     String floatFormat = "%.3f";
-                    valueFactory.groupValueFor("poplw.LengthMin", group);
-                    String stringForTo = valueFactory.groupValueFor("popgrowth.to", group);
-                    String stringForLoo = valueFactory.groupValueFor("popgrowth.Loo", group);
-                    String stringForLengthMin = valueFactory.groupValueFor("popgrowth.LengthMin", group);
-                    String stringForK = valueFactory.groupValueFor("popgrowth.K", group);
+                    String stringForTo = valueFactory.groupValueFor("species.t0.sp", group);
+                    String stringForLoo = valueFactory.groupValueFor("species.lInf.sp", group);
+                    String stringForLengthMin = valueFactory.groupValueFor("poplw.LengthMin", group);
+                    String stringForK = valueFactory.groupValueFor("species.K.sp", group);
                     if (NumberUtils.isNumber(stringForTo)
                             && NumberUtils.isNumber(stringForLoo)
                             && NumberUtils.isNumber(stringForLengthMin)
@@ -82,7 +81,7 @@ class ValueFactoryCalculated implements ValueFactory {
                         float K = Float.parseFloat(stringForK);
                         return String.format(floatFormat, to + (Math.log(Loo) - Math.log(Loo - lengthMin)) / K);
                     } else {
-                        String stringForLongevityWild = valueFactory.groupValueFor("species.LongevityWild", group);
+                        String stringForLongevityWild = valueFactory.groupValueFor("species.lifespan.sp", group);
                         String stringForAgeMin = valueFactory.groupValueFor("estimate.AgeMin", group);
                         String stringForAgeMax = valueFactory.groupValueFor("estimate.AgeMax", group);
                         if (NumberUtils.isNumber(stringForLongevityWild)

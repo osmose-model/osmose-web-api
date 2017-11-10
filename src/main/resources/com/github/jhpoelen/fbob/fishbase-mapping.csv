@@ -42,3 +42,6 @@ ecology,Demersal,ecology.Demersal,,see https://github.com/jhpoelen/fb-osmose-bri
 ecology,Pelagic,ecology.Pelagic,,see https://github.com/jhpoelen/fb-osmose-bridge/issues/93
 eggs,Eggsdiammod,species.egg.size.sp,0.1,Egg size (in cm). This is a parameter that can directly be obtained from FishBase/SeaLifeBase
 popqb,Mortality,mortality.natural.rate.sp,0.2,Natural mortality rate due to causes not explicitly considered in OSMOSE such as predation by marine mammals and seabirds. This parameter can be obtained directly from FishBase/SeaLifeBase
+estimate,AgeMin,estimate.AgeMin,,see https://github.com/jhpoelen/fb-osmose-bridge/issues/140
+estimate,AgeMax,estimate.AgeMax,,see https://github.com/jhpoelen/fb-osmose-bridge/issues/140
+poplw,LengthMin,poplw.LengthMin,,see https://github.com/jhpoelen/fb-osmose-bridge/issues/140
