@@ -4,6 +4,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.Map;
+import java.util.TreeMap;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
@@ -150,6 +152,88 @@ public class ValueFactoryCalculatedTest {
 
         String value = valueFactory.groupValueFor("species.relativefecundity.sp", null);
         assertThat(value, is("2.00"));
+    }
+
+    @Test
+    public void relativeFecundityCalculatedAmexCase1() {
+        ValueFactoryCalculated valueFactory = new ValueFactoryCalculated((name, group) -> {
+            Map<String, String> values = new TreeMap<String, String>() {{
+                put("poplw.LengthMin", "1.0");
+                put("popgrowth.to", "1.0");
+                put("popgrowth.Loo", "2.0");
+                put("popgrowth.LengthMin", "1.0");
+                put("popgrowth.K", "0.2");
+            }};
+            return values.get(name);
+        });
+
+        String actual = valueFactory.groupValueFor("species.vonbertalanffy.threshold.age.sp", null);
+        double expected = 1.0 + (Math.log(2.0) - Math.log(2.0 - 1.0)) / 0.2;
+        assertThat(actual, is(String.format("%.3f", expected)));
+    }
+
+    @Test
+    public void relativeFecundityCalculatedAmexCase2() {
+        ValueFactoryCalculated valueFactory = new ValueFactoryCalculated((name, group) -> {
+            Map<String, String> values = new TreeMap<String, String>() {{
+                put("species.LongevityWild", "2.1");
+            }};
+            return values.get(name);
+        });
+
+        String actual = valueFactory.groupValueFor("species.vonbertalanffy.threshold.age.sp", null);
+        assertThat(actual, is("1.000"));
+    }
+
+    @Test
+    public void relativeFecundityCalculatedAmexCase3() {
+        ValueFactoryCalculated valueFactory = new ValueFactoryCalculated((name, group) -> {
+            Map<String, String> values = new TreeMap<String, String>() {{
+                put("species.LongevityWild", "1.9");
+                put("estimate.AgeMin", "2");
+                put("estimate.AgeMax", "5");
+            }};
+            return values.get(name);
+        });
+
+        String actual = valueFactory.groupValueFor("species.vonbertalanffy.threshold.age.sp", null);
+        assertThat(actual, is(String.format("%.3f", 1.9 * 2.0 / 5.0)));
+    }
+
+    @Test
+    public void relativeFecundityCalculatedAmexCase3NegativeAgeMin() {
+        ValueFactoryCalculated valueFactory = new ValueFactoryCalculated((name, group) -> {
+            Map<String, String> values = new TreeMap<String, String>() {{
+                put("species.LongevityWild", "10");
+                put("estimate.AgeMin", "-2");
+                put("estimate.AgeMax", "5");
+            }};
+            return values.get(name);
+        });
+
+        String actual = valueFactory.groupValueFor("species.vonbertalanffy.threshold.age.sp", null);
+        assertThat(actual, is(String.format("%.3f", 10.0 * 0.01 / 5.0)));
+    }
+
+    @Test
+    public void relativeFecundityCalculatedAmexCase4() {
+        ValueFactoryCalculated valueFactory = new ValueFactoryCalculated((name, group) -> null);
+
+        String actual = valueFactory.groupValueFor("species.vonbertalanffy.threshold.age.sp", null);
+        assertThat(actual, is("1.000"));
+    }
+
+    @Test
+    public void relativeFecundityCalculatedAmexCase5() {
+        ValueFactoryCalculated valueFactory = new ValueFactoryCalculated((name, group) -> {
+            Map<String, String> values = new TreeMap<String, String>() {{
+                put("species.LongevityWild", "1.9");
+            }};
+            return values.get(name);
+        });
+
+        String actual = valueFactory.groupValueFor("species.vonbertalanffy.threshold.age.sp", null);
+        assertThat(actual, is(String.format("%.3f", 1.9 / 2.0)));
     }
 
 }
