@@ -101,49 +101,55 @@ class ValueFactoryCalculated implements ValueFactory {
 
     // see https://github.com/jhpoelen/fb-osmose-bridge/issues/140
     private ValueFactory estimateAmax(ValueFactory valueFactory) {
-        return (name, group) -> {
-            String floatFormat = "%.3f";
-            String stringForTo = valueFactory.groupValueFor("species.t0.sp", group);
-            String stringForLoo = valueFactory.groupValueFor("species.lInf.sp", group);
-            String stringForLengthMin = valueFactory.groupValueFor("poplw.LengthMin", group);
-            String stringForK = valueFactory.groupValueFor("species.K.sp", group);
-            if (NumberUtils.isNumber(stringForTo)
-                    && NumberUtils.isNumber(stringForLoo)
-                    && NumberUtils.isNumber(stringForLengthMin)
-                    && NumberUtils.isNumber(stringForK)
-                    ) {
-                float to = Float.parseFloat(stringForTo);
-                float Loo = Float.parseFloat(stringForLoo);
-                float lengthMin = Float.parseFloat(stringForLengthMin);
-                float K = Float.parseFloat(stringForK);
-                return String.format(floatFormat, to + (Math.log(Loo) - Math.log(Loo - lengthMin)) / K);
+        return (name, group) -> String.format("%.3f", calculateAmax(valueFactory, group));
+    }
+
+    private double calculateAmax(ValueFactory valueFactory, Group group) {
+        String stringForTo = valueFactory.groupValueFor("species.t0.sp", group);
+        String stringForLoo = valueFactory.groupValueFor("species.lInf.sp", group);
+        String stringForLengthMin = valueFactory.groupValueFor("poplw.LengthMin", group);
+        String stringForK = valueFactory.groupValueFor("species.K.sp", group);
+        if (NumberUtils.isNumber(stringForTo)
+                && NumberUtils.isNumber(stringForLoo)
+                && NumberUtils.isNumber(stringForLengthMin)
+                && NumberUtils.isNumber(stringForK)
+                && calcAmax(stringForTo, stringForLoo, stringForLengthMin, stringForK) >= 0
+                ) {
+            return calcAmax(stringForTo, stringForLoo, stringForLengthMin, stringForK);
+        } else {
+            String stringForLongevityWild = valueFactory.groupValueFor("species.lifespan.sp", group);
+            String stringForAgeMin = valueFactory.groupValueFor("estimate.AgeMin", group);
+            String stringForAgeMax = valueFactory.groupValueFor("estimate.AgeMax", group);
+            if (NumberUtils.isNumber(stringForLongevityWild)
+                    && NumberUtils.isNumber(stringForAgeMin)
+                    && NumberUtils.isNumber(stringForAgeMax)
+                    && Float.parseFloat(stringForLongevityWild) < 2.0) {
+                float ageMin = Float.parseFloat(stringForAgeMin);
+                float ageMinAdjusted = ageMin < 0 ? 0.01f : ageMin;
+                return Float.parseFloat(stringForLongevityWild) * ageMinAdjusted / Float.parseFloat(stringForAgeMax);
+            } else if (NumberUtils.isNumber(stringForLongevityWild)) {
+                float v = Float.parseFloat(stringForLongevityWild);
+                return v / 2.0;
             } else {
-                String stringForLongevityWild = valueFactory.groupValueFor("species.lifespan.sp", group);
-                String stringForAgeMin = valueFactory.groupValueFor("estimate.AgeMin", group);
-                String stringForAgeMax = valueFactory.groupValueFor("estimate.AgeMax", group);
-                if (NumberUtils.isNumber(stringForLongevityWild)
-                        && NumberUtils.isNumber(stringForAgeMin)
-                        && NumberUtils.isNumber(stringForAgeMax)) {
-                    float ageMin = Float.parseFloat(stringForAgeMin);
-                    float ageMinAdjusted = ageMin < 0 ? 0.01f : ageMin;
-                    return String.format(floatFormat, Float.parseFloat(stringForLongevityWild) * ageMinAdjusted / Float.parseFloat(stringForAgeMax));
-                } else if (NumberUtils.isNumber(stringForLongevityWild)) {
-                    float v = Float.parseFloat(stringForLongevityWild);
-                    double value = v > 2.0 ? 1.0 : v / 2.0;
-                    return String.format(floatFormat, value);
-                } else {
-                    return String.format(floatFormat, 1.0);
-                }
+                return 1.0;
             }
-        };
+        }
+    }
+
+    private double calcAmax(String stringForTo, String stringForLoo, String stringForLengthMin, String stringForK) {
+        float to = Float.parseFloat(stringForTo);
+        float Loo = Float.parseFloat(stringForLoo);
+        float lengthMin = Float.parseFloat(stringForLengthMin);
+        float K = Float.parseFloat(stringForK);
+        return to + (Math.log(Loo) - Math.log(Loo - lengthMin)) / K;
     }
 
     @Override
-    public String groupValueFor(String name, Group group) {
-        return factoryMap.containsKey(name)
-                ? factoryMap.get(name).groupValueFor(name, group)
-                : null;
-    }
+        public String groupValueFor (String name, Group group){
+            return factoryMap.containsKey(name)
+                    ? factoryMap.get(name).groupValueFor(name, group)
+                    : null;
+        }
 
     private String getMsg(String name) {
         return "failed to calculate [" + name + "]";

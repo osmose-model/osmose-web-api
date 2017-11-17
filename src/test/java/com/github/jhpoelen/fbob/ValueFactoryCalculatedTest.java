@@ -203,6 +203,21 @@ public class ValueFactoryCalculatedTest {
     public void relativeFecundityCalculatedAmexCase3NegativeAgeMin() {
         ValueFactoryCalculated valueFactory = new ValueFactoryCalculated((name, group) -> {
             Map<String, String> values = new TreeMap<String, String>() {{
+                put("species.lifespan.sp", "1.9");
+                put("estimate.AgeMin", "-2");
+                put("estimate.AgeMax", "5");
+            }};
+            return values.get(name);
+        });
+
+        String actual = valueFactory.groupValueFor("species.vonbertalanffy.threshold.age.sp", null);
+        assertThat(actual, is(String.format("%.3f", 1.9 * 0.01 / 5.0)));
+    }
+
+    @Test
+    public void relativeFecundityCalculatedAmexCase3LifespanGreaterThan2() {
+        ValueFactoryCalculated valueFactory = new ValueFactoryCalculated((name, group) -> {
+            Map<String, String> values = new TreeMap<String, String>() {{
                 put("species.lifespan.sp", "10");
                 put("estimate.AgeMin", "-2");
                 put("estimate.AgeMax", "5");
@@ -211,7 +226,7 @@ public class ValueFactoryCalculatedTest {
         });
 
         String actual = valueFactory.groupValueFor("species.vonbertalanffy.threshold.age.sp", null);
-        assertThat(actual, is(String.format("%.3f", 10.0 * 0.01 / 5.0)));
+        assertThat(actual, is(String.format("%.3f", 10.0 / 2.0)));
     }
 
     @Test
@@ -233,6 +248,24 @@ public class ValueFactoryCalculatedTest {
 
         String actual = valueFactory.groupValueFor("species.vonbertalanffy.threshold.age.sp", null);
         assertThat(actual, is(String.format("%.3f", 1.9 / 2.0)));
+    }
+
+    @Test
+    public void relativeFecundityCalculatedAmexCase6() {
+        ValueFactoryCalculated valueFactory = new ValueFactoryCalculated((name, group) -> {
+            Map<String, String> values = new TreeMap<String, String>() {{
+                put("poplw.LengthMin", "0.02");
+                put("species.t0.sp", "0.0");
+                put("species.lInf.sp", "0.03");
+                put("species.K.sp", "-0.002");
+                put("species.lifespan.sp", "10");
+            }};
+            return values.get(name);
+        });
+
+
+        String actual = valueFactory.groupValueFor("species.vonbertalanffy.threshold.age.sp", null);
+        assertThat(actual, is("5.000"));
     }
 
 }
