@@ -9,11 +9,13 @@ import org.apache.http.HttpStatus;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.entity.ContentType;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.DefaultHttpRequestRetryHandler;
 import org.apache.http.impl.client.DefaultServiceUnavailableRetryStrategy;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
+import org.glassfish.grizzly.http.util.Header;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -143,8 +145,10 @@ public class TraitFinderFishbaseAPI implements TraitFinder {
         for (String tableName : tableNames) {
             try {
                 URI uri = queryTable(taxon, "/" + tableName);
-                System.out.print(uri + " processing...");
-                HttpResponse resp = getHttpClient().execute(new HttpGet(uri));
+                System.out.print("[" + uri + "] processing...");
+                HttpGet httpGet = new HttpGet(uri);
+                httpGet.setHeader(Header.Accept.toString(), ContentType.APPLICATION_JSON.toString());
+                HttpResponse resp = getHttpClient().execute(httpGet);
                 int statusCode = resp.getStatusLine().getStatusCode();
                 if (statusCode == HttpStatus.SC_OK) {
                     InputStream content = resp.getEntity().getContent();

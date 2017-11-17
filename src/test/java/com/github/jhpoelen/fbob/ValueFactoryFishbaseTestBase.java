@@ -41,12 +41,11 @@ public abstract class ValueFactoryFishbaseTestBase {
     @Test
     public void knownUnknownTwoSpecies() {
         Group group = new Group("knownUnknown");
-        Taxon taxonLifespanUnknown = new Taxon("Seriola dumerili");
-        taxonLifespanUnknown.setUrl("http://fishbase.org/summary/1005");
+        Taxon taxonLifespanUnknown = new Taxon("Species unknownens");
+        taxonLifespanUnknown.setUrl("http://fishbase.org/summary/666666");
         Taxon kingMackerel = new Taxon("ScomberomorusCavalla");
         kingMackerel.setUrl("http://fishbase.org/summary/120");
-        Taxon taxonLifespanKnown = kingMackerel;
-        group.setTaxa(Arrays.asList(taxonLifespanUnknown, taxonLifespanKnown));
+        group.setTaxa(Arrays.asList(taxonLifespanUnknown, kingMackerel));
         String name = "species.lifespan.sp";
         ValueFactory valueFactory = createValueFactory(Arrays.asList(group));
         assertThat(Double.parseDouble(valueFactory.groupValueFor(name, group)), is(14.0d));
