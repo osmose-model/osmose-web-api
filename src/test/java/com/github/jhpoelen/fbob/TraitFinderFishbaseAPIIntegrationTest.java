@@ -40,7 +40,6 @@ public class TraitFinderFishbaseAPIIntegrationTest {
 
     @Test
     public void findLifeSpanAmberjack() throws IOException, URISyntaxException {
-        assertNoLifespanAvailable(1005);
         assertNoLifespanAvailable(1006);
         assertNoLifespanAvailable(1008);
     }
