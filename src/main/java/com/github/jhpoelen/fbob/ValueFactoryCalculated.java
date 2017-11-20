@@ -129,7 +129,7 @@ class ValueFactoryCalculated implements ValueFactory {
                 return Float.parseFloat(stringForLongevityWild) * ageMinAdjusted / Float.parseFloat(stringForAgeMax);
             } else if (NumberUtils.isNumber(stringForLongevityWild)) {
                 float v = Float.parseFloat(stringForLongevityWild);
-                return v / 2.0;
+                return v / 10.0;
             } else {
                 return 1.0;
             }

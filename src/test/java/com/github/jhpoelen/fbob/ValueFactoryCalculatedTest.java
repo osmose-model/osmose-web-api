@@ -226,7 +226,7 @@ public class ValueFactoryCalculatedTest {
         });
 
         String actual = valueFactory.groupValueFor("species.vonbertalanffy.threshold.age.sp", null);
-        assertThat(actual, is(String.format("%.3f", 10.0 / 2.0)));
+        assertThat(actual, is(String.format("%.3f", 10.0 / 10.0)));
     }
 
     @Test
@@ -247,7 +247,7 @@ public class ValueFactoryCalculatedTest {
         });
 
         String actual = valueFactory.groupValueFor("species.vonbertalanffy.threshold.age.sp", null);
-        assertThat(actual, is(String.format("%.3f", 1.9 / 2.0)));
+        assertThat(actual, is(String.format("%.3f", 1.9 / 10.0)));
     }
 
     @Test
@@ -265,7 +265,7 @@ public class ValueFactoryCalculatedTest {
 
 
         String actual = valueFactory.groupValueFor("species.vonbertalanffy.threshold.age.sp", null);
-        assertThat(actual, is("5.000"));
+        assertThat(actual, is(String.format("%.3f", 10 / 10.0)));
     }
 
 }
