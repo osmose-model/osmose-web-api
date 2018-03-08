@@ -1,7 +1,7 @@
 [
   {
     "name": "Amberjacks",
-    "type": "focal",
+    "type": "focal_functional_group",
     "taxa": [
       {
         "name": "Seriola dumerili",
@@ -15,7 +15,7 @@
   },
   {
     "name": "Anchovies and silversides",
-    "type": "focal",
+    "type": "focal_functional_group",
     "taxa": [
       {
         "name": "Alosa alabamae",
@@ -29,7 +29,7 @@
   },
   {
     "name": "Echinoderms and large gastropods",
-    "type": "background",
+    "type": "biotic_resource",
     "taxa": [
       {
         "name": "Asterias rubens",
@@ -43,7 +43,7 @@
   },
   {
     "name": "Small mobile epifauna",
-    "type": "background",
+    "type": "biotic_resource",
     "taxa": [
       {
         "name": "Hargeria rapax",
