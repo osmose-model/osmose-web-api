@@ -403,11 +403,11 @@ public class ConfigUtil {
         generateConfigFor(config.getTimeStepsPerYear(),
                 config.getGroups()
                         .stream()
-                        .filter(group -> group.getType() == GroupType.focal_functional_group)
+                        .filter(group -> group.getType() == GroupType.FOCAL)
                         .collect(Collectors.toList()),
                 config.getGroups()
                         .stream()
-                        .filter(group -> group.getType() == GroupType.biotic_resource)
+                        .filter(group -> group.getType() == GroupType.BACKGROUND)
                         .collect(Collectors.toList()),
                 factory, valueFactory);
     }
