@@ -113,8 +113,8 @@ public class ConfigServiceUtil {
 
         ValueFactory valueDefaults = ConfigUtil.getProxyValueFactory(
                 Arrays.asList(
-                        new ValueFactoryMappingDefaultsForGroup("fishbase-mapping-phytoplankton.csv", new Group("phytoplankton", GroupType.biotic_resource)),
-                        new ValueFactoryMappingDefaultsForGroup("fishbase-mapping-zooplankton.csv", new Group("zooplankton", GroupType.biotic_resource)),
+                        new ValueFactoryMappingDefaultsForGroup("fishbase-mapping-phytoplankton.csv", new Group("phytoplankton", GroupType.BACKGROUND)),
+                        new ValueFactoryMappingDefaultsForGroup("fishbase-mapping-zooplankton.csv", new Group("zooplankton", GroupType.BACKGROUND)),
                         new ValueFactoryMappingDefault(),
                         new ValueFactoryDefault()
                 )
