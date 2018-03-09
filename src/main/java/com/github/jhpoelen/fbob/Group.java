@@ -16,7 +16,7 @@ public class Group {
     public Group() {}
 
     public Group(String name) {
-        this(name, GroupType.FOCAL);
+        this(name, GroupType.focal_functional_group);
     }
 
     public Group(String name, GroupType type) {
