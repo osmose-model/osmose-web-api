@@ -443,7 +443,7 @@ public class ConfigUtil {
         for (Group group : groups) {
             for (Taxon taxon : group.getTaxa()) {
                 if (!StringUtils.equalsIgnoreCase("implicit", taxon.getSelectionCriteria())) {
-                    List<String> row = Arrays.asList(group.getName(), group.getType().name().toLowerCase(), taxon.getName(), taxon.getUrl());
+                    List<String> row = Arrays.asList(group.getName(), group.getType().toLowerCase(), taxon.getName(), taxon.getUrl());
                     IOUtils.write("\n", outputStream);
                     IOUtils.write(StringUtils.join(row, ","), outputStream);
                 }
