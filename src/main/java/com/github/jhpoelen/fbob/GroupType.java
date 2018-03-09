@@ -5,6 +5,6 @@ import javax.xml.bind.annotation.XmlEnumValue;
 
 @XmlEnum(String.class)
 public enum GroupType {
-    @XmlEnumValue("biotic_resource") BACKGROUND,
-    @XmlEnumValue("focal_functional_group") FOCAL
+    @XmlEnumValue("biotic_resource") biotic_resource,
+    @XmlEnumValue("focal_functional_group") focal_functional_group
 }
