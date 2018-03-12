@@ -414,8 +414,8 @@ public class ConfigServiceUtilTest {
 
         String[] lines = functionalGroups.split("\n");
         assertThat(lines[0], is("functional group name,functional group type,species name,species url"));
-        assertThat(lines[1], is("groupA,focal,donald duck,http://example.com/donald"));
-        assertThat(lines[2], is("groupB,background,mickey mouse,http://example.com/mickey"));
+        assertThat(lines[1], is("groupA,focal_functional_group,donald duck,http://example.com/donald"));
+        assertThat(lines[2], is("groupB,biotic_resource,mickey mouse,http://example.com/mickey"));
 
         assertThat(lines.length, is(3));
     }
