@@ -30,7 +30,7 @@ public class ValidateConfigServiceTest extends ServerTestBase {
         String groupString = IOUtils.toString(getClass().getResourceAsStream("exampleGroup.json"), "UTF-8");
         String responseMsg = sendRequest(groupString, "validate");
         assertNotNull(responseMsg);
-        assertThat(responseMsg, containsString("biotic_resource"));
+        assertThat(responseMsg, containsString("biotic"));
         assertThat(responseMsg, containsString("focal_functional_group"));
         assertThat(responseMsg, containsString("taxa"));
     }
@@ -40,7 +40,7 @@ public class ValidateConfigServiceTest extends ServerTestBase {
         String groupString = IOUtils.toString(getClass().getResourceAsStream("exampleGroupImplicit.json"), "UTF-8");
         String responseMsg = sendRequest(groupString, "validate");
         assertNotNull(responseMsg);
-        assertThat(responseMsg, containsString("biotic_resource"));
+        assertThat(responseMsg, containsString("biotic"));
         assertThat(responseMsg, containsString("implicit"));
         assertThat(responseMsg, containsString("focal_functional_group"));
         assertThat(responseMsg, containsString("taxa"));
@@ -51,7 +51,7 @@ public class ValidateConfigServiceTest extends ServerTestBase {
         String groupString = IOUtils.toString(getClass().getResourceAsStream("exampleConfig.json"), "UTF-8");
         String responseMsg = sendRequest(groupString, "v2/validate");
         assertNotNull(responseMsg);
-        assertThat(responseMsg, containsString("biotic_resource"));
+        assertThat(responseMsg, containsString("biotic"));
         assertThat(responseMsg, containsString("focal_functional_group"));
         assertThat(responseMsg, containsString("taxa"));
     }
