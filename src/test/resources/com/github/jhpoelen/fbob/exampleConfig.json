@@ -31,7 +31,7 @@
     },
     {
       "name": "Echinoderms and large gastropods",
-      "type": "biotic_resource",
+      "type": "biotic",
       "taxa": [
         {
           "name": "Asterias rubens",
@@ -45,7 +45,7 @@
     },
     {
       "name": "Small mobile epifauna",
-      "type": "biotic_resource",
+      "type": "biotic",
       "taxa": [
         {
           "name": "Hargeria rapax",
