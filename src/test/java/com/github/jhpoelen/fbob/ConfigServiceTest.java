@@ -71,7 +71,7 @@ public class ConfigServiceTest {
 
     @Test
     public void configForSimpleGroups() throws IOException {
-        List<Group> groups = concat(ConfigServiceUtil.asGroups(Arrays.asList("focalOne", "focalTwo"), GroupType.FOCAL), ConfigServiceUtil.asGroups(Arrays.asList("backgroundOne", "backgroundTwo"), GroupType.BACKGROUND)).collect(Collectors.toList());
+        List<Group> groups = concat(ConfigServiceUtil.asGroups(Arrays.asList("focalOne", "focalTwo"), "focal_functional_group"), ConfigServiceUtil.asGroups(Arrays.asList("backgroundOne", "backgroundTwo"), "biotic_resource")).collect(Collectors.toList());
         final StreamingOutput streamingOutput = ConfigServiceUtil.asStream(groups, new ValueFactoryDefault());
 
         configFileShouldBeGenerated(streamingOutput);
