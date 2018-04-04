@@ -57,7 +57,7 @@ public class ConfigService {
     protected static List<Group> toGroups(List<String> focalGroupNames, List<String> ltlGroupNames) {
         return concat(
                     ConfigServiceUtil
-                        .asGroups(focalGroupNames, GroupType.FOCAL),
+                        .asGroups(focalGroupNames, "focal_functional_group"),
                     ConfigServiceUtil
                         .asGroups(ltlGroupNames, GroupType.BACKGROUND))
                     .collect(Collectors.toList());
