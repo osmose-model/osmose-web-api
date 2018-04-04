@@ -59,7 +59,7 @@ public class ConfigService {
                     ConfigServiceUtil
                         .asGroups(focalGroupNames, "focal_functional_group"),
                     ConfigServiceUtil
-                        .asGroups(ltlGroupNames, GroupType.BACKGROUND))
+                        .asGroups(ltlGroupNames, "biotic_resource"))
                     .collect(Collectors.toList());
     }
 
