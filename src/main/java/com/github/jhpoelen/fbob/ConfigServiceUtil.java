@@ -81,7 +81,7 @@ public class ConfigServiceUtil {
 
     }
 
-    public static Stream<Group> asGroups(List<String> groupNames, String type) {
+    public static Stream<Group> asGroups(List<String> groupNames, GroupType type) {
         return groupNames
                 .stream()
                 .map(groupName -> new Group(groupName, type, Collections.singletonList(new Taxon(groupName))));
