@@ -13,7 +13,9 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -443,7 +445,7 @@ public class ConfigUtil {
         for (Group group : groups) {
             for (Taxon taxon : group.getTaxa()) {
                 if (!StringUtils.equalsIgnoreCase("implicit", taxon.getSelectionCriteria())) {
-                    List<String> row = Arrays.asList(group.getName(), group.getType().name().toLowerCase(), taxon.getName(), taxon.getUrl());
+                    List<String> row = Arrays.asList(group.getName(), group.getType().getLabel(), taxon.getName(), taxon.getUrl());
                     IOUtils.write("\n", outputStream);
                     IOUtils.write(StringUtils.join(row, ","), outputStream);
                 }

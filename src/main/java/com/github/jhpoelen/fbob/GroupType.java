@@ -5,6 +5,19 @@ import javax.xml.bind.annotation.XmlEnumValue;
 
 @XmlEnum(String.class)
 public enum GroupType {
-    @XmlEnumValue("biotic_resource")BACKGROUND,
-    @XmlEnumValue("focal_functional_group") FOCAL
+    @XmlEnumValue(GroupTypeConstants.API_BIOTIC_RESOURCE_LABEL)
+    BACKGROUND(GroupTypeConstants.OSMOSE_BIOTIC_RESOURCE_LABEL),
+    @XmlEnumValue(GroupTypeConstants.API_FOCAL_FUNCTIONAL_GROUP_LABEL)
+    FOCAL(GroupTypeConstants.OSMOSE_FOCAL_FUNCTIONAL_GROUP_LABEL);
+
+    private final String label;
+
+    GroupType(String label) {
+        this.label = label;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
 }
