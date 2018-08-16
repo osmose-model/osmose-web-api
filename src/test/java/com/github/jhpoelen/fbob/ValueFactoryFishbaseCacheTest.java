@@ -25,8 +25,7 @@ public class ValueFactoryFishbaseCacheTest extends ValueFactoryFishbaseTestBase 
         group.setTaxa(Arrays.asList(redSnapper));
         String name = "species.lInf.sp";
         ValueFactory valueFactory = createValueFactory(Arrays.asList(group));
-        assertThat(Double.parseDouble(valueFactory.groupValueFor(name, group)), is(63.0d));
-        //assertThat(Double.parseDouble(valueFactory.groupValueFor(name, group)), is(93.55d));
+        assertThat(Double.parseDouble(valueFactory.groupValueFor(name, group)), is(93.55d));
     }
 
 }

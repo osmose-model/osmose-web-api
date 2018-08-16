@@ -84,7 +84,7 @@ class ValueFactoryFishbaseCache implements ValueFactory {
                             selectGroupValueUsingOrderedTaxonList(valuesForSpecCodes, group, mappedName);
                         });
                         stopWatch.stop();
-                        System.err.println("processed [" + tableName + ":" + columnName + "] in [" + stopWatch.getTime() + "] ms");
+                        System.err.println("processed [" + tableName + "." + columnName + "] in [" + stopWatch.getTime() + "] ms");
                     }
                 }
 
@@ -113,6 +113,7 @@ class ValueFactoryFishbaseCache implements ValueFactory {
                 }
 
                 private Map<String, ValueSelector> collectValuesForSpecCodes(String tableName, String columnName, InputStream in, List<String> specCodeCandidates, ValueSelectorFactory valueSelectorFactory) throws IOException {
+                    String tableColumnName = tableName + "." + columnName;
                     Map<String, ValueSelector> valuesForSpecCodes = new HashMap<>();
 
                     TsvParserSettings settings = new TsvParserSettings();
@@ -132,7 +133,7 @@ class ValueFactoryFishbaseCache implements ValueFactory {
                                 if (StringUtils.isNotBlank(value) && !StringUtils.equals(value, "null")) {
                                     ValueSelector valueSelector = valuesForSpecCodes.get(specCode);
                                     if (valueSelector == null) {
-                                        valueSelector = valueSelectorFactory.valueSelectorFor(tableName + "." + columnName);
+                                        valueSelector = valueSelectorFactory.valueSelectorFor(tableColumnName);
                                         valuesForSpecCodes.put(specCode, valueSelector);
                                     }
                                     valueSelector.accept(value);
@@ -171,7 +172,7 @@ class ValueFactoryFishbaseCache implements ValueFactory {
 
     @Override
     public String groupValueFor(String name, Group group) {
-        return groupValueFor(name, group, new ValueSelectorFactoryMedian(new ArrayList<>()));
+        return groupValueFor(name, group, new ValueSelectorFactoryMedian());
     }
 
     public String groupValueFor(String name, Group group, ValueSelectorFactory valueSelectorFactory) {
