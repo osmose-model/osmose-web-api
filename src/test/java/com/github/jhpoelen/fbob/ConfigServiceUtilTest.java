@@ -225,11 +225,15 @@ public class ConfigServiceUtilTest {
     }
 
     private List<Group> toGroups(List<String> groupNames) {
-        return toGroupStream(groupNames).collect(Collectors.toList());
+        return toGroups(groupNames, GroupType.FOCAL);
     }
 
-    private Stream<Group> toGroupStream(List<String> groupNames) {
-        return groupNames.stream().map(Group::new);
+    private List<Group> toGroups(List<String> groupNames, GroupType groupType) {
+        return toGroupStream(groupNames, groupType).collect(Collectors.toList());
+    }
+
+    private Stream<Group> toGroupStream(List<String> groupNames, GroupType type) {
+        return groupNames.stream().map(name -> new Group(name, type));
     }
 
     @Test
@@ -282,19 +286,19 @@ public class ConfigServiceUtilTest {
             return value;
         };
 
-        ConfigUtil.generatePredationAccessibilityFor(toGroups(groupsFocal), toGroups(groupsBackground), factory, valueFactory);
+        ConfigUtil.generatePredationAccessibilityFor(toGroups(groupsFocal), toGroups(groupsBackground, GroupType.BACKGROUND), factory, valueFactory);
         String expectedPredationAccessibility = "v Prey / Predator >;groupB < 2.1 year;groupB > 2.1 year;groupA < 1.1 year;groupA > 1.1 year\n" +
-                "groupB < 2.1 year;0.80;0.80;0.08;0.08\n" +
-                "groupB > 2.1 year;0.80;0.80;0.08;0.08\n" +
-                "groupA < 1.1 year;0.08;0.08;0.80;0.80\n" +
-                "groupA > 1.1 year;0.08;0.08;0.80;0.80\n" +
-                "groupC;0.08;0.08;0.08;0.08\n" +
-                "groupD;0.08;0.08;0.08;0.08";
+                "groupB < 2.1 year;0.80;0.80;0.10;0.10\n" +
+                "groupB > 2.1 year;0.80;0.80;0.10;0.10\n" +
+                "groupA < 1.1 year;0.10;0.10;0.80;0.80\n" +
+                "groupA > 1.1 year;0.10;0.10;0.80;0.80\n" +
+                "groupC;1.00;1.00;1.00;1.00\n" +
+                "groupD;1.00;1.00;1.00;1.00";
 
         assertEquals(expectedPredationAccessibility, (getTestFactory()).stringOutputFor("predation-accessibility.csv"));
 
         assertThat(names, hasItems("ecology.Demersal", "ecology.Benthic", "ecology.Pelagic"));
-        assertThat(names, hasItems("estimate.DepthMin", "estimate.DepthMax"));
+        assertThat(names, not(hasItems("estimate.DepthMin", "estimate.DepthMax")));
     }
 
     @Test
@@ -331,18 +335,18 @@ public class ConfigServiceUtilTest {
 
         assertThat((getTestFactory()).stringOutputFor("osm_param-reproduction.csv"), is("reproduction.season.file.sp0;reproduction-seasonality-sp0.csv\nreproduction.season.file.sp1;reproduction-seasonality-sp1.csv"));
         String prefix = "Time (year);";
-        String suffix = "\n0.000;0.083\n" +
-                "0.083;0.083\n" +
-                "0.167;0.083\n" +
-                "0.250;0.083\n" +
-                "0.333;0.083\n" +
-                "0.417;0.083\n" +
-                "0.500;0.083\n" +
-                "0.583;0.083\n" +
-                "0.667;0.083\n" +
-                "0.750;0.083\n" +
-                "0.833;0.083\n" +
-                "0.917;0.083";
+        String suffix = "\n0.000;0.103\n" +
+                "0.103;0.103\n" +
+                "0.167;0.103\n" +
+                "0.250;0.103\n" +
+                "0.333;0.103\n" +
+                "0.417;0.103\n" +
+                "0.500;0.103\n" +
+                "0.583;0.103\n" +
+                "0.667;0.103\n" +
+                "0.750;0.103\n" +
+                "0.833;0.103\n" +
+                "0.917;0.103";
         assertEquals(prefix + "groupNameOne" + suffix, getTestFactory().stringOutputFor("reproduction-seasonality-sp0.csv"));
         assertEquals((prefix + "groupNameTwo" + suffix), getTestFactory().stringOutputFor("reproduction-seasonality-sp1.csv"));
     }
@@ -361,7 +365,7 @@ public class ConfigServiceUtilTest {
         assertThat((getTestFactory()).stringOutputFor("osm_param-reproduction.csv"), is("reproduction.season.file.sp0;reproduction-seasonality-sp0.csv\nreproduction.season.file.sp1;reproduction-seasonality-sp1.csv"));
         String prefix = "Time (year);";
         String suffix = "\n0.000;0.000\n" +
-                "0.083;0.000\n" +
+                "0.103;0.000\n" +
                 "0.167;0.000\n" +
                 "0.250;0.000\n" +
                 "0.333;0.000\n" +

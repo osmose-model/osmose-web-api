@@ -470,22 +470,26 @@ public class ConfigUtil {
         return new ValueFactoryProxy(valueFactories);
     }
 
-            /* from https://github.com/jhpoelen/fb-osmose-bridge/issues/93 :
-Here is how accessibility coefficients (for focal functional groups) and theoretical accessibility coefficients (for background functional groups) should be estimated by the API. Hereafter, the term “accessibility coefficient” stands for “accessibility coefficient” or “theoretical accessibility coefficient”, since the two types of parameters should be estimated by the API exactly the same way.
-Let us assume that the API considers “Species 1” and “Species 2”.
-(1) The accessibility coefficient of Species 1 to Species 2 is determined as: accessibility coefficient = 0.8* coeff_1, where coeff_1 reflects the degree of overlap between functional groups in the water column. Coeff_1 can take the following values: (i) 1 (strong overlap in the water column); (ii) 0.5 (moderate overlap in the water column); or (iii) 0.1 (small overlap in the water column).
-(2) In FishBase's ecology.csv, the API looks for the "Benthic", "Demersal" and "Pelagic" fields to determine whether: (i) Species 1 is benthic, demersal or pelagic; and (ii) Species 2 is benthic, demersal or pelagic.
-(3) In FishBase's estimatedepth.csv, the API looks for the "DepthMin" and "DepthMax" fields to determine whether the depth range (i.e., the interval [DepthMin DepthMax]) of Species 1 overlaps with the depth range of Species 2.
-(4) Finally:
-(i) If (Species 1 and Species 2 are both benthic OR are both demersal OR are both pelagic) AND (Species 1 and Species 2 have overlapping depth ranges), then coeff_1 = 1;
-(ii) If (Species 1 and Species 2 are not both benthic OR are not both demersal OR are not both pelagic) AND (Species 1 and Species 2 have overlapping depth ranges), then coeff_1 = 0.5;
-(iii) If (Species 1 and Species 2 are both benthic OR are both demersal OR are both pelagic) AND (Species 1 and Species 2 do not have overlapping depth ranges), then coeff_1 = 0.5;
-(ii) If (Species 1 and Species 2 are not both benthic OR are not both demersal OR are not both pelagic) AND (Species 1 and Species 2 do not have overlapping depth ranges), then coeff_1 = 0.1;
+    /**
+     From https://github.com/jhpoelen/fb-osmose-bridge/issues/172
 
-         */
+     the term “accessibility coefficient” stands for “accessibility coefficient” or “theoretical accessibility coefficient”, since the two types of parameters should be estimated by the API exactly the same way.
+     Let us assume that the API considers “Species 1” and “Species 2”.
+     (1) The accessibility coefficient of Species 1 to Species 2 is equal to
+     either:
+     accessibility coefficient = 0.8* coeff_1 If (Species 1 IS NOT "zooplankton" or "phytoplankton").
+     or:
+     accessibility coefficient = 1 If (Species 1 IS "zooplankton" or "phytoplankton").
 
+     (2) In FishBase's ecology.csv, the API looks for the "Benthic", "Demersal" and "Pelagic" fields to determine whether: (i) Species 1 is benthic, demersal or pelagic; and (ii) Species 2 is benthic, demersal or pelagic.
+
+     (3) Finally:
+     (i) If (Species 1 and Species 2 are both benthic OR are both demersal OR are both pelagic), then coeff_1 = 1;
+     (ii) If (Species 1 is benthic and Species 2 is demersal) OR If (Species 1 is demersal and Species 2 is benthic) OR If (Species 1 is demersal and Species 2 is pelagic) OR If (Species 1 is pelagic and Species 2 is demersal), then coeff_1 = 0.5;
+     (iv) If (Species 1 is benthic and Species 2 is pelagic) OR If (Species 1 is pelagic and Species 2 is benthic), then coeff_1 = 0.125.
+     */
     enum Overlap {
-        small(0.1), moderate(0.5), strong(1.0);
+        small(0.125), moderate(0.5), strong(1.0);
 
         private final double value;
 
@@ -503,8 +507,6 @@ Let us assume that the API considers “Species 1” and “Species 2”.
             addAll(groupsFocal);
             addAll(groupsBackground);
         }};
-        List<String> groupNames = groupList.stream().map(Group::getName).collect(Collectors.toList());
-        List<String> groupNamesFocal = groupsFocal.stream().map(Group::getName).collect(Collectors.toList());
 
         List<Pair<Group, String>> focal = groupsFocal
                 .stream()
@@ -524,8 +526,13 @@ Let us assume that the API considers “Species 1” and “Species 2”.
         Stream<Stream<String>> rows = Stream.concat(focal.stream(), back)
                 .map(row -> {
                     Stream<String> values = focal.stream().map(column -> {
-                        Overlap overlap = calculateOverlap(valueFactory, row.getLeft(), column.getLeft());
-                        return String.format("%.2f", 0.8 * overlap.value);
+                        double accessbilityCoefficient = 1.0d;
+                        // see https://github.com/jhpoelen/fb-osmose-bridge/issues/172
+                        if (GroupType.FOCAL == row.getLeft().getType()) {
+                            Overlap overlap = calculateOverlap(valueFactory, row.getLeft(), column.getLeft());
+                            accessbilityCoefficient = 0.8 * overlap.value;
+                        }
+                        return String.format("%.2f", accessbilityCoefficient);
                     });
                     return Stream.concat(Stream.of(row.getRight()), values);
                 });
@@ -550,11 +557,9 @@ Let us assume that the API considers “Species 1” and “Species 2”.
             overlap = Overlap.strong;
         } else {
             EcologicalRegion regionA = ecologicalRegionFor(valueFactory, groupA);
-            Pair<Double, Double> depthRangeA = depthRangeFor(valueFactory, groupA);
-
             EcologicalRegion regionB = ecologicalRegionFor(valueFactory, groupB);
-            Pair<Double, Double> depthRangeB = depthRangeFor(valueFactory, groupB);
-            overlap = determineOverlap(Pair.of(regionA, regionB), Pair.of(depthRangeA, depthRangeB));
+
+            overlap = determineOverlap(Pair.of(regionA, regionB));
         }
         return overlap;
     }
@@ -571,36 +576,11 @@ Let us assume that the API considers “Species 1” and “Species 2”.
         return region;
     }
 
-    private static Pair<Double, Double> depthRangeFor(ValueFactory valueFactory, Group group) {
-        String depthMin = valueFactory.groupValueFor("estimate.DepthMin", group);
-        String depthMax = valueFactory.groupValueFor("estimate.DepthMax", group);
-        Pair<Double, Double> depthRangeMinMax = parseDepthMinMax(depthMin, depthMax);
-        return depthRangeMinMax;
-    }
-
-    static Pair<Double, Double> parseDepthMinMax(String depthMin, String depthMax) {
-        Pair<Double, Double> depthRangeMinMax = null;
-        if (NumberUtils.isParsable(depthMin) && NumberUtils.isParsable(depthMax)) {
-            try {
-                depthRangeMinMax = Pair.of(Double.parseDouble(depthMin), Double.parseDouble(depthMax));
-            } catch (NumberFormatException ex) {
-                LOG.log(Level.WARNING, "illegal depth format depthMin: [" + depthMin + "], depthMax: [" + depthMax + "]", ex);
-            }
-        }
-        return depthRangeMinMax;
-    }
-
-    private static Overlap determineOverlap(Pair<EcologicalRegion, EcologicalRegion> region,
-                                            Pair<Pair<Double, Double>, Pair<Double, Double>> depthRangeMinMax) {
+    private static Overlap determineOverlap(Pair<EcologicalRegion, EcologicalRegion> region) {
         Overlap overlap;
-        if (matchingEcoRegions(region)
-                && overlappingDepthRange(depthRangeMinMax)) {
+        if (sameEcoRegions(region)) {
             overlap = Overlap.strong;
-        } else if (!matchingEcoRegions(region)
-                && overlappingDepthRange(depthRangeMinMax)) {
-            overlap = Overlap.moderate;
-        } else if (matchingEcoRegions(region)
-                && !overlappingDepthRange(depthRangeMinMax)) {
+        } else if (adjacentEcoRegions(region)) {
             overlap = Overlap.moderate;
         } else {
             overlap = Overlap.small;
@@ -608,17 +588,16 @@ Let us assume that the API considers “Species 1” and “Species 2”.
         return overlap;
     }
 
-    private static boolean matchingEcoRegions(Pair<EcologicalRegion, EcologicalRegion> regionPair) {
-        return regionPair.getLeft() != null
-                && regionPair.getLeft() == regionPair.getRight();
+    private static boolean adjacentEcoRegions(Pair<EcologicalRegion, EcologicalRegion> region) {
+        return !sameEcoRegions(region)
+                &&
+                (region.getLeft() == EcologicalRegion.demersal
+                        || region.getRight() == EcologicalRegion.demersal);
     }
 
-    private static boolean overlappingDepthRange(Pair<Pair<Double, Double>, Pair<Double, Double>> depthRangeMinMax) {
-        Pair<Double, Double> left = depthRangeMinMax.getLeft();
-        Pair<Double, Double> right = depthRangeMinMax.getRight();
-        return left != null
-                && right != null
-                && (left.getLeft() < right.getRight() || right.getLeft() < left.getRight());
+    private static boolean sameEcoRegions(Pair<EcologicalRegion, EcologicalRegion> regionPair) {
+        return regionPair.getLeft() != null
+                && regionPair.getLeft() == regionPair.getRight();
     }
 
     private static boolean ecoRegionMatches(ValueFactory valueFactory, String ecologyFieldName, Group group) {
