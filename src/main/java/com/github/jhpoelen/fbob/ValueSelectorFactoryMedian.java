@@ -1,6 +1,5 @@
 package com.github.jhpoelen.fbob;
 
-import com.sun.javafx.UnmodifiableArrayList;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.commons.math3.stat.descriptive.rank.Median;
 
