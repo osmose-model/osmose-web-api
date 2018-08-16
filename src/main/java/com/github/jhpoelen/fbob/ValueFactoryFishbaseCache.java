@@ -51,7 +51,7 @@ class ValueFactoryFishbaseCache implements ValueFactory {
         this.tablesIgnored = new ArrayList<>(tablesIgnored);
     }
 
-    private void init(String name) {
+    private void init(String name, ValueSelectorFactory valueSelectorFactory) {
         if (null == tables) {
             this.tables = availableTables(getCacheURIPrefix());
         }
@@ -79,7 +79,7 @@ class ValueFactoryFishbaseCache implements ValueFactory {
                         }
                         StopWatch stopWatch = new StopWatch();
                         stopWatch.start();
-                        Map<String, String> valuesForSpecCodes = collectValuesForSpecCodes(columnName, remoteLocalURI.get(uri).toURL().openStream(), specCodesAll);
+                        Map<String, ValueSelector> valuesForSpecCodes = collectValuesForSpecCodes(tableName, columnName, remoteLocalURI.get(uri).toURL().openStream(), specCodesAll, valueSelectorFactory);
                         groups.forEach(group -> {
                             selectGroupValueUsingOrderedTaxonList(valuesForSpecCodes, group, mappedName);
                         });
@@ -88,7 +88,7 @@ class ValueFactoryFishbaseCache implements ValueFactory {
                     }
                 }
 
-                private void selectGroupValueUsingOrderedTaxonList(Map<String, String> valuesForSpecCodes, Group group, String name) {
+                private void selectGroupValueUsingOrderedTaxonList(Map<String, ValueSelector> valuesForSpecCodes, Group group, String name) {
                     final List<String> specCodes = group.getTaxa()
                             .stream()
                             .map(taxon -> StringUtils.replace(taxon.getUrl(), "http://fishbase.org/summary/", ""))
@@ -102,15 +102,18 @@ class ValueFactoryFishbaseCache implements ValueFactory {
                     Iterator<String> iter = specCodes.iterator();
                     while (iter.hasNext()
                             && !valuesForGroup.containsKey(name)) {
-                        String v = valuesForSpecCodes.get(iter.next());
-                        if (StringUtils.isNotBlank(v)) {
-                            valuesForGroup.put(name, v);
+                        ValueSelector valueSelector = valuesForSpecCodes.get(iter.next());
+                        if (valueSelector != null) {
+                            String v = valueSelector.select();
+                            if (StringUtils.isNotBlank(v)) {
+                                valuesForGroup.put(name, v);
+                            }
                         }
                     }
                 }
 
-                private Map<String, String> collectValuesForSpecCodes(String columnName, InputStream in, List<String> specCodeCandidates) throws IOException {
-                    Map<String, String> valuesForSpecCodes = new HashMap<>();
+                private Map<String, ValueSelector> collectValuesForSpecCodes(String tableName, String columnName, InputStream in, List<String> specCodeCandidates, ValueSelectorFactory valueSelectorFactory) throws IOException {
+                    Map<String, ValueSelector> valuesForSpecCodes = new HashMap<>();
 
                     TsvParserSettings settings = new TsvParserSettings();
                     settings.getFormat().setLineSeparator("\n");
@@ -127,7 +130,12 @@ class ValueFactoryFishbaseCache implements ValueFactory {
                             if (specCodeCandidates.contains(specCode)) {
                                 String value = record.getString(columnName);
                                 if (StringUtils.isNotBlank(value) && !StringUtils.equals(value, "null")) {
-                                    valuesForSpecCodes.put(specCode, StringUtils.trim(value));
+                                    ValueSelector valueSelector = valuesForSpecCodes.get(specCode);
+                                    if (valueSelector == null) {
+                                        valueSelector = valueSelectorFactory.valueSelectorFor(tableName + "." + columnName);
+                                        valuesForSpecCodes.put(specCode, valueSelector);
+                                    }
+                                    valueSelector.accept(value);
                                 }
                             }
                         }
@@ -163,8 +171,12 @@ class ValueFactoryFishbaseCache implements ValueFactory {
 
     @Override
     public String groupValueFor(String name, Group group) {
+        return groupValueFor(name, group, new ValueSelectorFactoryMedian(new ArrayList<>()));
+    }
+
+    public String groupValueFor(String name, Group group, ValueSelectorFactory valueSelectorFactory) {
         if (groupValueMap == null || !names.contains(name)) {
-            init(name);
+            init(name, valueSelectorFactory);
         }
         return groupValueMap != null && groupValueMap.containsKey(group.getName())
                 ? groupValueMap.get(group.getName()).get(name)
