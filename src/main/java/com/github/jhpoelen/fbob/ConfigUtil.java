@@ -595,6 +595,6 @@ public class ConfigUtil {
     }
 
     private static boolean ecoRegionMatches(ValueFactory valueFactory, String ecologyFieldName, Group group) {
-        return StringUtils.equals("-1", valueFactory.groupValueFor("ecology." + ecologyFieldName, group));
+        return !StringUtils.equals("0", valueFactory.groupValueFor("ecology." + ecologyFieldName, group));
     }
 }
