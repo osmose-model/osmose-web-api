@@ -286,9 +286,7 @@ public class ConfigServiceUtilTest {
                 }
             }
             if (StringUtils.equalsIgnoreCase("ecology.Benthic", name)) {
-                if (!StringUtils.equalsIgnoreCase("groupA", group.getName())) {
-                    value = "-1";
-                }
+                value = StringUtils.equalsIgnoreCase("groupA", group.getName()) ? "0" : "-1";
             }
             return value;
         };
