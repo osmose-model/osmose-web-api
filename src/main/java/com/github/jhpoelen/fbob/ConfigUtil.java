@@ -471,22 +471,22 @@ public class ConfigUtil {
     }
 
     /**
-     From https://github.com/jhpoelen/fb-osmose-bridge/issues/172
-
-     the term “accessibility coefficient” stands for “accessibility coefficient” or “theoretical accessibility coefficient”, since the two types of parameters should be estimated by the API exactly the same way.
-     Let us assume that the API considers “Species 1” and “Species 2”.
-     (1) The accessibility coefficient of Species 1 to Species 2 is equal to
-     either:
-     accessibility coefficient = 0.8* coeff_1 If (Species 1 IS NOT "zooplankton" or "phytoplankton").
-     or:
-     accessibility coefficient = 1 If (Species 1 IS "zooplankton" or "phytoplankton").
-
-     (2) In FishBase's ecology.csv, the API looks for the "Benthic", "Demersal" and "Pelagic" fields to determine whether: (i) Species 1 is benthic, demersal or pelagic; and (ii) Species 2 is benthic, demersal or pelagic.
-
-     (3) Finally:
-     (i) If (Species 1 and Species 2 are both benthic OR are both demersal OR are both pelagic), then coeff_1 = 1;
-     (ii) If (Species 1 is benthic and Species 2 is demersal) OR If (Species 1 is demersal and Species 2 is benthic) OR If (Species 1 is demersal and Species 2 is pelagic) OR If (Species 1 is pelagic and Species 2 is demersal), then coeff_1 = 0.5;
-     (iv) If (Species 1 is benthic and Species 2 is pelagic) OR If (Species 1 is pelagic and Species 2 is benthic), then coeff_1 = 0.125.
+     * From https://github.com/jhpoelen/fb-osmose-bridge/issues/172
+     * <p>
+     * the term “accessibility coefficient” stands for “accessibility coefficient” or “theoretical accessibility coefficient”, since the two types of parameters should be estimated by the API exactly the same way.
+     * Let us assume that the API considers “Species 1” and “Species 2”.
+     * (1) The accessibility coefficient of Species 1 to Species 2 is equal to
+     * either:
+     * accessibility coefficient = 0.8* coeff_1 If (Species 1 IS NOT "zooplankton" or "phytoplankton").
+     * or:
+     * accessibility coefficient = 1 If (Species 1 IS "zooplankton" or "phytoplankton").
+     * <p>
+     * (2) In FishBase's ecology.csv, the API looks for the "Benthic", "Demersal" and "Pelagic" fields to determine whether: (i) Species 1 is benthic, demersal or pelagic; and (ii) Species 2 is benthic, demersal or pelagic.
+     * <p>
+     * (3) Finally:
+     * (i) If (Species 1 and Species 2 are both benthic OR are both demersal OR are both pelagic), then coeff_1 = 1;
+     * (ii) If (Species 1 is benthic and Species 2 is demersal) OR If (Species 1 is demersal and Species 2 is benthic) OR If (Species 1 is demersal and Species 2 is pelagic) OR If (Species 1 is pelagic and Species 2 is demersal), then coeff_1 = 0.5;
+     * (iv) If (Species 1 is benthic and Species 2 is pelagic) OR If (Species 1 is pelagic and Species 2 is benthic), then coeff_1 = 0.125.
      */
     enum Overlap {
         small(0.125), moderate(0.5), strong(1.0);
@@ -499,7 +499,7 @@ public class ConfigUtil {
     }
 
     enum EcologicalRegion {
-        benthic, demersal, pelagic
+        benthic
     }
 
     public static void generatePredationAccessibilityFor(List<Group> groupsFocal, List<Group> groupsBackground, StreamFactory factory, ValueFactory valueFactory) throws IOException {
@@ -526,11 +526,14 @@ public class ConfigUtil {
         Stream<Stream<String>> rows = Stream.concat(focal.stream(), back)
                 .map(row -> {
                     Stream<String> values = focal.stream().map(column -> {
-                        double accessbilityCoefficient = 1.0d;
                         // see https://github.com/jhpoelen/fb-osmose-bridge/issues/172
-                        if (GroupType.FOCAL == row.getLeft().getType()) {
-                            Overlap overlap = calculateOverlap(valueFactory, row.getLeft(), column.getLeft());
-                            accessbilityCoefficient = 0.8 * overlap.value;
+                        double accessbilityCoefficient = 1.0d;
+                        if (notPlankton(row)) {
+                            accessbilityCoefficient = 0.8;
+                            if (GroupType.FOCAL == row.getLeft().getType()) {
+                                Overlap overlap = calculateOverlap(valueFactory, row.getLeft(), column.getLeft());
+                                accessbilityCoefficient = 0.8 * overlap.value;
+                            }
                         }
                         return String.format("%.2f", accessbilityCoefficient);
                     });
@@ -551,6 +554,11 @@ public class ConfigUtil {
         }
     }
 
+    private static boolean notPlankton(Pair<Group, String> row) {
+        return Stream.of("zooplankton", "phytoplankton")
+                .noneMatch(name -> StringUtils.equalsIgnoreCase(row.getLeft().getName(), name));
+    }
+
     private static Overlap calculateOverlap(ValueFactory valueFactory, Group groupA, Group groupB) {
         Overlap overlap;
         if (groupA.equals(groupB)) {
@@ -568,10 +576,6 @@ public class ConfigUtil {
         EcologicalRegion region = null;
         if (ecoRegionMatches(valueFactory, "Benthic", group)) {
             region = EcologicalRegion.benthic;
-        } else if (ecoRegionMatches(valueFactory, "Demersal", group)) {
-            region = EcologicalRegion.demersal;
-        } else if (ecoRegionMatches(valueFactory, "Pelagic", group)) {
-            region = EcologicalRegion.pelagic;
         }
         return region;
     }
@@ -580,24 +584,14 @@ public class ConfigUtil {
         Overlap overlap;
         if (sameEcoRegions(region)) {
             overlap = Overlap.strong;
-        } else if (adjacentEcoRegions(region)) {
-            overlap = Overlap.moderate;
         } else {
-            overlap = Overlap.small;
+            overlap = Overlap.moderate;
         }
         return overlap;
     }
 
-    private static boolean adjacentEcoRegions(Pair<EcologicalRegion, EcologicalRegion> region) {
-        return !sameEcoRegions(region)
-                &&
-                (region.getLeft() == EcologicalRegion.demersal
-                        || region.getRight() == EcologicalRegion.demersal);
-    }
-
     private static boolean sameEcoRegions(Pair<EcologicalRegion, EcologicalRegion> regionPair) {
-        return regionPair.getLeft() != null
-                && regionPair.getLeft() == regionPair.getRight();
+        return regionPair.getLeft() == regionPair.getRight();
     }
 
     private static boolean ecoRegionMatches(ValueFactory valueFactory, String ecologyFieldName, Group group) {

@@ -265,10 +265,12 @@ public class ConfigServiceUtilTest {
         List<String> groupsFocal = new ArrayList<String>() {{
             add("groupB");
             add("groupA");
+            add("groupC");
         }};
 
         List<String> groupsBackground = new ArrayList<String>() {{
-            add("groupC");
+            add("phytoplankton");
+            add("zooplankton");
             add("groupD");
         }};
 
@@ -283,21 +285,30 @@ public class ConfigServiceUtilTest {
                     value = "2.1";
                 }
             }
+            if (StringUtils.equalsIgnoreCase("ecology.Benthic", name)) {
+                if (!StringUtils.equalsIgnoreCase("groupA", group.getName())) {
+                    value = "-1";
+                }
+            }
             return value;
         };
 
         ConfigUtil.generatePredationAccessibilityFor(toGroups(groupsFocal), toGroups(groupsBackground, GroupType.BACKGROUND), factory, valueFactory);
-        String expectedPredationAccessibility = "v Prey / Predator >;groupB < 2.1 year;groupB > 2.1 year;groupA < 1.1 year;groupA > 1.1 year\n" +
-                "groupB < 2.1 year;0.80;0.80;0.10;0.10\n" +
-                "groupB > 2.1 year;0.80;0.80;0.10;0.10\n" +
-                "groupA < 1.1 year;0.10;0.10;0.80;0.80\n" +
-                "groupA > 1.1 year;0.10;0.10;0.80;0.80\n" +
-                "groupC;1.00;1.00;1.00;1.00\n" +
-                "groupD;1.00;1.00;1.00;1.00";
+        String expectedPredationAccessibility = "v Prey / Predator >;groupB < 2.1 year;groupB > 2.1 year;groupA < 1.1 year;groupA > 1.1 year;groupC < 2.1 year;groupC > 2.1 year\n" +
+                "groupB < 2.1 year;0.80;0.80;0.40;0.40;0.80;0.80\n" +
+                "groupB > 2.1 year;0.80;0.80;0.40;0.40;0.80;0.80\n" +
+                "groupA < 1.1 year;0.40;0.40;0.80;0.80;0.40;0.40\n" +
+                "groupA > 1.1 year;0.40;0.40;0.80;0.80;0.40;0.40\n" +
+                "groupC < 2.1 year;0.80;0.80;0.40;0.40;0.80;0.80\n" +
+                "groupC > 2.1 year;0.80;0.80;0.40;0.40;0.80;0.80\n" +
+                "phytoplankton;1.00;1.00;1.00;1.00;1.00;1.00\n" +
+                "zooplankton;1.00;1.00;1.00;1.00;1.00;1.00\n" +
+                "groupD;0.80;0.80;0.80;0.80;0.80;0.80";
 
         assertEquals(expectedPredationAccessibility, (getTestFactory()).stringOutputFor("predation-accessibility.csv"));
 
-        assertThat(names, hasItems("ecology.Demersal", "ecology.Benthic", "ecology.Pelagic"));
+        assertThat(names, hasItems("ecology.Benthic"));
+        assertThat(names, not(hasItems("ecology.Demersal", "ecology.Pelagic")));
         assertThat(names, not(hasItems("estimate.DepthMin", "estimate.DepthMax")));
     }
 
