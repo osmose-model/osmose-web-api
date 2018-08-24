@@ -529,11 +529,8 @@ public class ConfigUtil {
                         // see https://github.com/jhpoelen/fb-osmose-bridge/issues/172
                         double accessbilityCoefficient = 1.0d;
                         if (notPlankton(row)) {
-                            accessbilityCoefficient = 0.8;
-                            if (GroupType.FOCAL == row.getLeft().getType()) {
-                                Overlap overlap = calculateOverlap(valueFactory, row.getLeft(), column.getLeft());
-                                accessbilityCoefficient = 0.8 * overlap.value;
-                            }
+                            Overlap overlap = calculateOverlap(valueFactory, row.getLeft(), column.getLeft());
+                            accessbilityCoefficient = 0.8 * overlap.value;
                         }
                         return String.format("%.2f", accessbilityCoefficient);
                     });

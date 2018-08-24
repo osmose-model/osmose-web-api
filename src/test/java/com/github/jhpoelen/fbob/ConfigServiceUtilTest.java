@@ -272,6 +272,7 @@ public class ConfigServiceUtilTest {
             add("phytoplankton");
             add("zooplankton");
             add("groupD");
+            add("groupE");
         }};
 
         final Set<String> names = new HashSet<String>();
@@ -286,7 +287,7 @@ public class ConfigServiceUtilTest {
                 }
             }
             if (StringUtils.equalsIgnoreCase("ecology.Benthic", name)) {
-                value = StringUtils.equalsIgnoreCase("groupA", group.getName()) ? "0" : "-1";
+                value = Arrays.asList("groupA", "groupE").contains(group.getName()) ? "0" : "-1";
             }
             return value;
         };
@@ -301,7 +302,8 @@ public class ConfigServiceUtilTest {
                 "groupC > 2.1 year;0.80;0.80;0.40;0.40;0.80;0.80\n" +
                 "phytoplankton;1.00;1.00;1.00;1.00;1.00;1.00\n" +
                 "zooplankton;1.00;1.00;1.00;1.00;1.00;1.00\n" +
-                "groupD;0.80;0.80;0.80;0.80;0.80;0.80";
+                "groupD;0.80;0.80;0.40;0.40;0.80;0.80\n" +
+                "groupE;0.40;0.40;0.80;0.80;0.40;0.40";
 
         assertEquals(expectedPredationAccessibility, (getTestFactory()).stringOutputFor("predation-accessibility.csv"));
 
