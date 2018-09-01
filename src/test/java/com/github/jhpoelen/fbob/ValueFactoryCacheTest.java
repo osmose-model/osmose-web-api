@@ -2,7 +2,6 @@ package com.github.jhpoelen.fbob;
 
 import org.junit.Test;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -31,10 +30,7 @@ public class ValueFactoryCacheTest extends ValueFactoryFishbaseTestBase {
 
     @Test
     public void knownTraitValue2() {
-        Group group = new Group("medianGroup");
-        Taxon blueCrab = new Taxon("Callinectes sapidus");
-        blueCrab.setUrl("http://sealifebase.org/summary/26794");
-        group.setTaxa(Collections.singletonList(blueCrab));
+        Group group = TestGroups.getGroupWithBlueCrabOnly();
 
         ValueFactoryCache valueFactory = new ValueFactoryCache(ValueFactoryCache.Database.sealifebase, "v0.2.1");
         valueFactory.setGroups(Collections.singletonList(group));

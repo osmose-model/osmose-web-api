@@ -105,15 +105,12 @@ public class ConfigServiceUtil {
 
     public static ValueFactory getValueFactory(List<Group> groups) {
         Stream<ValueFactoryCache> factories = Stream.of(ValueFactoryCache.Database.values())
-                .flatMap(database -> {
-            ValueFactoryCache valueFactoryCachePatch
-                    = new ValueFactoryCache(database, "v0.2.1-patch4");
-            valueFactoryCachePatch.setGroups(groups);
-            ValueFactoryCache valueFactoryCache
-                    = new ValueFactoryCache(database, "v0.2.1", Collections.singletonList("estimate"));
-            valueFactoryCache.setGroups(groups);
-            return Stream.of(valueFactoryCachePatch, valueFactoryCachePatch);
-        });
+                .flatMap(database -> Stream
+                        .of(new ValueFactoryCache(database, "v0.2.1-patch4") {{
+                            setGroups(groups);
+                        }}, new ValueFactoryCache(database, "v0.2.1", Collections.singletonList("estimate")) {{
+                            setGroups(groups);
+                        }}));
 
 
         ValueFactory valueDefaults = ConfigUtil.getProxyValueFactory(
