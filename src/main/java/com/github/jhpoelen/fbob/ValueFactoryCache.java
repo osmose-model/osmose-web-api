@@ -61,9 +61,7 @@ class ValueFactoryCache implements ValueFactory {
     }
 
     private void init(String name, ValueSelectorFactory valueSelectorFactory) {
-        if (null == tables) {
-            this.tables = availableTables(getCacheURIPrefix());
-        }
+        initTables();
         if (groupValueMap == null) {
             groupValueMap = new HashMap<>();
         }
@@ -163,6 +161,12 @@ class ValueFactoryCache implements ValueFactory {
         }
     }
 
+    private void initTables() {
+        if (null == tables) {
+            this.tables = availableTables(getCacheURIPrefix());
+        }
+    }
+
     private String getCacheURIPrefix() {
         return "https://github.com/jhpoelen/fishbase_archiver/releases/download/" + getCacheVersion();
     }
@@ -209,6 +213,11 @@ class ValueFactoryCache implements ValueFactory {
 
     public void setGroups(List<Group> groups) {
         this.groups = groups;
+    }
+
+    public List<String> getTables() {
+        initTables();
+        return tables == null ? Collections.emptyList() : tables;
     }
 
 
