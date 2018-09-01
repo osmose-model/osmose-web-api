@@ -2,7 +2,6 @@ package com.github.jhpoelen.fbob;
 
 import com.univocity.parsers.common.record.Record;
 import com.univocity.parsers.tsv.TsvParser;
-import com.univocity.parsers.tsv.TsvParserSettings;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.StopWatch;
@@ -14,7 +13,6 @@ import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -25,7 +23,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.zip.GZIPInputStream;
-
 
 
 class ValueFactoryCache implements ValueFactory {
@@ -129,12 +126,7 @@ class ValueFactoryCache implements ValueFactory {
                     String tableColumnName = tableName + "." + columnName;
                     Map<String, ValueSelector> valuesForSpecCodes = new HashMap<>();
 
-                    TsvParserSettings settings = new TsvParserSettings();
-                    settings.getFormat().setLineSeparator("\n");
-                    settings.setMaxCharsPerColumn(1024 * 1024);
-                    settings.setHeaderExtractionEnabled(true);
-                    TsvParser parser = new TsvParser(settings);
-                    parser.beginParsing(new GZIPInputStream(in), "UTF-8");
+                    TsvParser parser = TSVUtil.beginParsingTSV(new GZIPInputStream(in));
                     Record record;
                     while ((record = parser.parseNextRecord()) != null) {
                         boolean hasSpecCode = record.getMetaData().containsColumn(COLUMN_NAME_SPEC_CODE);
@@ -198,14 +190,17 @@ class ValueFactoryCache implements ValueFactory {
     }
 
     private static List<String> availableTables(String prefix) {
-        String s = "";
+        List<String> tables = Collections.emptyList();
         try {
-            s = IOUtils.toString(new URI(prefix + "/table_names.tsv"));
+            InputStream input = new URI(prefix + "/table_names.tsv")
+                    .toURL()
+                    .openStream();
+            tables = TSVUtil.valuesOfFirstColumnInTSV(input);
+
         } catch (IOException | URISyntaxException e) {
             LOG.log(Level.SEVERE, "failed to retieve tables", e);
         }
-        String[] split = StringUtils.split(s, "\n");
-        return Arrays.asList(split);
+        return tables;
     }
 
     private InputStream getMappingInputStream() {
