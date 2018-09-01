@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
@@ -24,7 +25,7 @@ import java.util.zip.ZipOutputStream;
 public class ConfigServiceUtil {
     private static final Logger LOG = Logger.getLogger(ConfigService.class.getName());
 
-    static public Set<String> getResources() {
+    static Set<String> getResources() {
         Reflections reflections = new Reflections(new ConfigurationBuilder()
                 .setUrls(ClasspathHelper.forPackage("com.github.jhpoelen.fbob." + ConfigService.OSMOSE_CONFIG))
                 .setScanners(new ResourcesScanner()));
@@ -103,12 +104,16 @@ public class ConfigServiceUtil {
     }
 
     public static ValueFactory getValueFactory(List<Group> groups) {
-        ValueFactoryFishbaseCache valueFactoryFishbaseCachePatch
-                = new ValueFactoryFishbaseCache("v0.2.1-patch4");
-        valueFactoryFishbaseCachePatch.setGroups(groups);
-        ValueFactoryFishbaseCache valueFactoryFishbaseCache
-                = new ValueFactoryFishbaseCache("v0.2.1", Collections.singletonList("estimate"));
-        valueFactoryFishbaseCache.setGroups(groups);
+        Stream<ValueFactoryCache> factories = Stream.of(ValueFactoryCache.Database.values())
+                .flatMap(database -> {
+            ValueFactoryCache valueFactoryCachePatch
+                    = new ValueFactoryCache(database, "v0.2.1-patch4");
+            valueFactoryCachePatch.setGroups(groups);
+            ValueFactoryCache valueFactoryCache
+                    = new ValueFactoryCache(database, "v0.2.1", Collections.singletonList("estimate"));
+            valueFactoryCache.setGroups(groups);
+            return Stream.of(valueFactoryCachePatch, valueFactoryCachePatch);
+        });
 
 
         ValueFactory valueDefaults = ConfigUtil.getProxyValueFactory(
@@ -121,12 +126,9 @@ public class ConfigServiceUtil {
         );
 
         ValueFactory valueOrDefault = ConfigUtil.getProxyValueFactory(
-                Arrays.asList(
-                        valueFactoryFishbaseCachePatch,
-                        valueFactoryFishbaseCache,
-                        valueDefaults
-                )
-        );
+                Stream
+                        .concat(factories, Stream.of(valueDefaults))
+                        .collect(Collectors.toList()));
 
         final List<ValueFactory> valueFactories = Arrays.asList(
                 new ValueFactoryCalculated(valueOrDefault),
