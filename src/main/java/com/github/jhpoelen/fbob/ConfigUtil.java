@@ -93,6 +93,8 @@ public class ConfigUtil {
 
     public static void writeLine(OutputStream os, List<String> values) throws IOException {
         writeLine(os, values, true);
+        // flush to keep data flowing
+        os.flush();
     }
 
     public static void generateSeasonalReproductionFor(List<Group> groups, StreamFactory factory, ValueFactory valueFactory, Integer numberOfTimestepsPerYear) throws IOException {
