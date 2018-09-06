@@ -75,6 +75,7 @@ public class ConfigServiceUtil {
                 LOG.info("adding [" + name + "]...");
                 zos.putNextEntry(e);
                 LOG.info("adding [" + name + "] done.");
+                zos.flush();
                 return zos;
             }, valueFactory);
             close(zos);
