@@ -1,5 +1,5 @@
 # osmose-web-api
-Service that generates OSMOSE configuration files from data sources like Fishbase and SeaLifeBase. Please see our [wiki](https://github.com/osmose-model/osmose-web-api/wiki) for more information.
+Service that generates OSMOSE configuration files from data sources like Fishbase and SeaLifeBase. Please see our [wiki](https://github.com/osmose-model/osmose-web-api/wiki) for more information. 
 
 
 [![Build Status](https://travis-ci.org/osmose-model/osmose-web-api.png)](https://travis-ci.org/osmose-model/osmose-web-api)
