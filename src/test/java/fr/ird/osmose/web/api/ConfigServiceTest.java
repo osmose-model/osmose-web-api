@@ -23,6 +23,8 @@ import static org.junit.matchers.JUnitMatchers.hasItems;
 
 public class ConfigServiceTest {
 
+    private String packageRoot = "fr/ird/osmose/web/api";
+
     @Test
     public void archive() throws IOException {
         Response actual = ConfigServiceUtil.configArchive();
@@ -44,7 +46,7 @@ public class ConfigServiceTest {
     @Test
     public void listFiles() {
         Set<String> properties = ConfigServiceUtil.getResources();
-        assertThat(properties, hasItem("com/github/jhpoelen/fbob/osmose_config/maps/Amberjacks_1.csv"));
+        assertThat(properties, hasItem(packageRoot + "/osmose_config/maps/Amberjacks_1.csv"));
     }
 
     @Test
@@ -63,9 +65,9 @@ public class ConfigServiceTest {
         assertThat(entryNames, not(hasItem("fishbase-mapping.csv")));
         assertThat(entryNames, not(hasItem("fishbase-mapping-phytoplankton.csv")));
         assertThat(entryNames, not(hasItem("")));
-        assertThat(resources, hasItem("com/github/jhpoelen/fbob/fishbase-mapping.csv"));
-        assertThat(resources, hasItem("com/github/jhpoelen/fbob/fishbase-mapping-phytoplankton.csv"));
-        assertThat(resources, hasItem("com/github/jhpoelen/fbob/fishbase-mapping-zooplankton.csv"));
+        assertThat(resources, hasItem(packageRoot + "/fishbase-mapping.csv"));
+        assertThat(resources, hasItem(packageRoot + "/fishbase-mapping-phytoplankton.csv"));
+        assertThat(resources, hasItem(packageRoot + "/fishbase-mapping-zooplankton.csv"));
         assertThat(entryNames.size(), is(resources.size() - 3));
     }
 

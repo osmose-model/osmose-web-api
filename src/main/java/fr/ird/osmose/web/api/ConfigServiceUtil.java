@@ -27,7 +27,7 @@ public class ConfigServiceUtil {
 
     static Set<String> getResources() {
         Reflections reflections = new Reflections(new ConfigurationBuilder()
-                .setUrls(ClasspathHelper.forPackage("com.github.jhpoelen.fbob." + ConfigService.OSMOSE_CONFIG))
+                .setUrls(ClasspathHelper.forPackage(ConfigServiceUtil.class.getPackage().getName() + "." + ConfigService.OSMOSE_CONFIG))
                 .setScanners(new ResourcesScanner()));
         return reflections.getResources(Pattern.compile(".*\\.csv"));
     }
