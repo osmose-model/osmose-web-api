@@ -1,5 +1,6 @@
 package fr.ird.osmose.web.api;
 
+import fr.ird.osmose.web.api.domain.Taxon;
 import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 

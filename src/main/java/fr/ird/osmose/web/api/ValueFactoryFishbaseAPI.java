@@ -1,5 +1,8 @@
 package fr.ird.osmose.web.api;
 
+import fr.ird.osmose.web.api.domain.Group;
+import fr.ird.osmose.web.api.domain.Taxon;
+
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.Collection;

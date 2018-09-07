@@ -2,6 +2,7 @@ package fr.ird.osmose.web.api;
 
 import com.univocity.parsers.common.record.Record;
 import com.univocity.parsers.tsv.TsvParser;
+import fr.ird.osmose.web.api.domain.Group;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.StopWatch;

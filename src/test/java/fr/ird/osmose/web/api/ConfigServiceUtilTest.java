@@ -1,5 +1,8 @@
 package fr.ird.osmose.web.api;
 
+import fr.ird.osmose.web.api.domain.Group;
+import fr.ird.osmose.web.api.domain.GroupType;
+import fr.ird.osmose.web.api.domain.Taxon;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;

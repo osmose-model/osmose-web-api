@@ -1,5 +1,6 @@
 package fr.ird.osmose.web.api;
 
+import fr.ird.osmose.web.api.domain.Group;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;

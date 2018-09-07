@@ -1,5 +1,7 @@
 package fr.ird.osmose.web.api;
 
+import fr.ird.osmose.web.api.domain.Group;
+import fr.ird.osmose.web.api.domain.Taxon;
 import org.junit.Test;
 
 import java.util.Collections;

@@ -1,4 +1,4 @@
-package fr.ird.osmose.web.api;
+package fr.ird.osmose.web.api.domain;
 
 
 import javax.xml.bind.annotation.XmlEnum;
@@ -19,7 +19,7 @@ public class Msg {
     private String msg;
 
     @XmlEnum(String.class)
-    protected enum Type {
+    public enum Type {
         @XmlEnumValue("request") REQUEST,
         @XmlEnumValue("response") RESPONSE
     }

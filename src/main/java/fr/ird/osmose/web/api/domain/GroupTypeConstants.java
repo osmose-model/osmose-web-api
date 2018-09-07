@@ -1,4 +1,4 @@
-package fr.ird.osmose.web.api;
+package fr.ird.osmose.web.api.domain;
 
 class GroupTypeConstants {
     static final String API_BIOTIC_RESOURCE_LABEL = "biotic_resource";

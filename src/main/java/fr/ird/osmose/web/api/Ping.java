@@ -1,5 +1,7 @@
 package fr.ird.osmose.web.api;
 
+import fr.ird.osmose.web.api.domain.Msg;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;

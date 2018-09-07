@@ -1,5 +1,7 @@
 package fr.ird.osmose.web.api;
 
+import fr.ird.osmose.web.api.domain.Group;
+
 import java.util.HashMap;
 import java.util.Map;
 

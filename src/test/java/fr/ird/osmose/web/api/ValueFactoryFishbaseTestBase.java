@@ -1,5 +1,7 @@
 package fr.ird.osmose.web.api;
 
+import fr.ird.osmose.web.api.domain.Group;
+import fr.ird.osmose.web.api.domain.Taxon;
 import org.apache.commons.lang3.time.StopWatch;
 import org.junit.Test;
 

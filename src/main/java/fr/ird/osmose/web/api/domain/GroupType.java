@@ -1,4 +1,4 @@
-package fr.ird.osmose.web.api;
+package fr.ird.osmose.web.api.domain;
 
 import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlEnumValue;

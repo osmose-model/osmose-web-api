@@ -1,5 +1,6 @@
 package fr.ird.osmose.web.api;
 
+import fr.ird.osmose.web.api.domain.Group;
 import org.junit.Test;
 
 import java.util.Arrays;
