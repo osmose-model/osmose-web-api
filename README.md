@@ -1,4 +1,4 @@
-# fb-osmose-bridge
+# osmose-web-api
 Service that generates OSMOSE configuration files from data sources like Fishbase and SeaLifeBase. Please see our [wiki](https://github.com/jhpoelen/fb-osmose-bridge/wiki) for more information.
 
 
