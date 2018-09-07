@@ -2,7 +2,8 @@
 Service that generates OSMOSE configuration files from data sources like Fishbase and SeaLifeBase. Please see our [wiki](https://github.com/osmose-model/osmose-web-api/wiki) for more information. 
 
 
-[![Build Status](https://travis-ci.org/osmose-model/osmose-web-api.png)](https://travis-ci.org/osmose-model/osmose-web-api)
+[![Build Status](https://travis-ci.org/osmose-model/osmose-web-api.png)](https://travis-ci.org/osmose-model/osmose-web-api) [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1411484.svg)](https://doi.org/10.5281/zenodo.1411484)
+
 
 # prerequisites
 1. download OSMOSE 3 update 2 from http://www.osmose-model.org/downloads
