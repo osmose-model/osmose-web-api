@@ -148,7 +148,7 @@ public class TraitFinderFishbaseAPI implements TraitFinder {
                 URI uri = queryTable(taxon, "/" + tableName);
                 System.out.print("[" + uri + "] processing...");
                 HttpGet httpGet = new HttpGet(uri);
-                httpGet.setHeader(Header.Accept.toString(), ContentType.APPLICATION_JSON.toString());
+                httpGet.setHeader(Header.Accept.toString(), "application/vnd.ropensci.v6+json");
                 HttpResponse resp = getHttpClient().execute(httpGet);
                 int statusCode = resp.getStatusLine().getStatusCode();
                 if (statusCode == HttpStatus.SC_OK) {
