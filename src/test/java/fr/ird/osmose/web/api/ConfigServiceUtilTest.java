@@ -24,12 +24,12 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static junit.framework.Assert.assertEquals;
-import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.CoreMatchers.hasItems;
 import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsNot.not;
 import static org.hamcrest.core.IsNull.notNullValue;
+import static org.hamcrest.core.StringContains.containsString;
 import static org.junit.Assert.assertThat;
-import static org.junit.internal.matchers.IsCollectionContaining.hasItems;
-import static org.junit.internal.matchers.StringContains.containsString;
 
 public class ConfigServiceUtilTest {
     private StreamFactory factory;

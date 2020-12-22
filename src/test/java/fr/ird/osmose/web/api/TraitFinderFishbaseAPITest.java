@@ -15,9 +15,9 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 
 import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsCollectionContaining.hasItem;
 import static org.hamcrest.core.IsNot.not;
 import static org.junit.Assert.assertThat;
-import static org.junit.internal.matchers.IsCollectionContaining.hasItem;
 
 public class TraitFinderFishbaseAPITest {
 
