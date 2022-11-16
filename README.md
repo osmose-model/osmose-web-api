@@ -1,3 +1,5 @@
+This API is no longer supported, but its source code / data remains available in this archived copy.
+
 # osmose-web-api
 Service that generates OSMOSE configuration files from data sources like Fishbase and SeaLifeBase. Please see our [wiki](https://github.com/osmose-model/osmose-web-api/wiki) for more information. 
 
